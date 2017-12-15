@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTesting", "Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.IntegrationTest", "Common\Testing\Common.IntegrationTest\Common.IntegrationTest.csproj", "{C297A2D3-8F9F-439E-965A-A8A9282B7DF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Domain", "Security\Security.Domain\Security.Domain.csproj", "{705682BC-8929-4204-B35D-CE01F8BB453F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.AspIdentity", "Security\Security.AspIdentity\Security.AspIdentity.csproj", "{DAB8B715-900D-4936-B06B-BC1967DA0943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{C297A2D3-8F9F-439E-965A-A8A9282B7DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C297A2D3-8F9F-439E-965A-A8A9282B7DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C297A2D3-8F9F-439E-965A-A8A9282B7DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705682BC-8929-4204-B35D-CE01F8BB453F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705682BC-8929-4204-B35D-CE01F8BB453F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705682BC-8929-4204-B35D-CE01F8BB453F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705682BC-8929-4204-B35D-CE01F8BB453F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAB8B715-900D-4936-B06B-BC1967DA0943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAB8B715-900D-4936-B06B-BC1967DA0943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAB8B715-900D-4936-B06B-BC1967DA0943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAB8B715-900D-4936-B06B-BC1967DA0943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +61,8 @@ Global
 		{1B4294C5-B0C9-4D9A-AFDA-1A4168C4FA69} = {4691016A-569C-4E35-8729-0F2D29AC9400}
 		{20A7AAB0-D77E-488A-A113-6C354B30D454} = {1B4294C5-B0C9-4D9A-AFDA-1A4168C4FA69}
 		{C297A2D3-8F9F-439E-965A-A8A9282B7DF6} = {1B4294C5-B0C9-4D9A-AFDA-1A4168C4FA69}
+		{705682BC-8929-4204-B35D-CE01F8BB453F} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
+		{DAB8B715-900D-4936-B06B-BC1967DA0943} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13720C3F-5797-4EF2-AF6F-9CEE1825CF91}
