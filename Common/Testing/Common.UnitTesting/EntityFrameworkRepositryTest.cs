@@ -65,10 +65,11 @@ namespace Common.UnitTesting
                 .Returns<object[]>((a) => query.FirstOrDefault(c => c.Id == (int)a[0]));
 
             mockSet.Setup(c => c.FindAsync(It.IsAny<object[]>()))
-                .Returns<object[]>(async (a) => {
-                var item = await Task.Delay(2000).ContinueWith((x) => query.FirstOrDefault(c => c.Id == (int)a[0]));
-                return item;
-            });
+                .Returns<object[]>(async (a) =>
+                {
+                    var item = await Task.Delay(2000).ContinueWith((x) => query.FirstOrDefault(c => c.Id == (int)a[0]));
+                    return item;
+                });
 
             mockSet.Setup(c => c.FindAsync(It.IsAny<CancellationToken>(), It.IsAny<object[]>()))
                 .Returns<CancellationToken, object[]>(async (token, a) =>
@@ -87,7 +88,7 @@ namespace Common.UnitTesting
         public void Cleanup()
         {
             if (repository != null)
-                repository.Dispose();
+                repository = null;
         }
 
         [Test]
@@ -245,17 +246,17 @@ namespace Common.UnitTesting
         #region PageAll
         [Test]
         public void PageAll_OutOfRangePage_ReturnTotalCountsAndEmptyItems()
-        {            
+        {
             var pageItems = repository.PageAll(_notExistPage, _pageSize);
 
             pageItems.Should().NotBeNull();
             pageItems.TotalCount.Should().Be(20);
-            pageItems.Items.Should().BeEmpty();            
+            pageItems.Items.Should().BeEmpty();
         }
 
         [Test]
         public void PageAll_ExistPage_ReturnItem()
-        {           
+        {
             var pageItems = repository.PageAll(_existPage, _pageSize);
 
             pageItems.Should().NotBeNull();
@@ -266,7 +267,7 @@ namespace Common.UnitTesting
 
         [Test]
         public async Task PageAllAsync_OutOfRangePage_ReturnTotalCountsAndEmptyItems()
-        {            
+        {
             var pageItems = await repository.PageAllAsync(_notExistPage, _pageSize);
 
             pageItems.Should().NotBeNull();
@@ -276,7 +277,7 @@ namespace Common.UnitTesting
 
         [Test]
         public async Task PageAllAsync_ExistPage_ReturnItem()
-        {            
+        {
             var pageItems = await repository.PageAllAsync(_existPage, _pageSize);
 
             pageItems.Should().NotBeNull();
@@ -285,14 +286,14 @@ namespace Common.UnitTesting
             pageItems.Items[0].Id.Should().Be(11);
         }
 
-        [Test]        
+        [Test]
         public void PageAllAsync_WithCancelTokenThatCancelled_RaiseTaskCancelledException()
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
             tokenSource.Cancel();
-            
-            AsyncTestDelegate action = async() => await repository.PageAllAsync(token, _existPage, _pageSize);
+
+            AsyncTestDelegate action = async () => await repository.PageAllAsync(token, _existPage, _pageSize);
 
             Assert.ThrowsAsync<TaskCanceledException>(action);
         }
@@ -302,7 +303,7 @@ namespace Common.UnitTesting
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
-            
+
             var pageItems = await repository.PageAllAsync(token, _existPage, _pageSize);
 
             pageItems.Should().NotBeNull();
@@ -321,7 +322,7 @@ namespace Common.UnitTesting
 
             //Act
             repository.Update(entity);
-            
+
             //Assert
             mockSet.Verify(c => c.Attach(It.IsAny<TestEntity>()), Times.Exactly(1));
         }
@@ -330,7 +331,7 @@ namespace Common.UnitTesting
         #region Remove
         [Test]
         public void Remove_ExistingItem_RemoveItem()
-        {            
+        {
             //Act
             repository.Remove(_existItemId);
 

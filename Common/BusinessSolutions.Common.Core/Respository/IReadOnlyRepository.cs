@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core
 {
-    public interface IReadOnlyRepository<TKey, TEntity> where TEntity : class
+    public interface IReadOnlyRepository<TKey, TEntity> where TEntity : class 
     {
         List<TEntity> GetAll();
 

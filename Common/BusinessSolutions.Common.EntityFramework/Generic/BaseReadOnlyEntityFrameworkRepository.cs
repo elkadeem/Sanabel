@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
-    public abstract class BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity, TDomainEntity> : IDisposable
-        , IReadOnlyRepository<Tkey, TDomainEntity>
+    public abstract class BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity, TDomainEntity> :
+        IReadOnlyRepository<Tkey, TDomainEntity>
         where TDomainEntity : class where TEntity : class
     {
         protected DbContext _dbContext;
@@ -103,33 +103,7 @@ namespace BusinessSolutions.Common.EntityFramework
 
         public abstract TDomainEntity GetDomainEntity(TEntity entity);
 
-        #region IDisposable Support
-        private bool disposedValue = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    if (_dbContext != null)
-                        _dbContext.Dispose();
-                }
-                disposedValue = true;
-            }
-        }
-
-        ~BaseReadOnlyEntityFrameworkRepository()
-        {
-            Dispose(false);
-        }
-       
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+        
 
     }
 }
