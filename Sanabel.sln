@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.AspIdentity", "Sec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.DataAccessLayer", "Security\Security.DataAccessLayer\Security.DataAccessLayer.csproj", "{44859A1F-9523-460C-99B7-219AEDE202ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{08F1FA32-6686-44A9-939C-6458D5827728}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.UnitTesting", "Security\Testing\Security.UnitTesting\Security.UnitTesting.csproj", "{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{44859A1F-9523-460C-99B7-219AEDE202ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44859A1F-9523-460C-99B7-219AEDE202ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44859A1F-9523-460C-99B7-219AEDE202ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,8 @@ Global
 		{705682BC-8929-4204-B35D-CE01F8BB453F} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
 		{DAB8B715-900D-4936-B06B-BC1967DA0943} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
 		{44859A1F-9523-460C-99B7-219AEDE202ED} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
+		{08F1FA32-6686-44A9-939C-6458D5827728} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
+		{97BEEFEF-4B8C-4B83-8B8B-02F81DE930C1} = {08F1FA32-6686-44A9-939C-6458D5827728}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13720C3F-5797-4EF2-AF6F-9CEE1825CF91}

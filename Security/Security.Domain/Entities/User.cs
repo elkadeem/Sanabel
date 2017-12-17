@@ -100,7 +100,7 @@ namespace Security.Domain
 
         public void AddRole(Role role)
         {
-            if (_roles.Any(c => c.RoleName == role.RoleName))
+            if (!_roles.Any(c => c.RoleName == role.RoleName))
                 _roles.Add(role);
         }
 

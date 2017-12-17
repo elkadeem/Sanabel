@@ -154,6 +154,9 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
+            if (claim == null)
+                throw new ArgumentNullException("claim");
+
             var entityUser = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entityUser == null)
                 throw new ArgumentException("User is not found.", "user");
@@ -251,7 +254,6 @@ namespace Security.AspIdentity
                 throw new ArgumentException("User is not found.", "user");
 
             var user = GetApplicationUser(entity);
-
             return Task.FromResult(user);
         }
         #endregion
@@ -397,7 +399,7 @@ namespace Security.AspIdentity
             var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entity == null)
                 throw new ArgumentException("User is not found.", "user");
-            bool hasPassword = string.IsNullOrEmpty(entity.PasswordHash);
+            bool hasPassword = !string.IsNullOrEmpty(entity.PasswordHash);
             return Task.FromResult(hasPassword);
         }
         #endregion
@@ -528,7 +530,7 @@ namespace Security.AspIdentity
                 throw new ArgumentNullException("user");
 
             if (string.IsNullOrEmpty(roleName))
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException("roleName");
 
             var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entity == null)
@@ -549,7 +551,7 @@ namespace Security.AspIdentity
                 throw new ArgumentNullException("user");
 
             if (string.IsNullOrEmpty(roleName))
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException("roleName");
 
             var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entity == null)
@@ -559,6 +561,7 @@ namespace Security.AspIdentity
             if (role != null)
                 entity.RemoveRole(role);
 
+            _securityUnitOfWork.UserRepository.Update(entity);
             return _securityUnitOfWork.SaveAsync();
         }
 
