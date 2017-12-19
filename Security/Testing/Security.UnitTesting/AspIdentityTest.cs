@@ -704,8 +704,11 @@ namespace Security.UnitTesting
                 userRepository.Setup(c => c.FindByEmail(It.IsAny<string>())).Returns<string>((a) => user.Email == a ? user : null);
                 //Act
                 var result = await userStore.FindByEmailAsync(testEmail);
-                //Assert                
-                result.Should().NotBeNull();
+                //Assert    
+                if (testEmail == user.Email)
+                    result.Should().NotBeNull();
+                else
+                    result.Should().BeNull();
             }
             catch (ArgumentNullException ex)
             {
@@ -713,11 +716,6 @@ namespace Security.UnitTesting
                 if (user == null)
                     ex.ParamName.Should().Be("email");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -861,25 +859,16 @@ namespace Security.UnitTesting
             try
             {
                 string passwordHash = "passwordHash";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
                 //Act
                 await userStore.SetPasswordHashAsync(userToTest, passwordHash);
                 //Assert                
-                user.PasswordHash.Should().Be(passwordHash);
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.PasswordHash.Should().Be(passwordHash);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -888,24 +877,16 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.PasswordHash = "passwordHash";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
                 //Act
                 var result = await userStore.GetPasswordHashAsync(userToTest);
                 //Assert                
-                result.Should().Be("passwordHash");
+                result.Should().Be(userToTest.PasswordHash);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -1075,25 +1056,16 @@ namespace Security.UnitTesting
             try
             {
                 string securityStamp = "SE";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
                 //Act
                 await userStore.SetSecurityStampAsync(userToTest, securityStamp);
                 //Assert                
-                user.SecurityStamp.Should().Be(securityStamp);
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.SecurityStamp.Should().Be(securityStamp);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -1178,7 +1150,7 @@ namespace Security.UnitTesting
             }
         }
 
-        [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UserRolesGenericTestCases")]        
+        [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UserRolesGenericTestCases")]
         public async Task AddToRoleAsync_Tests(ApplicationUser userToTest, string roleNameToTest)
         {
             try

@@ -107,8 +107,9 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null),
-                    new TestCaseData(new ApplicationUser()).SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                    new TestCaseData(new ApplicationUser(){ PasswordHash = "PasswordHash"}).SetDescription("InvalidUser"),
+                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
+                    , PasswordHash="PasswordHash"})
                     .SetDescription("ValidUser")
 
                 };

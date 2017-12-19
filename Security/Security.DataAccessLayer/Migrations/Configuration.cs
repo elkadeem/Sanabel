@@ -6,9 +6,9 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Security.DataAccessLayer.SecurityContext>
+    public sealed class SecurityMigrationsConfiguration : DbMigrationsConfiguration<Security.DataAccessLayer.SecurityContext>
     {
-        public Configuration()
+        public SecurityMigrationsConfiguration()
         {
             AutomaticMigrationsEnabled = false;
         }

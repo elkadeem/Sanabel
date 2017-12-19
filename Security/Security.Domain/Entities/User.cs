@@ -14,6 +14,7 @@ namespace Security.Domain
 
         public User()
         {
+            UserId = Guid.NewGuid();
             _externalLogins = new List<ExternalLogin>();
             _claims = new List<Claim>();
             _roles = new List<Role>();

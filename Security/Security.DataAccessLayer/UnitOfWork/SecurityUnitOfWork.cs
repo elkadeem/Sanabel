@@ -15,13 +15,19 @@ namespace Security.DataAccessLayer.UnitOfWork
 
         public IUserRepository UserRepository { get; private set; }
 
-        public SecurityUnitOfWork()
+        public SecurityUnitOfWork() : this(new SecurityContext())
         {
-            _dbContext = new SecurityContext();
+           
+        }
 
-            UserRepository = new Repositories.UserRepository(_dbContext);
-            RoleRepository = new Repositories.RoleRepository(_dbContext);
+        public SecurityUnitOfWork(SecurityContext dataContext)
+        {
+            if (dataContext == null)
+                throw new ArgumentNullException("dataContext");
 
+            _dbContext = dataContext;
+            UserRepository = new Repositories.UserRepository(dataContext);
+            RoleRepository = new Repositories.RoleRepository(dataContext);
         }
 
         public int Save()

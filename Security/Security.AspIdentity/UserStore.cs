@@ -211,11 +211,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.Email);
+            return Task.FromResult(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(ApplicationUser user)
@@ -250,9 +246,6 @@ namespace Security.AspIdentity
                 throw new ArgumentNullException("email");
 
             var entity = _securityUnitOfWork.UserRepository.FindByEmail(email);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
             var user = GetApplicationUser(entity);
             return Task.FromResult(user);
         }
@@ -372,24 +365,16 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(passwordHash))
                 throw new ArgumentNullException("passwordHash");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.PasswordHash = passwordHash;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.PasswordHash = passwordHash;
+            return Task.FromResult(0);
         }
 
         public Task<string> GetPasswordHashAsync(ApplicationUser user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
 
-            return Task.FromResult(entity.PasswordHash);
+            return Task.FromResult(user.PasswordHash);
         }
 
         public Task<bool> HasPasswordAsync(ApplicationUser user)
@@ -473,13 +458,8 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(stamp))
                 throw new ArgumentNullException("stamp");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.SecurityStamp = stamp;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.SecurityStamp = stamp;
+            return Task.FromResult(0);
         }
 
         public Task<string> GetSecurityStampAsync(ApplicationUser user)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Security.DataAccessLayer.Migrations;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace Security.DataAccessLayer
     {
         public SecurityContext() : base("SecurityConnectionString")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<SecurityContext
-                , Security.DataAccessLayer.Migrations.Configuration>("SecurityConnectionString"));
+            Database.SetInitializer<SecurityContext>(null);
         }
 
         public DbSet<User> Users { get; set; }

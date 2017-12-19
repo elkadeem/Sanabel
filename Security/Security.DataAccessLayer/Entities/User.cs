@@ -11,6 +11,13 @@ namespace Security.DataAccessLayer
     [Table("Users", Schema = "Security")]
     public class User
     {
+        public User()
+        {
+            this.Claims = new HashSet<UserClaim>();
+            this.UserLogins = new HashSet<UserLogin>();
+            this.Roles = new HashSet<Role>();
+        }
+
         [Key]
         public Guid UserId { get; set; }
 
@@ -57,12 +64,12 @@ namespace Security.DataAccessLayer
 
         [Column(TypeName = "DateTime2")]
         public DateTime UpdatedDate { get; set; }
-        
+
         public virtual ICollection<UserClaim> Claims { get; set; }
-        
+
         public virtual ICollection<UserLogin> UserLogins { get; set; }
-        
+
         public virtual ICollection<Role> Roles { get; set; }
-               
+
     }
 }
