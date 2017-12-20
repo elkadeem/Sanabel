@@ -1,0 +1,23 @@
+namespace CommonSettings.DAL.Migrations
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class CommonSettingsDbMigrationsConfiguration : DbMigrationsConfiguration<CommonSettings.DAL.CommonSettingDataContext>
+    {
+        public CommonSettingsDbMigrationsConfiguration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(CommonSettings.DAL.CommonSettingDataContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
+        }
+    }
+}
