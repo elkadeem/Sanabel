@@ -20,8 +20,10 @@ namespace Security.AspIdentity
             this.UserValidator = new UserValidator<ApplicationUser, Guid>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = true,  
+                
             };
+                       
 
             this.PasswordValidator = new PasswordValidator
             {

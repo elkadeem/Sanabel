@@ -35,11 +35,12 @@ namespace BusinessSolutions.Common.EntityFramework
         }
 
         public virtual void Update(TDomainEntity entity)
-        {
-            var item = GetEntity(entity);
-            var entry = _dbContext.Entry(item);
+        {            
+            var item = GetEntity(entity);            
+            var entry = _dbContext.Entry<TEntity>(item);
             if (entry.State == EntityState.Detached)
             {
+
                 Set.Attach(item);
                 entry = _dbContext.Entry(item);
             }

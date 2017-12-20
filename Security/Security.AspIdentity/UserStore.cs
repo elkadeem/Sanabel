@@ -62,7 +62,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByIDAsync(user.Id);
+            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entity == null)
                 throw new ArgumentException("User is not found.", "user");
 
@@ -195,15 +195,8 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentNullException("email");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.Email = email;
-            entity.IsEmailConfirmed = false;
-
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.Email = email;
+            return Task.FromResult(0);
         }
 
         public Task<string> GetEmailAsync(ApplicationUser user)
@@ -218,26 +211,17 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.IsEmailConfirmed);
+            
+            return Task.FromResult(user.IsEmailConfirmed);
         }
 
         public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.IsEmailConfirmed = confirmed;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+                      
+            user.IsEmailConfirmed = confirmed;
+            return Task.FromResult(0);
         }
 
         public Task<ApplicationUser> FindByEmailAsync(string email)
@@ -257,14 +241,10 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
+            
             DateTimeOffset date = DateTimeOffset.MinValue;
-
-            if (entity.LockedOutDate.HasValue)
-                date = new DateTimeOffset(entity.LockedOutDate.Value);
+            if (user.LockedOutDate.HasValue)
+                date = new DateTimeOffset(user.LockedOutDate.Value);
 
             return Task.FromResult(date);
         }
@@ -274,17 +254,12 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
             if (lockoutEnd == DateTimeOffset.MinValue)
-                entity.LockedOutDate = null;
+                user.LockedOutDate = null;
             else
-                entity.LockedOutDate = lockoutEnd.UtcDateTime;
+                user.LockedOutDate = lockoutEnd.UtcDateTime;
 
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            return Task.FromResult(0);
         }
 
         public Task<int> IncrementAccessFailedCountAsync(ApplicationUser user)
@@ -292,15 +267,8 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.AccessFailedCount = entity.AccessFailedCount + 1;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            _securityUnitOfWork.Save();
-
-            return Task.FromResult(entity.AccessFailedCount);
+            user.AccessFailedCount = user.AccessFailedCount + 1;
+            return Task.FromResult(user.AccessFailedCount);
         }
 
         public Task ResetAccessFailedCountAsync(ApplicationUser user)
@@ -308,13 +276,8 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.AccessFailedCount = 0;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.AccessFailedCount = 0;
+            return Task.FromResult(0);
         }
 
         public Task<int> GetAccessFailedCountAsync(ApplicationUser user)
@@ -322,11 +285,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.AccessFailedCount);
+            return Task.FromResult(user.AccessFailedCount);
         }
 
         public Task<bool> GetLockoutEnabledAsync(ApplicationUser user)
@@ -334,11 +293,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.IsLocked);
+            return Task.FromResult(user.IsLocked);
         }
 
         public Task SetLockoutEnabledAsync(ApplicationUser user, bool enabled)
@@ -346,13 +301,8 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.IsLocked = enabled;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.IsLocked = enabled;
+            return Task.FromResult(0);
         }
         #endregion
 
@@ -361,10 +311,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(passwordHash))
-                throw new ArgumentNullException("passwordHash");
-
+                     
             user.PasswordHash = passwordHash;
             return Task.FromResult(0);
         }
@@ -381,10 +328,8 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-            bool hasPassword = !string.IsNullOrEmpty(entity.PasswordHash);
+                        
+            bool hasPassword = !string.IsNullOrEmpty(user.PasswordHash);
             return Task.FromResult(hasPassword);
         }
         #endregion
@@ -397,55 +342,34 @@ namespace Security.AspIdentity
 
             if (string.IsNullOrEmpty(phoneNumber))
                 throw new ArgumentNullException("phoneNumber");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.PhoneNumber = phoneNumber;
-            entity.IsPhoneConfirmed = false;
-
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            
+            user.PhoneNumber = phoneNumber;
+            return Task.FromResult(0);
         }
 
         public Task<string> GetPhoneNumberAsync(ApplicationUser user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.PhoneNumber);
+            
+            return Task.FromResult(user.PhoneNumber);
         }
 
         public Task<bool> GetPhoneNumberConfirmedAsync(ApplicationUser user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.IsPhoneConfirmed);
+                        
+            return Task.FromResult(user.IsPhoneConfirmed);
         }
 
         public Task SetPhoneNumberConfirmedAsync(ApplicationUser user, bool confirmed)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.IsPhoneConfirmed = confirmed;
-
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            
+            user.IsPhoneConfirmed = confirmed;
+            return Task.FromResult(0);
         }
         #endregion
 
@@ -467,11 +391,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.SecurityStamp);
+            return Task.FromResult(user.SecurityStamp);
         }
         #endregion
 
@@ -481,25 +401,16 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entity.EnableTowFactorAuthentication = enabled;
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.EnableTowFactorAuthentication = enabled;
+            return Task.FromResult(0);
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(ApplicationUser user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            return Task.FromResult(entity.EnableTowFactorAuthentication);
+            
+            return Task.FromResult(user.EnableTowFactorAuthentication);
         }
         #endregion
 
@@ -615,7 +526,7 @@ namespace Security.AspIdentity
                 IsPhoneConfirmed = user.IsPhoneConfirmed,
                 LockedOutDate = user.LockedOutDate,
                 PasswordHash = user.PasswordHash,
-                PhoneNumber = user.PasswordHash,
+                PhoneNumber = user.PhoneNumber,
                 SecurityStamp = user.SecurityStamp,
                 UserId = user.UserId,
                 UserName = user.UserName,

@@ -111,22 +111,25 @@ namespace Security.DataAccessLayer.Repositories
             if (domainEntity == null)
                 return null;
 
-            var user = new User
-            {
-                AccessFailedCount = domainEntity.AccessFailedCount,
-                Email = domainEntity.Email,
-                EnableTowFactorAuthentication = domainEntity.EnableTowFactorAuthentication,
-                FullName = domainEntity.FullName,
-                IsEmailConfirmed = domainEntity.IsEmailConfirmed,
-                IsLocked = domainEntity.IsLocked,
-                IsPhoneConfirmed = domainEntity.IsPhoneConfirmed,
-                LockedOutDate = domainEntity.LockedOutDate,
-                PasswordHash = domainEntity.PasswordHash,
-                PhoneNumber = domainEntity.PhoneNumber,
-                SecurityStamp = domainEntity.SecurityStamp,
-                UserId = domainEntity.UserId,
-                UserName = domainEntity.UserName,
-            };
+            var user = Set.Local.FirstOrDefault(c => c.UserId == domainEntity.UserId);
+            if (user == null)
+                user = new User
+                {
+                    UserId = domainEntity.UserId,
+                    UserName = domainEntity.UserName,
+                };
+
+            user.AccessFailedCount = domainEntity.AccessFailedCount;
+            user.Email = domainEntity.Email;
+            user.EnableTowFactorAuthentication = domainEntity.EnableTowFactorAuthentication;
+            user.FullName = domainEntity.FullName;
+            user.IsEmailConfirmed = domainEntity.IsEmailConfirmed;
+            user.IsLocked = domainEntity.IsLocked;
+            user.IsPhoneConfirmed = domainEntity.IsPhoneConfirmed;
+            user.LockedOutDate = domainEntity.LockedOutDate;
+            user.PasswordHash = domainEntity.PasswordHash;
+            user.PhoneNumber = domainEntity.PhoneNumber;
+            user.SecurityStamp = domainEntity.SecurityStamp;
 
             foreach (var role in domainEntity.Roles)
             {
@@ -140,20 +143,22 @@ namespace Security.DataAccessLayer.Repositories
 
             foreach (var claim in domainEntity.Claims)
             {
-                user.Claims.Add(new UserClaim
-                {
-                    ClaimType = claim.ClaimType,
-                    ClaimValue = claim.ClaimValue,
-                });
+                if (!user.Claims.Any(c => c.ClaimType == claim.ClaimType && c.ClaimValue == claim.ClaimValue))
+                    user.Claims.Add(new UserClaim
+                    {
+                        ClaimType = claim.ClaimType,
+                        ClaimValue = claim.ClaimValue,
+                    });
             }
 
             foreach (var userLogin in domainEntity.ExternalLogins)
             {
-                user.UserLogins.Add(new UserLogin
-                {
-                    LoginProvider = userLogin.LoginProvider,
-                    ProviderKey = userLogin.ProviderKey,
-                });
+                if (!user.UserLogins.Any(c => c.LoginProvider == userLogin.LoginProvider))
+                    user.UserLogins.Add(new UserLogin
+                    {
+                        LoginProvider = userLogin.LoginProvider,
+                        ProviderKey = userLogin.ProviderKey,
+                    });
             }
 
             return user;

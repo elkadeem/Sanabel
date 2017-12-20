@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Data\SecurityDatabaseInitializar.cs" />
     <Compile Include="Data\TestSetup.cs" />
+    <Compile Include="UserManagerTestCases.cs" />
     <Compile Include="UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
