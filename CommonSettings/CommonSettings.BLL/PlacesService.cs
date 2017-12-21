@@ -146,6 +146,7 @@ namespace CommonSettings.BLL
                     _unitOfWork.CityRepository.Update(city);
 
                 _unitOfWork.Save();
+                city.Id = _unitOfWork.CityRepository.GetPrimaryKey(city);
                 return city;
             }
             catch (Exception ex)
@@ -166,6 +167,7 @@ namespace CommonSettings.BLL
                     _unitOfWork.CountryRepository.Update(country);
 
                 _unitOfWork.Save();
+                country.Id = _unitOfWork.CountryRepository.GetPrimaryKey(country);
                 return country;
             }
             catch (Exception ex)
@@ -186,6 +188,7 @@ namespace CommonSettings.BLL
                     _unitOfWork.DistrictRepository.Update(district);
 
                 _unitOfWork.Save();
+                district.Id = _unitOfWork.DistrictRepository.GetPrimaryKey(district);
                 return district;
             }
             catch (Exception ex)
@@ -206,6 +209,7 @@ namespace CommonSettings.BLL
                     _unitOfWork.RegionRepository.Update(region);
 
                 _unitOfWork.Save();
+                region.Id = _unitOfWork.RegionRepository.GetPrimaryKey(region);
                 return region;
             }
             catch (Exception ex)

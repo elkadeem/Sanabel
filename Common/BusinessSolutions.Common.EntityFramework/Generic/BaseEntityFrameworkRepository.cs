@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Data.Entity;
 using BusinessSolutions.Common.Core;
+using System.Data.Entity.Infrastructure;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
@@ -14,8 +15,11 @@ namespace BusinessSolutions.Common.EntityFramework
         , IRepository<Tkey, TDomainEntity>        
         where TDomainEntity : class where TEntity : class
     {
+        private Dictionary<TDomainEntity, TEntity> _updatedEntities;
+
         public BaseEntityFrameworkRepository(DbContext dbContext) : base(dbContext)
-        {            
+        {
+            _updatedEntities = new Dictionary<TDomainEntity, TEntity>();
         }
 
         public virtual void Add(TDomainEntity entity)
@@ -25,6 +29,7 @@ namespace BusinessSolutions.Common.EntityFramework
 
             TEntity item = GetEntity(entity);
             Set.Add(item);
+            _updatedEntities.Add(entity, item);
         }
 
         public virtual void Remove(Tkey id)
@@ -46,6 +51,24 @@ namespace BusinessSolutions.Common.EntityFramework
             }
 
             entry.State = EntityState.Modified;
+            _updatedEntities.Add(entity, item);
+        }
+
+        public virtual Tkey GetPrimaryKey(TDomainEntity entity)
+        {
+            if (entity == null || !_updatedEntities.ContainsKey(entity))
+                return default(Tkey);
+
+            TEntity item = _updatedEntities[entity];
+            if (item == null)
+                return default(Tkey);
+
+            var dbEntry = _dbContext.ChangeTracker.Entries<TEntity>().FirstOrDefault(c => c.Entity == item);
+            var objectStateEntry = ((IObjectContextAdapter)this).ObjectContext.ObjectStateManager
+                .GetObjectStateEntry(dbEntry.Entity);
+
+            return (Tkey)objectStateEntry.EntityKey.EntityKeyValues[0].Value;
+
         }
 
     }

@@ -22,6 +22,7 @@ namespace CommonSettings.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
         }
     }
 }
