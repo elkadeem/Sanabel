@@ -108,12 +108,27 @@ namespace CommonSettings.BLL
             return _unitOfWork.CityRepository.GetCitiesByRegionId(regionId);
         }
 
+        public City GetCityById(int cityId)
+        {
+            return _unitOfWork.CityRepository.GetByID(cityId);
+        }
+
         public PagedEntity<Country> GetCountries(string countryName, string code, int pageIndex, int pageSize)
         {
             return _unitOfWork.CountryRepository.GetCountries(countryName, code, pageIndex, pageSize);
         }
 
-        public PagedEntity<City> GetDistricts(int regionId, int cityId, string districtName, string code
+        public Country GetCountryById(int countryId)
+        {
+            return _unitOfWork.CountryRepository.GetByID(countryId);
+        }
+
+        public District GetDistrictById(int districtId)
+        {
+           return _unitOfWork.DistrictRepository.GetByID(districtId);
+        }
+
+        public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code
             , int pageIndex, int pageSize)
         {
             return _unitOfWork.DistrictRepository.GetDistricts(regionId, cityId, districtName
@@ -123,6 +138,11 @@ namespace CommonSettings.BLL
         public List<District> GetDistrictsByCityId(int cityId)
         {
             return _unitOfWork.DistrictRepository.GetDistrictsByCityId(cityId);
+        }
+
+        public Region GetRegionById(int regionId)
+        {
+            return _unitOfWork.RegionRepository.GetByID(regionId);
         }
 
         public PagedEntity<Region> GetRegions(int countryId, string regionName, string code, int pageIndex, int pageSize)

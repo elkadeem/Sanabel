@@ -60,6 +60,7 @@
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\DistrictRepository.cs" />
     <Compile Include="Repositories\RegionRepository.cs" />
+    <Compile Include="UnitOfWork\CommonSettingsUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">

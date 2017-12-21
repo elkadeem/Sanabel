@@ -10,9 +10,9 @@ using System.Data.Entity.Infrastructure;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
-    public abstract class BaseEntityFrameworkRepository<Tkey, TEntity, TDomainEntity> 
+    public abstract class BaseEntityFrameworkRepository<Tkey, TEntity, TDomainEntity>
         : BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity, TDomainEntity>
-        , IRepository<Tkey, TDomainEntity>        
+        , IRepository<Tkey, TDomainEntity>
         where TDomainEntity : class where TEntity : class
     {
         private Dictionary<TDomainEntity, TEntity> _updatedEntities;
@@ -29,7 +29,7 @@ namespace BusinessSolutions.Common.EntityFramework
 
             TEntity item = GetEntity(entity);
             Set.Add(item);
-            _updatedEntities.Add(entity, item);
+            AddTrackedEntity(entity, item);
         }
 
         public virtual void Remove(Tkey id)
@@ -40,8 +40,8 @@ namespace BusinessSolutions.Common.EntityFramework
         }
 
         public virtual void Update(TDomainEntity entity)
-        {            
-            var item = GetEntity(entity);            
+        {
+            var item = GetEntity(entity);
             var entry = _dbContext.Entry<TEntity>(item);
             if (entry.State == EntityState.Detached)
             {
@@ -51,7 +51,15 @@ namespace BusinessSolutions.Common.EntityFramework
             }
 
             entry.State = EntityState.Modified;
-            _updatedEntities.Add(entity, item);
+            AddTrackedEntity(entity, item);
+        }
+
+        private void AddTrackedEntity(TDomainEntity entity, TEntity item)
+        {
+            if (_updatedEntities.ContainsKey(entity))
+                _updatedEntities[entity] = item;
+            else
+                _updatedEntities.Add(entity, item);
         }
 
         public virtual Tkey GetPrimaryKey(TDomainEntity entity)
@@ -64,7 +72,7 @@ namespace BusinessSolutions.Common.EntityFramework
                 return default(Tkey);
 
             var dbEntry = _dbContext.ChangeTracker.Entries<TEntity>().FirstOrDefault(c => c.Entity == item);
-            var objectStateEntry = ((IObjectContextAdapter)this).ObjectContext.ObjectStateManager
+            var objectStateEntry = ((IObjectContextAdapter)_dbContext).ObjectContext.ObjectStateManager
                 .GetObjectStateEntry(dbEntry.Entity);
 
             return (Tkey)objectStateEntry.EntityKey.EntityKeyValues[0].Value;

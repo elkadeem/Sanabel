@@ -4,8 +4,10 @@ using CommonSettings.Domain.Repositories;
 using BusinessSolutions.Common.EntityFramework;
 using BusinessSolutions.Common.Core;
 using System.Linq;
+using System.Data.Entity;
 
 namespace CommonSettings.DAL
+
 {
     public class DistrictRepository : BaseEntityFrameworkRepository<int, Place, District>, IDistrictRepository
     {
@@ -13,14 +15,34 @@ namespace CommonSettings.DAL
         {
         }
 
-        public PagedEntity<City> GetDistricts(int regionId, int cityId, string districtName, string code, int pageIndex, int pageSize)
+        public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName
+            , string code, int pageIndex, int pageSize)
         {
-            throw new System.NotImplementedException();
+            var query = Set.AsQueryable();
+            if (regionId > 0)
+                query = query.Where(c => c.ParentPlace.ParentPlaceId == regionId);
+            if (cityId > 0)
+                query = query.Where(c => c.ParentPlaceId == cityId);
+            if (string.IsNullOrEmpty(districtName))
+                query = query.Where(c => c.Name.Contains(districtName)
+                 || c.NameEn.Contains(districtName));
+            if (string.IsNullOrEmpty(code))
+                query = query.Where(c => c.Code.Contains(code));
+
+            int totalCount = query.Count();
+            var items = query.OrderBy(c => c.Name)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize).Select(c => GetDomainEntity(c))
+                .ToList();
+
+            return new PagedEntity<District>(items, totalCount);
         }
 
         public List<District> GetDistrictsByCityId(int cityId)
         {
-            throw new System.NotImplementedException();
+            return Set.Include(c => c.ParentPlace).Where(c => c.ParentPlaceId == cityId)
+                .Select(c => GetDomainEntity(c))
+                .ToList();
         }
 
         public override District GetDomainEntity(Place entity)
@@ -55,9 +77,9 @@ namespace CommonSettings.DAL
             currnetPlace.Name = domainEntity.Name;
             currnetPlace.NameEn = domainEntity.NameEn;
             currnetPlace.Code = domainEntity.Code;
-            currnetPlace.CountryId = domainEntity.City.Region.CountryId;
+            currnetPlace.CountryId = Set.First(c => c.Id == domainEntity.CityId).Id;
             currnetPlace.ParentPlaceId = domainEntity.CityId;
-            currnetPlace.PlaceTypeId = 2;
+            currnetPlace.PlaceTypeId = 3;
 
             return currnetPlace;
         }

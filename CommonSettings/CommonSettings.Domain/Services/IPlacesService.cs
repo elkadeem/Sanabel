@@ -16,6 +16,8 @@ namespace CommonSettings.Domain.Services
 
         List<Country> GetAllCountries();
 
+        Country GetCountryById(int countryId);
+
         Country SaveCountry(Country country);
 
         bool DeleteCountry(int countryId);
@@ -25,6 +27,8 @@ namespace CommonSettings.Domain.Services
         PagedEntity<Region> GetRegions(int countryId, string regionName, string code, int pageIndex, int pageSize);
 
         List<Region> GetRegionsByCountryId(int CountryId);
+
+        Region GetRegionById(int regionId);
 
         Region SaveRegion(Region region);
 
@@ -39,17 +43,21 @@ namespace CommonSettings.Domain.Services
 
         List<City> GetCitiesByCountryId(int CountryId);
 
+        City GetCityById(int cityId);
+
         City SaveCity(City city);
 
         bool DeleteCity(int cityId);
         #endregion
 
         #region District
-        PagedEntity<City> GetDistricts(int regionId, int cityId, string districtName
+        PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName
             , string code, int pageIndex, int pageSize);
 
         List<District> GetDistrictsByCityId(int cityId);
-        
+
+        District GetDistrictById(int districtId);
+
         District SaveDistrict(District district);
 
         bool DeleteDistrict(int districtId);

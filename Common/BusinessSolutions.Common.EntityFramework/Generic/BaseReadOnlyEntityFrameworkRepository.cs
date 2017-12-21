@@ -27,7 +27,8 @@ namespace BusinessSolutions.Common.EntityFramework
 
         public virtual List<TDomainEntity> GetAll()
         {
-            return Set.Select(c => GetDomainEntity(c)).ToList();
+            return Set
+                .ToList().Select(c => GetDomainEntity(c)).ToList();
         }
 
         public virtual async Task<List<TDomainEntity>> GetAllAsync()

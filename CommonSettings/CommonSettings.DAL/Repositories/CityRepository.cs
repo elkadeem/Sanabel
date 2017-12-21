@@ -3,6 +3,8 @@ using BusinessSolutions.Common.EntityFramework;
 using CommonSettings.Domain.Repositories;
 using CommonSettings.Domain.Entities;
 using BusinessSolutions.Common.Core;
+using System.Linq;
+using System.Data.Entity;
 
 namespace CommonSettings.DAL
 {
@@ -12,20 +14,42 @@ namespace CommonSettings.DAL
         {
         }
 
-        public PagedEntity<City> GetCities(int countryId, int regionId, string cityName, string code
+        public PagedEntity<City> GetCities(int countryId, int regionId, string cityName
+            , string code
             , int pageIndex, int pageSize)
         {
-            throw new System.NotImplementedException();
+            var query = Set.AsQueryable();
+            if (countryId > 0)
+                query = query.Where(c => c.CountryId == countryId);
+            if (regionId > 0)
+                query = query.Where(c => c.ParentPlaceId == regionId);
+            if (string.IsNullOrEmpty(cityName))
+                query = query.Where(c => c.Name.Contains(cityName)
+                 || c.NameEn.Contains(cityName));
+            if (string.IsNullOrEmpty(code))
+                query = query.Where(c => c.Code.Contains(code));
+
+            int totalCount = query.Count();
+            var items = query.OrderBy(c => c.Name)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize).Select(c => GetDomainEntity(c))
+                .ToList();
+
+            return new PagedEntity<City>(items, totalCount);
         }
 
         public List<City> GetCitiesByCountryId(int CountryId)
         {
-            throw new System.NotImplementedException();
+            return Set.Include(c => c.ParentPlace).Where(c => c.CountryId == CountryId)
+                .Select(c => GetDomainEntity(c))
+                .ToList();
         }
 
         public List<City> GetCitiesByRegionId(int regionId)
         {
-            throw new System.NotImplementedException();
+            return Set.Include(c => c.ParentPlace).Where(c => c.ParentPlaceId == regionId)
+                .Select(c => GetDomainEntity(c))
+                .ToList();
         }
 
         public override City GetDomainEntity(Place entity)
@@ -44,11 +68,20 @@ namespace CommonSettings.DAL
         }
 
         public override Place GetEntity(City domainEntity)
-        {
+        {                
             if (domainEntity == null)
                 return null;
 
-            return null;
+            var currentCity = Set.Local.FirstOrDefault(c => c.Id == domainEntity.Id);
+            if (currentCity == null)
+                currentCity = new Place();
+            currentCity.Name = domainEntity.Name;
+            currentCity.NameEn = domainEntity.Name;
+            currentCity.ParentPlaceId = domainEntity.RegionId;
+            currentCity.CountryId = Set.FirstOrDefault(c => c.Id == domainEntity.RegionId).CountryId;
+            currentCity.PlaceTypeId = 2;
+
+            return currentCity;
         }
     }
 }

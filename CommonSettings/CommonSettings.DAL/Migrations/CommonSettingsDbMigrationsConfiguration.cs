@@ -5,7 +5,7 @@ namespace CommonSettings.DAL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class CommonSettingsDbMigrationsConfiguration : DbMigrationsConfiguration<CommonSettings.DAL.CommonSettingDataContext>
+    public sealed class CommonSettingsDbMigrationsConfiguration : DbMigrationsConfiguration<CommonSettings.DAL.CommonSettingDataContext>
     {
         public CommonSettingsDbMigrationsConfiguration()
         {

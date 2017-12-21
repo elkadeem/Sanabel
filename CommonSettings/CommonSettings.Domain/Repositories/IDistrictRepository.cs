@@ -6,7 +6,8 @@ namespace CommonSettings.Domain.Repositories
 {
     public interface IDistrictRepository : IRepository<int, District>
     {
-        PagedEntity<City> GetDistricts(int regionId, int cityId, string districtName, string code, int pageIndex, int pageSize);
+        PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code, int pageIndex, int pageSize);
+
         List<District> GetDistrictsByCityId(int cityId);
     }
 }
