@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <title>@ViewBag.Title - سنابل</title>
+    
+    @Styles.Render("~/Content/appcss")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    @Html.Partial("_AppHeader")
+
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                @Html.Partial("_AppMenu")
+            </nav>
+            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+        </div>
+        <!-- Main content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+                <li class="breadcrumb-item active">لوحة التحكم</li>
+
+            </ol>
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- /.conainer-fluid -->
+        </main>
+        @Html.Partial("_AppSettingLeftSide")
+    </div>
+    <footer class="app-footer text-muted">
+        <span> حقوق الملكية محفوظة © 2017 </span>
+
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/appplugins")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@using Sanabel.Presentation.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="card p-4">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post
+        , new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+    <div class="card-body card-login">
+        <h1>تسجيل الدخول</h1>
+        <p class="text-muted">يمكنكم تسجيل الدخول هنا</p>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="input-group mb-3">
+            <span class="input-group-addon"><i class="icon-user"></i></span>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })            
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-addon"><i class="icon-lock"></i></span>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input type="submit" value="دخول" class="btn btn-primary px-4" />                
+            </div>
+            <div class="col-6 text-left">                
+                @Html.ActionLink("نسيت كلمة المرور ؟", "ForgotPassword", null, new { @class= "btn btn-link px-0" })                
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
