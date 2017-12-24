@@ -1,24 +1,20 @@
 ﻿using BusinessSolutions.Common.Core;
 using CommonSettings.Domain.Entities;
-using CommonSettings.Domain.UnitOfWork;
-using System;
+using CommonSettings.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CommonSettings.Domain.Services
+namespace CommonSettings.BLL
 {
     public interface IPlacesService
     {
         #region Countries
-        PagedEntity<Country> GetCountries(string countryName, string code, int pageIndex, int pageSize);
+        PagedEntity<CountryViewModel> GetCountries(SearchCountryViewModel searchCountryModel);
 
-        List<Country> GetAllCountries();
+        List<CountryViewModel> GetAllCountries();
 
-        Country GetCountryById(int countryId);
+        CountryViewModel GetCountryById(int countryId);
 
-        Country SaveCountry(Country country);
+        CountryViewModel SaveCountry(CountryViewModel country);
 
         bool DeleteCountry(int countryId);
         #endregion

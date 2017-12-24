@@ -6,14 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using CommonSettings.BLL;
+using CommonSettings.ViewModels;
+
 
 namespace CommonSettings.IntegrationTest
 {
     [TestFixture]
     public class PlacesServiceTest
     {
-        private CommonSettings.Domain.Services.IPlacesService _placesServices;
-        
+        private IPlacesService _placesServices;
+
         [OneTimeSetUp]
         public void Initiate()
         {
@@ -26,30 +29,30 @@ namespace CommonSettings.IntegrationTest
             //AddCity();
             //AddRegion();
             //AddDistrict();
-            
+
         }
 
         private void AddCountry()
         {
-            PlaceServiceTestCases.Country = new Country
-            {                
-                Name = "CountryName",                
+            PlaceServiceTestCases.Country = new CountryViewModel
+            {
+                CountryName = "CountryName",
             };
 
             PlaceServiceTestCases.Country = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
         }
-                
+
         public void AddRegion()
         {
             PlaceServiceTestCases.Region = new Region
             {
                 Name = "Region2",
-                CountryId = PlaceServiceTestCases.Country.Id,
+                CountryId = PlaceServiceTestCases.Country.CountryId,
             };
 
             PlaceServiceTestCases.Region = _placesServices.SaveRegion(PlaceServiceTestCases.Region);
         }
-        
+
         public void AddCity()
         {
             PlaceServiceTestCases.City = new City { RegionId = PlaceServiceTestCases.Region.Id, Name = "CityName" };
@@ -63,15 +66,16 @@ namespace CommonSettings.IntegrationTest
         }
 
         #region Country
-        [Test]        
+        [Test]
         public void GetCountryById_WithZeroAndOne_GetNullAndThenCountry([Values(0, 1)] int countryId)
         {
             var country = _placesServices.GetCountryById(countryId);
             if (countryId == 0)
                 country.Should().BeNull();
-            else {
+            else
+            {
                 country.Should().NotBeNull();
-                country.Id.Should().Be(countryId);
+                country.CountryId.Should().Be(countryId);
             }
         }
 
@@ -80,7 +84,13 @@ namespace CommonSettings.IntegrationTest
         public void GetCountries_WithValidAndInvalidIndex_GetItemsOrEmptyItems
             ([Values("", "Country")]string countryName, [Values(0, 1)]int pageIndex)
         {
-            var countriesPage = _placesServices.GetCountries(countryName, "", pageIndex, 10);
+            SearchCountryViewModel searchViewModel = new SearchCountryViewModel
+            {
+                PageIndex = pageIndex,
+                PageSize = 10
+            };
+
+            var countriesPage = _placesServices.GetCountries(searchViewModel);
             countriesPage.TotalCount.Should().BeGreaterOrEqualTo(1);
             if (pageIndex == 0)
             {
@@ -97,22 +107,22 @@ namespace CommonSettings.IntegrationTest
         {
             var countries = _placesServices.GetAllCountries();
             countries.Count.Should().BeGreaterThan(0);
-            countries.Should().Contain(c => c.Id == PlaceServiceTestCases.Country.Id);
+            countries.Should().Contain(c => c.CountryId == PlaceServiceTestCases.Country.CountryId);
         }
 
         [Test]
         public void SaveCountry_UpdateCurrentCountryName_UpdateCountry()
         {
-            PlaceServiceTestCases.Country.Name = "UpdateName";
-            PlaceServiceTestCases.Country.NameEn = "UpdateNameEn";
-            PlaceServiceTestCases.Country.Code = "000";
+            PlaceServiceTestCases.Country.CountryName = "UpdateName";
+            PlaceServiceTestCases.Country.CountryNameEn = "UpdateNameEn";
+            PlaceServiceTestCases.Country.CountryCode = "000";
 
             var country = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
-            country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.Id);
-            country.Id.Should().Be(PlaceServiceTestCases.Country.Id);
-            country.Name.Should().Be("UpdateName");
-            country.NameEn.Should().Be("UpdateNameEn");
-            country.Code.Should().Be("000");
+            country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.CountryId);
+            country.CountryId.Should().Be(PlaceServiceTestCases.Country.CountryId);
+            country.CountryName.Should().Be("UpdateName");
+            country.CountryNameEn.Should().Be("UpdateNameEn");
+            country.CountryCode.Should().Be("000");
         }
         #endregion
 

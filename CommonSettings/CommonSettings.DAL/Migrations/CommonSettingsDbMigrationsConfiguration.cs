@@ -14,10 +14,15 @@ namespace CommonSettings.DAL.Migrations
 
         protected override void Seed(CommonSettings.DAL.CommonSettingDataContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            for (int i = 1; i < 20; i++)
+            {
+                context.Countries.AddOrUpdate(new Country
+                {
+                    Name = "ÈáÏ " + i,
+                    NameEn = "Country" + i,
+                    Code = i.ToString("0000"),
+                });
+            }
         }
     }
 }

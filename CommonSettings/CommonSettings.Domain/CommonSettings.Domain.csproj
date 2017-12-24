@@ -47,7 +47,6 @@
     <Compile Include="Entities\Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICountryRepository.cs" />
-    <Compile Include="Services\IPlacesService.cs" />
     <Compile Include="Repositories\ICityRepository.cs" />
     <Compile Include="UnitOfWork\ICommonSettingsUnitOfWork.cs" />
     <Compile Include="Repositories\IDistrictRepository.cs" />

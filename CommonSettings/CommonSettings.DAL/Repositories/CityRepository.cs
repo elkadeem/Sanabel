@@ -5,9 +5,11 @@ using CommonSettings.Domain.Entities;
 using BusinessSolutions.Common.Core;
 using System.Linq;
 using System.Data.Entity;
+using Grace.DependencyInjection.Attributes;
 
 namespace CommonSettings.DAL
 {
+    [ExportByInterfaces()]
     public class CityRepository : BaseEntityFrameworkRepository<int, Place, City>, ICityRepository
     {
         public CityRepository(CommonSettingDataContext dataContext) : base(dataContext)

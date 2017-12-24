@@ -4,9 +4,11 @@ using CommonSettings.Domain.Repositories;
 using System.Collections.Generic;
 using BusinessSolutions.Common.Core;
 using System.Linq;
+using Grace.DependencyInjection.Attributes;
 
 namespace CommonSettings.DAL
 {
+    [ExportByInterfaces()]
     public class RegionRepository : BaseEntityFrameworkRepository<int, Place, Region>, IRegionRepository
     {
         public RegionRepository(CommonSettingDataContext dataContext) : base(dataContext)

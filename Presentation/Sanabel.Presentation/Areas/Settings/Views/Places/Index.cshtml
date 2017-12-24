@@ -1,0 +1,108 @@
+﻿@model CommonSettings.ViewModels.SearchCountryViewModel
+@using PagedList.Mvc
+@using BusinessSolutions.Localization;
+
+@{
+    ViewBag.Title = CommonResources.Countries;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-body card-table">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title font-weight-bold">@CommonResources.Countries</h4><hr />
+                    </div>
+                </div>
+                <!-- form ############################################################### -->
+                @using (Html.BeginForm("Index", "Places", FormMethod.Get, new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryCode)</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.CountryCode, new { @class = "form-control" })
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryName)</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.CountryName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
+                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>                            
+                        </div>
+
+                    </div>
+                }
+                <!-- /.form ######################################################### -->
+
+
+                @if (Model.Items != null && Model.Items.Any())
+                {
+
+                    <table class="table table-responsive table-hover table-outline mb-0">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CountryCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CountryName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CountryNameEn)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (CommonSettings.ViewModels.CountryViewModel item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CountryCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CountryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CountryNameEn)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = item.CountryId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                                        <a href="@Url.Action("Details", new { id = item.CountryId })" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                                        <a href="@Url.Action("Delete", new { id = item.CountryId })" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        @if (Model.Items.PageCount > 1)
+                        {
+                            <div class="panel-footer clearfix">
+                                <div class="col-xs-4 search_results_text">
+                                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
+                                </div>
+
+                                @Html.PagedListPager(Model.Items, page => Url.Action("Index", new { PageIndex = page - 1, CountryName = Model.CountryName, CountryCode = Model.CountryCode }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info" role="alert">
+                        @CommonResources.NoDataFound
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

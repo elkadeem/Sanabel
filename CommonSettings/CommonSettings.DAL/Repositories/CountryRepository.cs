@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonSettings.Domain.Entities;
 using BusinessSolutions.Common.Core;
+using Grace.DependencyInjection.Attributes;
 
 namespace CommonSettings.DAL
 {
+    [ExportByInterfaces()]
     public class CountryRepository : BaseEntityFrameworkRepository<int, Country, Domain.Entities.Country>, ICountryRepository
     {
         public CountryRepository(CommonSettingDataContext dataContext) : base(dataContext)

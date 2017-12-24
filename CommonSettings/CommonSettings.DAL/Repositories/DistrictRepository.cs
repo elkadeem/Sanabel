@@ -5,10 +5,12 @@ using BusinessSolutions.Common.EntityFramework;
 using BusinessSolutions.Common.Core;
 using System.Linq;
 using System.Data.Entity;
+using Grace.DependencyInjection.Attributes;
 
 namespace CommonSettings.DAL
 
 {
+    [ExportByInterfaces()]
     public class DistrictRepository : BaseEntityFrameworkRepository<int, Place, District>, IDistrictRepository
     {
         public DistrictRepository(CommonSettingDataContext dataContext) : base(dataContext)

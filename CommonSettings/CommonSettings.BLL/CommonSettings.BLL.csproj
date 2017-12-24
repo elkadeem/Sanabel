@@ -30,11 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Grace, Version=6.3.0.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Grace.6.3.0\lib\net45\Grace.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPlacesService.cs" />
+    <Compile Include="Mappers\Extensions.cs" />
     <Compile Include="PlacesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,9 +59,17 @@
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
+      <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
+      <Name>BusinessSolutions.MVCCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonSettings.Domain\CommonSettings.Domain.csproj">
       <Project>{1f1175f0-3cde-41ee-b7ff-a0b2682450b9}</Project>
       <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonSettings.ViewModels\CommonSettings.ViewModels.csproj">
+      <Project>{0dd74256-d4e8-477d-93d1-a30e5e0fd3c3}</Project>
+      <Name>CommonSettings.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

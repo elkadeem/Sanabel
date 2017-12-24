@@ -1,4 +1,5 @@
 ﻿using CommonSettings.Domain.Entities;
+using CommonSettings.ViewModels;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CommonSettings.IntegrationTest
 {
     public class PlaceServiceTestCases
     {
-        public static Country Country;
+        public static CountryViewModel Country;
         public static Region Region;
         public static City City;
         public static District District;

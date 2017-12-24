@@ -55,6 +55,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Grace, Version=6.3.0.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Grace.6.3.0\lib\net45\Grace.dll</HintPath>
+    </Reference>
+    <Reference Include="Grace.MVC5, Version=6.3.0.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Grace.MVC5.6.3.0\lib\net45\Grace.MVC5.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -113,12 +119,24 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -193,12 +211,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
+    <Compile Include="Areas\Settings\Controllers\PlacesController.cs" />
+    <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
+    <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IOC\CompositionRoot.cs" />
+    <Compile Include="IOC\GraceIOC.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -219,6 +243,7 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="fonts\fonts.css" />
     <Content Include="fonts\TheSans-Bold.svg" />
     <Content Include="fonts\TheSans-Plain.svg" />
@@ -626,6 +651,11 @@
     <Content Include="Scripts\Chart.js-master\test\fixtures\plugin.filler\fill-line-dataset.json" />
     <Content Include="Scripts\Chart.js-master\test\fixtures\plugin.filler\fill-radar-boundary-origin-spline.json" />
     <Content Include="Scripts\Chart.js-master\test\fixtures\plugin.filler\fill-radar-boundary-origin.json" />
+    <Content Include="Areas\Settings\Views\web.config" />
+    <Content Include="Areas\Volunteers\Views\web.config" />
+    <Content Include="Areas\Cases\Views\web.config" />
+    <Content Include="Areas\Settings\Views\Places\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -861,11 +891,53 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Cases\Controllers\" />
+    <Folder Include="Areas\Cases\Models\" />
+    <Folder Include="Areas\Cases\Views\Shared\" />
+    <Folder Include="Areas\Settings\Models\" />
+    <Folder Include="Areas\Settings\Views\Shared\" />
+    <Folder Include="Areas\Volunteers\Controllers\" />
+    <Folder Include="Areas\Volunteers\Models\" />
+    <Folder Include="Areas\Volunteers\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonSettings\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
+      <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
+      <Name>BusinessSolutions.MVCCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.BLL\CommonSettings.BLL.csproj">
+      <Project>{410ae9ed-dc2b-4bff-ba93-7dd5b25b5758}</Project>
+      <Name>CommonSettings.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.DAL\CommonSettings.DAL.csproj">
+      <Project>{b8b6cf0e-8653-4b19-83a6-79752bb4c769}</Project>
+      <Name>CommonSettings.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">
+      <Project>{1f1175f0-3cde-41ee-b7ff-a0b2682450b9}</Project>
+      <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Resourses\CommonSettings.Localization.csproj">
+      <Project>{2f6b193a-c8bf-4fc1-a474-396c7077d0da}</Project>
+      <Name>CommonSettings.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.ViewModels\CommonSettings.ViewModels.csproj">
+      <Project>{0dd74256-d4e8-477d-93d1-a30e5e0fd3c3}</Project>
+      <Name>CommonSettings.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
+      <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
+      <Name>BusinessSolutions.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Localization\BusinessSolutions.Localization.csproj">
+      <Project>{a8c9d7e2-6493-4758-8335-02b187fa6045}</Project>
+      <Name>BusinessSolutions.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

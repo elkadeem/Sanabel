@@ -1,5 +1,6 @@
 ﻿using CommonSettings.Domain.Repositories;
 using CommonSettings.Domain.UnitOfWork;
+using Grace.DependencyInjection.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CommonSettings.DAL
 {
+    [ExportByInterfaces()]
     public class CommonSettingsUnitOfWork : ICommonSettingsUnitOfWork
     {
         private CommonSettingDataContext _dataContext;

@@ -78,6 +78,10 @@
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
+      <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
+      <Name>BusinessSolutions.MVCCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings.BLL\CommonSettings.BLL.csproj">
       <Project>{410ae9ed-dc2b-4bff-ba93-7dd5b25b5758}</Project>
       <Name>CommonSettings.BLL</Name>
@@ -89,6 +93,10 @@
     <ProjectReference Include="..\..\CommonSettings.Domain\CommonSettings.Domain.csproj">
       <Project>{1f1175f0-3cde-41ee-b7ff-a0b2682450b9}</Project>
       <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings.ViewModels\CommonSettings.ViewModels.csproj">
+      <Project>{0DD74256-D4E8-477D-93D1-A30E5E0FD3C3}</Project>
+      <Name>CommonSettings.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

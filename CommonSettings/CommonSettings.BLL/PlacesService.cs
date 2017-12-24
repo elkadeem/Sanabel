@@ -1,16 +1,17 @@
-﻿using CommonSettings.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessSolutions.Common.Core;
 using CommonSettings.Domain.Entities;
 using CommonSettings.Domain.UnitOfWork;
-using BusinessSolutions.Common.Core;
+using CommonSettings.ViewModels;
+using Grace.DependencyInjection.Attributes;
 using NLog;
+using System;
+using System.Collections.Generic;
+using CommonSettings.BLL.Mappers;
+using System.Linq;
 
 namespace CommonSettings.BLL
 {
+    [ExportByInterfaces()]
     public class PlacesService : IPlacesService
     {
         private ICommonSettingsUnitOfWork _unitOfWork;
@@ -28,13 +29,46 @@ namespace CommonSettings.BLL
             _logger = log;
         }
 
-        public bool DeleteCity(int cityId)
+        #region Country
+        public PagedEntity<CountryViewModel> GetCountries(SearchCountryViewModel searchCountryModel)
+        {
+            if (searchCountryModel == null)
+                searchCountryModel = new SearchCountryViewModel() { PageSize = 10 };
+
+            var result = _unitOfWork.CountryRepository.GetCountries(searchCountryModel.CountryName, searchCountryModel.CountryCode, searchCountryModel.PageIndex
+                , searchCountryModel.PageSize);
+
+            return new PagedEntity<CountryViewModel>(result.Items.Select(c => c.ToCountryModel()).ToList().AsReadOnly(), result.TotalCount);
+        }
+
+        public CountryViewModel GetCountryById(int countryId)
+        {
+            return _unitOfWork.CountryRepository.GetByID(countryId).ToCountryModel();
+        }
+
+        public List<CountryViewModel> GetAllCountries()
+        {
+            return _unitOfWork.CountryRepository.GetAll().Select(c => c.ToCountryModel()).ToList();
+        }
+
+        public CountryViewModel SaveCountry(CountryViewModel countryModel)
         {
             try
             {
-                _unitOfWork.CityRepository.Remove(cityId);
+
+                if (countryModel == null)
+                    throw new ArgumentNullException("countryModel");
+
+                var country = countryModel.ToCountry();
+                var currentCity = _unitOfWork.CountryRepository.GetByID(countryModel.CountryId);
+                if (currentCity == null)
+                    _unitOfWork.CountryRepository.Add(country);
+                else
+                    _unitOfWork.CountryRepository.Update(country);
+
                 _unitOfWork.Save();
-                return true;
+                countryModel.CountryId = _unitOfWork.CountryRepository.GetPrimaryKey(country);
+                return countryModel;
             }
             catch (Exception ex)
             {
@@ -57,6 +91,24 @@ namespace CommonSettings.BLL
                 return false;
             }
         }
+        #endregion 
+
+        public bool DeleteCity(int cityId)
+        {
+            try
+            {
+                _unitOfWork.CityRepository.Remove(cityId);
+                _unitOfWork.Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, ex.Message);
+                throw ex;
+            }
+        }
+
+
 
         public bool DeleteDistrict(int districtId)
         {
@@ -88,10 +140,7 @@ namespace CommonSettings.BLL
             }
         }
 
-        public List<Country> GetAllCountries()
-        {
-            return _unitOfWork.CountryRepository.GetAll();
-        }
+
 
         public PagedEntity<City> GetCities(int countryId, int regionId, string cityName, string code, int pageIndex, int pageSize)
         {
@@ -113,19 +162,11 @@ namespace CommonSettings.BLL
             return _unitOfWork.CityRepository.GetByID(cityId);
         }
 
-        public PagedEntity<Country> GetCountries(string countryName, string code, int pageIndex, int pageSize)
-        {
-            return _unitOfWork.CountryRepository.GetCountries(countryName, code, pageIndex, pageSize);
-        }
 
-        public Country GetCountryById(int countryId)
-        {
-            return _unitOfWork.CountryRepository.GetByID(countryId);
-        }
 
         public District GetDistrictById(int districtId)
         {
-           return _unitOfWork.DistrictRepository.GetByID(districtId);
+            return _unitOfWork.DistrictRepository.GetByID(districtId);
         }
 
         public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code
@@ -176,26 +217,7 @@ namespace CommonSettings.BLL
             }
         }
 
-        public Country SaveCountry(Country country)
-        {
-            try
-            {
-                var currentCity = _unitOfWork.CountryRepository.GetByID(country.Id);
-                if (currentCity == null)
-                    _unitOfWork.CountryRepository.Add(country);
-                else
-                    _unitOfWork.CountryRepository.Update(country);
 
-                _unitOfWork.Save();
-                country.Id = _unitOfWork.CountryRepository.GetPrimaryKey(country);
-                return country;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, ex.Message);
-                throw ex;
-            }
-        }
 
         public District SaveDistrict(District district)
         {
