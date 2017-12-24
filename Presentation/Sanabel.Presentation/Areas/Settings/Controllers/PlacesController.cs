@@ -56,13 +56,13 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
                 }
 
                 var result = _placesService.SaveCountry(model);
-                TempData["Sucess"] = CommonResources.SavedSuccessfullyMessage;
+                AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.Logger.Error(ex);
-                TempData["UnExpectedError"] = CommonResources.SavedSuccessfullyMessage;
+                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
                 return View(model);
             }
         }

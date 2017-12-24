@@ -1,0 +1,17 @@
+@font-face {
+    font-family:'TheSans-Bold';
+    src: url('TheSans-Bold.eot');
+    src: url('TheSans-Bold.eot') format('embedded-opentype'),
+         url('TheSans-Bold.woff2') format('woff2'),
+         url('TheSans-Bold.woff') format('woff'),
+         url('TheSans-Bold.ttf') format('truetype'),
+         url(TheSans-Bold) format('svg');
+}
+@font-face {
+font-family:'TheSans-Plain';
+    src: url('TheSans-Plain.eot');
+    src: url('TheSans-Plain.eot') format('embedded-opentype'),
+         url('TheSans-Plain.woff2') format('woff2'),
+         url('TheSans-Plain.woff') format('woff'),
+         url('TheSans-Plain.ttf') format('truetype'),
+         url('TheSans-Plain.svg#TheSans-Plain') format('svg');}

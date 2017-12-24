@@ -123,6 +123,9 @@
   <data name="ArabicTextOnlyErrorMessage" xml:space="preserve">
     <value>الحقل {0} يقبل أحرف عربية فقط.</value>
   </data>
+  <data name="BackToIndex" xml:space="preserve">
+    <value>عودة</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>استعراض</value>
   </data>
@@ -152,6 +155,12 @@
   </data>
   <data name="RequiredFieldErrorMessage" xml:space="preserve">
     <value>الحقل {0} مطلوب.</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>تفريغ البيانات</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
   </data>
   <data name="SavedSuccessfullyMessage" xml:space="preserve">
     <value>تم الحفظ بنجاح</value>

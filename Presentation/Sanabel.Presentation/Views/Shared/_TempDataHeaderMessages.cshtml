@@ -1,0 +1,10 @@
+﻿@using BusinessSolutions.MVCCommon
+
+@if (TempData["HeaderMessages"] != null)
+{
+    foreach (UIMessage message in (List<UIMessage>)TempData["HeaderMessages"])
+    {
+        @Html.Partial("_AppMessage", message)
+    }
+}
+

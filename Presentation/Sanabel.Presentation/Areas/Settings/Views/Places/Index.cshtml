@@ -16,6 +16,8 @@
                         <h4 class="card-title font-weight-bold">@CommonResources.Countries</h4><hr />
                     </div>
                 </div>
+                @Html.Partial("_TempDataHeaderMessage")
+                @Html.Partial("_ViewDataHeaderMessage")
                 <!-- form ############################################################### -->
                 @using (Html.BeginForm("Index", "Places", FormMethod.Get, new { @class = "form-horizontal" }))
                 {
@@ -33,7 +35,7 @@
                         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
                         <div class="col-md-10">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
-                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>                            
+                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
                         </div>
 
                     </div>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Łukasz Holeczek">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>الجمعية</title>
+
+  <!-- Icons -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+  <link href="fonts/fonts.css" rel="stylesheet">
+  <!-- Main styles for this application -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Styles required by this views -->
+
+</head>
+
+<!-- BODY options, add following classes to body to change options
+
+// Header options
+1. '.header-fixed'					- Fixed Header
+
+// Brand options
+1. '.brand-minimized'       - Minimized brand (Only symbol)
+
+// Sidebar options
+1. '.sidebar-fixed'					- Fixed Sidebar
+2. '.sidebar-hidden'				- Hidden Sidebar
+3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+5. '.sidebar-compact'			  - Compact Sidebar
+
+// Aside options
+1. '.aside-menu-fixed'			- Fixed Aside Menu
+2. '.aside-menu-hidden'			- Hidden Aside Menu
+3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+// Breadcrumb options
+1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+
+// Footer options
+1. '.footer-fixed'					- Fixed footer
+
+-->
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+  <header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">☰</button>
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">☰</button>
+
+    
+    <ul class="nav navbar-nav ml-auto">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="d-md-down-none">اسم الموظف</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header text-center">
+            <strong>حسابي</strong>
+          </div>
+          <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> رسائل<span class="badge badge-info">42</span></a>
+          <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> تنبيهات<span class="badge badge-success">42</span></a>
+          <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> مهام<span class="badge badge-danger">42</span></a>
+          <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> تعليقات<span class="badge badge-warning">42</span></a>
+          
+        </div>
+      </li>
+    </ul>
+    <button class="navbar-toggler aside-menu-toggler" type="button">☰</button>
+
+  </header>
+
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> الرئيسية</a>
+          </li>
+
+          
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> المستخدمين</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-puzzle"></i> رابط</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-puzzle"></i> رابط</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-puzzle"></i> رابط</a>
+              </li>
+              
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> طالبي المساعدة</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> انتظار الموافقة</a>
+          <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> الأشخاص المعتمدين</a>
+          <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" nav-dropdown>
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> الإجراءات</a>
+          <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> بحث عن الحالات</a>
+          <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+              </li>
+            </ul>
+          </li>
+          
+          
+
+        </ul>
+      </nav>
+      <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- Breadcrumb -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+        <li class="breadcrumb-item active">لوحة التحكم</li>
+
+         
+      </ol>
+
+      <div class="container-fluid">
+
+        <div class="animated fadeIn">
+          <div class="row">
+		  
+		  <div class="col-sm-6 col-lg-3">
+              <div class="card text-white bg-danger">
+                <div class="card-body pb-0">
+                  <div class="btn-group float-left">
+                    <i class="icon-layers icon-x2"></i>
+                  </div>
+                  <h4 class="mb-0">23</h4>
+                  <p>طلبات تنتظر الموافقة</p>
+                </div>
+                <div class="chart-wrapper px-3" style="height:70px;">
+                  <canvas id="card-chart4" class="chart" height="70"></canvas>
+                </div>
+              </div>
+            </div>
+            <!--/.col-->
+			
+			
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="card text-white bg-warning">
+                <div class="card-body pb-0">
+                  <div class="btn-group float-left">
+                    <i class="icon-people icon-x2"></i>
+                  </div>
+                  <h4 class="mb-0">93</h4>
+                  <p>عدد المستفيدين من الجمعية</p>
+                </div>
+                <div class="chart-wrapper" style="height:70px;">
+                  <canvas id="card-chart3" class="chart" height="70"></canvas>
+                </div>
+              </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="card text-white bg-info">
+                <div class="card-body pb-0">
+                    <div class="btn-group float-left">
+                      <i class="icon-user-following icon-x2"></i>
+                  </div>
+                  <h4 class="mb-0">823</h4>
+                  <p>عدد المسئولين  للمساعدة</p>
+                </div>
+                <div class="chart-wrapper px-3" style="height:70px;">
+                  <canvas id="card-chart2" class="chart" height="70"></canvas>
+                </div>
+              </div>
+            </div>
+			
+            <!--/.col-->
+            <div class="col-sm-6 col-lg-3">
+              <div class="card text-white bg-primary">
+                <div class="card-body pb-0">
+                  <div class="btn-group float-left">
+                      <i class="icon-people icon-x2"></i>
+                  </div>
+                  <h4 class="mb-0">1209</h4>
+                  <p>عدد المستخدمين</p>
+                </div>
+                <div class="chart-wrapper px-3" style="height:70px;">
+                  <canvas id="card-chart1" class="chart" height="70"></canvas>
+                </div>
+              </div>
+            </div>
+            <!--/.col-->
+
+            
+          </div>
+          <!--/.row-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                 
+                <div class="card-body card-table">
+                  <div class="row">
+                <div class="col-sm-12">
+                  <h4 class="card-title font-weight-bold">طلبات تنظر الإجابة</h4><hr/>
+                </div>
+                <!--/.col-->
+                
+              </div>
+                  <table class="table table-responsive table-hover table-outline mb-0">
+                    <thead class="thead-default">
+                      <tr>
+                        <th><input type="checkbox" value="option3"></th>
+                        <th>اسم الشخص</th>
+                        <th>الجوال</th>
+                        <th>النوع</th>
+                        <th>المنطقة</th>
+                        <th>المدينة</th>
+                        <th>درجة الحالة</th>
+                        <th>الإجراءات </th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <input type="checkbox" value="option3">
+                        </td>
+                        <td><a href="#">فلان بن فلان الفلاني الفلاني<a/></td>
+                        <td>0596479033</td>
+                        <td>فردي</td>
+                        <td>مكة المكرمة</td>
+                        <td>جدة</td>
+                        <td>5</td>
+                        <td>
+							<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-address-card-o"></i> استعراض</a>
+							<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check-circle"></i> موافقة</a>
+							<a href="#" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> رفض</a>
+						</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox" value="option3">
+                        </td>
+                        <td><a href="#">فلان بن فلان الفلاني الفلاني<a/></td>
+                        <td>0596479033</td>
+                        <td>فردي</td>
+                        <td>مكة المكرمة</td>
+                        <td>جدة</td>
+                        <td>5</td>
+                        <td>
+							<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-address-card-o"></i> استعراض</a>
+							<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check-circle"></i> موافقة</a>
+							<a href="#" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> رفض</a>
+						</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox" value="option3">
+                        </td>
+                        <td>فلان بن فلان الفلاني الفلاني</td>
+                        <td>0596479033</td>
+                        <td>فردي</td>
+                        <td>مكة المكرمة</td>
+                        <td>جدة</td>
+                        <td>5</td>
+                        <td>
+							<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-address-card-o"></i> استعراض</button>
+							<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check-circle"></i> موافقة</button>
+							<button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> رفض</button>
+						</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox" value="option3">
+                        </td>
+                        <td>فلان بن فلان الفلاني الفلاني</td>
+                        <td>0596479033</td>
+                        <td>فردي</td>
+                        <td>مكة المكرمة</td>
+                        <td>جدة</td>
+                        <td>5</td>
+                        <td>
+							<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-address-card-o"></i> استعراض</button>
+							<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check-circle"></i> موافقة</button>
+							<button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> رفض</button>
+						</td>
+                      </tr>
+                      
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!--/.col-->
+          </div>
+          <!--/.row-->
+        </div>
+
+      </div>
+      <!-- /.conainer-fluid -->
+    </main>
+
+    <aside class="aside-menu">
+      <ul class="nav nav-tabs" role="tablist">
+        
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#settings" role="tab"><i class="icon-settings"></i></a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        
+        
+        <div class="tab-pane p-3 active" id="settings" role="tabpanel">
+          <h6>Settings</h6>
+
+          <div class="aside-options">
+            <div class="clearfix mt-4">
+              <small><b>Option 1</b></small>
+              <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                <input type="checkbox" class="switch-input" checked="">
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </div>
+            <div>
+              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+            </div>
+          </div>
+
+          <div class="aside-options">
+            <div class="clearfix mt-3">
+              <small><b>Option 2</b></small>
+              <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                <input type="checkbox" class="switch-input">
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </div>
+            <div>
+              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+            </div>
+          </div>
+
+          <div class="aside-options">
+            <div class="clearfix mt-3">
+              <small><b>Option 3</b></small>
+              <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                <input type="checkbox" class="switch-input">
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="aside-options">
+            <div class="clearfix mt-3">
+              <small><b>Option 4</b></small>
+              <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                <input type="checkbox" class="switch-input" checked="">
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer class="app-footer text-muted">
+    <span> حقوق الملكية محفوظة © 2017 </span>
+    
+  </footer>
+
+  <!-- Bootstrap and necessary plugins -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/pace.min.js"></script>
+
+  <!-- Plugins and scripts required by all views -->
+  <script src="js/Chart.min.js"></script>
+
+  <!-- GenesisUI main scripts -->
+  <script src="js/app.js"></script>
+
+  <!-- Custom scripts required by this view -->
+  <script src="js/views/main.js"></script>
+
+</body>
+</html>

@@ -79,6 +79,15 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عودة.
+        /// </summary>
+        public static string BackToIndex {
+            get {
+                return ResourceManager.GetString("BackToIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to استعراض.
         /// </summary>
         public static string Browse {
@@ -165,6 +174,24 @@ namespace BusinessSolutions.Localization {
         public static string RequiredFieldErrorMessage {
             get {
                 return ResourceManager.GetString("RequiredFieldErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تفريغ البيانات.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حفظ.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

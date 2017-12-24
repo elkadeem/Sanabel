@@ -1,0 +1,63 @@
+﻿@model CommonSettings.ViewModels.CountryViewModel
+@using BusinessSolutions.Localization;
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body card-table">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title font-weight-bold">إضافة حالة جديدة</h4><hr />
+                    </div>
+                </div>
+                @Html.Partial("_TempDataHeaderMessages")
+                @Html.Partial("_ViewDataHeaderMessages")
+                @using (Html.BeginForm("Create", "Places", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryCode)</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-4">&nbsp;</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryName)</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryNameEn)</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.CountryNameEn, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-eraser" ></i> @CommonResources.Reset</button>
+                            <a href="@Url.Action("Index")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -59,6 +59,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessSolutions.Localizat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessSolutions.MVCCommon", "CommonSettings\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj", "{ABE9D79D-0CB3-41B3-A991-9A490674192B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{89C18E51-43FC-4B16-A895-2CFE36A12D82}"
+	ProjectSection(SolutionItems) = preProject
+		Design\controls.html = Design\controls.html
+		Design\form.html = Design\form.html
+		Design\index.html = Design\index.html
+		Design\pages-login.html = Design\pages-login.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

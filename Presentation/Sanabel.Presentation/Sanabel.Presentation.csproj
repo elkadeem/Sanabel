@@ -656,6 +656,7 @@
     <Content Include="Areas\Cases\Views\web.config" />
     <Content Include="Areas\Settings\Views\Places\Index.cshtml" />
     <Content Include="Areas\Settings\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Settings\Views\Places\Create.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -888,6 +889,9 @@
     <Content Include="Views\Shared\_AppHeader.cshtml" />
     <Content Include="Views\Shared\_AppMenu.cshtml" />
     <Content Include="Views\Shared\_AppSettingLeftSide.cshtml" />
+    <Content Include="Views\Shared\_ViewDataHeaderMessages.cshtml" />
+    <Content Include="Views\Shared\_AppMessage.cshtml" />
+    <Content Include="Views\Shared\_TempDataHeaderMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

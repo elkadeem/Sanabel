@@ -72,6 +72,7 @@
     <Compile Include="Attributes\ArabicTextOnlyAttribute.cs" />
     <Compile Include="Attributes\EnglishTextOnlyAttribute.cs" />
     <Compile Include="Common\BaseSearchViewModel.cs" />
+    <Compile Include="Common\UIMessage.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

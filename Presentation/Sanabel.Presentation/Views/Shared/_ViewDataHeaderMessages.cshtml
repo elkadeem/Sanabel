@@ -1,0 +1,9 @@
+﻿@using BusinessSolutions.MVCCommon
+
+@if (ViewBag.HeaderMessages != null)
+{
+    foreach (UIMessage message in ViewBag.HeaderMessages)
+    {
+        @Html.Partial("_AppMessage", message)
+    }
+}
