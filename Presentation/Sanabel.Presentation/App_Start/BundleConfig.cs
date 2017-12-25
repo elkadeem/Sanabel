@@ -16,9 +16,10 @@ namespace Sanabel.Presentation
 
             bundles.Add(new StyleBundle("~/bundles/appplugins").Include(                
                 "~/Scripts/pace.min.js",
-                "~/Scripts/Chart.min.js",
-                "~/Scripts/app.js",
-                "~/Scripts/views/main.js"));
+                //"~/Scripts/Chart.min.js",
+                "~/Scripts/app.js"
+                //"~/Scripts/views/main.js"
+                ));
             
 
 

@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Infra.Validation;
 using CommonSettings.Domain.Entities;
 using CommonSettings.ViewModels;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace CommonSettings.BLL
 
         CountryViewModel GetCountryById(int countryId);
 
-        CountryViewModel SaveCountry(CountryViewModel country);
+        EntityResult SaveCountry(CountryViewModel country);
 
         bool DeleteCountry(int countryId);
         #endregion

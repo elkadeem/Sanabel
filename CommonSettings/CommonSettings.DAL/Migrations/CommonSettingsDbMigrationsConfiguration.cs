@@ -1,5 +1,6 @@
 namespace CommonSettings.DAL.Migrations
 {
+    using CommonSettings.Domain.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

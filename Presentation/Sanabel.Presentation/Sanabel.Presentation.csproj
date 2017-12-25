@@ -657,6 +657,8 @@
     <Content Include="Areas\Settings\Views\Places\Index.cshtml" />
     <Content Include="Areas\Settings\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Settings\Views\Places\Create.cshtml" />
+    <Content Include="Areas\Settings\Views\Places\Details.cshtml" />
+    <Content Include="Areas\Settings\Views\Places\Edit.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -937,6 +939,10 @@
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{e0f80c64-47dc-4236-bd94-a480b87552d1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Localization\BusinessSolutions.Localization.csproj">
       <Project>{a8c9d7e2-6493-4758-8335-02b187fa6045}</Project>

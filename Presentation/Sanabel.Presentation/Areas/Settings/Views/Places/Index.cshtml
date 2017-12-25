@@ -16,8 +16,8 @@
                         <h4 class="card-title font-weight-bold">@CommonResources.Countries</h4><hr />
                     </div>
                 </div>
-                @Html.Partial("_TempDataHeaderMessage")
-                @Html.Partial("_ViewDataHeaderMessage")
+                @Html.Partial("_TempDataHeaderMessages")
+                @Html.Partial("_ViewDataHeaderMessages")
                 <!-- form ############################################################### -->
                 @using (Html.BeginForm("Index", "Places", FormMethod.Get, new { @class = "form-horizontal" }))
                 {
@@ -77,7 +77,7 @@
                                     <td>
                                         <a href="@Url.Action("Edit", new { id = item.CountryId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
                                         <a href="@Url.Action("Details", new { id = item.CountryId })" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
-                                        <a href="@Url.Action("Delete", new { id = item.CountryId })" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                                        <a data-id="@item.CountryId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -108,3 +108,41 @@
     </div>
 </div>
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $('.btnDelete').click(function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $('#deleteConfirmationDialog').modal('show');
+            });
+
+        });
+    </script>
+}
+<!-- Modal -->
+<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1" role="dialog"
+     aria-labelledby="deleteConfirmationDialogLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationDialogLabel">@CommonResources.DeleteConfirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @CommonResources.DeleteConfirmation
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">@CommonResources.Cancel</button>
+                @using (Html.BeginForm("Delete", "Places", new { id = 0 }, FormMethod.Post))
+                {
+                    <button type="submit" class="btn btn-danger">@CommonResources.Delete</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,14 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonSettings.DAL.Configurations
+namespace CommonSettings.DAL
 {
     public class CountryConfiguration : EntityTypeConfiguration<Country>
     {
         public CountryConfiguration()
         {
-            this.ToTable("Countries", "Common").HasKey(c => c.Id);
-            this.Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            this.ToTable("Countries").HasKey(c => c.Id)
+                .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            this.Property(c => c.Name).HasMaxLength(50).IsRequired();
+            this.Property(c => c.NameEn).HasMaxLength(50).IsOptional();
+            this.Property(c => c.Code).HasMaxLength(10).IsRequired();
+
+            this.HasIndex(c => c.Name).HasName("IX_CountryName").IsUnique();
+            this.HasIndex(c => c.Code).HasName("IX_CountryCode").IsUnique();
             this.HasMany(c => c.Regions);
         }
 

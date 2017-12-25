@@ -14,7 +14,7 @@ namespace Security.UnitTesting.Helpers
             {
                 Email = "elkadeem@hotmail.com",
                 FullName = "elkadeem",
-                UserId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 UserName = "elkadeem",
                 
             },

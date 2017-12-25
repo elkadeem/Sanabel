@@ -1,9 +1,11 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Core.Entities;
+using BusinessSolutions.Common.Core.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -90,5 +92,27 @@ namespace BusinessSolutions.Common.EntityFramework
             return new PagedEntity<TEntity>(items, totalCount);
         }
 
+        public List<TEntity> Find(ExpressionSpecification<TEntity> specification)
+        {
+            var query = Set.AsQueryable();
+            if (specification != null)
+                query = query.Where(specification.Expression);
+
+            return query.ToList();
+        }
+
+        public PagedEntity<TEntity> Find(ExpressionSpecification<TEntity> specification, int pageIndex, int pageSize)
+        {
+            var query = Set.AsQueryable();
+            if (specification != null)
+                query = query.Where(specification.Expression);
+
+            int totalItemsCount = query.Count();
+            var items = query.OrderBy(c => c.Id)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize).ToList();
+
+            return new PagedEntity<TEntity>(items, totalItemsCount);
+        }
     }
 }

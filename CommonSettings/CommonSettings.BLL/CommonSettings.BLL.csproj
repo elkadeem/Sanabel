@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
@@ -59,6 +60,10 @@
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
       <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
       <Name>BusinessSolutions.MVCCommon</Name>
@@ -74,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

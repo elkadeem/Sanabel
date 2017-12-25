@@ -1,4 +1,5 @@
-﻿using BusinessSolutions.MVCCommon.Attributes;
+﻿using BusinessSolutions.MVCCommon;
+using BusinessSolutions.MVCCommon.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommonSettings.ViewModels
 {
-    public class CountryViewModel
+    public class CountryViewModel : BaseModel
     {
         public int CountryId { get; set; }
 

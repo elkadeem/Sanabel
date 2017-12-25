@@ -10,6 +10,6 @@ namespace Security.AspIdentity
 {
     public class ApplicationUser : User, IUser<Guid>
     {
-        public Guid Id { get => this.UserId; private set => this.UserId = value; }
+        
     }
 }

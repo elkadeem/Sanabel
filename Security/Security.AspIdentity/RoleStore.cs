@@ -45,13 +45,13 @@ namespace Security.AspIdentity
             if (roleEntity == null)
                 throw new ArgumentException("Role is not exist.", "role");
 
-            _securityUnitOfWork.RoleRepository.Remove(roleEntity.RoleId);
+            _securityUnitOfWork.RoleRepository.Remove(roleEntity.Id);
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<ApplicationRole> FindByIdAsync(Guid roleId)
+        public Task<ApplicationRole> FindByIdAsync(Guid Id)
         {
-            var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(roleId);
+            var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(Id);
             return Task.FromResult(GetApplicationRole(roleEntity));
         }
 
@@ -84,7 +84,7 @@ namespace Security.AspIdentity
                 return null;
             return new ApplicationRole
             {
-                RoleId = role.RoleId,
+                Id = role.Id,
                 Name = role.RoleName,
             };
         }

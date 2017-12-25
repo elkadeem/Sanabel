@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Log\LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\EntityResult.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,17 +5,13 @@ using System.ComponentModel.DataAnnotations;
 namespace CommonSettings.Domain.Entities
 {
     public class Country : Entity<int>
-    {
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-                
-        [StringLength(50)]
-        public string NameEn { get; set; }
+    {        
+        public string Name { get; set; }                
         
-        [StringLength(10)]
+        public string NameEn { get; set; }        
+        
         public string Code { get; set; }
 
-        public virtual ICollection<Region> Regions { get; set; }
+        public ICollection<Region> Regions { get; set; }
     }
 }

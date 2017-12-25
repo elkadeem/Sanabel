@@ -28,5 +28,9 @@ namespace BusinessSolutions.Common.Core
 
         Task<TEntity> GetByIDAsync(CancellationToken cancellationToken, TKey key);
 
+        List<TEntity> Find(Specifications.ExpressionSpecification<TEntity> specification);
+
+        PagedEntity<TEntity> Find(Specifications.ExpressionSpecification<TEntity> specification, int pageIndex, int pageSize);
+
     }
 }

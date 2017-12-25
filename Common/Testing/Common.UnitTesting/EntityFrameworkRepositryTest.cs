@@ -16,7 +16,7 @@ namespace Common.UnitTesting
     public class EntityFrameworkRepositryTest
     {
         private static List<TestEntity> entities = new List<TestEntity>();
-        private BaseEntityFrameworkRepository<int, TestEntity, TestDomainEntity> repository;
+        private BaseEntityFrameworkRepository<int, TestEntity> repository;
         private Mock<DbSet<TestEntity>> mockSet;
         private Mock<TestDbContext> mockContext;
         private const int _notExistItemId = 150;
@@ -108,7 +108,7 @@ namespace Common.UnitTesting
         public void Add_NewItem_ItemAdded()
         {
             //Arrange
-            var item = new TestDomainEntity { Id = 30, Name = "test" };
+            var item = new TestEntity { Id = 30, Name = "test" };
 
             //Act
             repository.Add(item);
@@ -318,7 +318,7 @@ namespace Common.UnitTesting
         public void Update_GetEntry_AttachToSet()
         {
             //Arrange
-            var entity = new TestDomainEntity() { Id = 2, Name = "Updated Entity" };
+            var entity = new TestEntity() { Id = 2, Name = "Updated Entity" };
 
             //Act
             repository.Update(entity);

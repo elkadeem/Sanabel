@@ -10,7 +10,7 @@ using Grace.DependencyInjection.Attributes;
 namespace CommonSettings.DAL
 {
     [ExportByInterfaces()]
-    public class CityRepository : BaseEntityFrameworkRepository<int, Place, City>, ICityRepository
+    public class CityRepository : BaseEntityFrameworkRepository<int, City>, ICityRepository
     {
         public CityRepository(CommonSettingDataContext dataContext) : base(dataContext)
         {
@@ -22,9 +22,9 @@ namespace CommonSettings.DAL
         {
             var query = Set.AsQueryable();
             if (countryId > 0)
-                query = query.Where(c => c.CountryId == countryId);
+                query = query.Where(c => c.Region.CountryId == countryId);
             if (regionId > 0)
-                query = query.Where(c => c.ParentPlaceId == regionId);
+                query = query.Where(c => c.RegionId == regionId);
             if (string.IsNullOrEmpty(cityName))
                 query = query.Where(c => c.Name.Contains(cityName)
                  || c.NameEn.Contains(cityName));
@@ -34,56 +34,21 @@ namespace CommonSettings.DAL
             int totalCount = query.Count();
             var items = query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize)
-                .Take(pageSize).Select(c => GetDomainEntity(c))
-                .ToList();
+                .Take(pageSize).ToList();
 
             return new PagedEntity<City>(items, totalCount);
         }
 
         public List<City> GetCitiesByCountryId(int CountryId)
         {
-            return Set.Include(c => c.ParentPlace).Where(c => c.CountryId == CountryId)
-                .Select(c => GetDomainEntity(c))
+            return Set.Include(c => c.Region).Where(c => c.Region.CountryId == CountryId)
                 .ToList();
         }
 
         public List<City> GetCitiesByRegionId(int regionId)
         {
-            return Set.Include(c => c.ParentPlace).Where(c => c.ParentPlaceId == regionId)
-                .Select(c => GetDomainEntity(c))
+            return Set.Include(c => c.Region).Where(c => c.RegionId == regionId)
                 .ToList();
-        }
-
-        public override City GetDomainEntity(Place entity)
-        {
-            if (entity == null)
-                return null;
-
-            return new City
-            {
-                Code = entity.Code,
-                Id = entity.Id,
-                Name = entity.Name,
-                NameEn = entity.NameEn,
-                RegionId = entity.ParentPlaceId ?? 0,
-            };
-        }
-
-        public override Place GetEntity(City domainEntity)
-        {                
-            if (domainEntity == null)
-                return null;
-
-            var currentCity = Set.Local.FirstOrDefault(c => c.Id == domainEntity.Id);
-            if (currentCity == null)
-                currentCity = new Place();
-            currentCity.Name = domainEntity.Name;
-            currentCity.NameEn = domainEntity.Name;
-            currentCity.ParentPlaceId = domainEntity.RegionId;
-            currentCity.CountryId = Set.FirstOrDefault(c => c.Id == domainEntity.RegionId).CountryId;
-            currentCity.PlaceTypeId = 2;
-
-            return currentCity;
         }
     }
 }

@@ -10,6 +10,6 @@ namespace CommonSettings.Domain.Repositories
 {
     public interface ICountryRepository : IRepository<int, Country>
     {
-        PagedEntity<Country> GetCountries(string countryName, string code, int pageIndex, int pageSize);
+        
     }
 }

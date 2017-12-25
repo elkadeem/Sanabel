@@ -10,52 +10,29 @@ using System.Data.Entity;
 
 namespace Security.DataAccessLayer.Repositories
 {
-    public class RoleRepository : BaseEntityFrameworkRepository<Guid, Role, Domain.Role>, IRoleRepository
+    public class RoleRepository : BaseEntityFrameworkRepository<Guid, Role>, IRoleRepository
     {
         public RoleRepository(SecurityContext dbContext) : base(dbContext)
         {
         }
 
-        public Domain.Role FindByName(string roleName)
+        public Role FindByName(string roleName)
         {
             var role = Set.FirstOrDefault(c => c.RoleName == roleName);
-            return GetDomainEntity(role);
+            return role;
         }
 
-        public async Task<Domain.Role> FindByNameAsync(string roleName)
+        public async Task<Role> FindByNameAsync(string roleName)
         {
             var role = await Set.FirstOrDefaultAsync(c => c.RoleName == roleName);
-            return GetDomainEntity(role);
+            return role;
         }
 
-        public async Task<Domain.Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
+        public async Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
         {
             var role = await Set.FirstOrDefaultAsync(c => c.RoleName == roleName, cancellationToken);
-            return GetDomainEntity(role);
+            return role;
         }
-
-        public override Domain.Role GetDomainEntity(Role entity)
-        {
-            if (entity == null)
-                return null;
-            return new Domain.Role
-            {
-                RoleId = entity.RoleId,
-                RoleName = entity.RoleName,
-                RoleNameAr = entity.RoleNameAr
-            };
-        }
-
-        public override Role GetEntity(Domain.Role domainEntity)
-        {
-            if (domainEntity == null)
-                return null;
-            return new Role
-            {
-                RoleId = domainEntity.RoleId,
-                RoleName = domainEntity.RoleName,
-                RoleNameAr = domainEntity.RoleNameAr
-            };
-        }
+        
     }
 }

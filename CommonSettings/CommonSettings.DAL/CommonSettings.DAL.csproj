@@ -54,11 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSettingDataContext.cs" />
+    <Compile Include="Configurations\DistrictConfiguration.cs" />
     <Compile Include="Configurations\CountryConfiguration.cs" />
-    <Compile Include="Entities\Place.cs" />
+    <Compile Include="Configurations\CityConfiguration.cs" />
+    <Compile Include="Configurations\RegionConfiguration.cs" />
     <Compile Include="Migrations\201712201922377_Default.cs" />
     <Compile Include="Migrations\201712201922377_Default.Designer.cs">
       <DependentUpon>201712201922377_Default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712250904143_AfterUsingMigrations.cs" />
+    <Compile Include="Migrations\201712250904143_AfterUsingMigrations.Designer.cs">
+      <DependentUpon>201712250904143_AfterUsingMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CommonSettingsDbMigrationsConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +95,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712201922377_Default.resx">
       <DependentUpon>201712201922377_Default.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712250904143_AfterUsingMigrations.resx">
+      <DependentUpon>201712250904143_AfterUsingMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

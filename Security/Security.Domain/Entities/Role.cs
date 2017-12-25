@@ -1,12 +1,11 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Core.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Security.Domain
 {
-    public class Role
+    public class Role : Entity<Guid>
     {
-        public Guid RoleId { get; set; }
-
         public string RoleName { get; set; }
 
         public string RoleNameAr { get; set; }

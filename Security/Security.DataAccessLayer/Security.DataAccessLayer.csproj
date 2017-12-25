@@ -47,10 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\UserClaim.cs" />
-    <Compile Include="Entities\UserLogin.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201712151716466_Default.cs" />
     <Compile Include="Migrations\201712151716466_Default.Designer.cs">
       <DependentUpon>201712151716466_Default.cs</DependentUpon>

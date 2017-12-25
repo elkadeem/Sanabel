@@ -1,4 +1,5 @@
 ﻿using Security.DataAccessLayer.Migrations;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,10 +20,6 @@ namespace Security.DataAccessLayer
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<UserLogin> UserLogins { get; set; }
-
-        public DbSet<UserClaim> UserClaims { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -35,7 +32,7 @@ namespace Security.DataAccessLayer
                     c.ToTable("UserRoles", "Security");
                 });
 
-            modelBuilder.Entity<UserClaim>()
+            modelBuilder.Entity<Claim>()
                 .Property<int>(c => c.ClaimId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 

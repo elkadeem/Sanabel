@@ -97,6 +97,15 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إلغاء.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الدول.
         /// </summary>
         public static string Countries {
@@ -111,6 +120,42 @@ namespace BusinessSolutions.Localization {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هل تريد الحذف؟.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تأكيد الحذف.
+        /// </summary>
+        public static string DeleteConfirmationTitle {
+            get {
+                return ResourceManager.GetString("DeleteConfirmationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم الحذف بنجاح.
+        /// </summary>
+        public static string DeleteError {
+            get {
+                return ResourceManager.GetString("DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم الحذف بنجاح.
+        /// </summary>
+        public static string DeleteSuccessfully {
+            get {
+                return ResourceManager.GetString("DeleteSuccessfully", resourceCulture);
             }
         }
         
@@ -156,6 +201,15 @@ namespace BusinessSolutions.Localization {
         public static string NoDataFound {
             get {
                 return ResourceManager.GetString("NoDataFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنصر المراد غير موجود.
+        /// </summary>
+        public static string NoItemFound {
+            get {
+                return ResourceManager.GetString("NoItemFound", resourceCulture);
             }
         }
         
@@ -228,6 +282,15 @@ namespace BusinessSolutions.Localization {
         public static string UnExpectedError {
             get {
                 return ResourceManager.GetString("UnExpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يوجد عنصر يحتوي علي نفس بيانات الحقل برجاء إدخال قيمة أخري..
+        /// </summary>
+        public static string UniqeDataError {
+            get {
+                return ResourceManager.GetString("UniqeDataError", resourceCulture);
             }
         }
     }

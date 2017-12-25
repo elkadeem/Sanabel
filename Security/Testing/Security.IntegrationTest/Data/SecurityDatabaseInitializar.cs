@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Security.DataAccessLayer;
+using Security.Domain;
 
 namespace Security.IntegrationTest
 {
@@ -20,8 +21,8 @@ namespace Security.IntegrationTest
         {
             var roles = new List<Role>
             {
-                new Role{ RoleId = Guid.NewGuid(), RoleName = "Administrator", RoleNameAr = "مدير النظام"},
-                new Role{ RoleId = Guid.NewGuid(), RoleName = "User", RoleNameAr = "مستخدم"}
+                new Role{ Id = Guid.NewGuid(), RoleName = "Administrator", RoleNameAr = "مدير النظام"},
+                new Role{ Id = Guid.NewGuid(), RoleName = "User", RoleNameAr = "مستخدم"}
             };
 
             context.Roles.AddOrUpdate(roles.ToArray());

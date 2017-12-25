@@ -40,9 +40,9 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<ApplicationUser> FindByIdAsync(Guid userId)
+        public Task<ApplicationUser> FindByIdAsync(Guid Id)
         {
-            var user = _securityUnitOfWork.UserRepository.GetByID(userId);
+            var user = _securityUnitOfWork.UserRepository.GetByID(Id);
             var applicationUser = GetApplicationUser(user);
             return Task.FromResult(applicationUser);
         }
@@ -528,7 +528,7 @@ namespace Security.AspIdentity
                 PasswordHash = user.PasswordHash,
                 PhoneNumber = user.PhoneNumber,
                 SecurityStamp = user.SecurityStamp,
-                UserId = user.UserId,
+                Id = user.Id,
                 UserName = user.UserName,
             };
 

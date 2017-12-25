@@ -12,7 +12,7 @@ namespace Security.IntegrationTest
     public class UserManagerTestCases
     {
         public static Guid ValidUserId = new Guid("D2FAAE16-21A0-418B-A802-0582C6593C0F");
-        public static Guid InValidUserId = new Guid("B6DE8CDC-2303-4E0D-A6B4-070224F7BFAE");
+        public static Guid InValidId = new Guid("B6DE8CDC-2303-4E0D-A6B4-070224F7BFAE");
         public static UserLoginInfo ValidUserLogin = new UserLoginInfo("google", "user1@gmail.com");
         public static UserLoginInfo InValidUserLogin = new UserLoginInfo("google", "");
 
@@ -40,17 +40,17 @@ namespace Security.IntegrationTest
                     .SetName("AddUserLogin_NewLogin_AddUserAndLogin")
                     .Returns(true),
                     new TestCaseData(
-                        new ApplicationUser{ UserId = ValidUserId}
+                        new ApplicationUser{ Id = ValidUserId}
                     , ValidUserLogin)
                     .SetName("AddUserLogin_ToExistingUser_AddLoginToUser")
                     .Returns(true),
                     new TestCaseData(
-                        new ApplicationUser{ UserId = ValidUserId}
+                        new ApplicationUser{ Id = ValidUserId}
                     , new UserLoginInfo("facebook", "user1@facebook.com"))
                     .SetName("AddUserLogin_SecondLogin_AddLoginToUser")
                     .Returns(true),
                     new TestCaseData(
-                        new ApplicationUser{ UserId = ValidUserId}
+                        new ApplicationUser{ Id = ValidUserId}
                     , new UserLoginInfo("facebook", "user1@facebook.com"))
                     .SetName("AddUserLogin_AddExistingLoginToExistingUser_NotAddLogin")
                     .Returns(false),

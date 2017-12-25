@@ -1,5 +1,6 @@
 ﻿namespace Security.DataAccessLayer.Migrations
 {
+    using Security.Domain;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -17,8 +18,8 @@
         {
             var roles = new List<Role>
             {
-                new Role{ RoleId = Guid.NewGuid(), RoleName = "Administrator", RoleNameAr = "مدير النظام"},
-                new Role{ RoleId = Guid.NewGuid(), RoleName = "User", RoleNameAr = "مستخدم"}
+                new Role{ Id = Guid.NewGuid(), RoleName = "Administrator", RoleNameAr = "مدير النظام"},
+                new Role{ Id = Guid.NewGuid(), RoleName = "User", RoleNameAr = "مستخدم"}
             };
 
             context.Roles.AddOrUpdate(roles.ToArray());

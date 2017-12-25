@@ -36,7 +36,7 @@ namespace Security.IntegrationTest
             {
                 UserName = "user1",
                 Email = "user1@email.com",
-                UserId = UserManagerTestCases.ValidUserId,
+                Id = UserManagerTestCases.ValidUserId,
             };
 
             var task = userManager.CreateAsync(user, "P@ssw0rd");
@@ -47,7 +47,7 @@ namespace Security.IntegrationTest
         [Test, TestCaseSource(typeof(UserManagerTestCases), "CreateUserTestCases")]
         public async Task CreateUser(ApplicationUser user, string password, string userDescription)
         {
-            var result = await userManager.CreateAsync(user, password);
+            IdentityResult result = await userManager.CreateAsync(user, password);
 
             if (userDescription == "ValidUserNameAndPassword")
             {
@@ -93,11 +93,11 @@ namespace Security.IntegrationTest
         }
 
         [Test]
-        [TestCase("D2FAAE16-21A0-418B-A802-0582C6593C0F", TestName = "FindUser_WithValidUserId_ReturnUser")]
-        [TestCase("B6DE8CDC-2303-4E0D-A6B4-070224F7BFAE", TestName = "FindUser_WithInValidUserId_ReturnNull")]
-        public async Task FindByIdAsync(string userId)
+        [TestCase("D2FAAE16-21A0-418B-A802-0582C6593C0F", TestName = "FindUser_WithValidId_ReturnUser")]
+        [TestCase("B6DE8CDC-2303-4E0D-A6B4-070224F7BFAE", TestName = "FindUser_WithInValidId_ReturnNull")]
+        public async Task FindByIdAsync(string Id)
         {
-            Guid id = new Guid(userId);
+            Guid id = new Guid(Id);
             var currentUser = await userManager.FindByIdAsync(id);
 
             if (id == user.Id)
@@ -147,7 +147,7 @@ namespace Security.IntegrationTest
             else
                 currentUser = await userManager.FindByIdAsync(userToUpdate.Id);
 
-            result = await userManager.AddLoginAsync(currentUser.UserId, userLogin);
+            result = await userManager.AddLoginAsync(currentUser.Id, userLogin);
             return result.Succeeded;
         }
     }

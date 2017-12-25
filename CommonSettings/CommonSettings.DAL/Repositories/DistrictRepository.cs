@@ -11,7 +11,7 @@ namespace CommonSettings.DAL
 
 {
     [ExportByInterfaces()]
-    public class DistrictRepository : BaseEntityFrameworkRepository<int, Place, District>, IDistrictRepository
+    public class DistrictRepository : BaseEntityFrameworkRepository<int, District>, IDistrictRepository
     {
         public DistrictRepository(CommonSettingDataContext dataContext) : base(dataContext)
         {
@@ -22,9 +22,9 @@ namespace CommonSettings.DAL
         {
             var query = Set.AsQueryable();
             if (regionId > 0)
-                query = query.Where(c => c.ParentPlace.ParentPlaceId == regionId);
+                query = query.Where(c => c.City.RegionId == regionId);
             if (cityId > 0)
-                query = query.Where(c => c.ParentPlaceId == cityId);
+                query = query.Where(c => c.CityId == cityId);
             if (string.IsNullOrEmpty(districtName))
                 query = query.Where(c => c.Name.Contains(districtName)
                  || c.NameEn.Contains(districtName));
@@ -34,7 +34,7 @@ namespace CommonSettings.DAL
             int totalCount = query.Count();
             var items = query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize)
-                .Take(pageSize).Select(c => GetDomainEntity(c))
+                .Take(pageSize)
                 .ToList();
 
             return new PagedEntity<District>(items, totalCount);
@@ -42,48 +42,8 @@ namespace CommonSettings.DAL
 
         public List<District> GetDistrictsByCityId(int cityId)
         {
-            return Set.Include(c => c.ParentPlace).Where(c => c.ParentPlaceId == cityId)
-                .Select(c => GetDomainEntity(c))
+            return Set.Include(c => c.City).Where(c => c.CityId == cityId)                
                 .ToList();
-        }
-
-        public override District GetDomainEntity(Place entity)
-        {
-            if (entity == null)
-                return null;
-
-            return new District
-            {
-                Code = entity.Code,
-                CityId = entity.ParentPlaceId ?? 0,
-                Id = entity.Id,
-                Name = entity.Name,
-                NameEn = entity.NameEn,
-                City = entity.ParentPlace == null ? null : new Domain.Entities.City
-                {
-                    Code = entity.ParentPlace.Code,
-                    Id = entity.ParentPlace.Id,
-                    Name = entity.ParentPlace.Name,
-                    NameEn = entity.ParentPlace.NameEn,
-                    RegionId = entity.ParentPlace.ParentPlaceId ?? 0,
-                }
-            };
-        }
-
-        public override Place GetEntity(District domainEntity)
-        {
-            var currnetPlace = Set.Local.FirstOrDefault(c => c.Id == domainEntity.Id);
-            if (currnetPlace == null)
-                currnetPlace = new Place();
-
-            currnetPlace.Name = domainEntity.Name;
-            currnetPlace.NameEn = domainEntity.NameEn;
-            currnetPlace.Code = domainEntity.Code;
-            currnetPlace.CountryId = Set.First(c => c.Id == domainEntity.CityId).Id;
-            currnetPlace.ParentPlaceId = domainEntity.CityId;
-            currnetPlace.PlaceTypeId = 3;
-
-            return currnetPlace;
         }
     }
 }

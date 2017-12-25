@@ -35,13 +35,13 @@ namespace Security.UnitTesting
             {
                 Email = "elkadeem@hotmail.com",
                 FullName = "elkadeem",
-                UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074"),
+                Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074"),
                 UserName = "elkadeem",
             };
 
             roles = new List<Role> {
-                new Role{RoleId  = Guid.NewGuid(), RoleName = "Role1"},
-                new Role{RoleId  = Guid.NewGuid(), RoleName = "Role2"}
+                new Role{Id  = Guid.NewGuid(), RoleName = "Role1"},
+                new Role{Id  = Guid.NewGuid(), RoleName = "Role2"}
             };
         }
 
@@ -591,7 +591,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 userStore.SetEmailAsync(testUser, testEmail);
                 //Assert
@@ -621,7 +621,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 userStore.GetEmailAsync(testUser);
                 //Assert
@@ -648,7 +648,7 @@ namespace Security.UnitTesting
             {
                 user.IsEmailConfirmed = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 userStore.GetEmailConfirmedAsync(user);
                 //Assert
@@ -675,7 +675,7 @@ namespace Security.UnitTesting
             {
                 user.IsEmailConfirmed = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 userStore.GetEmailConfirmedAsync(user);
                 //Assert
@@ -727,7 +727,7 @@ namespace Security.UnitTesting
                 DateTimeOffset dateTime = new DateTimeOffset(new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc));
                 user.LockedOutDate = dateTime.UtcDateTime;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetLockoutEndDateAsync(userToTest);
                 //Assert                
@@ -753,7 +753,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetLockoutEndDateAsync(userToTest, lockOutDate);
 
@@ -782,7 +782,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.IncrementAccessFailedCountAsync(userToTest);
                 //Assert                
@@ -808,7 +808,7 @@ namespace Security.UnitTesting
             {
                 user.AccessFailedCount = 5;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.ResetAccessFailedCountAsync(userToTest);
                 //Assert                
@@ -834,7 +834,7 @@ namespace Security.UnitTesting
             {
                 user.AccessFailedCount = 5;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetLockoutEnabledAsync(userToTest, true);
                 //Assert                
@@ -897,7 +897,7 @@ namespace Security.UnitTesting
             {
                 user.PasswordHash = "passwordHash";
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.HasPasswordAsync(userToTest);
                 //Assert                
@@ -923,7 +923,7 @@ namespace Security.UnitTesting
             {
                 string phoneNumber = "523652245";
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetPhoneNumberAsync(userToTest, phoneNumber);
                 //Assert                
@@ -952,7 +952,7 @@ namespace Security.UnitTesting
             {
                 user.PhoneNumber = "050";
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetPhoneNumberAsync(userToTest);
                 //Assert                
@@ -978,7 +978,7 @@ namespace Security.UnitTesting
             {
                 user.IsPhoneConfirmed = true;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetPhoneNumberConfirmedAsync(userToTest);
                 //Assert                
@@ -1003,7 +1003,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetPhoneNumberConfirmedAsync(userToTest, true);
                 //Assert                
@@ -1031,7 +1031,7 @@ namespace Security.UnitTesting
             {
                 user.SecurityStamp = "SE";
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetSecurityStampAsync(userToTest);
                 //Assert                
@@ -1076,7 +1076,7 @@ namespace Security.UnitTesting
             {
                 user.EnableTowFactorAuthentication = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetTwoFactorEnabledAsync(userToTest);
                 //Assert                
@@ -1101,7 +1101,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetTwoFactorEnabledAsync(userToTest, true);
                 //Assert                
@@ -1127,11 +1127,11 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.AddRole(new Role { RoleId = Guid.NewGuid(), RoleName = "Role1" });
-                user.AddRole(new Role { RoleId = Guid.NewGuid(), RoleName = "Role2" });
+                user.AddRole(new Role { Id = Guid.NewGuid(), RoleName = "Role1" });
+                user.AddRole(new Role { Id = Guid.NewGuid(), RoleName = "Role2" });
 
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var roles = await userStore.GetRolesAsync(userToTest);
                 //Assert                
@@ -1158,7 +1158,7 @@ namespace Security.UnitTesting
                 //Arrange
                 roleRepository.Setup(c => c.FindByName(It.IsAny<string>()))
                     .Returns<string>((a) => roles.FirstOrDefault(c => c.RoleName == a));
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.AddToRoleAsync(userToTest, roleNameToTest);
                 //Assert                
@@ -1179,7 +1179,7 @@ namespace Security.UnitTesting
             catch (ArgumentException ex)
             {
                 //Assert
-                if (userToTest.UserId == Guid.Empty)
+                if (userToTest.Id == Guid.Empty)
                     ex.ParamName.Should().Be("user");
                 else
                     ex.ParamName.Should().Be("roleName");
@@ -1194,7 +1194,7 @@ namespace Security.UnitTesting
                 //Arrange
                 user.AddRole(roles[0]);
                 user.AddRole(roles[1]);
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.RemoveFromRoleAsync(userToTest, roleNameToTest);
                 //Assert  
@@ -1234,7 +1234,7 @@ namespace Security.UnitTesting
                 //Arrange
                 user.AddRole(roles[0]);
                 user.AddRole(roles[1]);
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.UserId == a ? user : null);
+                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.IsInRoleAsync(userToTest, roleNameToTest);
                 //Assert                

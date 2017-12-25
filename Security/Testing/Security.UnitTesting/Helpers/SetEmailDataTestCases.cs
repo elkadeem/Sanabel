@@ -21,7 +21,7 @@ namespace Security.UnitTesting
                     .SetName("SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForEmail");
                 yield return new TestCaseData(new ApplicationUser(), "elkadeem@hotmail.com")
                     .SetName("SetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser");
-                yield return new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                yield return new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                 , "elkadeem1@hotmail.com")
                 .SetName("SetEmailAsync_WithValidUserAndEmail_UpdateEmail");
             }
@@ -35,7 +35,7 @@ namespace Security.UnitTesting
                     .SetName("GetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser"),
                  new TestCaseData(new ApplicationUser())
                     .SetName("GetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser"),
-                new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
                 .SetName("GetEmailAsync_WithValidUserAndEmail_GetEmail")
             };
             }
@@ -50,7 +50,7 @@ namespace Security.UnitTesting
                     .SetName("GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser"),
                  new TestCaseData(new ApplicationUser())
                     .SetName("GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser"),
-                new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
                 .SetName("GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed")
             };
             }
@@ -77,7 +77,7 @@ namespace Security.UnitTesting
                 return new List<TestCaseData> {
                     new TestCaseData(null),
                     new TestCaseData(new ApplicationUser()).SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
                     .SetDescription("ValidUser")
 
                 };
@@ -91,9 +91,9 @@ namespace Security.UnitTesting
                 return new List<TestCaseData> {
                     new TestCaseData(null, new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero)),
                     new TestCaseData(new ApplicationUser(), new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero)).SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser(){ UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new ApplicationUser(){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                      , DateTimeOffset.MinValue),
-                    new TestCaseData(new ApplicationUser(){ UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new ApplicationUser(){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                      , new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero))
                     .SetDescription("ValidUser")
 
@@ -108,7 +108,7 @@ namespace Security.UnitTesting
                 return new List<TestCaseData> {
                     new TestCaseData(null),
                     new TestCaseData(new ApplicationUser(){ PasswordHash = "PasswordHash"}).SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
+                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
                     , PasswordHash="PasswordHash"})
                     .SetDescription("ValidUser")
 
@@ -124,9 +124,9 @@ namespace Security.UnitTesting
                     new TestCaseData(null, "Role1"),
                     new TestCaseData(new ApplicationUser(), "").SetDescription("Empty Roles"),
                     new TestCaseData(new ApplicationUser(), "Role1").SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                     , "Role1").SetDescription("ValidUser"),
-                    new TestCaseData(new ApplicationUser() { UserId = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                     , "Role3").SetDescription("ValidUserAndInvalidRole")
 
                 };

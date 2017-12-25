@@ -10,8 +10,6 @@ namespace Security.AspIdentity
 {
     public class ApplicationRole : Role, IRole<Guid>
     {
-        public Guid Id { get => this.RoleId; private set => this.RoleId = value; }        
-
         public string Name { get => this.RoleName; set => this.RoleName = value; }
     }
 }

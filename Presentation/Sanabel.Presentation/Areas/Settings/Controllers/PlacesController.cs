@@ -32,7 +32,20 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
         // GET: Settings/Places/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            var item = _placesService.GetCountryById(id);
+            if (item == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            return View(item);
         }
 
         // GET: Settings/Places/Create
@@ -56,8 +69,20 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
                 }
 
                 var result = _placesService.SaveCountry(model);
-                AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
-                return RedirectToAction("Index");
+                if (result.Succeeded)
+                {
+                    AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.Property, error.Message);
+                    }
+
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
@@ -70,45 +95,101 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
         // GET: Settings/Places/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            var item = _placesService.GetCountryById(id);
+            if (item == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            return View(item);
         }
 
         // POST: Settings/Places/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CountryViewModel model)
         {
             try
             {
-                // TODO: Add update logic here
+                if (!ModelState.IsValid)
+                {
+                    ModelState.AddModelError("InvalidData", CommonResources.InvalidData);
+                    return View(model);
+                }
 
-                return RedirectToAction("Index");
+                var item = _placesService.GetCountryById(model.CountryId);
+                if (item == null)
+                {
+                    AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                    return RedirectToAction("Index");
+                }
+
+                var result = _placesService.SaveCountry(model);
+                if (result.Succeeded)
+                {
+                    AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.Property, error.Message);
+                    }
+
+                    return View(model);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                this.Logger.Error(ex);
+                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
+                return View(model);
             }
-        }
-
-        // GET: Settings/Places/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Settings/Places/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (id == 0)
+                {
+                    AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                }
+                else
+                {
+                    var item = _placesService.GetCountryById(id);
+                    if (item == null)
+                    {
+                        AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                    }
+                    else
+                    {
+                        var result = _placesService.DeleteCountry(id);
+                        if (result)
+                            AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
+                        else
+                            AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
 
-                return RedirectToAction("Index");
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                this.Logger.Error(ex);
+                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
             }
+
+            return RedirectToAction("Index");
         }
     }
 }

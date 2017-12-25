@@ -117,82 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>إضافة</value>
+  <data name="Target" xml:space="preserve">
+    <value>H4sIAAAAAAAEAO1b3W7bNhS+H7B3EHQ5pFacYsAW2C0yJxmCNT+Ik2J3BSPRDjGJUkUqsDHsyXaxR9or7FAS9UORkiLHTtsZBYpa5Dk8P985PCRP//37n8n7VeBbTzhmJKRTezw6tC1M3dAjdDm1E75485P9/t33303OvGBlfZTz3op5QEnZ1H7kPDp2HOY+4gCxUUDcOGThgo/cMHCQFzpHh4c/O+Oxg4GFDbwsa3KbUE4CnP6An7OQujjiCfIvQw/7LP8OI/OUq3WFAswi5OKpPQuDIKRzzDmIyEanJx9s68QnCCSZY39hW4jSkCMOch7fMzzncUiX8wg+IP9uHWGYt0A+w7n8x+X0vqocHglVnJJQsnITxsPgmQzHb3PbOCr5IAvbhe3AemdgZb4WWqcWBOPBT9tSFzqe+bGY1DQuzCJ0lLIhmI0E+YGlnXRQgAMwJP7AvMTnSYynFCc8Rv6BdZM8+MT9Da/vwj8wndLE96vigsAwVvsAn27iMMIxX9/iRa7EhWdbTp3OUQkLsgpNpuIF5W+PbOsKFkcPPi7QUDHHnIcx/hVTHCOOvRvEOY6p4IFTezZWV9YSf8vVAH5gJNu6RKsPmC7549T+EULnnKywJz/kAtxTAnEHNDxOsEbA7kXP6ObLtq8yg5kta4xfYo1bvAQndDtM4XKFnsgy9Z/C75QwkNTlzLZusZ/OYI8kytJFCulPlSnncRjchn4eK+XIp3mYxK5QPtQO36F4iXl/qTItzSLJcUWe7LNemHxMJ8nEKVNBa4KQCm2QJCSLfaLYJ4qtJgoB+pdLE9nWuEmGkIFnyBAyZgfFpUwHg6MyY7CPyX1MbjcmQ6js45cNS4Dv0H1SG5LKHtpbkkw1rSg5y2JKKU19pLFxK8Mb7d3F6sPr+4zDPkvss8SGWWJwvGcBoQ/43lGmhr0hCPtE2QljoUtSSSqFQqUeqOt1Rj2r/fiQGVbmL7AthBCJIGjgF5jXVoPjmp5iH3NsnbjZncIMMRd5TZOCAl5PYQr7lMKUhX9doB8a60CU4liECfJn4B6Ie0J5M6QJdUmE/FZrKFQ9U4HQteCvjpziCFMRxa2a91lYlpfNxYs1FAd0WWbiVNDUDjIF6ia/mnaX0q9yf+zyqpGnBitFAG4Ru4NQphd9ByjT+6EXysqC6VWAVi2iWrOHevPQnsfaAKYt0LoQ+/rg0oi9q/xVt32fVctLtB2gKts5gYYDBY4LZFdqyFPEkZiAV7qrpXuG8xKV5QWEih2xALBSDgXlll2DYgN5depyq2vQl0MdPIoypcFCwreDQRb3Bi1kflV4VMxfs0XteqIySX+BoeKhs2QpRC8N3wBVZ6lRYWI0slNXsIfyakXYVL5tI+2zlVbkLnzeor1h86yasHT8xurXTsAGx+tye2d2H+ByJaF3261FX1mMFymlfBB0shdB+XLoGJ4OJ5coisTZtaTMv1jz/B3xzfz5D2xBxsNxmeadrZC2WAkOmWiJldHsiHVOYsZFVnxA4ng08wLNNEMCNWQWuWwtRza9JpONnC7+rcnY6dNqllCbG05Oew7qBWKvSo/TddBoyNL3XOSjWHNyn4V+ElDzlmmmzs7iVfrsy/M4iIO1yuOskcbbuGQH5yqP7Et/DuWmXeVi3soF/hVPNDb7hr8btVEdPb2wVWTwDdFl4tMDYWbSPco6OOTn2hoPw1n31RAm94wNAabf/HrAy0S4B1cXh+I4W2djPOW+GsTKQmzTPVJfW/bZJk2Ue5jtABqNKlOdUqxeVJtKVTnJK7w+XWtKyZdNsS0wzRPxRLk3XzOOg5GYMJp/9mc+AX3LCZeIkgVmPHtYsY8Ox0dK49uX04TmMOb5mgq5uxPtgnp4NbX/tP7a/bMREebufBga8GgjF6BPKHYfUdx4tNnoIagH1+e++2hZjp/NUu3kSg1sdrkgOrYufv8k6Q6s6xiQf2wdAhzajfQSDU577H1D2Ks3B/VFXka1DdwZG3j2qPuWUKe2v/QGniTcBvbMjSH/E/D1d4D4fWBdsHtKPicwcgdOF474auDbX1VB36HquEvVrXRNvFaTRFka7LYvYhfPiC03bV9n50OR03bcl6A+9QxqthgGFeM1w5baGb6Z/oXentpi99WAjokNWmB21Znw9fQiqC9uhivC2u2Eob0gu7qRV4Hg2Gx71D+UDus+MCxReebv1Z/Q0p5gWMH0VqtvX9DaSI6YzGR8/95Fe4P6tN1osjBUBF98+4LikNr1cnfDgua9/ktpT+gt4PN9/TIdCM07YEhflf/fDImTkWXJQvxvZ4rdWuIq5lzQRSgzqCKRnKIcAy4xRx5ktZOYkwVyOQy7mLG0b/sj8hOYchY8YO+CXic8SjiojIMHv2YMkYfb1k/bLOoyT66jtDv7JVQAMQmogK/pLwnxvULuc82Bw8BCJPj8GCl8ycVxcrkuOF2FtCej3HzFvnSHg8gHZuyaztETHiLbPcMf8BK5a3mVb2bS7Yi62SenBC1jFLCcR0kPPwHDXrB69x8BsLtQ5j8AAA==</value>
   </data>
-  <data name="ArabicTextOnlyErrorMessage" xml:space="preserve">
-    <value>الحقل {0} يقبل أحرف عربية فقط.</value>
-  </data>
-  <data name="BackToIndex" xml:space="preserve">
-    <value>عودة</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>استعراض</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>إلغاء</value>
-  </data>
-  <data name="Countries" xml:space="preserve">
-    <value>الدول</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>حذف</value>
-  </data>
-  <data name="DeleteConfirmation" xml:space="preserve">
-    <value>هل تريد الحذف؟</value>
-  </data>
-  <data name="DeleteConfirmationTitle" xml:space="preserve">
-    <value>تأكيد الحذف</value>
-  </data>
-  <data name="DeleteError" xml:space="preserve">
-    <value>لم يتم الحذف بنجاح</value>
-  </data>
-  <data name="DeleteSuccessfully" xml:space="preserve">
-    <value>تم الحذف بنجاح</value>
-  </data>
-  <data name="Details" xml:space="preserve">
-    <value>التفاصيل</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>تعديل</value>
-  </data>
-  <data name="EnglishTextOnlyErrorMessage" xml:space="preserve">
-    <value>الحقل {0} يقبل أحرف إنجليزية فقط.</value>
-  </data>
-  <data name="InvalidData" xml:space="preserve">
-    <value>برجاء مراجعة البيانات</value>
-  </data>
-  <data name="NoDataFound" xml:space="preserve">
-    <value>لا يوجد بيانات</value>
-  </data>
-  <data name="NoItemFound" xml:space="preserve">
-    <value>العنصر المراد غير موجود</value>
-  </data>
-  <data name="PageFromToMessage" xml:space="preserve">
-    <value>صفحة {0} من {1}</value>
-  </data>
-  <data name="RequiredFieldErrorMessage" xml:space="preserve">
-    <value>الحقل {0} مطلوب.</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>تفريغ البيانات</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>حفظ</value>
-  </data>
-  <data name="SavedSuccessfullyMessage" xml:space="preserve">
-    <value>تم الحفظ بنجاح</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>بحث</value>
-  </data>
-  <data name="StringLengthErrorMessage" xml:space="preserve">
-    <value>الحقل {0} يحب أن يكون عدد حروفه ما بين {2} إلي {1} أحرف.</value>
-  </data>
-  <data name="UnExpectedError" xml:space="preserve">
-    <value>حدث خطأ غير متوقع برجاء المحاولة مرة أخري.</value>
-  </data>
-  <data name="UniqeDataError" xml:space="preserve">
-    <value>يوجد عنصر يحتوي علي نفس بيانات الحقل برجاء إدخال قيمة أخري.</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>Common</value>
   </data>
 </root>

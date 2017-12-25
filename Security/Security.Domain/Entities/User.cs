@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,21 +7,15 @@ using System.Threading.Tasks;
 
 namespace Security.Domain
 {
-    public class User
+    public class User : Entity<Guid>
     {
-        private List<ExternalLogin> _externalLogins;
-        private List<Claim> _claims;
-        private List<Role> _roles;
-
         public User()
         {
-            UserId = Guid.NewGuid();
-            _externalLogins = new List<ExternalLogin>();
-            _claims = new List<Claim>();
-            _roles = new List<Role>();
+            Id = Guid.NewGuid();
+            ExternalLogins = new HashSet<ExternalLogin>();
+            Claims = new HashSet<Claim>();
+            Roles = new HashSet<Role>();
         }
-
-        public Guid UserId { get; set; }
 
         public string UserName { get; set; }
 
@@ -44,21 +39,21 @@ namespace Security.Domain
 
         public int AccessFailedCount { get; set; }
 
-        public IReadOnlyList<Claim> Claims => _claims.AsReadOnly();
+        public ICollection<Claim> Claims { get; set; }
 
-        public IReadOnlyList<ExternalLogin> ExternalLogins => _externalLogins.AsReadOnly();
+        public ICollection<ExternalLogin> ExternalLogins { get; set; }
 
-        public IReadOnlyList<Role> Roles => _roles.AsReadOnly();
+        public ICollection<Role> Roles { get; set; }
 
         public bool EnableTowFactorAuthentication { get; set; }
 
         public void AddExternalLogin(string loginProvider, string providerkey)
         {
-            var externalLogin = _externalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
+            var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
             if (externalLogin == null)
             {
                 externalLogin = new ExternalLogin() { LoginProvider = loginProvider };
-                _externalLogins.Add(externalLogin);
+                ExternalLogins.Add(externalLogin);
             }
 
             externalLogin.ProviderKey = providerkey;
@@ -66,18 +61,18 @@ namespace Security.Domain
 
         public void RemoveExternalLogin(string loginProvider)
         {
-            var externalLogin = _externalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
+            var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
             if (externalLogin != null)
-                _externalLogins.Remove(externalLogin);
+                ExternalLogins.Remove(externalLogin);
         }
 
         public void AddClaim(string claimType, string claimValue)
         {
-            var claim = _claims.FirstOrDefault(c => c.ClaimType == claimType && c.ClaimValue == claimValue);
+            var claim = Claims.FirstOrDefault(c => c.ClaimType == claimType && c.ClaimValue == claimValue);
             if (claim == null)
             {
                 claim = new Claim { ClaimType = claimType };
-                _claims.Add(claim);
+                Claims.Add(claim);
             }
 
             claim.ClaimValue = claimValue;
@@ -85,31 +80,31 @@ namespace Security.Domain
 
         public void RemoveClaim(string claimType, string claimValue)
         {
-            var claims = _claims.Where(c => c.ClaimType == claimType && c.ClaimValue == claimValue);
+            var claims = Claims.Where(c => c.ClaimType == claimType && c.ClaimValue == claimValue);
             foreach (var claim in claims.ToList())
-                _claims.Remove(claim);
+                Claims.Remove(claim);
         }
 
         public void RemoveClaims(string claimType)
         {
-            var claims = _claims.Where(c => c.ClaimType == claimType);
+            var claims = Claims.Where(c => c.ClaimType == claimType);
             foreach (var claim in claims.ToList())
             {
-                _claims.Remove(claim);
+                Claims.Remove(claim);
             }
         }
 
         public void AddRole(Role role)
         {
-            if (!_roles.Any(c => c.RoleName == role.RoleName))
-                _roles.Add(role);
+            if (!Roles.Any(c => c.RoleName == role.RoleName))
+                Roles.Add(role);
         }
 
         public void RemoveRole(Role role)
         {
-            var roleToRemove = _roles.FirstOrDefault(c => c.RoleName == role.RoleName);
+            var roleToRemove = Roles.FirstOrDefault(c => c.RoleName == role.RoleName);
             if (roleToRemove != null)
-                _roles.Remove(roleToRemove);
+                Roles.Remove(roleToRemove);
         }
     }
 }

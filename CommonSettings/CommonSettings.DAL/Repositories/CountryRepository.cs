@@ -12,7 +12,7 @@ using Grace.DependencyInjection.Attributes;
 namespace CommonSettings.DAL
 {
     [ExportByInterfaces()]
-    public class CountryRepository : BaseEntityFrameworkRepository<int, Country, Domain.Entities.Country>, ICountryRepository
+    public class CountryRepository : BaseEntityFrameworkRepository<int, Country>, ICountryRepository
     {
         public CountryRepository(CommonSettingDataContext dataContext) : base(dataContext)
         {
@@ -31,40 +31,10 @@ namespace CommonSettings.DAL
             int totalCount = query.Count();
             var items = query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize)
-                .Take(pageSize).ToList().Select(c => GetDomainEntity(c))
+                .Take(pageSize).ToList()
                 .ToList();
 
-            return new PagedEntity<Domain.Entities.Country>(items, totalCount);
-        }
-
-        public override Domain.Entities.Country GetDomainEntity(Country entity)
-        {
-            if (entity == null)
-                return null;
-
-            return new Domain.Entities.Country
-            {
-                Code = entity.Code,
-                Id = entity.Id,
-                Name = entity.Name,
-                NameEn = entity.NameEn,
-            };
-        }
-
-        public override Country GetEntity(Domain.Entities.Country domainEntity)
-        {
-            if (domainEntity == null)
-                return null;
-
-            var currentCountry = Set.Local.FirstOrDefault(c => c.Id == domainEntity.Id);
-            if (currentCountry == null)
-                currentCountry = new Country();
-
-            currentCountry.Code = domainEntity.Code;
-            currentCountry.Name = domainEntity.Name;
-            currentCountry.NameEn = domainEntity.NameEn;
-
-            return currentCountry;
+            return new PagedEntity<Country>(items, totalCount);
         }
     }
 }
