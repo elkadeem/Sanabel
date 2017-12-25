@@ -7,77 +7,32 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core.Entities
 {
-    public class BaseEntity
+    public class Entity<Key> : IEntity<Key>, IEquatable<Entity<Key>>
     {
-        private Dictionary<string, List<string>> _validationErrors;
+        public virtual Key Id { get; set; }
 
-        public bool IsValid
+        public override bool Equals(object obj)
         {
-            get
+            var entity = obj as Entity<Key>;
+            if(entity != null)
             {
-                return _validationErrors.Count > 0;
-            }
-        }
-
-
-
-        public BaseEntity()
-        {
-            _validationErrors = new Dictionary<string, List<string>>();
-        }
-
-        public void ClearValidation()
-        {
-            _validationErrors = new Dictionary<string, List<string>>();
-        }
-
-        public void AddPropertyError(Expression<Func<BaseEntity>> propertyExpression, string message)
-        {
-            if (propertyExpression == null)
-                throw new ArgumentNullException("propertyExpression");
-
-            string propertyName = (propertyExpression.Body as MemberExpression).Member.Name;
-            AddPropertyError(propertyName, message);
-        }
-
-        public void AddPropertyError(string propertyName, string message)
-        {
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentNullException("propertyName");
-
-            if (string.IsNullOrEmpty(message))
-                throw new ArgumentNullException("message");
-
-            List<string> errorMessages;
-            if (_validationErrors.ContainsKey(propertyName))
-            {
-                errorMessages = _validationErrors[propertyName];
-            }
-            else
-                errorMessages = new List<string>();
-
-            errorMessages.Add(message);
-        }
-
-        public void ClearProperyErrors(Expression<Func<BaseEntity>> propertyExpression)
-        {
-            if (propertyExpression == null)
-                throw new ArgumentNullException("propertyExpression");
-
-            string propertyName = (propertyExpression.Body as MemberExpression).Member.Name;
-            ClearProperyErrors(propertyName);
-        }
-
-        public void ClearProperyErrors(string propertyName)
-        {
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentNullException("propertyName");
-
-            if (_validationErrors.ContainsKey(propertyName))
-            {
-                _validationErrors.Remove(propertyName);
+                return this.Equals(entity);
             }
 
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
+
+        public bool Equals(Entity<Key> other)
+        {
+            if (other == null)
+                return false;
+
+            return this.Id.Equals(other.Id);
         }
     }
 }

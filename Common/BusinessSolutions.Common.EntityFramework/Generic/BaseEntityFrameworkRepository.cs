@@ -7,29 +7,26 @@ using System.Threading;
 using System.Data.Entity;
 using BusinessSolutions.Common.Core;
 using System.Data.Entity.Infrastructure;
+using BusinessSolutions.Common.Core.Entities;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
-    public abstract class BaseEntityFrameworkRepository<Tkey, TEntity, TDomainEntity>
-        : BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity, TDomainEntity>
-        , IRepository<Tkey, TDomainEntity>
-        where TDomainEntity : class where TEntity : class
-    {
-        private Dictionary<TDomainEntity, TEntity> _updatedEntities;
-
+    public abstract class BaseEntityFrameworkRepository<Tkey, TEntity>
+        : BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity>
+        , IRepository<Tkey, TEntity>
+        where TEntity : Entity<Tkey>
+    {        
         public BaseEntityFrameworkRepository(DbContext dbContext) : base(dbContext)
-        {
-            _updatedEntities = new Dictionary<TDomainEntity, TEntity>();
+        {            
+            
         }
 
-        public virtual void Add(TDomainEntity entity)
+        public virtual void Add(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
-
-            TEntity item = GetEntity(entity);
-            Set.Add(item);
-            AddTrackedEntity(entity, item);
+                        
+            Set.Add(entity);            
         }
 
         public virtual void Remove(Tkey id)
@@ -39,9 +36,9 @@ namespace BusinessSolutions.Common.EntityFramework
                 Set.Remove(item);
         }
 
-        public virtual void Update(TDomainEntity entity)
+        public virtual void Update(TEntity entity)
         {
-            var item = GetEntity(entity);
+            var item = Set.Local.FirstOrDefault(c => c == entity);
             var entry = _dbContext.Entry<TEntity>(item);
             if (entry.State == EntityState.Detached)
             {
@@ -50,28 +47,15 @@ namespace BusinessSolutions.Common.EntityFramework
                 entry = _dbContext.Entry(item);
             }
 
-            entry.State = EntityState.Modified;
-            AddTrackedEntity(entity, item);
+            entry.State = EntityState.Modified;            
         }
-
-        private void AddTrackedEntity(TDomainEntity entity, TEntity item)
+        
+        public virtual Tkey GetPrimaryKey(TEntity entity)
         {
-            if (_updatedEntities.ContainsKey(entity))
-                _updatedEntities[entity] = item;
-            else
-                _updatedEntities.Add(entity, item);
-        }
-
-        public virtual Tkey GetPrimaryKey(TDomainEntity entity)
-        {
-            if (entity == null || !_updatedEntities.ContainsKey(entity))
+            if (entity == null)
                 return default(Tkey);
 
-            TEntity item = _updatedEntities[entity];
-            if (item == null)
-                return default(Tkey);
-
-            var dbEntry = _dbContext.ChangeTracker.Entries<TEntity>().FirstOrDefault(c => c.Entity == item);
+            var dbEntry = _dbContext.ChangeTracker.Entries<TEntity>().FirstOrDefault(c => c.Entity == entity);
             var objectStateEntry = ((IObjectContextAdapter)_dbContext).ObjectContext.ObjectStateManager
                 .GetObjectStateEntry(dbEntry.Entity);
 

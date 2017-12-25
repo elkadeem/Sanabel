@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSettingDataContext.cs" />
-    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Configurations\CountryConfiguration.cs" />
     <Compile Include="Entities\Place.cs" />
     <Compile Include="Migrations\201712201922377_Default.cs" />
     <Compile Include="Migrations\201712201922377_Default.Designer.cs">

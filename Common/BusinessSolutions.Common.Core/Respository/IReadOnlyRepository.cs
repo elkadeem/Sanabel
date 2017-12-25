@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core
 {
-    public interface IReadOnlyRepository<TKey, TEntity> where TEntity : class 
+    public interface IReadOnlyRepository<TKey, TEntity> where TEntity : Entity<TKey> 
     {
         List<TEntity> GetAll();
 
