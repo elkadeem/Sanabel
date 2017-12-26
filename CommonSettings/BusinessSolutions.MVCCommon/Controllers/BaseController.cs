@@ -13,7 +13,7 @@ namespace BusinessSolutions.MVCCommon.Controllers
         private List<UIMessage> _viewDataMessages;
         private List<UIMessage> _tempDataMessages;
 
-        protected NLog.ILogger Logger => this.Logger;
+        protected NLog.ILogger Logger => this._logger;
 
         public BaseController(NLog.ILogger logger)
         {

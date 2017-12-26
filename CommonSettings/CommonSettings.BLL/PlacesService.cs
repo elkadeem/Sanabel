@@ -38,10 +38,10 @@ namespace CommonSettings.BLL
                 searchCountryModel = new SearchCountryViewModel() { PageSize = 10 };
 
             ExpressionSpecification<Country> specification = new ExpressionSpecification<Country>(c => (searchCountryModel.CountryName == null
-            || c.Name.Contains(searchCountryModel.CountryName) || c.Name.Contains(searchCountryModel.CountryName)));
+            || c.Name.Contains(searchCountryModel.CountryName) || c.NameEn.Contains(searchCountryModel.CountryName)));
 
             specification.And(new ExpressionSpecification<Country>(c => (searchCountryModel.CountryCode == null
-            || c.Name.Contains(searchCountryModel.CountryName))));
+            || c.Code.Contains(searchCountryModel.CountryCode))));
 
             var result = _unitOfWork.CountryRepository.Find(specification, searchCountryModel.PageIndex, searchCountryModel.PageSize);
             return new PagedEntity<CountryViewModel>(result.Items.Select(c => c.ToCountryModel()).ToList().AsReadOnly(), result.TotalCount);

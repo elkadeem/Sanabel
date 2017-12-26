@@ -19,10 +19,7 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
 
         // GET: Settings/Places
         public ActionResult Index(SearchCountryViewModel searchModel)
-        {
-            if (searchModel == null)
-                searchModel = new SearchCountryViewModel { PageSize = 10 };
-
+        {           
             PagedEntity<CountryViewModel> result = _placesService.GetCountries(searchModel);
             searchModel.Items = new PagedList.StaticPagedList<CountryViewModel>(result.Items
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);

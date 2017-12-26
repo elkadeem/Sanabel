@@ -15,7 +15,7 @@ namespace Sanabel.Presentation.IOC
             var assembly =  System.Reflection.Assembly.Load("CommonSettings.DAL");            
             registrationBlock.ExportAssembly(assembly)
                 .ExportAttributedTypes();
-
+            
             assembly = System.Reflection.Assembly.Load("CommonSettings.BLL");
             registrationBlock.ExportAssembly(assembly)
                 .ExportAttributedTypes();

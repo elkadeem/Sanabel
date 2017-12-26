@@ -39,7 +39,7 @@ namespace CommonSettings.IntegrationTest
                 CountryName = "CountryName",
             };
 
-            PlaceServiceTestCases.Country = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
+            var result = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
         }
 
         public void AddRegion()

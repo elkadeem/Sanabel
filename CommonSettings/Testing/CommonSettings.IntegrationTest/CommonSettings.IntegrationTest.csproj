@@ -78,6 +78,10 @@
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{e0f80c64-47dc-4236-bd94-a480b87552d1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
       <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
       <Name>BusinessSolutions.MVCCommon</Name>

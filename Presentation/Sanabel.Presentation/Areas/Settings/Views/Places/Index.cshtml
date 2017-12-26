@@ -122,6 +122,34 @@
         });
     </script>
 }
+
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dangerModal">
+    Danger modal
+</button>
+
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- Modal -->
 <div class="modal fade" id="deleteConfirmationDialog" tabindex="-1" role="dialog"
      aria-labelledby="deleteConfirmationDialogLabel">
