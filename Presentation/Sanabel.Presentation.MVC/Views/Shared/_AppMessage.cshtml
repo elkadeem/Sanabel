@@ -1,0 +1,23 @@
+﻿@model BusinessSolutions.MVCCommon.UIMessage
+@using BusinessSolutions.MVCCommon;
+
+@if (Model != null && !System.String.IsNullOrEmpty(Model.Message))
+{
+    if (Model.MessageType == MessageType.Error)
+    {
+        <div class="alert alert-danger" role="alert">@Model.Message</div>
+    }
+    else if (Model.MessageType == MessageType.Success)
+    {
+        <div class="alert alert-success" role="alert">@Model.Message</div>
+    }
+    else if (Model.MessageType == MessageType.Warrning)
+    {
+        <div class="alert alert-warning" role="alert">@Model.Message</div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">@Model.Message</div>
+    }
+}
+

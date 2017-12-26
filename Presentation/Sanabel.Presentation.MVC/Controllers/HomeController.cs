@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessSolutions.MVCCommon.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,8 +7,13 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController() : base(NLog.LogManager.CreateNullLogger())
+        {
+
+        }
+
         public ActionResult Index()
         {
             return View();
