@@ -37,11 +37,13 @@ namespace CommonSettings.BLL
             if (searchCountryModel == null)
                 searchCountryModel = new SearchCountryViewModel() { PageSize = 10 };
 
-            ExpressionSpecification<Country> specification = new ExpressionSpecification<Country>(c => (searchCountryModel.CountryName == null
-            || c.Name.Contains(searchCountryModel.CountryName) || c.NameEn.Contains(searchCountryModel.CountryName)));
-
-            specification.And(new ExpressionSpecification<Country>(c => (searchCountryModel.CountryCode == null
-            || c.Code.Contains(searchCountryModel.CountryCode))));
+            ExpressionSpecification<Country> specification
+                = new ExpressionSpecification<Country>(c =>
+                (string.IsNullOrEmpty(searchCountryModel.CountryName)
+                    || c.Name.Contains(searchCountryModel.CountryName)
+                    || c.NameEn.Contains(searchCountryModel.CountryName))
+                    && (string.IsNullOrEmpty(searchCountryModel.CountryCode)
+                        || c.Code.Contains(searchCountryModel.CountryCode)));
 
             var result = _unitOfWork.CountryRepository.Find(specification, searchCountryModel.PageIndex, searchCountryModel.PageSize);
             return new PagedEntity<CountryViewModel>(result.Items.Select(c => c.ToCountryModel()).ToList().AsReadOnly(), result.TotalCount);
@@ -57,26 +59,48 @@ namespace CommonSettings.BLL
             return _unitOfWork.CountryRepository.GetAll().Select(c => c.ToCountryModel()).ToList();
         }
 
-        public EntityResult SaveCountry(CountryViewModel countryModel)
+        public EntityResult AddCountry(CountryViewModel countryModel)
         {
             try
             {
                 if (countryModel == null)
                     throw new ArgumentNullException("countryModel");
 
-                var result = ValidateCountry(countryModel);
+                var country = countryModel.ToCountry();
+                var result = ValidateCountry(country);
                 if (result != null && result.Count > 0)
                     return EntityResult.Failed(result.ToArray());
 
-                var country = countryModel.ToCountry();
-                var currentCity = _unitOfWork.CountryRepository.GetByID(countryModel.CountryId);
-                if (currentCity == null)
-                    _unitOfWork.CountryRepository.Add(country);
-                else
-                    _unitOfWork.CountryRepository.Update(country);
-
+                _unitOfWork.CountryRepository.Add(country);
                 _unitOfWork.Save();
-                countryModel.CountryId = _unitOfWork.CountryRepository.GetPrimaryKey(country);
+                countryModel.CountryId = country.Id;
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, ex.Message);
+                throw ex;
+            }
+        }
+
+        public EntityResult UpdateCountry(CountryViewModel countryModel)
+        {
+            try
+            {
+                if (countryModel == null)
+                    throw new ArgumentNullException("countryModel");
+
+                var currentCountry = _unitOfWork.CountryRepository.GetByID(countryModel.CountryId);
+                if (currentCountry == null)
+                    throw new ArgumentException("countryModel");
+
+                var country = countryModel.ToCountry();
+                var result = ValidateCountry(country);
+                if (result != null && result.Count > 0)
+                    return EntityResult.Failed(result.ToArray());
+
+                _unitOfWork.CountryRepository.Update(country);
+                _unitOfWork.Save();
                 return EntityResult.Success;
             }
             catch (Exception ex)
@@ -101,17 +125,17 @@ namespace CommonSettings.BLL
             }
         }
 
-        private List<ValidationError> ValidateCountry(CountryViewModel country)
+        private List<ValidationError> ValidateCountry(Country country)
         {
             List<ValidationError> errors = new List<ValidationError>();
-            ExpressionSpecification<Country> specification = new ExpressionSpecification<Country>(c => c.Id != country.CountryId
-             && c.Name.ToLower() == country.CountryName.ToLower());
+            ExpressionSpecification<Country> specification = new ExpressionSpecification<Country>(c => c.Id != country.Id
+             && c.Name.ToLower() == country.Code.ToLower());
 
             if (_unitOfWork.CountryRepository.Find(specification).Any())
                 errors.Add(new ValidationError("CountryName", "Country Name Is Exist"));
 
-            specification = new ExpressionSpecification<Country>(c => c.Id != country.CountryId
-             && c.Code.ToLower() == country.CountryCode.ToLower());
+            specification = new ExpressionSpecification<Country>(c => c.Id != country.Id
+             && c.Code.ToLower() == country.Code.ToLower());
             if (_unitOfWork.CountryRepository.Find(specification).Any())
                 errors.Add(new ValidationError("CountryCode", "Country Code Is Exist"));
 

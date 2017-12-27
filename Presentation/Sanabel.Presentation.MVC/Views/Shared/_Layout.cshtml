@@ -7,8 +7,13 @@
     <link rel="shortcut icon" href="img/favicon.png">
     <title>@ViewBag.Title - سنابل</title>
 
-    @Styles.Render("~/Content/appcss")
-    @Scripts.Render("~/bundles/modernizr")
+    <!-- Icons -->
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/simple-line-icons/css/simple-line-icons.css")" rel="stylesheet">
+    <link href="@Url.Content("~/fonts/fonts.css")" rel="stylesheet">
+    <!-- Main styles for this application -->
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+    <!-- Styles required by this views -->
 
 
 
@@ -274,9 +279,20 @@
         <span> حقوق الملكية محفوظة © 2017 </span>
 
     </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/appplugins")
+    <!-- Bootstrap and necessary plugins -->
+    <script src="@Url.Content("~/scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/scripts/popper.min.js")"></script>
+    <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/scripts/pace.min.js")"></script>
+
+    <!-- Plugins and scripts required by all views -->
+    <script src="@Url.Content("~/scripts/Chart.min.js")"></script>
+
+    <!-- GenesisUI main scripts -->
+    <script src="@Url.Content("~/scripts/app.js")"></script>
+
+    <!-- Custom scripts required by this view -->
+    <script src="@Url.Content("~/scripts/views/main.js")"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

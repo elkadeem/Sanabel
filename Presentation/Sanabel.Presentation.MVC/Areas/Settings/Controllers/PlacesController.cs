@@ -3,6 +3,7 @@ using BusinessSolutions.Localization;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
 using CommonSettings.ViewModels;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Web.Mvc;
 
@@ -19,7 +20,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
         // GET: Settings/Places
         public ActionResult Index(SearchCountryViewModel searchModel)
-        {           
+        {
             PagedEntity<CountryViewModel> result = _placesService.GetCountries(searchModel);
             searchModel.Items = new PagedList.StaticPagedList<CountryViewModel>(result.Items
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
@@ -65,7 +66,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                     return View(model);
                 }
 
-                var result = _placesService.SaveCountry(model);
+                var result = _placesService.AddCountry(model);
                 if (result.Succeeded)
                 {
                     AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
@@ -128,7 +129,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                     return RedirectToAction("Index");
                 }
 
-                var result = _placesService.SaveCountry(model);
+                var result = _placesService.UpdateCountry(model);
                 if (result.Succeeded)
                 {
                     AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
@@ -160,22 +161,25 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             {
                 if (id == 0)
                 {
-                    AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                    return Json(new { IsValid = false, Error = CommonResources.NoDataFound });
                 }
                 else
                 {
                     var item = _placesService.GetCountryById(id);
                     if (item == null)
                     {
-                        AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                        return Json(new { IsValid = false, Error = CommonResources.NoDataFound });
+                        //AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                     }
                     else
                     {
                         var result = _placesService.DeleteCountry(id);
                         if (result)
-                            AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
+                            return Json(new { IsValid = true, Error = CommonResources.DeleteSuccessfully });
+                        //AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
                         else
-                            AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
+                            return Json(new { IsValid = false, Error = CommonResources.DeleteError });
+                        //AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
 
                     }
                 }
@@ -183,10 +187,11 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(ex);
-                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
+                return Json(new { IsValid = false, Error = CommonResources.UnExpectedError });
+                //AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
         }
     }
 }

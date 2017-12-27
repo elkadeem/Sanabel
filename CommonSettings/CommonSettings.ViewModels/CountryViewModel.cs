@@ -15,13 +15,13 @@ namespace CommonSettings.ViewModels
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType =typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(50, MinimumLength =3, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [ArabicTextOnly(ErrorMessageResourceName = "ArabicTextOnlyErrorMessage", ErrorMessageResourceType = typeof(CommonSettings.Localization.CommonSettingsResources))]
+        [ArabicTextOnly(ErrorMessageResourceName = "ArabicTextOnlyErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(ResourceType =typeof(CommonSettings.Localization.CommonSettingsResources), Name = "CountryName")]
         public string CountryName { get; set; }
 
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "CountryNameEn")]
         [StringLength(50, MinimumLength = 3, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [ArabicTextOnly(ErrorMessageResourceName = "EnglishTextOnlyErrorMessage", ErrorMessageResourceType =typeof(CommonSettings.Localization.CommonSettingsResources))]
+        [ArabicTextOnly(ErrorMessageResourceName = "EnglishTextOnlyErrorMessage", ErrorMessageResourceType =typeof(BusinessSolutions.Localization.CommonResources))]
         public string CountryNameEn { get; set; }
 
         

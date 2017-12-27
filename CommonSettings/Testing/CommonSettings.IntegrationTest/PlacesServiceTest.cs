@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using CommonSettings.BLL;
 using CommonSettings.ViewModels;
-
+using BusinessSolutions.Common.Core.Specifications;
 
 namespace CommonSettings.IntegrationTest
 {
@@ -36,10 +36,11 @@ namespace CommonSettings.IntegrationTest
         {
             PlaceServiceTestCases.Country = new CountryViewModel
             {
+                CountryCode = "00525",
                 CountryName = "CountryName",
             };
 
-            var result = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
+          var result = _placesServices.AddCountry(PlaceServiceTestCases.Country);
         }
 
         public void AddRegion()
@@ -117,12 +118,31 @@ namespace CommonSettings.IntegrationTest
             PlaceServiceTestCases.Country.CountryNameEn = "UpdateNameEn";
             PlaceServiceTestCases.Country.CountryCode = "000";
 
-            BusinessSolutions.Common.Infra.Validation.EntityResult result = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
+            BusinessSolutions.Common.Infra.Validation.EntityResult result 
+                = _placesServices.UpdateCountry(PlaceServiceTestCases.Country);
             var country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.CountryId);
             country.CountryId.Should().Be(PlaceServiceTestCases.Country.CountryId);
             country.CountryName.Should().Be("UpdateName");
             country.CountryNameEn.Should().Be("UpdateNameEn");
             country.CountryCode.Should().Be("000");
+        }
+
+        [Test]
+        [TestCase("Country1", "0001", 1, 1)]
+        [TestCase("Country", "", 20, 10)]
+        [TestCase("", "000", 9, 9)]
+        [TestCase("Country11", "110011", 0, 0)]
+        public void GetCountrtiesByUsingSpeciifcartions(string countryName, string code
+            , int expectedTotalCount, int expectedItemsCount)
+        {
+            var result = _placesServices.GetCountries(new SearchCountryViewModel
+            {
+                CountryCode = code,
+                CountryName = countryName,
+            });
+
+            result.TotalCount.Should().Be(expectedTotalCount);
+            result.Items.Count().Should().Be(expectedItemsCount);
         }
         #endregion
 

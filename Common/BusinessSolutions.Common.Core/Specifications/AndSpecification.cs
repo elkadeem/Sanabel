@@ -13,7 +13,7 @@ namespace BusinessSolutions.Common.Core.Specifications
         private ISpecification<T> _rightSpecification;
 
         public AndSpecification(ISpecification<T> left, ISpecification<T> right)
-        {            
+        {
             _leftSpecification = left;
             _rightSpecification = right;
         }
@@ -21,7 +21,7 @@ namespace BusinessSolutions.Common.Core.Specifications
         public override bool IsSatisfiedBy(T entity)
         {
             return this._leftSpecification.IsSatisfiedBy(entity)
-                || this._rightSpecification.IsSatisfiedBy(entity);
+                && this._rightSpecification.IsSatisfiedBy(entity);
         }
     }
 }

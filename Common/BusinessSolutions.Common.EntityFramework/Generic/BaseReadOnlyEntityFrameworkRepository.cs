@@ -101,7 +101,8 @@ namespace BusinessSolutions.Common.EntityFramework
             return query.ToList();
         }
 
-        public PagedEntity<TEntity> Find(ExpressionSpecification<TEntity> specification, int pageIndex, int pageSize)
+        public PagedEntity<TEntity> Find(ExpressionSpecification<TEntity> specification
+            , int pageIndex, int pageSize)
         {
             var query = Set.AsQueryable();
             if (specification != null)

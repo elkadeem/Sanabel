@@ -15,7 +15,9 @@ namespace CommonSettings.BLL
 
         CountryViewModel GetCountryById(int countryId);
 
-        EntityResult SaveCountry(CountryViewModel country);
+        EntityResult AddCountry(CountryViewModel country);
+
+        EntityResult UpdateCountry(CountryViewModel country);
 
         bool DeleteCountry(int countryId);
         #endregion

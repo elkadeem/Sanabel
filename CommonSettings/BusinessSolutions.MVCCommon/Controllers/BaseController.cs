@@ -9,34 +9,32 @@ namespace BusinessSolutions.MVCCommon.Controllers
 {
     public class BaseController : Controller
     {
-        private NLog.ILogger _logger;
-        private List<UIMessage> _viewDataMessages;
-        private List<UIMessage> _tempDataMessages;
-
+        private NLog.ILogger _logger;        
         protected NLog.ILogger Logger => this._logger;
 
         public BaseController(NLog.ILogger logger)
         {
-            _logger = logger;
-            _viewDataMessages = new List<UIMessage>();
-            _tempDataMessages = new List<UIMessage>();
+            _logger = logger;            
         }
 
         protected void AddMessageToView(string message, MessageType messageType = MessageType.Information)
-        {
-            _viewDataMessages.Add(new UIMessage(message, messageType));
+        {            
+            List<UIMessage> messages = ViewBag.HeaderMessages as List<UIMessage>;
+            if (messages == null)
+                messages = new List<UIMessage>();
+
+            messages.Add(new UIMessage(message, messageType));
+            ViewBag.HeaderMessages = messages;
         }
 
         protected void AddMessageToTempData(string message, MessageType messageType = MessageType.Information)
         {
-            _tempDataMessages.Add(new UIMessage(message, messageType));
-        }
+            List<UIMessage> messages = TempData["HeaderMessages"] as List<UIMessage>;
+            if (messages == null)
+                messages = new List<UIMessage>();
 
-        protected override void EndExecute(IAsyncResult asyncResult)
-        {
-            ViewBag.HeaderMessages = _viewDataMessages;
-            TempData["HeaderMessages"] = _tempDataMessages;
-            base.EndExecute(asyncResult);
+            messages.Add(new UIMessage(message, messageType));
+            TempData["HeaderMessages"] = messages;
         }
 
         public ActionResult RedirectToLocal(string returnUrl)

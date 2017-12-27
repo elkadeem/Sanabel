@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core.Entities;
+using BusinessSolutions.Common.Core.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,9 @@ namespace BusinessSolutions.Common.Core
 
         Task<TEntity> GetByIDAsync(CancellationToken cancellationToken, TKey key);
 
-        List<TEntity> Find(Specifications.ExpressionSpecification<TEntity> specification);
+        List<TEntity> Find(ExpressionSpecification<TEntity> specification);
 
-        PagedEntity<TEntity> Find(Specifications.ExpressionSpecification<TEntity> specification, int pageIndex, int pageSize);
+        PagedEntity<TEntity> Find(ExpressionSpecification<TEntity> specification, int pageIndex, int pageSize);
 
     }
 }

@@ -14,6 +14,11 @@ namespace Sanabel.Presentation.MVC.Controllers
 
         }
 
+        public ActionResult FullView()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();

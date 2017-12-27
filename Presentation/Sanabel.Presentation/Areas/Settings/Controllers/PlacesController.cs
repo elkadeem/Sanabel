@@ -65,7 +65,7 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
                     return View(model);
                 }
 
-                var result = _placesService.SaveCountry(model);
+                var result = _placesService.AddCountry(model);
                 if (result.Succeeded)
                 {
                     AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
@@ -128,7 +128,7 @@ namespace Sanabel.Presentation.Areas.Settings.Controllers
                     return RedirectToAction("Index");
                 }
 
-                var result = _placesService.SaveCountry(model);
+                var result = _placesService.UpdateCountry(model);
                 if (result.Succeeded)
                 {
                     AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
