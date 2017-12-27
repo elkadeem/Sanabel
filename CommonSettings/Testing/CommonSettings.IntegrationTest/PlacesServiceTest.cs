@@ -117,8 +117,8 @@ namespace CommonSettings.IntegrationTest
             PlaceServiceTestCases.Country.CountryNameEn = "UpdateNameEn";
             PlaceServiceTestCases.Country.CountryCode = "000";
 
-            var country = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
-            country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.CountryId);
+            BusinessSolutions.Common.Infra.Validation.EntityResult result = _placesServices.SaveCountry(PlaceServiceTestCases.Country);
+            var country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.CountryId);
             country.CountryId.Should().Be(PlaceServiceTestCases.Country.CountryId);
             country.CountryName.Should().Be("UpdateName");
             country.CountryNameEn.Should().Be("UpdateNameEn");

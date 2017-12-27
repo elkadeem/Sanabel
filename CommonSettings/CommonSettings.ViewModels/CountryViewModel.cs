@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommonSettings.ViewModels
 {
-    public class CountryViewModel : BaseModel
+    public class CountryViewModel 
     {
         public int CountryId { get; set; }
 

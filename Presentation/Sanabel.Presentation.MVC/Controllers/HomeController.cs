@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        public HomeController() : base(NLog.LogManager.CreateNullLogger())
+        public HomeController()
         {
 
         }
