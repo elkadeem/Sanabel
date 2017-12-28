@@ -9,16 +9,16 @@ namespace BusinessSolutions.MVCCommon.Controllers
 {
     public class BaseController : Controller
     {
-        private NLog.ILogger _logger;        
+        private NLog.ILogger _logger;
         protected NLog.ILogger Logger => this._logger;
 
         public BaseController(NLog.ILogger logger)
         {
-            _logger = logger;            
+            _logger = logger;
         }
 
         protected void AddMessageToView(string message, MessageType messageType = MessageType.Information)
-        {            
+        {
             List<UIMessage> messages = ViewBag.HeaderMessages as List<UIMessage>;
             if (messages == null)
                 messages = new List<UIMessage>();
@@ -43,6 +43,24 @@ namespace BusinessSolutions.MVCCommon.Controllers
                 return Redirect(returnUrl);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding)
+        {
+            return new CamelCaseJsonResult(data, JsonRequestBehavior.AllowGet)
+            {
+                ContentType = contentType,
+                ContentEncoding = contentEncoding
+            };
+        }
+
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new CamelCaseJsonResult(data, behavior)
+            {
+                ContentType = contentType,
+                ContentEncoding = contentEncoding
+            };
         }
 
         protected override void OnException(ExceptionContext filterContext)

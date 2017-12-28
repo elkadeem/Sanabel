@@ -22,8 +22,17 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         public ActionResult Index(SearchCountryViewModel searchModel)
         {
             PagedEntity<CountryViewModel> result = _placesService.GetCountries(searchModel);
-            searchModel.Items = new PagedList.StaticPagedList<CountryViewModel>(result.Items
+            var pagedList = new PagedList.StaticPagedList<CountryViewModel>(result.Items
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
+
+            if (pagedList.Count == 0)
+            {
+                searchModel.PageIndex = pagedList.HasPreviousPage ?
+                        pagedList.PageNumber - 2 : 0;
+                return RedirectToAction("Index", searchModel);
+            }
+
+            searchModel.Items = pagedList;
             return View(searchModel);
         }
 
@@ -153,9 +162,47 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             }
         }
 
-        // POST: Settings/Places/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, string returnUrl)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                }
+                else
+                {
+                    var item = _placesService.GetCountryById(id);
+                    if (item == null)
+                    {
+                        AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                    }
+                    else
+                    {
+                        var result = _placesService.DeleteCountry(id);
+                        if (result)
+                            AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
+                        else
+                            AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex);
+                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
+            }
+
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction("Index");
+            else
+                return RedirectToLocal(returnUrl);
+        }
+
+        // POST: Settings/Places/Delete/5
+        [HttpPost]        
+        public ActionResult DeleteAsync(int id)
         {
             try
             {
@@ -175,7 +222,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                     {
                         var result = _placesService.DeleteCountry(id);
                         if (result)
-                            return Json(new { IsValid = true, Error = CommonResources.DeleteSuccessfully });
+                            return Json(new { IsValid = true, Error = "" });
                         //AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
                         else
                             return Json(new { IsValid = false, Error = CommonResources.DeleteError });
