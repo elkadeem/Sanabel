@@ -11,6 +11,6 @@ namespace BusinessSolutions.Common.Infra.Validation
         EmptyString,
         ZeroValue,
         NegativeValue,
-        UniqueViolation,
+        DuplicatedValue,
     }
 }

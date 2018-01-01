@@ -87,8 +87,7 @@ namespace CommonSettings.IntegrationTest
         {
             SearchCountryViewModel searchViewModel = new SearchCountryViewModel
             {
-                PageIndex = pageIndex,
-                PageSize = 10
+                PageIndex = pageIndex,                
             };
 
             var countriesPage = _placesServices.GetCountries(searchViewModel);

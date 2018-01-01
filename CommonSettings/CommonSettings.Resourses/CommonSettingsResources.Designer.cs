@@ -70,6 +70,15 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to كود الدولة أو أسم الدولة مكرر.
+        /// </summary>
+        public static string CountryDuplicatedMessage {
+            get {
+                return ResourceManager.GetString("CountryDuplicatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أسم الدولة.
         /// </summary>
         public static string CountryName {

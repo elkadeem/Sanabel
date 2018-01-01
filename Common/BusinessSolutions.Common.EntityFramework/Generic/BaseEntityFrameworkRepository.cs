@@ -15,18 +15,18 @@ namespace BusinessSolutions.Common.EntityFramework
         : BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity>
         , IRepository<Tkey, TEntity>
         where TEntity : Entity<Tkey>
-    {        
+    {
         public BaseEntityFrameworkRepository(DbContext dbContext) : base(dbContext)
-        {            
-            
+        {
+
         }
 
         public virtual void Add(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
-                        
-            Set.Add(entity);            
+
+            Set.Add(entity);
         }
 
         public virtual void Remove(Tkey id)
@@ -38,18 +38,23 @@ namespace BusinessSolutions.Common.EntityFramework
 
         public virtual void Update(TEntity entity)
         {
-            var item = Set.Local.FirstOrDefault(c => c == entity);
-            var entry = _dbContext.Entry<TEntity>(item);
+            var item = Set.Local.FirstOrDefault(c => entity.Equals(c));
+            if (item != null)
+            {
+                _dbContext.Entry(item).State = EntityState.Detached;
+            }
+
+            var entry = _dbContext.Entry<TEntity>(entity);
             if (entry.State == EntityState.Detached)
             {
 
-                Set.Attach(item);
-                entry = _dbContext.Entry(item);
+                Set.Attach(entity);
+                entry = _dbContext.Entry(entity);
             }
 
-            entry.State = EntityState.Modified;            
+            entry.State = EntityState.Modified;
         }
-        
+
         public virtual Tkey GetPrimaryKey(TEntity entity)
         {
             if (entity == null)

@@ -35,7 +35,7 @@ namespace CommonSettings.BLL
         public PagedEntity<CountryViewModel> GetCountries(SearchCountryViewModel searchCountryModel)
         {
             if (searchCountryModel == null)
-                searchCountryModel = new SearchCountryViewModel() { PageSize = 10 };
+                searchCountryModel = new SearchCountryViewModel();
 
             ExpressionSpecification<Country> specification
                 = new ExpressionSpecification<Country>(c =>
@@ -67,6 +67,7 @@ namespace CommonSettings.BLL
                     throw new ArgumentNullException("countryModel");
 
                 var country = countryModel.ToCountry();
+
                 var result = ValidateCountry(country);
                 if (result != null && result.Count > 0)
                     return EntityResult.Failed(result.ToArray());
@@ -128,16 +129,18 @@ namespace CommonSettings.BLL
         private List<ValidationError> ValidateCountry(Country country)
         {
             List<ValidationError> errors = new List<ValidationError>();
-            ExpressionSpecification<Country> specification = new ExpressionSpecification<Country>(c => c.Id != country.Id
-             && c.Name.ToLower() == country.Code.ToLower());
+            var isNameIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Name));
+            if (!isNameIsNotEmpty.IsSatisfiedBy(country))
+                throw new ArgumentNullException("Name");
 
-            if (_unitOfWork.CountryRepository.Find(specification).Any())
-                errors.Add(new ValidationError("CountryName", "Country Name Is Exist"));
+            var isCodeIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code));
+            if (!isCodeIsNotEmpty.IsSatisfiedBy(country))
+                throw new ArgumentNullException("Name");
 
-            specification = new ExpressionSpecification<Country>(c => c.Id != country.Id
-             && c.Code.ToLower() == country.Code.ToLower());
-            if (_unitOfWork.CountryRepository.Find(specification).Any())
-                errors.Add(new ValidationError("CountryCode", "Country Code Is Exist"));
+            var isNameOrCodeExistSpecification = new ExpressionSpecification<Country>(c => c.Id != country.Id
+              && (c.Name.ToLower() == country.Name.ToLower() || c.Code.ToLower() == country.Code.ToLower()));
+            if (_unitOfWork.CountryRepository.Find(isNameOrCodeExistSpecification).Any())
+                errors.Add(new ValidationError("Country Name or Code already exist", ValidationErrorTypes.DuplicatedValue));
 
             return errors;
         }

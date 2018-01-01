@@ -1,7 +1,9 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
+using CommonSettings.Localization;
 using CommonSettings.ViewModels;
 using Microsoft.Ajax.Utilities;
 using System;
@@ -9,11 +11,11 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
-    public class PlacesController : BaseController
+    public class CountriesController : BaseController
     {
         private IPlacesService _placesService;
 
-        public PlacesController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
+        public CountriesController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
         {
             _placesService = placesService;
         }
@@ -25,7 +27,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             var pagedList = new PagedList.StaticPagedList<CountryViewModel>(result.Items
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
 
-            if (pagedList.Count == 0)
+            if (pagedList.Count == 0 && pagedList.TotalItemCount > 0)
             {
                 searchModel.PageIndex = pagedList.HasPreviousPage ?
                         pagedList.PageNumber - 2 : 0;
@@ -83,19 +85,24 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 }
                 else
                 {
-                    foreach (var error in result.ValidationErrors)
-                    {
-                        ModelState.AddModelError(error.Property, error.Message);
-                    }
-
+                    AddValidationErrors(result);
                     return View(model);
                 }
             }
             catch (Exception ex)
             {
                 this.Logger.Error(ex);
-                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
+                AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
                 return View(model);
+            }
+        }
+
+        private void AddValidationErrors(EntityResult result)
+        {
+            foreach (var error in result.ValidationErrors)
+            {
+                if (error.ValidationErrorType == ValidationErrorTypes.DuplicatedValue)
+                    ModelState.AddModelError("", CommonSettingsResources.CountryDuplicatedMessage);
             }
         }
 
@@ -146,18 +153,14 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 }
                 else
                 {
-                    foreach (var error in result.ValidationErrors)
-                    {
-                        ModelState.AddModelError(error.Property, error.Message);
-                    }
-
+                    AddValidationErrors(result);
                     return View(model);
                 }
             }
             catch (Exception ex)
             {
                 this.Logger.Error(ex);
-                AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
+                AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
                 return View(model);
             }
         }
@@ -194,6 +197,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
+
             if (string.IsNullOrEmpty(returnUrl))
                 return RedirectToAction("Index");
             else
@@ -201,7 +205,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // POST: Settings/Places/Delete/5
-        [HttpPost]        
+        [HttpPost]
         public ActionResult DeleteAsync(int id)
         {
             try

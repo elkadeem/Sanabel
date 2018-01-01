@@ -21,7 +21,7 @@ namespace CommonSettings.ViewModels
 
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "CountryNameEn")]
         [StringLength(50, MinimumLength = 3, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [ArabicTextOnly(ErrorMessageResourceName = "EnglishTextOnlyErrorMessage", ErrorMessageResourceType =typeof(BusinessSolutions.Localization.CommonResources))]
+        [EnglishTextOnly(ErrorMessageResourceName = "EnglishTextOnlyErrorMessage", ErrorMessageResourceType =typeof(BusinessSolutions.Localization.CommonResources))]
         public string CountryNameEn { get; set; }
 
         

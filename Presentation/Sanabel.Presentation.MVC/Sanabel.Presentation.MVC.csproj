@@ -212,7 +212,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
-    <Compile Include="Areas\Settings\Controllers\PlacesController.cs" />
+    <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
     <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
     <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -507,10 +507,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Cases\Views\web.config" />
-    <Content Include="Areas\Settings\Views\Places\Create.cshtml" />
-    <Content Include="Areas\Settings\Views\Places\Details.cshtml" />
-    <Content Include="Areas\Settings\Views\Places\Edit.cshtml" />
-    <Content Include="Areas\Settings\Views\Places\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\Countries\Create.cshtml" />
+    <Content Include="Areas\Settings\Views\Countries\Details.cshtml" />
+    <Content Include="Areas\Settings\Views\Countries\Edit.cshtml" />
+    <Content Include="Areas\Settings\Views\Countries\Index.cshtml" />
     <Content Include="Areas\Settings\Views\web.config" />
     <Content Include="Areas\Settings\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Volunteers\Views\web.config" />
@@ -914,6 +914,10 @@
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.BLL\CommonSettings.BLL.csproj">
       <Project>{410AE9ED-DC2B-4BFF-BA93-7DD5B25B5758}</Project>
       <Name>CommonSettings.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Resourses\CommonSettings.Localization.csproj">
+      <Project>{2F6B193A-C8BF-4FC1-A474-396C7077D0DA}</Project>
+      <Name>CommonSettings.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.ViewModels\CommonSettings.ViewModels.csproj">
       <Project>{0DD74256-D4E8-477D-93D1-A30E5E0FD3C3}</Project>

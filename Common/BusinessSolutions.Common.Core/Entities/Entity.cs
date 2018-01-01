@@ -34,5 +34,7 @@ namespace BusinessSolutions.Common.Core.Entities
 
             return this.Id.Equals(other.Id);
         }
+
+
     }
 }

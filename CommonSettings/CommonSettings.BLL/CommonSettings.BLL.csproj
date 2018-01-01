@@ -54,6 +54,7 @@
     <Compile Include="Mappers\Extensions.cs" />
     <Compile Include="PlacesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specifications\Places\IsUniqueCountrySpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">

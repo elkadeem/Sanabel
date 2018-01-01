@@ -24,7 +24,7 @@
                 @Html.Partial("_ViewDataHeaderMessages")
                 <div id="divMessages"></div>
                 <!-- form ############################################################### -->
-                @using (Html.BeginForm("Index", "Places", FormMethod.Get, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Index", "Countries", FormMethod.Get, new { @class = "form-horizontal" }))
                 {
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryCode)</label>
@@ -120,53 +120,12 @@
 
             $('.btnDelete').click(function (e) {
                 e.preventDefault();
-                var element = $(this);
-                $('#btnDeleteConfigrmation').one('click', function () {
-                    deleteCountry(element[0]);
-                });
-
+                var id = $(this).data('id');
+                $('#deleteForm').attr('action', "@Url.Action("Delete", "Countries")/" + id
+                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, "")));
                 $('#confirmDeleteModal').modal('show');
             });
-
         });
-
-        function deleteCountry(element)
-        {
-            var id = $(element).data('id');
-
-            $.post("@Url.Action("Delete", "Places")" + "/" + id)
-                .done(function (result) {
-
-                    var divMessage = $('<div/>', {
-                        "class": "alert",
-                        "role": "alert"
-                    });
-
-                    if (result.isValid) {
-                        var tbody = $(element).parentsUntil('tbody').parent();
-                        $(element).parentsUntil('tr').parent().remove();
-                        divMessage.addClass('alert-success')
-                            .text("@CommonResources.DeleteSuccessfully");
-
-                        if (tbody.children().length == 0)
-                            window.location = window.location;
-                    }
-                    else {
-                        divMessage.addClass('alert-danger')
-                            .text(result.error);
-                    }
-
-                    $('#divMessages').html(divMessage);
-                }).fail(function () {
-                    $('#divMessages').html($('<div/>', {
-                        "class": "alert alert-danger",
-                        "role": "alert",
-                        text: "@CommonResources.UnExpectedError",
-                    }));
-                }).always(function () {
-                    $('#confirmDeleteModal').modal('hide');
-                });
-        }
     </script>
 }
 
@@ -185,7 +144,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">@CommonResources.Cancel</button>
-                <button type="button" id="btnDeleteConfigrmation" class="btn btn-danger">@CommonResources.Delete</button>
+                <form id="deleteForm" method="post">
+                    <button type="submit" class="btn btn-danger">@CommonResources.Delete</button>
+                </form>
             </div>
         </div>
         <!-- /.modal-content -->

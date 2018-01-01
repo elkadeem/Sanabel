@@ -120,6 +120,9 @@
   <data name="CountryCode" xml:space="preserve">
     <value>كود الدولة</value>
   </data>
+  <data name="CountryDuplicatedMessage" xml:space="preserve">
+    <value>كود الدولة أو أسم الدولة مكرر</value>
+  </data>
   <data name="CountryName" xml:space="preserve">
     <value>أسم الدولة</value>
   </data>

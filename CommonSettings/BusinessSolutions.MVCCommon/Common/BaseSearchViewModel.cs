@@ -9,9 +9,7 @@ namespace BusinessSolutions.MVCCommon.Common
 {
     public class BaseSearchViewModel<T> where T : class
     {
-        private int _pageSize;
-        private int _pageIndex;
-
+        private int _pageSize;        
         public BaseSearchViewModel() : this(10)
         {
 
