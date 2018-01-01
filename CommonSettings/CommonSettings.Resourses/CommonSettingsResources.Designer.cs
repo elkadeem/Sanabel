@@ -61,6 +61,51 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to المدينة.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كود المدينة.
+        /// </summary>
+        public static string CityCode {
+            get {
+                return ResourceManager.GetString("CityCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المدينة.
+        /// </summary>
+        public static string CityName {
+            get {
+                return ResourceManager.GetString("CityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المدينة انجليزي.
+        /// </summary>
+        public static string CityNameEn {
+            get {
+                return ResourceManager.GetString("CityNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الدولة.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to كود الدولة.
         /// </summary>
         public static string CountryCode {
@@ -93,6 +138,78 @@ namespace CommonSettings.Localization {
         public static string CountryNameEn {
             get {
                 return ResourceManager.GetString("CountryNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الحي.
+        /// </summary>
+        public static string District {
+            get {
+                return ResourceManager.GetString("District", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كود الحي.
+        /// </summary>
+        public static string DistrictCode {
+            get {
+                return ResourceManager.GetString("DistrictCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الحي.
+        /// </summary>
+        public static string DistrictName {
+            get {
+                return ResourceManager.GetString("DistrictName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الحي انجليزي.
+        /// </summary>
+        public static string DistrictNameEn {
+            get {
+                return ResourceManager.GetString("DistrictNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المنطقة.
+        /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كود المنطقة.
+        /// </summary>
+        public static string RegionCode {
+            get {
+                return ResourceManager.GetString("RegionCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المنطقة.
+        /// </summary>
+        public static string RegionName {
+            get {
+                return ResourceManager.GetString("RegionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المنطقة الانجليزي.
+        /// </summary>
+        public static string RegionNameEn {
+            get {
+                return ResourceManager.GetString("RegionNameEn", resourceCulture);
             }
         }
     }

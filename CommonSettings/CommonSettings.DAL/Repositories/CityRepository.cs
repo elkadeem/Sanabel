@@ -14,6 +14,7 @@ namespace CommonSettings.DAL
     {
         public CityRepository(CommonSettingDataContext dataContext) : base(dataContext)
         {
+            
         }
 
         public PagedEntity<City> GetCities(int countryId, int regionId, string cityName
