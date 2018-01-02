@@ -196,6 +196,15 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أسم المنطقة مكرر .
+        /// </summary>
+        public static string RegionDublicated {
+            get {
+                return ResourceManager.GetString("RegionDublicated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اسم المنطقة.
         /// </summary>
         public static string RegionName {
@@ -210,6 +219,15 @@ namespace CommonSettings.Localization {
         public static string RegionNameEn {
             get {
                 return ResourceManager.GetString("RegionNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المناطق.
+        /// </summary>
+        public static string Regions {
+            get {
+                return ResourceManager.GetString("Regions", resourceCulture);
             }
         }
     }

@@ -33,7 +33,7 @@ namespace CommonSettings.ViewModels
         
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "Country")]
-        public string CountryId { get; set; }
+        public int CountryId { get; set; }
 
     }
 }

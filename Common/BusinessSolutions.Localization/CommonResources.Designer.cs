@@ -223,6 +223,24 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to منطقة.
+        /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المناطق.
+        /// </summary>
+        public static string Regions {
+            get {
+                return ResourceManager.GetString("Regions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحقل {0} مطلوب..
         /// </summary>
         public static string RequiredFieldErrorMessage {

@@ -15,8 +15,15 @@ namespace BusinessSolutions.Common.Core
         public PagedEntity(IReadOnlyList<TEnttiy> items, int totalCount)
         {
             Items = items;
-            TotalCount = totalCount; 
+            TotalCount = totalCount;
         }
-        
+
+        public PagedEntity(IEnumerable<TEnttiy> items, int totalCount)
+        {
+
+            Items = items == null ? null : items.ToList().AsReadOnly();
+            TotalCount = totalCount;
+        }
+
     }
 }

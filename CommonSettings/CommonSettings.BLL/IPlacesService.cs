@@ -23,13 +23,15 @@ namespace CommonSettings.BLL
         #endregion
 
         #region Region
-        PagedEntity<Region> GetRegions(int countryId, string regionName, string code, int pageIndex, int pageSize);
+        PagedEntity<RegionViewModel> GetRegions(SearchRegionViewModel model);
 
-        List<Region> GetRegionsByCountryId(int CountryId);
+        List<RegionViewModel> GetRegionsByCountryId(int CountryId);
 
-        Region GetRegionById(int regionId);
+        RegionViewModel GetRegionById(int regionId);
 
-        Region SaveRegion(Region region);
+        EntityResult AddRegion(RegionViewModel regionModel);
+
+        EntityResult UpdateRegion(RegionViewModel regionModel);
 
         bool DeleteRegion(int regionId);
         #endregion

@@ -1,4 +1,4 @@
-namespace CommonSettings.DAL.Migrations
+﻿namespace CommonSettings.DAL.Migrations
 {
     using CommonSettings.Domain.Entities;
     using System;
@@ -15,15 +15,31 @@ namespace CommonSettings.DAL.Migrations
 
         protected override void Seed(CommonSettings.DAL.CommonSettingDataContext context)
         {
-            for (int i = 1; i < 20; i++)
+            context.Database.ExecuteSqlCommand("DELETE FROM Common.Regions");
+            context.Database.ExecuteSqlCommand("DELETE FROM Common.Countries");
+
+            for (int i = 1; i <= 20; i++)
             {
-                context.Countries.AddOrUpdate(new Country
+                context.Countries.AddOrUpdate(c => c.Name,  new Country
                 {
-                    Name = "��� " + i,
+                    Name = "الدولة " + i,
                     NameEn = "Country" + i,
                     Code = i.ToString("0000"),
                 });
             }
+
+            context.SaveChanges();
+            var country = context.Countries.First();
+            for (int i = 1; i <= 20; i++)
+            {
+                context.Regions.AddOrUpdate(c => c.Name, new Region
+                {
+                    Name = "المنطقة" + i,
+                    CountryId = country.Id
+                });
+            }
+
+            context.SaveChanges();
         }
     }
 }

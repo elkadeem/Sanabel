@@ -171,6 +171,12 @@
   <data name="PageFromToMessage" xml:space="preserve">
     <value>صفحة {0} من {1}</value>
   </data>
+  <data name="Region" xml:space="preserve">
+    <value>منطقة</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>المناطق</value>
+  </data>
   <data name="RequiredFieldErrorMessage" xml:space="preserve">
     <value>الحقل {0} مطلوب.</value>
   </data>

@@ -35,5 +35,33 @@ namespace CommonSettings.BLL.Mappers
                 CountryNameEn = country.NameEn,
             };
         }
+
+        public static Region ToRegion(this RegionViewModel regionViewModel)
+        {
+            if (regionViewModel == null)
+                return null;
+            return new Region
+            {
+                Code = regionViewModel.RegionCode,
+                CountryId = regionViewModel.CountryId,
+                Id = regionViewModel.RegionId,
+                Name = regionViewModel.RegionName,
+                NameEn = regionViewModel.RegionNameEn
+            };
+        }
+
+        public static RegionViewModel ToRegionViewModel(this Region region)
+        {
+            if (region == null)
+                return null;
+            return new RegionViewModel
+            {
+                RegionId = region.Id,
+                CountryId = region.CountryId,
+                RegionCode = region.Code,
+                RegionName = region.Name,
+                RegionNameEn = region.NameEn,
+            };
+        }
     }
 }

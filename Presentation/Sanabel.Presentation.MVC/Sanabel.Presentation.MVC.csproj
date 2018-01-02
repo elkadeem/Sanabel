@@ -213,6 +213,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
     <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
+    <Compile Include="Areas\Settings\Controllers\RegionsController.cs" />
     <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
     <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -729,6 +730,10 @@
     <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
     <Content Include="Content\simple-line-icons\less\simple-line-icons.less" />
     <Content Include="Content\simple-line-icons\scss\simple-line-icons.scss" />
+    <Content Include="Areas\Settings\Views\Regions\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\Regions\Details.cshtml" />
+    <Content Include="Areas\Settings\Views\Regions\Create.cshtml" />
+    <Content Include="Areas\Settings\Views\Regions\Edit.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

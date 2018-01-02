@@ -10,7 +10,17 @@ namespace CommonSettings.ViewModels
 {
     public class SearchRegionViewModel : BaseSearchViewModel<RegionViewModel>
     {
-        [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "ReginName")]
+        public SearchRegionViewModel(): base()
+        {
+
+        }
+
+        public SearchRegionViewModel(int pageSize) : base(pageSize)
+        {
+
+        }
+
+        [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "RegionName")]
         public string RegionName { get; set; }
 
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "RegionCode")]

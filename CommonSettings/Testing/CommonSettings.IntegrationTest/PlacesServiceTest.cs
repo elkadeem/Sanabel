@@ -26,8 +26,9 @@ namespace CommonSettings.IntegrationTest
             _placesServices = new CommonSettings.BLL.PlacesService(unitOfWork, log);
 
             AddCountry();
+            AddRegion();
             //AddCity();
-            //AddRegion();
+
             //AddDistrict();
 
         }
@@ -40,23 +41,35 @@ namespace CommonSettings.IntegrationTest
                 CountryName = "CountryName",
             };
 
-          var result = _placesServices.AddCountry(PlaceServiceTestCases.Country);
+            var result = _placesServices.AddCountry(PlaceServiceTestCases.Country);
         }
 
         public void AddRegion()
         {
-            PlaceServiceTestCases.Region = new Region
+            PlaceServiceTestCases.Region = new RegionViewModel
             {
-                Name = "Region2",
+                RegionName = "Region2",
                 CountryId = PlaceServiceTestCases.Country.CountryId,
             };
 
-            PlaceServiceTestCases.Region = _placesServices.SaveRegion(PlaceServiceTestCases.Region);
+            _placesServices.AddRegion(PlaceServiceTestCases.Region);
+
+            for (int i = 1; i <= 5; i++)
+            {
+                var region = new RegionViewModel
+                {
+                    RegionName = "RegionForIndex" + i,
+                    RegionCode = "Code" + i,
+                    CountryId = PlaceServiceTestCases.Country.CountryId,
+                };
+
+                var addResult = _placesServices.AddRegion(region);
+            }
         }
 
         public void AddCity()
         {
-            PlaceServiceTestCases.City = new City { RegionId = PlaceServiceTestCases.Region.Id, Name = "CityName" };
+            PlaceServiceTestCases.City = new City { RegionId = PlaceServiceTestCases.Region.RegionId, Name = "CityName" };
             PlaceServiceTestCases.City = _placesServices.SaveCity(PlaceServiceTestCases.City);
         }
 
@@ -83,11 +96,11 @@ namespace CommonSettings.IntegrationTest
         [Test]
         [Pairwise]
         public void GetCountries_WithValidAndInvalidIndex_GetItemsOrEmptyItems
-            ([Values("", "Country")]string countryName, [Values(0, 1)]int pageIndex)
+            ([Values("", "Country")]string countryName, [Values(0, 20)]int pageIndex)
         {
             SearchCountryViewModel searchViewModel = new SearchCountryViewModel
             {
-                PageIndex = pageIndex,                
+                PageIndex = pageIndex,
             };
 
             var countriesPage = _placesServices.GetCountries(searchViewModel);
@@ -117,7 +130,7 @@ namespace CommonSettings.IntegrationTest
             PlaceServiceTestCases.Country.CountryNameEn = "UpdateNameEn";
             PlaceServiceTestCases.Country.CountryCode = "000";
 
-            BusinessSolutions.Common.Infra.Validation.EntityResult result 
+            BusinessSolutions.Common.Infra.Validation.EntityResult result
                 = _placesServices.UpdateCountry(PlaceServiceTestCases.Country);
             var country = _placesServices.GetCountryById(PlaceServiceTestCases.Country.CountryId);
             country.CountryId.Should().Be(PlaceServiceTestCases.Country.CountryId);
@@ -128,7 +141,7 @@ namespace CommonSettings.IntegrationTest
 
         [Test]
         [TestCase("Country1", "0001", 1, 1)]
-        [TestCase("Country", "", 20, 10)]
+        [TestCase("Country", "", 21, 10)]
         [TestCase("", "000", 9, 9)]
         [TestCase("Country11", "110011", 0, 0)]
         public void GetCountrtiesByUsingSpeciifcartions(string countryName, string code
@@ -145,5 +158,78 @@ namespace CommonSettings.IntegrationTest
         }
         #endregion
 
+        [Test]
+        public void AddRegion_WithValidCountryAndName_ReturnSuccess()
+        {
+            var country = new CountryViewModel
+            {
+                CountryCode = "1111",
+                CountryName = "CountryThatHaveRegion",
+            };
+
+            _placesServices.AddCountry(country);
+            var region = new RegionViewModel
+            {
+                CountryId = country.CountryId,
+                RegionName = "RegionToAdd"
+            };
+
+            var result = _placesServices.AddRegion(region);
+            result.Succeeded.Should().Be(true);
+        }
+
+        [Test]
+        [TestCase("RegionForIndex1", "", 1, 1)]
+        [TestCase("", "Code1", 1, 1)]
+        [TestCase("RegionForIndex", "", 3, 5)]
+        [TestCase("NotFound", "", 0, 0)]
+        [TestCase("", "NotFound", 0, 0)]
+        public void GetRegions_WithValidParamters_ReturunTotalCountAndItemsIfFound(string regionName, string regionCode
+            , int expectedItemsCount, int expectedTotalItemsCount)
+        {
+
+            SearchRegionViewModel searchRegionViewModel = new SearchRegionViewModel(3)
+            {
+                RegionName = regionName,
+                CountryId = PlaceServiceTestCases.Country.CountryId,
+                RegionCode = regionCode,
+                PageIndex = 0,
+            };
+
+            var result = _placesServices.GetRegions(searchRegionViewModel);
+            result.Items.Count.Should().Be(expectedItemsCount);
+            result.TotalCount.Should().Be(expectedTotalItemsCount);
+        }
+
+        [Test]
+        public void UpdateRegion_WithValidData_UpdateRegionData()
+        {
+            var region = new RegionViewModel
+            {
+                RegionId = PlaceServiceTestCases.Region.RegionId,
+                CountryId = PlaceServiceTestCases.Region.CountryId,
+            };
+
+            region.RegionName = "UpdatedRegionName";
+            region.RegionCode = "Updated1";
+            region.RegionNameEn = "UpdatedRegionNameEn";
+
+            var result = _placesServices.UpdateRegion(region);
+
+            var currentRegion = _placesServices.GetRegionById(region.RegionId);
+            result.Succeeded.Should().Be(true);
+            currentRegion.RegionName.Should().Be(region.RegionName);
+            currentRegion.RegionNameEn.Should().Be(region.RegionNameEn);
+            currentRegion.RegionCode.Should().Be(region.RegionCode);
+        }
+
+        [Test]
+        public void DeleteRegion_WithValidId_DeleteRegion()
+        {
+            var regions = _placesServices.GetRegionsByCountryId(PlaceServiceTestCases.Region.CountryId);
+
+            var isDeleted = _placesServices.DeleteRegion(regions.Last().RegionId);
+            isDeleted.Should().Be(true);
+        }
     }
 }

@@ -162,10 +162,16 @@
   <data name="RegionCode" xml:space="preserve">
     <value>كود المنطقة</value>
   </data>
+  <data name="RegionDublicated" xml:space="preserve">
+    <value>أسم المنطقة مكرر </value>
+  </data>
   <data name="RegionName" xml:space="preserve">
     <value>اسم المنطقة</value>
   </data>
   <data name="RegionNameEn" xml:space="preserve">
     <value>اسم المنطقة الانجليزي</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>المناطق</value>
   </data>
 </root>

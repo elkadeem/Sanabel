@@ -12,7 +12,7 @@ namespace CommonSettings.IntegrationTest
     public class PlaceServiceTestCases
     {
         public static CountryViewModel Country;
-        public static Region Region;
+        public static RegionViewModel Region;
         public static City City;
         public static District District;
 
@@ -27,5 +27,7 @@ namespace CommonSettings.IntegrationTest
 
             }
         }
+
+        
     }
 }
