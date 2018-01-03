@@ -23,8 +23,8 @@
                         <div class="col-md-4">
                             @Html.DisplayFor(model => model.RegionCode)
                         </div>
-                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
-                        <div class="col-md-4">&nbsp;</div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Country.CountryName)</label>
+                        <div class="col-md-4">@Html.DisplayFor(model => model.Country.CountryName)</div>
                     </div>
 
                     <div class="form-group row">

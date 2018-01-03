@@ -26,7 +26,6 @@ namespace CommonSettings.ViewModels
 
         
         [StringLength(5, MinimumLength = 2, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "RegionCode")]
         public string RegionCode { get; set; }
 
@@ -34,6 +33,8 @@ namespace CommonSettings.ViewModels
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "Country")]
         public int CountryId { get; set; }
+
+        public CountryViewModel Country  { get; set; }
 
     }
 }

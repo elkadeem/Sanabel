@@ -61,6 +61,7 @@ namespace CommonSettings.BLL.Mappers
                 RegionCode = region.Code,
                 RegionName = region.Name,
                 RegionNameEn = region.NameEn,
+                Country = region.Country == null ? null : region.Country.ToCountryModel()
             };
         }
     }

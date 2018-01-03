@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using BusinessSolutions.Common.Core;
 using System.Linq;
 using Grace.DependencyInjection.Attributes;
+using System.Data.Entity;
+
 
 namespace CommonSettings.DAL
 {
@@ -13,6 +15,11 @@ namespace CommonSettings.DAL
     {
         public RegionRepository(CommonSettingDataContext dataContext) : base(dataContext)
         {
+        }
+
+        public override Region GetByID(int key)
+        {
+            return Set.Include(c => c.Country).FirstOrDefault(c => c.Id == key);
         }
 
         public PagedEntity<Region> GetRegions(int countryId, string regionName, string code, int pageIndex, int pageSize)
