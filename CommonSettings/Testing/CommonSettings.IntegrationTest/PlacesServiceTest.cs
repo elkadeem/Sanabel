@@ -27,7 +27,7 @@ namespace CommonSettings.IntegrationTest
 
             AddCountry();
             AddRegion();
-            //AddCity();
+            AddCity();
 
             //AddDistrict();
 
@@ -69,13 +69,26 @@ namespace CommonSettings.IntegrationTest
 
         public void AddCity()
         {
-            PlaceServiceTestCases.City = new City { RegionId = PlaceServiceTestCases.Region.RegionId, Name = "CityName" };
-            PlaceServiceTestCases.City = _placesServices.SaveCity(PlaceServiceTestCases.City);
+            PlaceServiceTestCases.City = 
+                new CityViewModel { RegionId = PlaceServiceTestCases.Region.RegionId, CityName = "ParentCity" };
+
+            var result = _placesServices.AddCity(PlaceServiceTestCases.City);
+
+            for (int i = 0; i < 5; i++)
+            {
+                _placesServices.AddCity(new CityViewModel
+                {
+                    CityCode = "Code" + i,
+                    CityName = "المدينة" + i,
+                    CityNameEn = "CityName" + i,
+                    RegionId = PlaceServiceTestCases.Region.RegionId,
+                });
+            }
         }
 
         public void AddDistrict()
         {
-            PlaceServiceTestCases.District = new District { CityId = PlaceServiceTestCases.City.Id, Name = "DistrictName" };
+            PlaceServiceTestCases.District = new District { CityId = PlaceServiceTestCases.City.CityId, Name = "DistrictName" };
             PlaceServiceTestCases.District = _placesServices.SaveDistrict(PlaceServiceTestCases.District);
         }
 
@@ -223,7 +236,7 @@ namespace CommonSettings.IntegrationTest
             currentRegion.RegionCode.Should().Be(region.RegionCode);
         }
 
-        [Test]
+        //[Test]
         public void DeleteRegion_WithValidId_DeleteRegion()
         {
             var regions = _placesServices.GetRegionsByCountryId(PlaceServiceTestCases.Region.CountryId);
@@ -231,5 +244,30 @@ namespace CommonSettings.IntegrationTest
             var isDeleted = _placesServices.DeleteRegion(regions.Last().RegionId);
             isDeleted.Should().Be(true);
         }
+
+        #region Cities
+        [Test]
+        [TestCase("المدينة", "", 0, 3, 3, 5)]
+        [TestCase("المدينة", "", 1, 3, 2, 5)]
+        [TestCase("المدينة", "", 2, 3, 0, 5)]
+        [TestCase("المدينة", "Code", 1, 3, 2, 5)]
+        [TestCase("المدينة1", "Code1", 0, 3, 1, 1)]
+        [TestCase("المدينة185", "Code1", 0, 3, 0, 0)]
+        public void GetCities_WithValidParamters_ReturnExpectedResult(string cityName, string cityCode
+            , int pageIndex, int pageSize
+            , int expectedItemsCount, int expectedTotalCounts)
+        {
+            var searchViewModel = new SearchCityViewModel(3)
+            {
+                CityName = cityName,
+                CityCode = cityCode,
+            };
+
+            var searchResult = _placesServices.GetCities(searchViewModel);
+            searchResult.Items.Should().HaveCount(expectedItemsCount);
+            searchResult.TotalCount.Should().Be(expectedTotalCounts);
+
+        }
+        #endregion 
     }
 }

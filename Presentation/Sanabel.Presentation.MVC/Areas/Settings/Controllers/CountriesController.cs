@@ -8,6 +8,7 @@ using CommonSettings.ViewModels;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
@@ -36,6 +37,12 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
             searchModel.Items = pagedList;
             return View(searchModel);
+        }
+
+        public JsonResult GetAllCountries()
+        {
+            var countries = _placesService.GetAllCountries().OrderBy(c => c.CountryName);
+            return Json(countries, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Settings/Places/Details/5

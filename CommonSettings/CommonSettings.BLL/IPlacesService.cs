@@ -37,16 +37,17 @@ namespace CommonSettings.BLL
         #endregion
 
         #region Cities
-        PagedEntity<City> GetCities(int countryId, int regionId, string cityName
-            , string code, int pageIndex, int pageSize);
+        PagedEntity<CityViewModel> GetCities(SearchCityViewModel searchCityModel);
 
-        List<City> GetCitiesByRegionId(int regionId);
+        List<CityViewModel> GetCitiesByRegionId(int regionId);
 
-        List<City> GetCitiesByCountryId(int CountryId);
+        List<CityViewModel> GetCitiesByCountryId(int cityId);
 
-        City GetCityById(int cityId);
+        CityViewModel GetCityById(int cityId);
 
-        City SaveCity(City city);
+        EntityResult AddCity(CityViewModel city);
+
+        EntityResult UpdateCity(CityViewModel city);
 
         bool DeleteCity(int cityId);
         #endregion

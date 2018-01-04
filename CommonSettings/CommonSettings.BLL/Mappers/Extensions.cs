@@ -64,5 +64,35 @@ namespace CommonSettings.BLL.Mappers
                 Country = region.Country == null ? null : region.Country.ToCountryModel()
             };
         }
+
+        public static City ToCity(this CityViewModel cityModel)
+        {
+            if (cityModel == null)
+                return null;
+            return new City
+            {
+                Code = cityModel.CityCode,
+                Id = cityModel.CityId,
+                Name = cityModel.CityName,
+                NameEn = cityModel.CityNameEn,
+                RegionId = cityModel.RegionId,
+            };
+        }
+
+        public static CityViewModel ToCityViewModel(this City city)
+        {
+            if (city == null)
+                return null;
+
+            return new CityViewModel
+            {
+                CityCode = city.Code,
+                CityId = city.Id,
+                CityName = city.Name,
+                CityNameEn = city.NameEn,
+                RegionId = city.RegionId,
+                Region = city.Region.ToRegionViewModel()
+            };
+        }
     }
 }

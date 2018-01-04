@@ -6,6 +6,7 @@ using BusinessSolutions.Common.Core;
 using System.Linq;
 using System.Data.Entity;
 using Grace.DependencyInjection.Attributes;
+using System.Data.Entity;
 
 namespace CommonSettings.DAL
 {
@@ -17,19 +18,24 @@ namespace CommonSettings.DAL
             
         }
 
+        public override City GetByID(int key)
+        {
+            return Set.Include(c => c.Region.Country).FirstOrDefault(c => c.Id == key);
+        }
+
         public PagedEntity<City> GetCities(int countryId, int regionId, string cityName
             , string code
             , int pageIndex, int pageSize)
         {
-            var query = Set.AsQueryable();
+            var query = Set.Include(c => c.Region.Country);
             if (countryId > 0)
                 query = query.Where(c => c.Region.CountryId == countryId);
             if (regionId > 0)
                 query = query.Where(c => c.RegionId == regionId);
-            if (string.IsNullOrEmpty(cityName))
+            if (!string.IsNullOrEmpty(cityName))
                 query = query.Where(c => c.Name.Contains(cityName)
                  || c.NameEn.Contains(cityName));
-            if (string.IsNullOrEmpty(code))
+            if (!string.IsNullOrEmpty(code))
                 query = query.Where(c => c.Code.Contains(code));
 
             int totalCount = query.Count();

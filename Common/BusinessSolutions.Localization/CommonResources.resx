@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>إضافة</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>الكل</value>
+  </data>
   <data name="ArabicTextOnlyErrorMessage" xml:space="preserve">
     <value>الحقل {0} يقبل أحرف عربية فقط.</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>بحث</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>أختر</value>
   </data>
   <data name="StringLengthErrorMessage" xml:space="preserve">
     <value>الحقل {0} يحب أن يكون عدد حروفه ما بين {2} إلي {1} أحرف.</value>

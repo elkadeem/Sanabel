@@ -15,6 +15,7 @@
 
         protected override void Seed(CommonSettings.DAL.CommonSettingDataContext context)
         {
+            context.Database.ExecuteSqlCommand("DELETE FROM Common.Cities");
             context.Database.ExecuteSqlCommand("DELETE FROM Common.Regions");
             context.Database.ExecuteSqlCommand("DELETE FROM Common.Countries");
 
@@ -38,8 +39,20 @@
                     CountryId = country.Id
                 });
             }
+            context.SaveChanges();
+
+            var region = context.Regions.First();
+            for(int i = 0; i < 20; i ++)
+            {
+                context.Cities.AddOrUpdate(c => c.Name, new City
+                {
+                    Name = "المدينة" + i,
+                    RegionId = region.Id
+                });
+            }
 
             context.SaveChanges();
+
         }
     }
 }

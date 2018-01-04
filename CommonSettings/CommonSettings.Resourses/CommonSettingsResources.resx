@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>الكل</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>المدينة</value>
   </data>
   <data name="CityCode" xml:space="preserve">
     <value>كود المدينة</value>
+  </data>
+  <data name="CityDuplicated" xml:space="preserve">
+    <value>اسم المدينة مكرر</value>
   </data>
   <data name="CityName" xml:space="preserve">
     <value>اسم المدينة</value>
@@ -136,13 +142,13 @@
     <value>كود الدولة</value>
   </data>
   <data name="CountryDuplicatedMessage" xml:space="preserve">
-    <value>كود الدولة أو أسم الدولة مكرر</value>
+    <value>كود الدولة أو اسم الدولة مكرر</value>
   </data>
   <data name="CountryName" xml:space="preserve">
-    <value>أسم الدولة</value>
+    <value>اسم الدولة</value>
   </data>
   <data name="CountryNameEn" xml:space="preserve">
-    <value>إسم الدولة بالإنجليزية</value>
+    <value>اسم الدولة بالإنجليزية</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>الحي</value>
@@ -163,7 +169,7 @@
     <value>كود المنطقة</value>
   </data>
   <data name="RegionDublicated" xml:space="preserve">
-    <value>أسم المنطقة مكرر </value>
+    <value>اسم المنطقة مكرر</value>
   </data>
   <data name="RegionName" xml:space="preserve">
     <value>اسم المنطقة</value>
@@ -173,5 +179,8 @@
   </data>
   <data name="Regions" xml:space="preserve">
     <value>المناطق</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>أختر</value>
   </data>
 </root>

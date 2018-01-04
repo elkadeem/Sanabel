@@ -10,6 +10,16 @@ namespace CommonSettings.ViewModels
 {
     public class SearchCityViewModel : BaseSearchViewModel<CityViewModel>
     {
+        public SearchCityViewModel() : base()
+        {
+
+        }
+
+        public SearchCityViewModel(int pageSize) : base(pageSize)
+        {
+
+        }
+
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "CityName")]
         public string CityName { get; set; }
 

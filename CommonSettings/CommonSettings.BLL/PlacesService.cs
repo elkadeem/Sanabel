@@ -129,13 +129,14 @@ namespace CommonSettings.BLL
         private List<ValidationError> ValidateCountry(Country country)
         {
             List<ValidationError> errors = new List<ValidationError>();
-            var isNameIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Name));
+            var isNameIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Name))
+                .And(new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code)));
             if (!isNameIsNotEmpty.IsSatisfiedBy(country))
                 throw new ArgumentNullException("Name");
 
-            var isCodeIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code));
-            if (!isCodeIsNotEmpty.IsSatisfiedBy(country))
-                throw new ArgumentNullException("Code");
+            //var isCodeIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code));
+            //if (!isCodeIsNotEmpty.IsSatisfiedBy(country))
+            //    throw new ArgumentNullException("Code");
 
             var isNameOrCodeExistSpecification = new ExpressionSpecification<Country>(c => c.Id != country.Id
               && (c.Name.ToLower() == country.Name.ToLower() || c.Code.ToLower() == country.Code.ToLower()));
@@ -258,6 +259,87 @@ namespace CommonSettings.BLL
         }
         #endregion
 
+        #region Cities
+        public PagedEntity<CityViewModel> GetCities(SearchCityViewModel searchCityModel)
+        {
+            if (searchCityModel == null)
+                searchCityModel = new SearchCityViewModel();
+
+            var result = _unitOfWork.CityRepository.GetCities(searchCityModel.CountryId
+                , searchCityModel.RegionId, searchCityModel.CityName, searchCityModel.CityCode
+                , searchCityModel.PageIndex, searchCityModel.PageSize);
+
+            return new PagedEntity<CityViewModel>(result.Items.Select(c => c.ToCityViewModel())
+                , result.TotalCount);
+        }
+
+        public List<CityViewModel> GetCitiesByCountryId(int cityId)
+        {
+            return _unitOfWork.CityRepository.GetCitiesByCountryId(cityId)
+                .Select(c => c.ToCityViewModel())
+                .ToList();
+        }
+
+        public CityViewModel GetCityById(int cityId)
+        {
+            return _unitOfWork.CityRepository.GetByID(cityId).ToCityViewModel();
+        }
+
+        public List<CityViewModel> GetCitiesByRegionId(int regionId)
+        {
+            return _unitOfWork.CityRepository.GetCitiesByRegionId(regionId)
+                .Select(c => c.ToCityViewModel())
+                .ToList();
+        }
+
+        public EntityResult AddCity(CityViewModel cityModel)
+        {
+            try
+            {
+                if (cityModel == null)
+                    throw new ArgumentNullException("cityModel");
+
+                var city = cityModel.ToCity();
+                //Validate Region
+                var validationResult = ValidateCity(city);
+                if (validationResult != null && validationResult.Count > 0)
+                    return EntityResult.Failed(validationResult.ToArray());
+
+                _unitOfWork.CityRepository.Add(city);
+                _unitOfWork.Save();
+                cityModel.CityId = city.Id;
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, ex.Message);
+                throw ex;
+            }
+        }
+
+        public EntityResult UpdateCity(CityViewModel cityModel)
+        {
+            try
+            {
+                if (cityModel == null)
+                    throw new ArgumentNullException("cityModel");
+
+                var city = cityModel.ToCity();
+                //Validate Region
+                var validationResult = ValidateCity(city);
+                if (validationResult != null && validationResult.Count > 0)
+                    return EntityResult.Failed(validationResult.ToArray());
+
+                _unitOfWork.CityRepository.Update(city);
+                _unitOfWork.Save();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, ex.Message);
+                throw ex;
+            }
+        }
 
         public bool DeleteCity(int cityId)
         {
@@ -272,6 +354,42 @@ namespace CommonSettings.BLL
                 _logger.Error(ex, ex.Message);
                 throw ex;
             }
+        }
+
+        private List<ValidationError> ValidateCity(City city)
+        {
+
+            var isNameIsNotEmpty = new ExpressionSpecification<City>(c => !string.IsNullOrEmpty(c.Name));
+            if (!isNameIsNotEmpty.IsSatisfiedBy(city))
+                throw new ArgumentNullException("Name");
+
+            var isRegionExist = new ExpressionSpecification<Region>(c => c.Id == city.RegionId);
+            if (_unitOfWork.RegionRepository.Find(isRegionExist).Any() == false)
+                throw new ArgumentException("Region is not exist.", "CountryId");
+
+            List<ValidationError> errors = new List<ValidationError>();
+            var isRegionExistInCountry = new ExpressionSpecification<Region>(c => c.Id != city.Id
+             && c.CountryId == city.RegionId && c.Name.ToLower() == city.Name.ToLower());
+
+            if (_unitOfWork.RegionRepository.Find(isRegionExistInCountry).Any())
+                errors.Add(new ValidationError($"Region { city.Name } already exist in "
+                    , ValidationErrorTypes.DuplicatedValue));
+
+            return errors;
+        }
+        #endregion
+
+        #region Districts
+        public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code
+            , int pageIndex, int pageSize)
+        {
+            return _unitOfWork.DistrictRepository.GetDistricts(regionId, cityId, districtName
+                , code, pageIndex, pageSize);
+        }
+
+        public List<District> GetDistrictsByCityId(int cityId)
+        {
+            return _unitOfWork.DistrictRepository.GetDistrictsByCityId(cityId);
         }
 
         public bool DeleteDistrict(int districtId)
@@ -289,62 +407,9 @@ namespace CommonSettings.BLL
             }
         }
 
-        public PagedEntity<City> GetCities(int countryId, int regionId, string cityName, string code, int pageIndex, int pageSize)
-        {
-            return _unitOfWork.CityRepository.GetCities(countryId, regionId, cityName, code, pageIndex, pageSize);
-        }
-
-        public List<City> GetCitiesByCountryId(int CountryId)
-        {
-            return _unitOfWork.CityRepository.GetCitiesByCountryId(CountryId);
-        }
-
-        public List<City> GetCitiesByRegionId(int regionId)
-        {
-            return _unitOfWork.CityRepository.GetCitiesByRegionId(regionId);
-        }
-
-        public City GetCityById(int cityId)
-        {
-            return _unitOfWork.CityRepository.GetByID(cityId);
-        }
-
         public District GetDistrictById(int districtId)
         {
             return _unitOfWork.DistrictRepository.GetByID(districtId);
-        }
-
-        public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code
-            , int pageIndex, int pageSize)
-        {
-            return _unitOfWork.DistrictRepository.GetDistricts(regionId, cityId, districtName
-                , code, pageIndex, pageSize);
-        }
-
-        public List<District> GetDistrictsByCityId(int cityId)
-        {
-            return _unitOfWork.DistrictRepository.GetDistrictsByCityId(cityId);
-        }
-
-        public City SaveCity(City city)
-        {
-            try
-            {
-                var currentCity = _unitOfWork.CityRepository.GetByID(city.Id);
-                if (currentCity == null)
-                    _unitOfWork.CityRepository.Add(city);
-                else
-                    _unitOfWork.CityRepository.Update(city);
-
-                _unitOfWork.Save();
-                city.Id = _unitOfWork.CityRepository.GetPrimaryKey(city);
-                return city;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, ex.Message);
-                throw ex;
-            }
         }
 
         public District SaveDistrict(District district)
@@ -367,5 +432,6 @@ namespace CommonSettings.BLL
                 throw ex;
             }
         }
+        #endregion
     }
 }

@@ -17,6 +17,9 @@ namespace BusinessSolutions.MVCCommon.Common
 
         public BaseSearchViewModel(int pageSize)
         {
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", "PageSize must be greate than Zero.");
+
             _pageSize = pageSize;
         }
 

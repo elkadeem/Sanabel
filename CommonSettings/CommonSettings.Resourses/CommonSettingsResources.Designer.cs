@@ -61,6 +61,15 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الكل.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to المدينة.
         /// </summary>
         public static string City {
@@ -75,6 +84,15 @@ namespace CommonSettings.Localization {
         public static string CityCode {
             get {
                 return ResourceManager.GetString("CityCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المدينة مكرر.
+        /// </summary>
+        public static string CityDuplicated {
+            get {
+                return ResourceManager.GetString("CityDuplicated", resourceCulture);
             }
         }
         
@@ -115,7 +133,7 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to كود الدولة أو أسم الدولة مكرر.
+        ///   Looks up a localized string similar to كود الدولة أو اسم الدولة مكرر.
         /// </summary>
         public static string CountryDuplicatedMessage {
             get {
@@ -124,7 +142,7 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to أسم الدولة.
+        ///   Looks up a localized string similar to اسم الدولة.
         /// </summary>
         public static string CountryName {
             get {
@@ -133,7 +151,7 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to إسم الدولة بالإنجليزية.
+        ///   Looks up a localized string similar to اسم الدولة بالإنجليزية.
         /// </summary>
         public static string CountryNameEn {
             get {
@@ -196,7 +214,7 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to أسم المنطقة مكرر .
+        ///   Looks up a localized string similar to اسم المنطقة مكرر.
         /// </summary>
         public static string RegionDublicated {
             get {
@@ -228,6 +246,15 @@ namespace CommonSettings.Localization {
         public static string Regions {
             get {
                 return ResourceManager.GetString("Regions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أختر.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
     }

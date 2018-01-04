@@ -212,6 +212,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
+    <Compile Include="Areas\Settings\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
     <Compile Include="Areas\Settings\Controllers\RegionsController.cs" />
     <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
@@ -734,6 +735,10 @@
     <Content Include="Areas\Settings\Views\Regions\Details.cshtml" />
     <Content Include="Areas\Settings\Views\Regions\Create.cshtml" />
     <Content Include="Areas\Settings\Views\Regions\Edit.cshtml" />
+    <Content Include="Areas\Settings\Views\Cities\Create.cshtml" />
+    <Content Include="Areas\Settings\Views\Cities\Details.cshtml" />
+    <Content Include="Areas\Settings\Views\Cities\Edit.cshtml" />
+    <Content Include="Areas\Settings\Views\Cities\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

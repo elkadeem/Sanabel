@@ -70,6 +70,15 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الكل.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحقل {0} يقبل أحرف عربية فقط..
         /// </summary>
         public static string ArabicTextOnlyErrorMessage {
@@ -282,6 +291,15 @@ namespace BusinessSolutions.Localization {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أختر.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

@@ -13,69 +13,58 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
-    public class RegionsController : BaseController
+    public class CitiesController : BaseController
     {
         private IPlacesService _placesService;
-        public RegionsController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
+        public CitiesController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
         {
             _placesService = placesService;
         }
 
-        // GET: Settings/Regions
-        public ActionResult Index(SearchRegionViewModel model)
+        // GET: Settings/Cities
+        public ActionResult Index(SearchCityViewModel searchCityModel)
         {
-            GetCountries();
-            if (model.CountryId == 0)
-                model.CountryId = ViewBag.Countries[0].CountryId;
-
-            var result = _placesService.GetRegions(model);
-            model.Items = new StaticPagedList<RegionViewModel>(result.Items
-                , model.PageIndex + 1, model.PageSize, result.TotalCount);
-            return View(model);
+            var result = _placesService.GetCities(searchCityModel);
+            searchCityModel.Items = new StaticPagedList<CityViewModel>(result.Items
+                , searchCityModel.PageIndex + 1, searchCityModel.PageSize, result.TotalCount);
+            return View(searchCityModel);
         }
 
-        public JsonResult GetRegionsByCountryId(int countryId)
-        {
-            var regions = _placesService.GetRegionsByCountryId(countryId)
-                .OrderBy(c => c.RegionName);
-            return Json(regions, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Settings/Regions/Details/5
+        // GET: Settings/Cities/Details/5
         public ActionResult Details(int id)
         {
-            var region = _placesService.GetRegionById(id);
-            if (region == null)
+            var city = _placesService.GetCityById(id);
+            if (city == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 return RedirectToAction("Index");
             }
 
-            return View(region);
+            return View(city);
         }
 
-        // GET: Settings/Regions/Create
+        // GET: Settings/Cities/Create
         public ActionResult Create()
         {
-            GetCountries();
-            var newRegion = new RegionViewModel();
+            var newRegion = new CityViewModel();
             return View(newRegion);
         }
 
-        // POST: Settings/Regions/Create
+        // POST: Settings/Cities/Create
         [HttpPost]
-        public ActionResult Create(RegionViewModel region)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CityViewModel cityModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var entityResult = _placesService.AddRegion(region);
+                    var entityResult = _placesService.AddCity(cityModel);
 
                     if (entityResult.Succeeded)
                     {
                         AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
-                        return RedirectToAction("Index", new { CountryId = region.CountryId });
+                        return RedirectToAction("Index");
                     }
 
                     AddValidationErrors(entityResult);
@@ -88,54 +77,39 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
             }
 
-            GetCountries();
-            return View(region);
+            return View(cityModel);
         }
 
-        private void GetCountries()
-        {
-            var countries = _placesService.GetAllCountries();
-            ViewBag.Countries = countries;
-        }
-
-        private void AddValidationErrors(EntityResult result)
-        {
-            foreach (var error in result.ValidationErrors)
-            {
-                if (error.ValidationErrorType == ValidationErrorTypes.DuplicatedValue)
-                    ModelState.AddModelError("", CommonSettingsResources.RegionDublicated);
-            }
-        }
-
-        // GET: Settings/Regions/Edit/5
+        // GET: Settings/Cities/Edit/5
         public ActionResult Edit(int id)
         {
-            var region = _placesService.GetRegionById(id);
-            if (region == null)
+            var city = _placesService.GetCityById(id);
+            if (city == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 return RedirectToAction("Index");
             }
 
-            GetCountries();
-            return View(region);
+            city.CountryId = city.Region.CountryId;
+            return View(city);
         }
 
-        // POST: Settings/Regions/Edit/5
+        // POST: Settings/Cities/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, RegionViewModel model)
+        public ActionResult Edit(int id, CityViewModel cityModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    model.RegionId = id;
-                    var entityResult = _placesService.UpdateRegion(model);
+                    cityModel.CityId = id;
+                    var entityResult = _placesService.UpdateCity(cityModel);
                     if (entityResult.Succeeded)
                     {
-                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
-                        return RedirectToAction("Index", new { CountryId = model.CountryId });
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
+                        return RedirectToAction("Index");
                     }
 
                     AddValidationErrors(entityResult);
@@ -147,23 +121,23 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
-            GetCountries();
-            return View(model);
+            return View(cityModel);
         }
 
+        // POST: Settings/Cities/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, string returnUrl)
         {
             try
             {
-                var item = _placesService.GetRegionById(id);
+                var item = _placesService.GetCityById(id);
                 if (item == null)
                 {
                     AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 }
                 else
                 {
-                    var result = _placesService.DeleteRegion(id);
+                    var result = _placesService.DeleteCity(id);
                     if (result)
                         AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
                     else
@@ -180,6 +154,15 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 return RedirectToAction("Index");
             else
                 return RedirectToLocal(returnUrl);
+        }
+
+        private void AddValidationErrors(EntityResult result)
+        {
+            foreach (var error in result.ValidationErrors)
+            {
+                if (error.ValidationErrorType == ValidationErrorTypes.DuplicatedValue)
+                    ModelState.AddModelError("", CommonSettingsResources.CityDuplicated);
+            }
         }
     }
 }

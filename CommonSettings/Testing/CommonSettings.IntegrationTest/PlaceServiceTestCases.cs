@@ -13,7 +13,7 @@ namespace CommonSettings.IntegrationTest
     {
         public static CountryViewModel Country;
         public static RegionViewModel Region;
-        public static City City;
+        public static CityViewModel City;
         public static District District;
 
         public static IEnumerable<TestCaseData> CountryTestCases

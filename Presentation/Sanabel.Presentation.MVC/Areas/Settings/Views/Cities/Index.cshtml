@@ -1,0 +1,244 @@
+﻿@model CommonSettings.ViewModels.SearchCityViewModel
+@using PagedList.Mvc
+@using BusinessSolutions.Localization;
+
+
+@{
+    ViewBag.Title = CommonResources.Regions;
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+
+
+            <div class="card-body card-table">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title font-weight-bold">@CommonResources.Countries</h4><hr />
+                    </div>
+                </div>
+
+
+                @Html.Partial("_TempDataHeaderMessages")
+                @Html.Partial("_ViewDataHeaderMessages")
+                <!-- form ############################################################### -->
+                @using (Html.BeginForm("Index", "Cities", FormMethod.Get, new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(Model => Model.CountryId
+                               , new SelectList(Enumerable.Empty<SelectListItem>())
+                               , CommonResources.All
+                               , new { @class = "form-control" })
+                        </div>
+
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(Model => Model.RegionId
+                               , new SelectList(Enumerable.Empty<SelectListItem>())
+                               , CommonResources.All
+                               , new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityName)</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.CityName, new { @class = "form-control" })
+                        </div>
+
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-4">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
+                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
+                        </div>
+
+                    </div>
+                }
+                <!-- /.form ######################################################### -->
+                @if (Model.Items != null && Model.Items.Any())
+                {
+
+                    <table class="table table-responsive table-hover table-outline mb-0">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CityCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CityName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].CityNameEn)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].Region.RegionName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Items[0].Region.Country.CountryName)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (CommonSettings.ViewModels.CityViewModel item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.Encode(item.CityCode)
+
+                                    </td>
+                                    <td>
+                                        @Html.Encode(item.CityName)
+                                    </td>
+                                    <td>
+                                        @Html.Encode(item.CityNameEn)
+                                    </td>
+                                    <td>
+                                        @Html.Encode(item.Region.RegionName)
+                                    </td>
+                                    <td>
+                                        @Html.Encode(item.Region.Country.CountryName)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = item.CityId })" c class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                                        <a href="@Url.Action("Details", new { id = item.CityId})" c c class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                                        <a data-id="@item.CityId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        @if (Model.Items.PageCount > 1)
+                        {
+                            <div class="panel-footer clearfix">
+                                <div class="col-xs-4 search_results_text">
+                                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
+                                </div>
+
+                                @Html.PagedListPager(Model.Items, page => Url.Action("Index"
+                               , new
+                               {
+                                   PageIndex = page - 1,
+                                   CountryId = Model.CountryId,
+                                   RegionId = Model.RegionId,
+                                   CityName = Model.CityName
+                               }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info" role="alert">
+                        @CommonResources.NoDataFound
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            FillCities();
+            $('#CountryId').change(function () {
+                FillRegionsByCountryId($(this).val());
+            });
+
+            $('.btnDelete').click(function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $('#deleteForm').attr('action', "@Url.Action("Delete", "Cities")/" + id
+                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, "")));
+                $('#confirmDeleteModal').modal('show');
+            });
+        });
+
+        function FillCities()
+        {
+            $.get("@Url.Action("GetAllCountries", "Countries")")
+                .done(function (data) {
+                    $('#CountryId:first-child ~ option').remove();
+                    $.each(data, function (index, item) {
+                        
+                        $('<option/>', {
+                            'value': item.countryId,
+                            text: item.countryName,
+                        }).appendTo('#CountryId');
+                    });
+
+                    var countryId = @Model.CountryId;
+                    $('#CountryId').val(countryId == 0 ? "" : countryId);
+                    FillRegionsByCountryId(countryId);
+
+                }).fail(function (error) {
+                    console.log(error);
+                }).always(function () {
+                });
+
+        }
+
+        function FillRegionsByCountryId(countryId)
+        {
+            $.get("@Url.Action("GetRegionsByCountryId", "Regions")" + "?countryId=" + countryId)
+                .done(function (data) {
+                    $('#RegionId option:first-child ~ option').remove();
+                    $.each(data, function (index, item) {
+                        $('<option/>', {
+                            'value': item.regionId,
+                            text: item.regionName,
+                        }).appendTo('#RegionId');
+
+                        var regionId = @Model.RegionId;
+                        if ($('#RegionId option[value="' + regionId + '"]').length > 0)
+                            $('#RegionId').val(regionId);
+                        else
+                            $('#RegionId').val("");
+                    });
+                }).fail(function (error) {
+                    console.log(error);
+                }).always(function () {
+                });
+        }
+    </script>
+}
+
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@CommonResources.DeleteConfirmationTitle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>@CommonResources.DeleteConfirmation</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@CommonResources.Cancel</button>
+                <form id="deleteForm" method="post">
+                    <button type="submit" class="btn btn-danger">@CommonResources.Delete</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
