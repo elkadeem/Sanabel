@@ -35,5 +35,15 @@ namespace CommonSettings.ViewModels
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "City")]
         public int CityId { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "Region")]
+        public int RegionId { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "Country")]
+        public int CountryId { get; set; }
+                
+        public CityViewModel City { get; set; }
+
     }
 }

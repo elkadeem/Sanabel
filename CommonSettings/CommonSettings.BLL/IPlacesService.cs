@@ -53,14 +53,15 @@ namespace CommonSettings.BLL
         #endregion
 
         #region District
-        PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName
-            , string code, int pageIndex, int pageSize);
+        PagedEntity<DistrictViewModel> GetDistricts(SearchDistrictViewModel searchDistrictModel);
 
-        List<District> GetDistrictsByCityId(int cityId);
+        List<DistrictViewModel> GetDistrictsByCityId(int cityId);
 
-        District GetDistrictById(int districtId);
+        DistrictViewModel GetDistrictById(int districtId);
 
-        District SaveDistrict(District district);
+        EntityResult AddDistrict(DistrictViewModel district);
+
+        EntityResult UpdateDistrict(DistrictViewModel district);
 
         bool DeleteDistrict(int districtId);
         #endregion

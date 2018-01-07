@@ -94,5 +94,36 @@ namespace CommonSettings.BLL.Mappers
                 Region = city.Region.ToRegionViewModel()
             };
         }
+
+        public static District ToDistrict(this DistrictViewModel districtModel)
+        {
+            if (districtModel == null)
+                return null;
+            return new District
+            {
+                CityId = districtModel.CityId,
+                Code = districtModel.DistricCode,
+                Id = districtModel.DistrictId,
+                Name = districtModel.DistricName,
+                NameEn = districtModel.DistricNameEn
+            };
+        }
+
+        public static DistrictViewModel ToDistrictModel(this District district)
+        {
+            if (district == null)
+                return null;
+
+            return new DistrictViewModel
+            {
+                City = district.City.ToCityViewModel(),
+                CityId = district.CityId,
+                DistricCode = district.Code,
+                DistricName = district.Name,
+                DistricNameEn = district.NameEn,
+                DistrictId = district.Id,
+            };
+        }
+
     }
 }

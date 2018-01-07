@@ -156,6 +156,12 @@
   <data name="Details" xml:space="preserve">
     <value>التفاصيل</value>
   </data>
+  <data name="District" xml:space="preserve">
+    <value>حي</value>
+  </data>
+  <data name="Districts" xml:space="preserve">
+    <value>الأحياء</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
   </data>

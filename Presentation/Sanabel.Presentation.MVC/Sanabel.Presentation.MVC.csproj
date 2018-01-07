@@ -214,6 +214,7 @@
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
     <Compile Include="Areas\Settings\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
+    <Compile Include="Areas\Settings\Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Settings\Controllers\RegionsController.cs" />
     <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
     <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
@@ -739,6 +740,10 @@
     <Content Include="Areas\Settings\Views\Cities\Details.cshtml" />
     <Content Include="Areas\Settings\Views\Cities\Edit.cshtml" />
     <Content Include="Areas\Settings\Views\Cities\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\Districts\Create.cshtml" />
+    <Content Include="Areas\Settings\Views\Districts\Details.cshtml" />
+    <Content Include="Areas\Settings\Views\Districts\Edit.cshtml" />
+    <Content Include="Areas\Settings\Views\Districts\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

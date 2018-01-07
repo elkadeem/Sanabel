@@ -1,0 +1,61 @@
+﻿@model CommonSettings.ViewModels.DistrictViewModel
+@using BusinessSolutions.Localization
+
+@{
+    ViewBag.Title = Model.DistricName;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body card-table">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title font-weight-bold">@Model.DistricName</h4><hr />
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricCode)</label>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.DistricCode)
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricName)</label>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.DistricName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricNameEn)</label>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.DistricNameEn)
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.City.CityName)</label>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.City.CityName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.City.Region.Country.CountryName)</label>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.City.Region.Country.CountryName)
+                        </div>
+                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.City.Region.RegionName)</label>
+                        <div class="col-md-4">@Html.DisplayFor(model => model.City.Region.RegionName)</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+                        <div class="col-md-10">
+                            <a href="@Url.Action("Edit", new { id = Model.CityId })" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                            <a href="@Url.Action("Index")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

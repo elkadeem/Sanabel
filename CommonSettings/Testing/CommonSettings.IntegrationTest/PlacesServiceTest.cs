@@ -69,7 +69,7 @@ namespace CommonSettings.IntegrationTest
 
         public void AddCity()
         {
-            PlaceServiceTestCases.City = 
+            PlaceServiceTestCases.City =
                 new CityViewModel { RegionId = PlaceServiceTestCases.Region.RegionId, CityName = "ParentCity" };
 
             var result = _placesServices.AddCity(PlaceServiceTestCases.City);
@@ -88,8 +88,12 @@ namespace CommonSettings.IntegrationTest
 
         public void AddDistrict()
         {
-            PlaceServiceTestCases.District = new District { CityId = PlaceServiceTestCases.City.CityId, Name = "DistrictName" };
-            PlaceServiceTestCases.District = _placesServices.SaveDistrict(PlaceServiceTestCases.District);
+            PlaceServiceTestCases.District = new DistrictViewModel
+            {
+                CityId = PlaceServiceTestCases.City.CityId,
+                DistricName = "DistrictName"
+            };
+            var result = _placesServices.AddDistrict(PlaceServiceTestCases.District);
         }
 
         #region Country
@@ -261,6 +265,7 @@ namespace CommonSettings.IntegrationTest
             {
                 CityName = cityName,
                 CityCode = cityCode,
+                CountryId = PlaceServiceTestCases.Country.CountryId,
             };
 
             var searchResult = _placesServices.GetCities(searchViewModel);

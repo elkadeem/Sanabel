@@ -45,6 +45,7 @@
     <Compile Include="CityViewModel.cs" />
     <Compile Include="RegionViewModel.cs" />
     <Compile Include="CountryViewModel.cs" />
+    <Compile Include="SearchDistrictViewModel.cs" />
     <Compile Include="SearchCityViewModel.cs" />
     <Compile Include="SearchRegionViewModel.cs" />
     <Compile Include="SearchCountryViewModel.cs" />

@@ -14,7 +14,7 @@ namespace CommonSettings.IntegrationTest
         public static CountryViewModel Country;
         public static RegionViewModel Region;
         public static CityViewModel City;
-        public static District District;
+        public static DistrictViewModel District;
 
         public static IEnumerable<TestCaseData> CountryTestCases
         {

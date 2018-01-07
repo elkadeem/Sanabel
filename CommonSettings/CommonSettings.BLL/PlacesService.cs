@@ -253,7 +253,7 @@ namespace CommonSettings.BLL
              && c.CountryId == region.CountryId && c.Name.ToLower() == region.Name.ToLower());
 
             if (_unitOfWork.RegionRepository.Find(isRegionExistInCountry).Any())
-                errors.Add(new ValidationError($"Region { region.Name } already exist in ", ValidationErrorTypes.DuplicatedValue));
+                errors.Add(new ValidationError($"Region { region.Name } is already exist.", ValidationErrorTypes.DuplicatedValue));
 
             return errors;
         }
@@ -365,14 +365,14 @@ namespace CommonSettings.BLL
 
             var isRegionExist = new ExpressionSpecification<Region>(c => c.Id == city.RegionId);
             if (_unitOfWork.RegionRepository.Find(isRegionExist).Any() == false)
-                throw new ArgumentException("Region is not exist.", "CountryId");
+                throw new ArgumentException("Region is not exist.", "RegionId");
 
             List<ValidationError> errors = new List<ValidationError>();
-            var isRegionExistInCountry = new ExpressionSpecification<Region>(c => c.Id != city.Id
+            var isCityExistInRegion = new ExpressionSpecification<Region>(c => c.Id != city.Id
              && c.CountryId == city.RegionId && c.Name.ToLower() == city.Name.ToLower());
 
-            if (_unitOfWork.RegionRepository.Find(isRegionExistInCountry).Any())
-                errors.Add(new ValidationError($"Region { city.Name } already exist in "
+            if (_unitOfWork.RegionRepository.Find(isCityExistInRegion).Any())
+                errors.Add(new ValidationError($"City { city.Name } is already exist."
                     , ValidationErrorTypes.DuplicatedValue));
 
             return errors;
@@ -380,16 +380,19 @@ namespace CommonSettings.BLL
         #endregion
 
         #region Districts
-        public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName, string code
-            , int pageIndex, int pageSize)
+        public PagedEntity<DistrictViewModel> GetDistricts(SearchDistrictViewModel searchDistrictModel)
         {
-            return _unitOfWork.DistrictRepository.GetDistricts(regionId, cityId, districtName
-                , code, pageIndex, pageSize);
+            var result = _unitOfWork.DistrictRepository.GetDistricts(searchDistrictModel.RegionId
+                , searchDistrictModel.CityId, searchDistrictModel.DistrictName
+                , searchDistrictModel.DistrictCode, searchDistrictModel.PageIndex, searchDistrictModel.PageSize);
+
+            return new PagedEntity<DistrictViewModel>(result.Items.Select(c => c.ToDistrictModel()), result.TotalCount);
         }
 
-        public List<District> GetDistrictsByCityId(int cityId)
+        public List<DistrictViewModel> GetDistrictsByCityId(int cityId)
         {
-            return _unitOfWork.DistrictRepository.GetDistrictsByCityId(cityId);
+            return _unitOfWork.DistrictRepository.GetDistrictsByCityId(cityId)
+                .Select(c => c.ToDistrictModel()).ToList();
         }
 
         public bool DeleteDistrict(int districtId)
@@ -407,30 +410,77 @@ namespace CommonSettings.BLL
             }
         }
 
-        public District GetDistrictById(int districtId)
+        public DistrictViewModel GetDistrictById(int districtId)
         {
-            return _unitOfWork.DistrictRepository.GetByID(districtId);
+            var district = _unitOfWork.DistrictRepository.GetByID(districtId);
+            var districtViewModel = district.ToDistrictModel();
+            districtViewModel.CountryId = district.City.Region.CountryId;
+            districtViewModel.RegionId = district.City.RegionId;
+            return districtViewModel;
         }
 
-        public District SaveDistrict(District district)
+        public EntityResult AddDistrict(DistrictViewModel districtModel)
         {
+            if (districtModel == null)
+                throw new ArgumentNullException("districtModel");
             try
             {
-                var currentCity = _unitOfWork.DistrictRepository.GetByID(district.Id);
-                if (currentCity == null)
-                    _unitOfWork.DistrictRepository.Add(district);
-                else
-                    _unitOfWork.DistrictRepository.Update(district);
-
+                var district = districtModel.ToDistrict();
+                _unitOfWork.DistrictRepository.Add(district);
                 _unitOfWork.Save();
-                district.Id = _unitOfWork.DistrictRepository.GetPrimaryKey(district);
-                return district;
+                district.Id = district.Id;
+                return EntityResult.Success;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
                 throw ex;
             }
+        }
+
+        public EntityResult UpdateDistrict(DistrictViewModel districtModel)
+        {
+            if (districtModel == null)
+                throw new ArgumentNullException("districtModel");
+
+            try
+            {
+                var currentCity = _unitOfWork.DistrictRepository.GetByID(districtModel.DistrictId);
+                if (currentCity == null)
+                    throw new ArgumentException("District is not exist.", "districtModel");
+
+                var district = districtModel.ToDistrict();
+                _unitOfWork.DistrictRepository.Update(district);
+
+                _unitOfWork.Save();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, ex.Message);
+                throw ex;
+            }
+        }
+
+        private List<ValidationError> ValidateDistrict(District district)
+        {
+            var isNameIsNotEmpty = new ExpressionSpecification<District>(c => !string.IsNullOrEmpty(c.Name));
+            if (!isNameIsNotEmpty.IsSatisfiedBy(district))
+                throw new ArgumentNullException("Name");
+
+            var isCityExist = new ExpressionSpecification<City>(c => c.Id == district.CityId);
+            if (_unitOfWork.CityRepository.Find(isCityExist).Any() == false)
+                throw new ArgumentException("City is not exist.", "CityId");
+
+            List<ValidationError> errors = new List<ValidationError>();
+            var isDistrictExistInCity = new ExpressionSpecification<District>(c => c.Id != district.Id
+             && c.CityId == district.CityId && c.Name.ToLower() == district.Name.ToLower());
+
+            if (_unitOfWork.DistrictRepository.Find(isDistrictExistInCity).Any())
+                errors.Add(new ValidationError($"District { district.Name } is already exist."
+                    , ValidationErrorTypes.DuplicatedValue));
+
+            return errors;
         }
         #endregion
     }

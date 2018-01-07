@@ -13,39 +13,27 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
-    public class CitiesController : BaseController
+    public class DistrictsController : BaseController
     {
         private IPlacesService _placesService;
-        public CitiesController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
+        public DistrictsController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
         {
             _placesService = placesService;
         }
 
-        // GET: Settings/Cities
-        public ActionResult Index(SearchCityViewModel searchCityModel)
+        // GET: Settings/Districts
+        public ActionResult Index(SearchDistrictViewModel searchDistrictModel)
         {
-            var result = _placesService.GetCities(searchCityModel);
-            searchCityModel.Items = new StaticPagedList<CityViewModel>(result.Items
-                , searchCityModel.PageIndex + 1, searchCityModel.PageSize, result.TotalCount);
-            return View(searchCityModel);
+            var result = _placesService.GetDistricts(searchDistrictModel);
+            searchDistrictModel.Items = new StaticPagedList<DistrictViewModel>(result.Items
+                , searchDistrictModel.PageIndex + 1, searchDistrictModel.PageSize, result.TotalCount);
+            return View(searchDistrictModel);
         }
 
-        public JsonResult GetCitiesByRegionId(int regionId)
-        {
-            var regions = _placesService.GetCitiesByRegionId(regionId);
-            return Json(regions, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetCitiesByCountryId(int countryId)
-        {
-            var regions = _placesService.GetCitiesByCountryId(countryId);
-            return Json(regions, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Settings/Cities/Details/5
+        // GET: Settings/Districts/Details/5
         public ActionResult Details(int id)
         {
-            var city = _placesService.GetCityById(id);
+            var city = _placesService.GetDistrictById(id);
             if (city == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
@@ -55,27 +43,27 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             return View(city);
         }
 
-        // GET: Settings/Cities/Create
+        // GET: Settings/Districts/Create
         public ActionResult Create()
         {
-            var newRegion = new CityViewModel();
-            return View(newRegion);
+            var newDistrict = new DistrictViewModel();
+            return View(newDistrict);
         }
 
-        // POST: Settings/Cities/Create
+        // POST: Settings/Districts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CityViewModel cityModel)
+        public ActionResult Create(DistrictViewModel districtModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var entityResult = _placesService.AddCity(cityModel);
-
+                    var entityResult = _placesService.AddDistrict(districtModel);
                     if (entityResult.Succeeded)
                     {
-                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
                     }
 
@@ -89,34 +77,33 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
             }
 
-            return View(cityModel);
+            return View(districtModel);
         }
 
-        // GET: Settings/Cities/Edit/5
+        // GET: Settings/Districts/Edit/5
         public ActionResult Edit(int id)
         {
-            var city = _placesService.GetCityById(id);
+            var city = _placesService.GetDistrictById(id);
             if (city == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 return RedirectToAction("Index");
             }
-
-            city.CountryId = city.Region.CountryId;
+            
             return View(city);
         }
 
-        // POST: Settings/Cities/Edit/5
+        // POST: Settings/Districts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CityViewModel cityModel)
+        public ActionResult Edit(int id, DistrictViewModel districtModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    cityModel.CityId = id;
-                    var entityResult = _placesService.UpdateCity(cityModel);
+                    districtModel.DistrictId = id;
+                    var entityResult = _placesService.UpdateDistrict(districtModel);
                     if (entityResult.Succeeded)
                     {
                         AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
@@ -133,23 +120,23 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
-            return View(cityModel);
+            return View(districtModel);
         }
 
-        // POST: Settings/Cities/Delete/5
+        // POST: Settings/Districts/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, string returnUrl)
         {
             try
             {
-                var item = _placesService.GetCityById(id);
+                var item = _placesService.GetDistrictById(id);
                 if (item == null)
                 {
                     AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 }
                 else
                 {
-                    var result = _placesService.DeleteCity(id);
+                    var result = _placesService.DeleteDistrict(id);
                     if (result)
                         AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
                     else

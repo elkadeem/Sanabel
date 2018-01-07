@@ -20,15 +20,15 @@ namespace CommonSettings.DAL
         public PagedEntity<District> GetDistricts(int regionId, int cityId, string districtName
             , string code, int pageIndex, int pageSize)
         {
-            var query = Set.AsQueryable();
+            var query = Set.Include(c => c.City.Region.Country);
             if (regionId > 0)
                 query = query.Where(c => c.City.RegionId == regionId);
             if (cityId > 0)
                 query = query.Where(c => c.CityId == cityId);
-            if (string.IsNullOrEmpty(districtName))
+            if (!string.IsNullOrEmpty(districtName))
                 query = query.Where(c => c.Name.Contains(districtName)
                  || c.NameEn.Contains(districtName));
-            if (string.IsNullOrEmpty(code))
+            if (!string.IsNullOrEmpty(code))
                 query = query.Where(c => c.Code.Contains(code));
 
             int totalCount = query.Count();
@@ -38,6 +38,11 @@ namespace CommonSettings.DAL
                 .ToList();
 
             return new PagedEntity<District>(items, totalCount);
+        }
+
+        public override District GetByID(int key)
+        {
+            return Set.Include(c => c.City.Region.Country).FirstOrDefault(c => c.Id == key);
         }
 
         public List<District> GetDistrictsByCityId(int cityId)
