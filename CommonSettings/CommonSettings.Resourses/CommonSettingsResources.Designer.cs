@@ -178,6 +178,15 @@ namespace CommonSettings.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أسم الحي مكرر في هذه المدينة..
+        /// </summary>
+        public static string DistrictDuplicateMessage {
+            get {
+                return ResourceManager.GetString("DistrictDuplicateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اسم الحي.
         /// </summary>
         public static string DistrictName {

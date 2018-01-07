@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
+using BusinessSolutions.MVCCommon;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
 using CommonSettings.Localization;
@@ -31,6 +32,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Districts/Details/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Details(int id)
         {
             var city = _placesService.GetDistrictById(id);
@@ -81,6 +83,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Districts/Edit/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Edit(int id)
         {
             var city = _placesService.GetDistrictById(id);
@@ -125,6 +128,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
         // POST: Settings/Districts/Delete/5
         [HttpPost]
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Delete(int id, string returnUrl)
         {
             try
@@ -160,7 +164,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             foreach (var error in result.ValidationErrors)
             {
                 if (error.ValidationErrorType == ValidationErrorTypes.DuplicatedValue)
-                    ModelState.AddModelError("", CommonSettingsResources.CityDuplicated);
+                    ModelState.AddModelError("", CommonSettingsResources.DistrictDuplicateMessage);
             }
         }
     }

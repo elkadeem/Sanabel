@@ -156,6 +156,9 @@
   <data name="DistrictCode" xml:space="preserve">
     <value>كود الحي</value>
   </data>
+  <data name="DistrictDuplicateMessage" xml:space="preserve">
+    <value>أسم الحي مكرر في هذه المدينة.</value>
+  </data>
   <data name="DistrictName" xml:space="preserve">
     <value>اسم الحي</value>
   </data>

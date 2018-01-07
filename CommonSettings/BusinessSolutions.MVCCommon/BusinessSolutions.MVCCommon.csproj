@@ -79,6 +79,7 @@
     <Compile Include="Common\BaseSearchViewModel.cs" />
     <Compile Include="Common\UIMessage.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Filters\ParametersGreateThanZeroFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

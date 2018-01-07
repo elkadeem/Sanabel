@@ -9,6 +9,7 @@ using Microsoft.Ajax.Utilities;
 using System;
 using System.Web.Mvc;
 using System.Linq;
+using BusinessSolutions.MVCCommon;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
@@ -46,21 +47,15 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Places/Details/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Details(int id)
-        {
-            if (id == 0)
-            {
-                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
-                return RedirectToAction("Index");
-            }
-
+        {            
             var item = _placesService.GetCountryById(id);
             if (item == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 return RedirectToAction("Index");
             }
-
             return View(item);
         }
 
@@ -114,14 +109,9 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Places/Edit/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Edit(int id)
         {
-            if (id == 0)
-            {
-                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
-                return RedirectToAction("Index");
-            }
-
             var item = _placesService.GetCountryById(id);
             if (item == null)
             {
@@ -173,29 +163,23 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         [HttpPost]
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Delete(int id, string returnUrl)
         {
             try
             {
-                if (id == 0)
+                var item = _placesService.GetCountryById(id);
+                if (item == null)
                 {
                     AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
                 }
                 else
                 {
-                    var item = _placesService.GetCountryById(id);
-                    if (item == null)
-                    {
-                        AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
-                    }
+                    var result = _placesService.DeleteCountry(id);
+                    if (result)
+                        AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
                     else
-                    {
-                        var result = _placesService.DeleteCountry(id);
-                        if (result)
-                            AddMessageToTempData(CommonResources.DeleteSuccessfully, BusinessSolutions.MVCCommon.MessageType.Success);
-                        else
-                            AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
-                    }
+                        AddMessageToTempData(CommonResources.DeleteError, BusinessSolutions.MVCCommon.MessageType.Error);
                 }
             }
             catch (Exception ex)

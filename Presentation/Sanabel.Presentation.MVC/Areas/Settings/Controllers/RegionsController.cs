@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
+using BusinessSolutions.MVCCommon;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
 using CommonSettings.Localization;
@@ -42,6 +43,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Regions/Details/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Details(int id)
         {
             var region = _placesService.GetRegionById(id);
@@ -108,6 +110,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Regions/Edit/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Edit(int id)
         {
             var region = _placesService.GetRegionById(id);
@@ -124,6 +127,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         // POST: Settings/Regions/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Edit(int id, RegionViewModel model)
         {
             try
@@ -152,6 +156,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         [HttpPost]
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Delete(int id, string returnUrl)
         {
             try

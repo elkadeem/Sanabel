@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
+using BusinessSolutions.MVCCommon;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
 using CommonSettings.Localization;
@@ -43,6 +44,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Cities/Details/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Details(int id)
         {
             var city = _placesService.GetCityById(id);
@@ -93,6 +95,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
         }
 
         // GET: Settings/Cities/Edit/5
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Edit(int id)
         {
             var city = _placesService.GetCityById(id);
@@ -138,6 +141,7 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 
         // POST: Settings/Cities/Delete/5
         [HttpPost]
+        [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Delete(int id, string returnUrl)
         {
             try
