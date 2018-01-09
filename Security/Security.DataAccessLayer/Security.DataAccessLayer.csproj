@@ -47,16 +47,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201712151716466_Default.cs" />
-    <Compile Include="Migrations\201712151716466_Default.Designer.cs">
-      <DependentUpon>201712151716466_Default.cs</DependentUpon>
+    <Compile Include="Configurations\ExternalLoginsConfiguration.cs" />
+    <Compile Include="Configurations\ClaimsConfiguration.cs" />
+    <Compile Include="Configurations\RolesConfiguration.cs" />
+    <Compile Include="Configurations\UsersConfiguration.cs" />
+    <Compile Include="Migrations\201801080902524_Initial.cs" />
+    <Compile Include="Migrations\201801080902524_Initial.Designer.cs">
+      <DependentUpon>201801080902524_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712151720440_MakeClaimIDIdentity.cs" />
-    <Compile Include="Migrations\201712151720440_MakeClaimIDIdentity.Designer.cs">
-      <DependentUpon>201712151720440_MakeClaimIDIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\201801080913575_SetMaxLengthToFullName.cs" />
+    <Compile Include="Migrations\201801080913575_SetMaxLengthToFullName.Designer.cs">
+      <DependentUpon>201801080913575_SetMaxLengthToFullName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081323034_AddCitiesAndDistricts.cs" />
+    <Compile Include="Migrations\201801081323034_AddCitiesAndDistricts.Designer.cs">
+      <DependentUpon>201801081323034_AddCitiesAndDistricts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801090706275_AddAddressColumnToUser.cs" />
+    <Compile Include="Migrations\201801090706275_AddAddressColumnToUser.Designer.cs">
+      <DependentUpon>201801090706275_AddAddressColumnToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RegionRepository.cs" />
+    <Compile Include="Repositories\CityRepository.cs" />
+    <Compile Include="Repositories\DistrictRepository.cs" />
+    <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SecurityContext.cs" />
@@ -65,14 +81,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712151716466_Default.resx">
-      <DependentUpon>201712151716466_Default.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712151720440_MakeClaimIDIdentity.resx">
-      <DependentUpon>201712151720440_MakeClaimIDIdentity.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
@@ -88,6 +96,19 @@
       <Name>Security.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801080902524_Initial.resx">
+      <DependentUpon>201801080902524_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080913575_SetMaxLengthToFullName.resx">
+      <DependentUpon>201801080913575_SetMaxLengthToFullName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081323034_AddCitiesAndDistricts.resx">
+      <DependentUpon>201801081323034_AddCitiesAndDistricts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801090706275_AddAddressColumnToUser.resx">
+      <DependentUpon>201801090706275_AddAddressColumnToUser.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,13 +7,13 @@ namespace Security.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Default : IMigrationMetadata
+    public sealed partial class SetMaxLengthToFullName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Default));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SetMaxLengthToFullName));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712151716466_Default"; }
+            get { return "201801080913575_SetMaxLengthToFullName"; }
         }
         
         string IMigrationMetadata.Source

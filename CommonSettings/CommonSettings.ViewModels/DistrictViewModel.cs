@@ -17,12 +17,12 @@ namespace CommonSettings.ViewModels
         [StringLength(50, MinimumLength =3, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [ArabicTextOnly(ErrorMessageResourceName = "ArabicTextOnlyErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(ResourceType =typeof(CommonSettings.Localization.CommonSettingsResources), Name = "DistrictName")]
-        public string DistricName { get; set; }
+        public string DistrictName { get; set; }
 
         [Display(ResourceType = typeof(CommonSettings.Localization.CommonSettingsResources), Name = "DistrictNameEn")]
         [StringLength(50, MinimumLength = 3, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [EnglishTextOnly(ErrorMessageResourceName = "EnglishTextOnlyErrorMessage", ErrorMessageResourceType =typeof(BusinessSolutions.Localization.CommonResources))]
-        public string DistricNameEn { get; set; }
+        public string DistrictNameEn { get; set; }
 
         
         [StringLength(5, MinimumLength = 2, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]

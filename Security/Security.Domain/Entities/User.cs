@@ -39,13 +39,23 @@ namespace Security.Domain
 
         public int AccessFailedCount { get; set; }
 
+        public bool EnableTowFactorAuthentication { get; set; }
+
+        public int CityId { get; set; }
+
+        public int? DistrictId { get; set; }
+
+        public string Address { get; set; }
+
         public ICollection<Claim> Claims { get; set; }
 
         public ICollection<ExternalLogin> ExternalLogins { get; set; }
 
         public ICollection<Role> Roles { get; set; }
+        
+        public City City { get; set; }
 
-        public bool EnableTowFactorAuthentication { get; set; }
+        public District District { get; set; }
 
         public void AddExternalLogin(string loginProvider, string providerkey)
         {

@@ -27,7 +27,8 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            _securityUnitOfWork.UserRepository.Add(user);
+            User newUser = user.GetUser();
+            _securityUnitOfWork.UserRepository.Add(newUser);
             return _securityUnitOfWork.SaveAsync();
         }
 
@@ -66,7 +67,8 @@ namespace Security.AspIdentity
             if (entity == null)
                 throw new ArgumentException("User is not found.", "user");
 
-            _securityUnitOfWork.UserRepository.Update(user);
+            User currentUser = user.GetUser();
+            _securityUnitOfWork.UserRepository.Update(currentUser);
             return _securityUnitOfWork.SaveAsync();
         }
         #endregion
@@ -211,7 +213,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            
+
             return Task.FromResult(user.IsEmailConfirmed);
         }
 
@@ -219,7 +221,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-                      
+
             user.IsEmailConfirmed = confirmed;
             return Task.FromResult(0);
         }
@@ -241,7 +243,7 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            
+
             DateTimeOffset date = DateTimeOffset.MinValue;
             if (user.LockedOutDate.HasValue)
                 date = new DateTimeOffset(user.LockedOutDate.Value);
@@ -311,7 +313,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-                     
+
             user.PasswordHash = passwordHash;
             return Task.FromResult(0);
         }
@@ -328,7 +330,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-                        
+
             bool hasPassword = !string.IsNullOrEmpty(user.PasswordHash);
             return Task.FromResult(hasPassword);
         }
@@ -342,7 +344,7 @@ namespace Security.AspIdentity
 
             if (string.IsNullOrEmpty(phoneNumber))
                 throw new ArgumentNullException("phoneNumber");
-            
+
             user.PhoneNumber = phoneNumber;
             return Task.FromResult(0);
         }
@@ -351,7 +353,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            
+
             return Task.FromResult(user.PhoneNumber);
         }
 
@@ -359,7 +361,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-                        
+
             return Task.FromResult(user.IsPhoneConfirmed);
         }
 
@@ -367,7 +369,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            
+
             user.IsPhoneConfirmed = confirmed;
             return Task.FromResult(0);
         }
@@ -409,7 +411,7 @@ namespace Security.AspIdentity
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            
+
             return Task.FromResult(user.EnableTowFactorAuthentication);
         }
         #endregion
@@ -530,6 +532,9 @@ namespace Security.AspIdentity
                 SecurityStamp = user.SecurityStamp,
                 Id = user.Id,
                 UserName = user.UserName,
+                CityId = user.CityId,
+                DistrictId = user.DistrictId,
+                Address = user.Address,
             };
 
             foreach (var role in user.Roles)

@@ -3,28 +3,31 @@ namespace Security.DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Default : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "Security.Roles",
+                "Security.UserClaims",
                 c => new
                     {
-                        RoleId = c.Guid(nullable: false),
-                        RoleName = c.String(nullable: false, maxLength: 100),
-                        RoleNameAr = c.String(nullable: false, maxLength: 100),
+                        ClaimId = c.Int(nullable: false, identity: true),
+                        UserId = c.Guid(nullable: false),
+                        ClaimType = c.String(nullable: false, maxLength: 200),
+                        ClaimValue = c.String(maxLength: 100),
                     })
-                .PrimaryKey(t => t.RoleId);
+                .PrimaryKey(t => t.ClaimId)
+                .ForeignKey("Security.Users", t => t.UserId, cascadeDelete: true)
+                .Index(t => new { t.UserId, t.ClaimType, t.ClaimValue }, unique: true, name: "IX_UserClaim");
             
             CreateTable(
                 "Security.Users",
                 c => new
                     {
-                        UserId = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 50),
-                        FullName = c.String(maxLength: 100),
-                        Email = c.String(maxLength: 100),
+                        FullName = c.String(),
+                        Email = c.String(nullable: false, maxLength: 50),
                         IsEmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(maxLength: 200),
                         SecurityStamp = c.String(maxLength: 200),
@@ -34,25 +37,10 @@ namespace Security.DataAccessLayer.Migrations
                         LockedOutDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         AccessFailedCount = c.Int(nullable: false),
                         EnableTowFactorAuthentication = c.Boolean(nullable: false),
-                        CreatedBy = c.String(maxLength: 50),
-                        CreatedDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        UpdatedBy = c.String(maxLength: 50),
-                        UpdatedDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                     })
-                .PrimaryKey(t => t.UserId);
-            
-            CreateTable(
-                "Security.UserClaims",
-                c => new
-                    {
-                        ClaimId = c.Int(nullable: false, identity: true),
-                        UserId = c.Guid(nullable: false),
-                        ClaimType = c.String(nullable: false, maxLength: 200),
-                        ClaimValue = c.String(maxLength: 200),
-                    })
-                .PrimaryKey(t => t.ClaimId)
-                .ForeignKey("Security.Users", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true)
+                .Index(t => t.Email, unique: true);
             
             CreateTable(
                 "Security.UserLogins",
@@ -60,11 +48,22 @@ namespace Security.DataAccessLayer.Migrations
                     {
                         UserId = c.Guid(nullable: false),
                         LoginProvider = c.String(nullable: false, maxLength: 100),
-                        ProviderKey = c.String(nullable: false, maxLength: 50),
+                        ProviderKey = c.String(nullable: false, maxLength: 100),
                     })
                 .PrimaryKey(t => new { t.UserId, t.LoginProvider })
                 .ForeignKey("Security.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "Security.Roles",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        RoleName = c.String(nullable: false, maxLength: 50),
+                        RoleNameAr = c.String(nullable: false, maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.RoleName, unique: true);
             
             CreateTable(
                 "Security.UserRoles",
@@ -83,19 +82,22 @@ namespace Security.DataAccessLayer.Migrations
         
         public override void Down()
         {
-            DropForeignKey("Security.UserLogins", "UserId", "Security.Users");
+            DropForeignKey("Security.UserClaims", "UserId", "Security.Users");
             DropForeignKey("Security.UserRoles", "RoleId", "Security.Roles");
             DropForeignKey("Security.UserRoles", "UserId", "Security.Users");
-            DropForeignKey("Security.UserClaims", "UserId", "Security.Users");
+            DropForeignKey("Security.UserLogins", "UserId", "Security.Users");
             DropIndex("Security.UserRoles", new[] { "RoleId" });
             DropIndex("Security.UserRoles", new[] { "UserId" });
+            DropIndex("Security.Roles", new[] { "RoleName" });
             DropIndex("Security.UserLogins", new[] { "UserId" });
-            DropIndex("Security.UserClaims", new[] { "UserId" });
+            DropIndex("Security.Users", new[] { "Email" });
+            DropIndex("Security.Users", new[] { "UserName" });
+            DropIndex("Security.UserClaims", "IX_UserClaim");
             DropTable("Security.UserRoles");
-            DropTable("Security.UserLogins");
-            DropTable("Security.UserClaims");
-            DropTable("Security.Users");
             DropTable("Security.Roles");
+            DropTable("Security.UserLogins");
+            DropTable("Security.Users");
+            DropTable("Security.UserClaims");
         }
     }
 }

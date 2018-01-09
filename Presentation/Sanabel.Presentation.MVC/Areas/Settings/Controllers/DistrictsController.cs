@@ -31,6 +31,12 @@ namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
             return View(searchDistrictModel);
         }
 
+        public JsonResult GetDistrictsByCityId(int cityId)
+        {
+            var districts = _placesService.GetDistrictsByCityId(cityId);
+            return Json(districts, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Settings/Districts/Details/5
         [MustBeGreateThanZeroFilter("id", ActionName = "Index")]
         public ActionResult Details(int id)

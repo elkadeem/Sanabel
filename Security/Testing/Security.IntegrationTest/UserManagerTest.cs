@@ -6,6 +6,7 @@ using Security.AspIdentity;
 using System.Linq;
 using Security.DataAccessLayer;
 using Microsoft.AspNet.Identity;
+using Security.DataAccessLayer.UnitOfWork;
 
 namespace Security.IntegrationTest
 {
@@ -14,15 +15,16 @@ namespace Security.IntegrationTest
     {
         private Security.AspIdentity.ApplicationUserManager userManager;
         private AspIdentity.ApplicationUser user;
-        
+        private SecurityUnitOfWork _securityUnitOfWork;
+
         public TestContext TestContext { get; set; }
 
         [OneTimeSetUp]
         public void Initiate()
         {
             var dataContext = new Security.DataAccessLayer.SecurityContext();
-            var securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
-            var userStore = new AspIdentity.UserStore(securityUnitOfWork);
+            _securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
+            var userStore = new AspIdentity.UserStore(_securityUnitOfWork);
 
             userManager = new AspIdentity.ApplicationUserManager(userStore)
             {
@@ -39,9 +41,26 @@ namespace Security.IntegrationTest
                 Id = UserManagerTestCases.ValidUserId,
             };
 
-            var task = userManager.CreateAsync(user, "P@ssw0rd");
-            task.Wait();
-            bool isCreated = task.Result.Succeeded;
+            //var task = userManager.CreateAsync(user, "P@ssw0rd");
+            //task.Wait();
+            //bool isCreated = task.Result.Succeeded;
+        }
+
+        [Test]
+        public async Task CreateUser_WithValidInformation_SaveUser()
+        {
+            var newUser = new ApplicationUser()
+            {
+                UserName = "elkadeem@hotmail.com",
+                Email = "elkadeem@hotmail.com",
+                Address = "Address",
+                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+                DistrictId = null,// _securityUnitOfWork.DistrictRepository.GetAll().First().Id,
+                PhoneNumber = "0506823646",
+            };
+
+            var result = await userManager.CreateAsync(newUser, "P@ssw0rd");
+            result.Succeeded.Should().Be(true);
         }
 
         [Test, TestCaseSource(typeof(UserManagerTestCases), "CreateUserTestCases")]

@@ -36,8 +36,12 @@ namespace Security.IntegrationTest
                 ON (NAME = 'SanabelSecurityTestDB',
                 FILENAME = '{Filename}')");
 
+            var commonMigration = new MigrateDatabaseToLatestVersion<CommonSettings.DAL.CommonSettingDataContext
+                , CommonSettings.DAL.Migrations.CommonSettingsDbMigrationsConfiguration>("CommonSettingConnectionString");
+            commonMigration.InitializeDatabase(new CommonSettings.DAL.CommonSettingDataContext());
+
             var migration = new MigrateDatabaseToLatestVersion<Security.DataAccessLayer.SecurityContext
-                , Security.DataAccessLayer.Migrations.SecurityMigrationsConfiguration>("SecurityConnectionString");
+                , Security.DataAccessLayer.Migrations.Configuration>("SecurityConnectionString");
             migration.InitializeDatabase(new DataAccessLayer.SecurityContext());
         }
 

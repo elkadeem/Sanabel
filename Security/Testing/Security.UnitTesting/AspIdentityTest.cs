@@ -590,15 +590,10 @@ namespace Security.UnitTesting
         {
             try
             {
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 userStore.SetEmailAsync(testUser, testEmail);
                 //Assert
-                user.Email.Should().Be(testEmail);
-                user.IsEmailConfirmed.Should().Be(false);
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                testUser.Email.Should().Be(testEmail);
             }
             catch (ArgumentNullException ex)
             {
@@ -607,11 +602,6 @@ namespace Security.UnitTesting
                     ex.ParamName.Should().Be("user");
                 else
                     ex.ParamName.Should().Be("email");
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -724,25 +714,19 @@ namespace Security.UnitTesting
         {
             try
             {
-                DateTimeOffset dateTime = new DateTimeOffset(new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc));
-                user.LockedOutDate = dateTime.UtcDateTime;
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetLockoutEndDateAsync(userToTest);
-                //Assert                
-                result.Should().BeSameDateAs(dateTime.UtcDateTime);
+                //Assert   
+                if (userToTest.LockedOutDate.HasValue)
+                    result.DateTime.Should().BeSameDateAs(userToTest.LockedOutDate.Value);
+                else
+                    result.Should().Be(DateTimeOffset.MinValue);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -752,28 +736,21 @@ namespace Security.UnitTesting
         {
             try
             {
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.SetLockoutEndDateAsync(userToTest, lockOutDate);
 
                 //Assert                
                 if (lockOutDate == DateTimeOffset.MinValue)
-                    user.LockedOutDate.Should().BeNull();
+                    userToTest.LockedOutDate.Should().BeNull();
                 else
-                    user.LockedOutDate.Should().BeSameDateAs(lockOutDate.UtcDateTime);
+                    userToTest.LockedOutDate.Should().BeSameDateAs(lockOutDate.UtcDateTime);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
-            }
+            }            
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
@@ -781,24 +758,18 @@ namespace Security.UnitTesting
         {
             try
             {
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                int oldAccessFaildCount = userToTest== null? 0 :  userToTest.AccessFailedCount;
                 //Act
                 var result = await userStore.IncrementAccessFailedCountAsync(userToTest);
                 //Assert                
-                result.Should().Be(1);
+                result.Should().Be(oldAccessFaildCount + 1);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
-            }
+            }            
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
@@ -806,13 +777,10 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.AccessFailedCount = 5;
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 await userStore.ResetAccessFailedCountAsync(userToTest);
                 //Assert                
-                user.AccessFailedCount.Should().Be(0);
+                userToTest.AccessFailedCount.Should().Be(0);
             }
             catch (ArgumentNullException ex)
             {
@@ -832,23 +800,15 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.AccessFailedCount = 5;
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                bool oldStatus = userToTest == null? false : userToTest.IsLocked;
                 //Act
-                await userStore.SetLockoutEnabledAsync(userToTest, true);
+                await userStore.SetLockoutEnabledAsync(userToTest, !oldStatus);
                 //Assert                
-                user.IsLocked.Should().Be(true);
+                userToTest.IsLocked.Should().Be(!oldStatus);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
-                ex.ParamName.Should().Be("user");
-
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
                 ex.ParamName.Should().Be("user");
             }
         }
@@ -921,28 +881,18 @@ namespace Security.UnitTesting
         {
             try
             {
-                string phoneNumber = "523652245";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                string phoneNumber = "523652245";                
                 //Act
                 await userStore.SetPhoneNumberAsync(userToTest, phoneNumber);
                 //Assert                
-                user.PhoneNumber.Should().Be(phoneNumber);
-
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.PhoneNumber.Should().Be(phoneNumber);                
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
-            }
+            }            
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
@@ -950,24 +900,16 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.PhoneNumber = "050";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetPhoneNumberAsync(userToTest);
                 //Assert                
-                result.Should().Be("050");
+                result.Should().Be(userToTest.PhoneNumber);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -976,13 +918,10 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.IsPhoneConfirmed = true;
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetPhoneNumberConfirmedAsync(userToTest);
                 //Assert                
-                result.Should().Be(user.IsPhoneConfirmed);
+                result.Should().Be(userToTest.IsPhoneConfirmed);
             }
             catch (ArgumentNullException ex)
             {
@@ -1002,26 +941,18 @@ namespace Security.UnitTesting
         {
             try
             {
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                bool isPhoneConfirmed = userToTest == null? false : userToTest.IsPhoneConfirmed;
                 //Act
-                await userStore.SetPhoneNumberConfirmedAsync(userToTest, true);
+                await userStore.SetPhoneNumberConfirmedAsync(userToTest, !isPhoneConfirmed);
                 //Assert                
-                user.IsPhoneConfirmed.Should().Be(true);
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.IsPhoneConfirmed.Should().Be(!isPhoneConfirmed);                
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
-            }
+            }            
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
@@ -1029,24 +960,16 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.SecurityStamp = "SE";
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
                 var result = await userStore.GetSecurityStampAsync(userToTest);
                 //Assert                
-                result.Should().Be(user.SecurityStamp);
+                result.Should().Be(userToTest.SecurityStamp);
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
             }
         }
 
@@ -1101,25 +1024,18 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                bool isTwoFactorAuthenticationEnable = user.EnableTowFactorAuthentication;
                 //Act
-                await userStore.SetTwoFactorEnabledAsync(userToTest, true);
+                await userStore.SetTwoFactorEnabledAsync(userToTest, !isTwoFactorAuthenticationEnable);
                 //Assert                
-                user.EnableTowFactorAuthentication.Should().Be(true);
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.EnableTowFactorAuthentication.Should().Be(!isTwoFactorAuthenticationEnable);               
             }
             catch (ArgumentNullException ex)
             {
                 //Assert                
                 ex.ParamName.Should().Be("user");
 
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.ParamName.Should().Be("user");
-            }
+            }            
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
@@ -1179,7 +1095,7 @@ namespace Security.UnitTesting
             catch (ArgumentException ex)
             {
                 //Assert
-                if (userToTest.Id == Guid.Empty)
+                if (userToTest.Id != user.Id)
                     ex.ParamName.Should().Be("user");
                 else
                     ex.ParamName.Should().Be("roleName");

@@ -31,7 +31,7 @@ namespace Security.AspIdentity
         {
             if (role == null)
                 throw new ArgumentNullException("role");
-            
+
             _securityUnitOfWork.RoleRepository.Add(role);
             return _securityUnitOfWork.SaveAsync();
         }
@@ -85,7 +85,8 @@ namespace Security.AspIdentity
             return new ApplicationRole
             {
                 Id = role.Id,
-                Name = role.RoleName,
+                RoleName = role.RoleName,
+                RoleNameAr = role.RoleNameAr,
             };
         }
         #endregion

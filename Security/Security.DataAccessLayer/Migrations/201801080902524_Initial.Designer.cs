@@ -7,13 +7,13 @@ namespace Security.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class MakeClaimIDIdentity : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MakeClaimIDIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712151720440_MakeClaimIDIdentity"; }
+            get { return "201801080902524_Initial"; }
         }
         
         string IMigrationMetadata.Source

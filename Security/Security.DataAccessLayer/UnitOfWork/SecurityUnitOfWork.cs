@@ -1,10 +1,8 @@
-﻿using Security.Domain;
+﻿using BusinessSolutions.Common.Core;
+using Security.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Security.DataAccessLayer.UnitOfWork
 {
@@ -15,9 +13,17 @@ namespace Security.DataAccessLayer.UnitOfWork
 
         public IUserRepository UserRepository { get; private set; }
 
+        public IReadOnlyRepository<int, Country> CountryRepository { get; private set; }
+
+        public IReadOnlyRepository<int, Region> RegionRepository { get; private set; }
+
+        public IReadOnlyRepository<int, City> CityRepository { get; private set; }
+
+        public IReadOnlyRepository<int, District> DistrictRepository { get; private set; }
+
         public SecurityUnitOfWork() : this(new SecurityContext())
         {
-           
+
         }
 
         public SecurityUnitOfWork(SecurityContext dataContext)
@@ -28,6 +34,10 @@ namespace Security.DataAccessLayer.UnitOfWork
             _dbContext = dataContext;
             UserRepository = new Repositories.UserRepository(dataContext);
             RoleRepository = new Repositories.RoleRepository(dataContext);
+            CountryRepository = new Repositories.CountryRepository(dataContext);
+            RegionRepository = new Repositories.RegionRepository(dataContext);
+            CityRepository = new Repositories.CityRepository(dataContext);
+            DistrictRepository = new Repositories.DistrictRepository(dataContext);
         }
 
         public int Save()

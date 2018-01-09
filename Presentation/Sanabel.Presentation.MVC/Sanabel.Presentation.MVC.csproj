@@ -227,7 +227,6 @@
     <Compile Include="IOC\CompositionRoot.cs" />
     <Compile Include="IOC\GraceIOC.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -957,6 +956,22 @@
     <ProjectReference Include="..\..\Common\BusinessSolutions.Localization\BusinessSolutions.Localization.csproj">
       <Project>{A8C9D7E2-6493-4758-8335-02B187FA6045}</Project>
       <Name>BusinessSolutions.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\Security.Application\Security.Application.csproj">
+      <Project>{c1e7285d-4108-4d69-87e7-fe3d1f58d8ee}</Project>
+      <Name>Security.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\Security.AspIdentity\Security.AspIdentity.csproj">
+      <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
+      <Name>Security.AspIdentity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\Security.DataAccessLayer\Security.DataAccessLayer.csproj">
+      <Project>{44859a1f-9523-460c-99b7-219aede202ed}</Project>
+      <Name>Security.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\Security.Domain\Security.Domain.csproj">
+      <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
+      <Name>Security.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

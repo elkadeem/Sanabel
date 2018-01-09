@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace CommonSettings.DAL
 {
-    public class DistrictConfiguration : EntityTypeConfiguration<District>
+    public class CityConfiguration : EntityTypeConfiguration<City>
     {
-        public DistrictConfiguration()
+        public CityConfiguration()
         {
-            this.ToTable("Districts").HasKey(c => c.Id)                
-                .HasRequired(c => c.City);
-
+            this.ToTable("Cities").HasKey(c => c.Id)                
+                .HasRequired(c => c.Region);
+            this.HasMany(c => c.Districts);
             this.Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             this.Property(c => c.Code).HasMaxLength(10);
             this.Property(c => c.Name).IsRequired().HasMaxLength(50);
             this.Property(c => c.NameEn).HasMaxLength(50);
-            this.Property(c => c.CityId).IsRequired();
+            this.Property(c => c.RegionId).IsRequired();
         }
     }
 }

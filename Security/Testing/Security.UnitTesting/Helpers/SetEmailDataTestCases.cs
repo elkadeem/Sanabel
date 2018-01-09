@@ -75,9 +75,8 @@ namespace Security.UnitTesting
             get
             {
                 return new List<TestCaseData> {
-                    new TestCaseData(null),
-                    new TestCaseData(new ApplicationUser()).SetDescription("InvalidUser"),
-                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                    new TestCaseData(null),                    
+                    new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")})
                     .SetDescription("ValidUser")
 
                 };
@@ -107,9 +106,17 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null),
-                    new TestCaseData(new ApplicationUser(){ PasswordHash = "PasswordHash"}).SetDescription("InvalidUser"),
+                    new TestCaseData(new ApplicationUser(){
+                        PasswordHash = "PasswordHash",
+                        IsLocked = true
+                    }).SetDescription("InvalidUser"),
                     new TestCaseData(new ApplicationUser() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
-                    , PasswordHash="PasswordHash"})
+                    , PasswordHash="PasswordHash"
+                    , PhoneNumber = "050"
+                    , IsEmailConfirmed = true
+                    , SecurityStamp = "stamp"
+                    , AccessFailedCount = 1,
+                    })
                     .SetDescription("ValidUser")
 
                 };

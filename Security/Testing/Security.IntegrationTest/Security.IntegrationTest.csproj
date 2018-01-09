@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CommonSettings\CommonSettings.DAL\CommonSettings.DAL.csproj">
+      <Project>{b8b6cf0e-8653-4b19-83a6-79752bb4c769}</Project>
+      <Name>CommonSettings.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3ff09941-9dd7-4a2f-bf77-b93dd747bdd0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>

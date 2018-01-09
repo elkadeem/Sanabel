@@ -54,9 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSettingDataContext.cs" />
-    <Compile Include="Configurations\DistrictConfiguration.cs" />
-    <Compile Include="Configurations\CountryConfiguration.cs" />
     <Compile Include="Configurations\CityConfiguration.cs" />
+    <Compile Include="Configurations\CountryConfiguration.cs" />
+    <Compile Include="Configurations\DistrictConfiguration.cs" />
     <Compile Include="Configurations\RegionConfiguration.cs" />
     <Compile Include="Migrations\201712201922377_Default.cs" />
     <Compile Include="Migrations\201712201922377_Default.Designer.cs">

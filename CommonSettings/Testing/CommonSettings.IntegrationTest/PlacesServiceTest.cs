@@ -91,7 +91,7 @@ namespace CommonSettings.IntegrationTest
             PlaceServiceTestCases.District = new DistrictViewModel
             {
                 CityId = PlaceServiceTestCases.City.CityId,
-                DistricName = "DistrictName"
+                DistrictName = "DistrictName"
             };
             var result = _placesServices.AddDistrict(PlaceServiceTestCases.District);
         }

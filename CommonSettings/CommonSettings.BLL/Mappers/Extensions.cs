@@ -104,8 +104,8 @@ namespace CommonSettings.BLL.Mappers
                 CityId = districtModel.CityId,
                 Code = districtModel.DistricCode,
                 Id = districtModel.DistrictId,
-                Name = districtModel.DistricName,
-                NameEn = districtModel.DistricNameEn
+                Name = districtModel.DistrictName,
+                NameEn = districtModel.DistrictNameEn
             };
         }
 
@@ -119,8 +119,8 @@ namespace CommonSettings.BLL.Mappers
                 City = district.City.ToCityViewModel(),
                 CityId = district.CityId,
                 DistricCode = district.Code,
-                DistricName = district.Name,
-                DistricNameEn = district.NameEn,
+                DistrictName = district.Name,
+                DistrictNameEn = district.NameEn,
                 DistrictId = district.Id,
             };
         }
