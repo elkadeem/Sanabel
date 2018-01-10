@@ -11,15 +11,18 @@ using Microsoft.Owin.Security;
 using Sanabel.Presentation.MVC.Models;
 using Security.AspIdentity;
 using Security.Application.Models;
+using Security.Application.Users;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController(ApplicationUserManager userManager
+        private IUserService _userService;
+        public AccountController(IUserService userService, ApplicationUserManager userManager
             , ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
+            _userService = userService;
             UserManager = userManager;
             SignInManager = signInManager;
             RoleManager = roleManager;
@@ -116,14 +119,16 @@ namespace Sanabel.Presentation.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            Security.Application.Models.RegisterViewModel model = new Security.Application.Models.RegisterViewModel();
+            Security.Application.Models.RegisterViewModel model = new Security.Application.Models.RegisterViewModel()
+            {  Roles = new System.Collections.Generic.List<Guid> { Guid.Parse("CC3E67C9-F3A3-4B03-BA8A-304460DDD78E")
+            , Guid.Parse("F1F04D00-E3C4-4B56-9097-CF5E060F8142") } };
             ViewBag.Roles = RoleManager.Roles.Select(c =>
-            new RoleViewModel
+            new SelectListItem
             {
-                RoleId = c.Id,
-                RoleName = c.RoleName,
-                RoleNameAr = c.RoleNameAr,
+                Value = c.Id.ToString(),
+                Text = c.RoleNameAr
             }).ToList();
+
             return View(model);
         }
 
@@ -136,32 +141,24 @@ namespace Sanabel.Presentation.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var entityResult = await _userService.AddUser(model);
+                if (entityResult.Succeeded)
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    Address = model.Address,
-                    CityId = model.CityId,
-                    DistrictId = model.DistrictId,
-                    PhoneNumber = model.Mobile,
-                };
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result);
+
+                foreach (var error in entityResult.ValidationErrors)
+                {
+                    ModelState.AddModelError("", error.Message);
+                }
             }
 
+            ViewBag.Roles = RoleManager.Roles.Select(c =>
+            new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.RoleNameAr
+            }).ToList();
             // If we got this far, something failed, redisplay form
             return View(model);
         }

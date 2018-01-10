@@ -1,6 +1,7 @@
 ﻿@model Security.Application.Models.RegisterViewModel
 @using BusinessSolutions.Localization
 @using Security.Application.Localization
+@using BusinessSolutions.MVCCommon.Helpers;
 
 @{
     ViewBag.Title = "انشاء مستخدم";
@@ -104,15 +105,10 @@
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">@SecurityResource.Roles</label>
                         <div class="col-md-10">
-                            @foreach (Security.Application.Models.RoleViewModel role in ViewBag.Roles)
-                            {
-                                <label class="checkbox-inline" for="inline-checkbox1">
-                                    <input type="checkbox" id="@role.RoleId" name="Roles" value="@role.RoleId">
-                                    @role.RoleNameAr
-                                </label>
-                            }
+                            @Html.CheckBoxListFor(Model => Model.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "" })
+                            @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>                    
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
                         <div class="col-md-10">

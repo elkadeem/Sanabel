@@ -74,12 +74,14 @@
   <ItemGroup>
     <Compile Include="ActionResults\CamelCaseJsonResult.cs" />
     <Compile Include="Attributes\ArabicTextOnlyAttribute.cs" />
+    <Compile Include="Attributes\CollectionLengthValidationAttribute.cs" />
     <Compile Include="Attributes\EnglishTextOnlyAttribute.cs" />
     <Compile Include="BaseModel.cs" />
     <Compile Include="Common\BaseSearchViewModel.cs" />
     <Compile Include="Common\UIMessage.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Filters\ParametersGreateThanZeroFilter.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +92,9 @@
       <Project>{e0f80c64-47dc-4236-bd94-a480b87552d1}</Project>
       <Name>BusinessSolutions.Common.Infra</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

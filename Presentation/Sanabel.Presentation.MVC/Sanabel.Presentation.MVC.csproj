@@ -744,6 +744,7 @@
     <Content Include="Areas\Settings\Views\Districts\Edit.cshtml" />
     <Content Include="Areas\Settings\Views\Districts\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\CustomValidations.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />

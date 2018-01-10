@@ -30,6 +30,10 @@ namespace Sanabel.Presentation.MVC.IOC
             assembly = System.Reflection.Assembly.Load("Security.AspIdentity");
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
+
+            assembly = System.Reflection.Assembly.Load("Security.Application");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
             //registrationBlock.ExportAssembly(assembly).BasedOn<UserManager<ApplicationUser, Guid>>();
             //registrationBlock.ExportAssembly(assembly).BasedOn<RoleManager<ApplicationRole, Guid>>();
 

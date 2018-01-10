@@ -30,9 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +53,8 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\IUserService.cs" />
+    <Compile Include="Users\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\SecurityResource.resx">
@@ -61,10 +67,29 @@
       <Project>{ABE9D79D-0CB3-41B3-A991-9A490674192B}</Project>
       <Name>BusinessSolutions.MVCCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
+      <Project>{3ff09941-9dd7-4a2f-bf77-b93dd747bdd0}</Project>
+      <Name>BusinessSolutions.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Localization\BusinessSolutions.Localization.csproj">
       <Project>{a8c9d7e2-6493-4758-8335-02b187fa6045}</Project>
       <Name>BusinessSolutions.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Security.AspIdentity\Security.AspIdentity.csproj">
+      <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
+      <Name>Security.AspIdentity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Security.Domain\Security.Domain.csproj">
+      <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
+      <Name>Security.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

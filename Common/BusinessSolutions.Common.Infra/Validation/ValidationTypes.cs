@@ -12,5 +12,6 @@ namespace BusinessSolutions.Common.Infra.Validation
         ZeroValue,
         NegativeValue,
         DuplicatedValue,
+        BusinessError,
     }
 }

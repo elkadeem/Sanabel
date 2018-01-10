@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessSolutions.MVCCommon.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -47,6 +48,8 @@ namespace Security.Application.Models
         [Display(Name = "DistrictId", ResourceType = typeof(Localization.SecurityResource))]
         public int? DistrictId { get; set; }
 
+        [CollectionLengthValidationAttribute(2, ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "Roles", ResourceType = typeof(Localization.SecurityResource))]
         public List<Guid> Roles { get; set; }
 
         public int CountryId { get; set; }
