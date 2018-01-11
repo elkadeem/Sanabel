@@ -36,14 +36,18 @@ namespace Security.IntegrationTest
 
             user = new AspIdentity.ApplicationUser()
             {
-                UserName = "user1",
-                Email = "user1@email.com",
+                UserName = "defaultUser",
+                Email = "defaultUser@email.com",
                 Id = UserManagerTestCases.ValidUserId,
+                Address = "Address",
+                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+                DistrictId = null,
+                PhoneNumber = "050",
             };
 
-            //var task = userManager.CreateAsync(user, "P@ssw0rd");
-            //task.Wait();
-            //bool isCreated = task.Result.Succeeded;
+            var task = userManager.CreateAsync(user, "P@ssw0rd");
+            task.Wait();
+            bool isCreated = task.Result.Succeeded;
         }
 
         [Test]
@@ -168,6 +172,16 @@ namespace Security.IntegrationTest
 
             result = await userManager.AddLoginAsync(currentUser.Id, userLogin);
             return result.Succeeded;
+        }
+
+        [Test]
+        public async Task AddUserToRole_WithValid_AddRoleToUser()
+        {
+            var user = await userManager.FindByIdAsync(UserManagerTestCases.ValidUserId);
+            string role = "Member";
+            IdentityResult identityResult = await userManager.AddToRoleAsync(user.Id, role);
+
+            identityResult.Succeeded.Should().Be(true);
         }
     }
 }

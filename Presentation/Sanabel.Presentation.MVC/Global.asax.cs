@@ -18,5 +18,7 @@ namespace Sanabel.Presentation.MVC
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             
         }
+
+        
     }
 }

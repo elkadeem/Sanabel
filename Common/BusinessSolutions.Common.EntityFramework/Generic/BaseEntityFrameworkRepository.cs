@@ -39,20 +39,23 @@ namespace BusinessSolutions.Common.EntityFramework
         public virtual void Update(TEntity entity)
         {
             var item = Set.Local.FirstOrDefault(c => entity.Equals(c));
-            if (item != null)
+            if (item != null 
+                && _dbContext.Entry(item).State != EntityState.Detached)
             {
-                _dbContext.Entry(item).State = EntityState.Detached;
+                _dbContext.Entry(item).CurrentValues.SetValues(entity);
             }
-
-            var entry = _dbContext.Entry<TEntity>(entity);
-            if (entry.State == EntityState.Detached)
+            else
             {
+                var entry = _dbContext.Entry<TEntity>(entity);
+                if (entry.State == EntityState.Detached)
+                {
 
-                Set.Attach(entity);
-                entry = _dbContext.Entry(entity);
+                    Set.Attach(entity);
+                    entry = _dbContext.Entry(entity);
+                }
+
+                entry.State = EntityState.Modified;
             }
-
-            entry.State = EntityState.Modified;
         }
 
         public virtual Tkey GetPrimaryKey(TEntity entity)

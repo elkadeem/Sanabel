@@ -29,8 +29,13 @@ namespace Security.AspIdentity
                 PasswordHash = this.PasswordHash,
                 PhoneNumber = this.PhoneNumber,
                 SecurityStamp = this.SecurityStamp,
-                UserName = this.UserName
+                UserName = this.UserName,
+                Roles = this.Roles,
+                Claims = this.Claims,
+                ExternalLogins = this.ExternalLogins,
             };
+
+
         }
     }
 }

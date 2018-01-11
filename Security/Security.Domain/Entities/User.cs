@@ -52,7 +52,7 @@ namespace Security.Domain
         public ICollection<ExternalLogin> ExternalLogins { get; set; }
 
         public ICollection<Role> Roles { get; set; }
-        
+
         public City City { get; set; }
 
         public District District { get; set; }
@@ -78,14 +78,9 @@ namespace Security.Domain
 
         public void AddClaim(string claimType, string claimValue)
         {
-            var claim = Claims.FirstOrDefault(c => c.ClaimType == claimType && c.ClaimValue == claimValue);
-            if (claim == null)
-            {
-                claim = new Claim { ClaimType = claimType };
-                Claims.Add(claim);
-            }
 
-            claim.ClaimValue = claimValue;
+            var claim = new Claim { ClaimType = claimType, ClaimValue = claimValue, UserId = this.Id };
+            Claims.Add(claim);
         }
 
         public void RemoveClaim(string claimType, string claimValue)

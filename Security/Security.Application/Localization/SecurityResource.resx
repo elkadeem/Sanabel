@@ -120,6 +120,9 @@
   <data name="Address" xml:space="preserve">
     <value>العنوان</value>
   </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
+  </data>
   <data name="CityId" xml:space="preserve">
     <value>المدينة</value>
   </data>
@@ -129,8 +132,14 @@
   <data name="ConfirmPasswordInvalid" xml:space="preserve">
     <value>تأكيد كلمة المرور لا يتطابق مع كلمة المرور.</value>
   </data>
+  <data name="Country" xml:space="preserve">
+    <value>الدولة</value>
+  </data>
   <data name="CountryId" xml:space="preserve">
     <value>الدولة</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>الحي</value>
   </data>
   <data name="DistrictId" xml:space="preserve">
     <value>الحي</value>
@@ -150,10 +159,16 @@
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
+  <data name="Region" xml:space="preserve">
+    <value>المنطقة</value>
+  </data>
   <data name="RegionId" xml:space="preserve">
     <value>المنطقة</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>الصلاحيات</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
   </data>
 </root>

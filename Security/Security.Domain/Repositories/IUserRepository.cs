@@ -16,6 +16,10 @@ namespace Security.Domain
         Task<User> FindByEmailAsync(CancellationToken cancellationToken, string email);
 
         Task<User> FindByLoginAsync(string loginProvider, string loginKey);
+
+        PagedEntity<User> SearchUsers(string userName, string email, string fullName
+            , int countryId, int regionId, int cityId, int districtId
+            , int pageIndex, int pageSize);
     }
    
 }

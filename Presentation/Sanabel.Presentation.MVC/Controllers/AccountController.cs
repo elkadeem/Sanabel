@@ -12,6 +12,8 @@ using Sanabel.Presentation.MVC.Models;
 using Security.AspIdentity;
 using Security.Application.Models;
 using Security.Application.Users;
+using PagedList;
+using BusinessSolutions.Common.Infra.Validation;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
@@ -31,6 +33,113 @@ namespace Sanabel.Presentation.MVC.Controllers
         public ApplicationRoleManager RoleManager { get; private set; }
         public ApplicationSignInManager SignInManager { get; private set; }
         public ApplicationUserManager UserManager { get; private set; }
+
+        #region XXX
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            Security.Application.Models.RegisterViewModel model = new Security.Application.Models.RegisterViewModel()
+            {
+                Roles = new System.Collections.Generic.List<Guid> { Guid.Parse("CC3E67C9-F3A3-4B03-BA8A-304460DDD78E")
+            , Guid.Parse("F1F04D00-E3C4-4B56-9097-CF5E060F8142") }
+            };
+            ViewBag.Roles = RoleManager.Roles.Select(c =>
+            new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.RoleNameAr
+            }).ToList();
+
+            return View(model);
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(Security.Application.Models.RegisterViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var entityResult = await _userService.AddUser(model);
+                    if (entityResult.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in entityResult.ValidationErrors)
+                        {
+                            ModelState.AddModelError("", error.Message);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            ViewBag.Roles = RoleManager.Roles.Select(c =>
+                new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.RoleNameAr
+                }).ToList();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Users(SearchUsersViewModel searchUserModel)
+        {
+            var result = _userService.SearchUser(searchUserModel);
+            searchUserModel.Items = new StaticPagedList<ViewUserViewModel>(result.Items
+                , searchUserModel.PageIndex + 1, searchUserModel.PageSize, result.TotalCount);
+            return View(searchUserModel);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> EditUser(Guid id)
+        {
+            try
+            {
+                Security.Application.Models.RegisterViewModel userModel = await _userService.GetUser(id);
+                return View(userModel);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> EditUser(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]Security.Application.Models.RegisterViewModel userModel)
+        {
+            try
+            {
+                userModel.Id = id;
+                EntityResult result = await _userService.UpdateUser(userModel);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    foreach (var error in result.ValidationErrors)
+                    {
+                        ModelState.AddModelError("", error.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(userModel);
+        }
+        #endregion
 
         //
         // GET: /Account/Login
@@ -114,54 +223,7 @@ namespace Sanabel.Presentation.MVC.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            Security.Application.Models.RegisterViewModel model = new Security.Application.Models.RegisterViewModel()
-            {  Roles = new System.Collections.Generic.List<Guid> { Guid.Parse("CC3E67C9-F3A3-4B03-BA8A-304460DDD78E")
-            , Guid.Parse("F1F04D00-E3C4-4B56-9097-CF5E060F8142") } };
-            ViewBag.Roles = RoleManager.Roles.Select(c =>
-            new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.RoleNameAr
-            }).ToList();
 
-            return View(model);
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Security.Application.Models.RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var entityResult = await _userService.AddUser(model);
-                if (entityResult.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                foreach (var error in entityResult.ValidationErrors)
-                {
-                    ModelState.AddModelError("", error.Message);
-                }
-            }
-
-            ViewBag.Roles = RoleManager.Roles.Select(c =>
-            new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.RoleNameAr
-            }).ToList();
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
 
         //
         // GET: /Account/ConfirmEmail

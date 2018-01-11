@@ -15,6 +15,7 @@ namespace Security.DataAccessLayer
         public SecurityContext() : base("SecurityConnectionString")
         {
             Database.SetInitializer<SecurityContext>(null);
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<User> Users { get; set; }

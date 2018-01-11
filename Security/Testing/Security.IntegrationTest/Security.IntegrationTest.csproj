@@ -69,6 +69,7 @@
     <Compile Include="UserManagerTestCases.cs" />
     <Compile Include="UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,6 +87,14 @@
     <ProjectReference Include="..\..\..\Common\BusinessSolutions.Common.EntityFramework\BusinessSolutions.Common.EntityFramework.csproj">
       <Project>{4298e9be-4bf6-4edc-8e90-2d4e54efb16d}</Project>
       <Name>BusinessSolutions.Common.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security.Application\Security.Application.csproj">
+      <Project>{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}</Project>
+      <Name>Security.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Security.AspIdentity\Security.AspIdentity.csproj">
       <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>

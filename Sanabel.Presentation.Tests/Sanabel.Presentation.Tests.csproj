@@ -98,12 +98,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Presentation\Sanabel.Presentation\Sanabel.Presentation.csproj">
-      <Project>{98281F7B-366B-49D0-B47B-AA09C8CCC9B3}</Project>
-      <Name>Sanabel.Presentation</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

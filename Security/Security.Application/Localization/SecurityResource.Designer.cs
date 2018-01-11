@@ -72,6 +72,15 @@ namespace Security.Application.Localization {
         /// <summary>
         ///   Looks up a localized string similar to المدينة.
         /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المدينة.
+        /// </summary>
         public static string CityId {
             get {
                 return ResourceManager.GetString("CityId", resourceCulture);
@@ -99,9 +108,27 @@ namespace Security.Application.Localization {
         /// <summary>
         ///   Looks up a localized string similar to الدولة.
         /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الدولة.
+        /// </summary>
         public static string CountryId {
             get {
                 return ResourceManager.GetString("CountryId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الحي.
+        /// </summary>
+        public static string District {
+            get {
+                return ResourceManager.GetString("District", resourceCulture);
             }
         }
         
@@ -162,6 +189,15 @@ namespace Security.Application.Localization {
         /// <summary>
         ///   Looks up a localized string similar to المنطقة.
         /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المنطقة.
+        /// </summary>
         public static string RegionId {
             get {
                 return ResourceManager.GetString("RegionId", resourceCulture);
@@ -174,6 +210,15 @@ namespace Security.Application.Localization {
         public static string Roles {
             get {
                 return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المستخدم.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

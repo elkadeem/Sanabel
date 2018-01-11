@@ -4,7 +4,7 @@
 @using BusinessSolutions.MVCCommon.Helpers;
 
 @{
-    ViewBag.Title = "انشاء مستخدم";
+    ViewBag.Title = "تعديل مستخدم";
 }
 <div class="row">
     <div class="col-md-12">
@@ -12,12 +12,12 @@
             <div class="card-body card-table">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="card-title font-weight-bold">انشاء مستخدم</h4><hr />
+                        <h4 class="card-title font-weight-bold">تعديل مستخدم</h4><hr />
                     </div>
                 </div>
                 @Html.Partial("_TempDataHeaderMessages")
                 @Html.Partial("_ViewDataHeaderMessages")
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -40,33 +40,7 @@
                             @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Password)</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.ConfirmPassword)</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@SecurityResource.CountryId</label>
-                        <div class="col-md-4">
-                            <select id="CountryId" name="CountryId" class="form-control">
-                                <option value="">@CommonResources.Select</option>
-                            </select>
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@SecurityResource.RegionId</label>
-                        <div class="col-md-4">
-                            <select id="RegionId" name="RegionId" class="form-control">
-                                <option value="">@CommonResources.Select</option>
-                            </select>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
                         <div class="col-md-4">

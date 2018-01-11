@@ -27,7 +27,8 @@ namespace Security.AspIdentity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            User newUser = user.GetUser();
+            User newUser = new User();
+            UpdateUserData(newUser, user);
             _securityUnitOfWork.UserRepository.Add(newUser);
             return _securityUnitOfWork.SaveAsync();
         }
@@ -67,8 +68,8 @@ namespace Security.AspIdentity
             if (entity == null)
                 throw new ArgumentException("User is not found.", "user");
 
-            User currentUser = user.GetUser();
-            _securityUnitOfWork.UserRepository.Update(currentUser);
+            UpdateUserData(entity, user);
+            _securityUnitOfWork.UserRepository.Update(entity);
             return _securityUnitOfWork.SaveAsync();
         }
         #endregion
@@ -82,13 +83,8 @@ namespace Security.AspIdentity
             if (login == null)
                 throw new ArgumentNullException("login");
 
-            var userEntity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (userEntity == null)
-                throw new ArgumentException("User is not exist.", "user");
-
-            userEntity.AddExternalLogin(login.LoginProvider, login.ProviderKey);
-            _securityUnitOfWork.UserRepository.Update(userEntity);
-            return _securityUnitOfWork.SaveAsync();
+            user.AddExternalLogin(login.LoginProvider, login.ProviderKey);
+            return Task.FromResult(0);
         }
 
         public async Task<ApplicationUser> FindAsync(UserLoginInfo login)
@@ -96,7 +92,8 @@ namespace Security.AspIdentity
             if (login == null)
                 throw new ArgumentNullException("login");
 
-            var user = await _securityUnitOfWork.UserRepository.FindByLoginAsync(login.LoginProvider, login.ProviderKey);
+            var user = await _securityUnitOfWork.UserRepository
+                .FindByLoginAsync(login.LoginProvider, login.ProviderKey);
             return GetApplicationUser(user);
         }
 
@@ -125,14 +122,8 @@ namespace Security.AspIdentity
             if (login == null)
                 throw new ArgumentNullException("login");
 
-            var userEntity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (userEntity == null)
-                throw new ArgumentException("User is not found", "user");
-
-            userEntity.RemoveExternalLogin(login.LoginProvider);
-            _securityUnitOfWork.UserRepository.Update(user);
-            return _securityUnitOfWork.SaveAsync();
-
+            user.RemoveExternalLogin(login.LoginProvider);
+            return Task.FromResult(0);
         }
         #endregion 
 
@@ -425,17 +416,12 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(roleName))
                 throw new ArgumentNullException("roleName");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
             var role = _securityUnitOfWork.RoleRepository.FindByName(roleName);
             if (role == null)
                 throw new ArgumentException("Role is not found.", "roleName");
 
-            entity.AddRole(role);
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            user.AddRole(role);
+            return Task.FromResult(0);
         }
 
         public Task RemoveFromRoleAsync(ApplicationUser user, string roleName)
@@ -446,16 +432,14 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(roleName))
                 throw new ArgumentNullException("roleName");
 
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
+            if (user.Roles != null)
+            {
+                var role = user.Roles.FirstOrDefault(c => c.RoleName.ToLower() == roleName.ToLower());
+                if (role != null)
+                    user.RemoveRole(role);
+            }
 
-            var role = entity.Roles.FirstOrDefault(c => c.RoleName.ToLower() == roleName.ToLower());
-            if (role != null)
-                entity.RemoveRole(role);
-
-            _securityUnitOfWork.UserRepository.Update(entity);
-            return _securityUnitOfWork.SaveAsync();
+            return Task.FromResult(0);
         }
 
         public Task<IList<string>> GetRolesAsync(ApplicationUser user)
@@ -466,7 +450,7 @@ namespace Security.AspIdentity
             var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
             if (entity == null)
                 throw new ArgumentException("User is not found.", "user");
-            IList<string> rolesName = entity.Roles == null ? null : entity.Roles.Select(c => c.RoleName).ToList();
+            IList<string> rolesName = entity.Roles?.Select(c => c.RoleName).ToList();
             return Task.FromResult(rolesName);
         }
 
@@ -547,6 +531,49 @@ namespace Security.AspIdentity
                 applicationUser.AddClaim(claim.ClaimType, claim.ClaimValue);
 
             return applicationUser;
+        }
+
+        private void UpdateUserData(User user, ApplicationUser applicationUser)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+            if (applicationUser == null)
+                throw new ArgumentNullException("applicationUser");
+
+            user.AccessFailedCount = applicationUser.AccessFailedCount;
+            user.Email = applicationUser.Email;
+            user.EnableTowFactorAuthentication = applicationUser.EnableTowFactorAuthentication;
+            user.FullName = applicationUser.FullName;
+            user.IsEmailConfirmed = applicationUser.IsEmailConfirmed;
+            user.IsLocked = applicationUser.IsLocked;
+            user.IsPhoneConfirmed = applicationUser.IsPhoneConfirmed;
+            user.LockedOutDate = applicationUser.LockedOutDate;
+            user.PasswordHash = applicationUser.PasswordHash;
+            user.PhoneNumber = applicationUser.PhoneNumber;
+            user.SecurityStamp = applicationUser.SecurityStamp;
+            user.Id = applicationUser.Id;
+            user.UserName = applicationUser.UserName;
+            user.CityId = applicationUser.CityId;
+            user.DistrictId = applicationUser.DistrictId;
+            user.Address = applicationUser.Address;
+
+            foreach (var role in applicationUser.Roles)
+            {
+                if (!user.Roles.Any(c => c.Id == role.Id))
+                    user.Roles.Add(role);
+            }
+
+            foreach (var externalLogin in applicationUser.ExternalLogins)
+            {
+                if (!user.ExternalLogins.Any(c => c.LoginProvider.ToLower() == externalLogin.LoginProvider.ToLower()))
+                    user.ExternalLogins.Add(externalLogin);
+            }
+
+            foreach(var claim in applicationUser.Claims)
+            {
+                if (!user.Claims.Any(c => c.ClaimId == claim.ClaimId))
+                    user.AddClaim(claim.ClaimType, claim.ClaimValue);
+            }
         }
         #endregion
     }

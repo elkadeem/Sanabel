@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Data.Entity;
+using BusinessSolutions.Common.Core;
 
 namespace Security.DataAccessLayer.Repositories
 {
@@ -15,6 +16,27 @@ namespace Security.DataAccessLayer.Repositories
         public UserRepository(SecurityContext securityContext) : base(securityContext)
         {
 
+        }
+
+        public override User GetByID(Guid key)
+        {
+            return Set.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins).FirstOrDefault(c => c.Id == key);
+        }
+
+        public override Task<User> GetByIDAsync(Guid key)
+        {
+            return Set.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins).FirstOrDefaultAsync(c => c.Id == key);
+        }
+
+        public override Task<User> GetByIDAsync(CancellationToken cancellationToken, Guid key)
+        {
+            return Set.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins).FirstOrDefaultAsync(c => c.Id == key, cancellationToken);
         }
 
         public User FindByEmail(string email)
@@ -58,6 +80,41 @@ namespace Security.DataAccessLayer.Repositories
         {
             var user = await Set.FirstOrDefaultAsync(c => c.UserName == userName, cancellationToken);
             return user;
+        }
+
+        public PagedEntity<User> SearchUsers(string userName, string email, string fullName
+            , int countryId, int regionId, int cityId, int districtId, int pageIndex, int pageSize)
+        {
+            var query = Set.AsNoTracking().Include(c => c.District)
+                .Include(c => c.City.Region.Country);
+
+            if (!string.IsNullOrEmpty(userName))
+                query = query.Where(c => c.UserName.Contains(userName));
+
+            if (!string.IsNullOrEmpty(email))
+                query = query.Where(c => c.Email.Contains(email));
+
+            if (!string.IsNullOrEmpty(fullName))
+                query = query.Where(c => c.FullName.Contains(fullName));
+
+            if (countryId > 0)
+                query = query.Where(c => c.City.Region.CountryId == countryId);
+
+            if (regionId > 0)
+                query = query.Where(c => c.City.RegionId == regionId);
+
+            if (cityId > 0)
+                query = query.Where(c => c.CityId == cityId);
+
+            if (districtId > 0)
+                query = query.Where(c => c.DistrictId == districtId);
+
+            int totalItemsCount = query.Count();
+            var items = query.OrderBy(c => c.UserName)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize);
+
+            return new PagedEntity<User>(items, totalItemsCount);
         }
     }
 }
