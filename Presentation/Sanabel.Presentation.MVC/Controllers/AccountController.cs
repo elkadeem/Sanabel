@@ -35,12 +35,11 @@ namespace Sanabel.Presentation.MVC.Controllers
         public ApplicationUserManager UserManager { get; private set; }
 
         #region XXX
-        //
-        // GET: /Account/Register
+        
         [AllowAnonymous]
         public ActionResult Register()
         {
-            Security.Application.Models.RegisterViewModel model = new Security.Application.Models.RegisterViewModel()
+            Security.Application.Models.VolunteerViewModel model = new Security.Application.Models.VolunteerViewModel()
             {
                 Roles = new System.Collections.Generic.List<Guid> { Guid.Parse("CC3E67C9-F3A3-4B03-BA8A-304460DDD78E")
             , Guid.Parse("F1F04D00-E3C4-4B56-9097-CF5E060F8142") }
@@ -60,7 +59,7 @@ namespace Sanabel.Presentation.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Security.Application.Models.RegisterViewModel model)
+        public async Task<ActionResult> Register(Security.Application.Models.VolunteerViewModel model)
         {
             try
             {
@@ -95,10 +94,10 @@ namespace Sanabel.Presentation.MVC.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Users(SearchUsersViewModel searchUserModel)
+        public ActionResult Users(SearchVolunteersViewModel searchUserModel)
         {
             var result = _userService.SearchUser(searchUserModel);
-            searchUserModel.Items = new StaticPagedList<ViewUserViewModel>(result.Items
+            searchUserModel.Items = new StaticPagedList<ViewVolunteerViewModel>(result.Items
                 , searchUserModel.PageIndex + 1, searchUserModel.PageSize, result.TotalCount);
             return View(searchUserModel);
         }
@@ -106,16 +105,13 @@ namespace Sanabel.Presentation.MVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> EditUser(Guid id)
         {
-            try
-            {
-                Security.Application.Models.RegisterViewModel userModel = await _userService.GetUser(id);
-                return View(userModel);
-            }
+            Security.Application.Models.VolunteerViewModel userModel = await _userService.GetUser(id);
+            return View(userModel);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> EditUser(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]Security.Application.Models.RegisterViewModel userModel)
+        public async Task<ActionResult> EditUser(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]Security.Application.Models.VolunteerViewModel userModel)
         {
             try
             {

@@ -17,7 +17,8 @@ namespace Sanabel.Presentation.Areas.Volunteers
             context.MapRoute(
                 "Volunteers_default",
                 "Volunteers/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "Sanabel.Presentation.MVC.Areas.Volunteers.Controllers" }
             );
         }
     }

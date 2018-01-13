@@ -20,8 +20,7 @@ namespace Security.AspIdentity
             this.UserValidator = new UserValidator<ApplicationUser, Guid>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true,  
-                
+                RequireUniqueEmail = true,                
             };
                        
 
@@ -33,6 +32,12 @@ namespace Security.AspIdentity
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
+
+            this.UserLockoutEnabledByDefault = true;
+            this.MaxFailedAccessAttemptsBeforeLockout = 5;
+            // if you want to lock out indefinitely 200 years should be enough
+            this.DefaultAccountLockoutTimeSpan = TimeSpan.FromDays(365 * 100);
+
         }
     }
 }

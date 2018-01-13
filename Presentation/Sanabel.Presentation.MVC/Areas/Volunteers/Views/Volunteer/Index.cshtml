@@ -1,4 +1,4 @@
-﻿@model Security.Application.Models.SearchUsersViewModel
+﻿@model Security.Application.Models.SearchVolunteersViewModel
 @using PagedList.Mvc
 @using BusinessSolutions.Localization
 @using Security.Application.Localization
@@ -20,7 +20,7 @@
                 @Html.Partial("_TempDataHeaderMessages")
                 @Html.Partial("_ViewDataHeaderMessages")
                 <!-- form ############################################################### -->
-                @using (Html.BeginForm("Users", "Account", FormMethod.Get, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Index", "Volunteer", FormMethod.Get, new { @class = "form-horizontal" }))
                 {
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
@@ -37,32 +37,32 @@
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.CountryId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })
+                                    , new SelectList(Enumerable.Empty<SelectListItem>())
+                                    , CommonResources.All
+                                    , new { @class = "form-control" })
                         </div>
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.RegionId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })
+                                    , new SelectList(Enumerable.Empty<SelectListItem>())
+                                    , CommonResources.All
+                                    , new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.CityId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })                            
+                                    , new SelectList(Enumerable.Empty<SelectListItem>())
+                                    , CommonResources.All
+                                    , new { @class = "form-control" })
                         </div>
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.DistrictId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })                            
+                                    , new SelectList(Enumerable.Empty<SelectListItem>())
+                                    , CommonResources.All
+                                    , new { @class = "form-control" })
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
                         <div class="col-md-10">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
-                            <a href="@Url.Action("Register")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
+                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
                         </div>
 
                     </div>
@@ -150,16 +150,16 @@
                                 </div>
 
                                 @Html.PagedListPager(Model.Items, page => Url.Action("Index"
-                               , new
-                               {
-                                   PageIndex = page - 1,
-                                   CountryId = Model.CountryId,
-                                   RegionId = Model.RegionId,
-                                   UserName = Model.UserName,
-                                   Email = Model.Email,
-                                   CityId = Model.CityId,
-                                   DistrictId = Model.DistrictId
-                               }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                    , new
+                                    {
+                                        PageIndex = page - 1,
+                                        CountryId = Model.CountryId,
+                                        RegionId = Model.RegionId,
+                                        UserName = Model.UserName,
+                                        Email = Model.Email,
+                                        CityId = Model.CityId,
+                                        DistrictId = Model.DistrictId
+                                    }), PagedListRenderOptions.ClassicPlusFirstAndLast)
                             </div>
                         }
                     </div>
@@ -207,7 +207,7 @@
 
         function fillCountries()
         {
-            $.get("@Url.Action("GetAllCountries", "Countries")")
+            $.get("@Url.Action("GetAllCountries", "Countries", new { area = "Settings" })")
                 .done(function (data) {
                     $('#CountryId:first-child ~ option').remove();
                     $.each(data, function (index, item) {
@@ -231,7 +231,7 @@
 
         function fillRegionsByCountryId(countryId)
         {
-            $.get("@Url.Action("GetRegionsByCountryId", "Regions")" + "?countryId=" + countryId)
+            $.get("@Url.Action("GetRegionsByCountryId", "Regions", new { area = "Settings" })" + "?countryId=" + countryId)
                 .done(function (data) {
                     $('#RegionId option:first-child ~ option').remove();
                     $.each(data, function (index, item) {
@@ -251,7 +251,7 @@
 
         function fillCitiesByRegionId(regionId)
         {
-            $.get("@Url.Action("GetCitiesByRegionId", "Cities")" + "?regionId=" + regionId)
+            $.get("@Url.Action("GetCitiesByRegionId", "Cities", new { area = "Settings" })" + "?regionId=" + regionId)
                 .done(function (data) {
                     $('#CityId option:first-child ~ option').remove();
                     $.each(data, function (index, item) {
@@ -271,7 +271,7 @@
 
         function fillDistrictsByCityId(cityId)
         {
-            $.get("@Url.Action("GetDistrictsByCityId", "Districts")" + "?cityId=" + cityId)
+            $.get("@Url.Action("GetDistrictsByCityId", "Districts", new { area = "Settings" })" + "?cityId=" + cityId)
                 .done(function (data) {
                     $('#DistrictId option:first-child ~ option').remove();
                     $.each(data, function (index, item) {

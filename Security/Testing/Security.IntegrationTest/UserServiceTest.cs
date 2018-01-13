@@ -42,7 +42,7 @@ namespace Security.IntegrationTest
         [Test]
         public async Task AddUser_WithRole_AddUserAndUserRoles()
         {
-            var user = new RegisterViewModel()
+            var user = new VolunteerViewModel()
             {
                 Address = "Address",
                 CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
@@ -64,10 +64,10 @@ namespace Security.IntegrationTest
             Assert.AreEqual(newUser.Roles.Count, 2);
         }
 
-        [Test]        
+        [Test]
         public async Task SearchUsers_WithNoFilteration_GetAllUsers()
         {
-            var user = new RegisterViewModel()
+            var user = new VolunteerViewModel()
             {
                 Address = "Address",
                 CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
@@ -82,11 +82,44 @@ namespace Security.IntegrationTest
             var entityResult = await _userService.AddUser(user);
             Assert.IsTrue(entityResult.Succeeded);
 
-            SearchUsersViewModel searchUsersViewModel = new SearchUsersViewModel();
+            SearchVolunteersViewModel searchUsersViewModel = new SearchVolunteersViewModel();
             var result = _userService.SearchUser(searchUsersViewModel);
             Assert.Greater(result.TotalCount, 0);
             Assert.GreaterOrEqual(result.Items.Count, 0);
         }
 
+        [Test]
+        public async Task UpdateUser_WithValid_Data_UpateUserAndRoles()
+        {
+            var user = new VolunteerViewModel()
+            {
+                Address = "Address",
+                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+                ConfirmPassword = "P@ssw0rd",
+                Email = "UserToUodate@Email.com",
+                FullName = "UserToUpdate",
+                Mobile = "0123456",
+                Password = "P@ssw0rd",
+                Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
+            };
+
+            var entityResult = await _userService.AddUser(user);
+            Assert.IsTrue(entityResult.Succeeded);
+
+            var currentUser = await _userService.GetUser(user.Id);
+            Assert.IsNotNull(currentUser);
+            currentUser.Address = "NewAddress";
+            currentUser.FullName = "NameAfterUpdate";
+            currentUser.CityId = _securityUnitOfWork.CityRepository.GetAll().Last().Id;
+            currentUser.Mobile = "0123";
+            currentUser.Roles = _roleManager.Roles.Skip(2).Take(3).Select(c => c.Id).ToList();
+
+            entityResult = await _userService.UpdateUser(currentUser);
+            Assert.IsTrue(entityResult.Succeeded);
+
+            var storedUser = await userManager.FindByIdAsync(currentUser.Id);
+            Assert.IsNotNull(storedUser);
+            Assert.AreEqual(storedUser.Roles.Count, 3);
+        }
     }
 }

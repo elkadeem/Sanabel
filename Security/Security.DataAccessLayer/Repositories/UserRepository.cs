@@ -22,21 +22,27 @@ namespace Security.DataAccessLayer.Repositories
         {
             return Set.Include(c => c.Roles)
                 .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins).FirstOrDefault(c => c.Id == key);
+                .Include(c => c.ExternalLogins)
+                .Include(c => c.City.Region.Country)
+                .Include(c => c.District).FirstOrDefault(c => c.Id == key);
         }
 
         public override Task<User> GetByIDAsync(Guid key)
         {
             return Set.Include(c => c.Roles)
                 .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins).FirstOrDefaultAsync(c => c.Id == key);
+                .Include(c => c.ExternalLogins)
+                .Include(c => c.City.Region.Country)
+                .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == key);
         }
 
         public override Task<User> GetByIDAsync(CancellationToken cancellationToken, Guid key)
         {
             return Set.Include(c => c.Roles)
                 .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins).FirstOrDefaultAsync(c => c.Id == key, cancellationToken);
+                .Include(c => c.ExternalLogins)
+                .Include(c => c.City.Region.Country)
+                .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == key, cancellationToken);
         }
 
         public User FindByEmail(string email)

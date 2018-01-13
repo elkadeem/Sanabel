@@ -169,6 +169,15 @@ namespace Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to كلمة المرور يجب أن تتكون من 6 إلي 20 حرف وتحتوي علي رقم وحرف كبير وحرف صغير وعلي أحد هذه الرموز @#$% علي الأقل..
+        /// </summary>
+        public static string InvalidPassword {
+            get {
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الجوال.
         /// </summary>
         public static string Mobile {

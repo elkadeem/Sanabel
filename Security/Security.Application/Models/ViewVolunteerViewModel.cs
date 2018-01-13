@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Security.Application.Models
 {
-    public class ViewUserViewModel
+    public class ViewVolunteerViewModel
     {
         public Guid UserId { get; set; }
 

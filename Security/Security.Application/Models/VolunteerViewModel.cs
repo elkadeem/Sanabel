@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Security.Application.Models
 {
-    public class RegisterViewModel
+    public class VolunteerViewModel
     {
         public Guid Id { get; set; }
 
@@ -20,6 +20,7 @@ namespace Security.Application.Models
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(50, MinimumLength = 6, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [RegularExpression(@"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})", ErrorMessageResourceName ="InvalidPassword", ErrorMessageResourceType = typeof(Localization.SecurityResource))]
         [DataType(DataType.Password)]
         [Display(Name = "Password", ResourceType = typeof(Localization.SecurityResource))]
         public string Password { get; set; }

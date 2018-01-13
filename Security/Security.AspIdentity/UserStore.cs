@@ -519,17 +519,13 @@ namespace Security.AspIdentity
                 CityId = user.CityId,
                 DistrictId = user.DistrictId,
                 Address = user.Address,
+                City = user.City,
+                District = user.District,
+                Roles = user.Roles,
+                ExternalLogins = user.ExternalLogins,
+                Claims = user.Claims,
             };
-
-            foreach (var role in user.Roles)
-                applicationUser.AddRole(role);
-
-            foreach (var externalLogin in user.ExternalLogins)
-                applicationUser.AddExternalLogin(externalLogin.LoginProvider, externalLogin.ProviderKey);
-
-            foreach (var claim in user.Claims)
-                applicationUser.AddClaim(claim.ClaimType, claim.ClaimValue);
-
+           
             return applicationUser;
         }
 
@@ -557,22 +553,49 @@ namespace Security.AspIdentity
             user.DistrictId = applicationUser.DistrictId;
             user.Address = applicationUser.Address;
 
-            foreach (var role in applicationUser.Roles)
+            UpdateRoles(user, applicationUser);
+            UpdateExternalLogn(user, applicationUser);
+            UpdateClaims(user, applicationUser);
+        }
+
+        private static void UpdateClaims(User user, ApplicationUser applicationUser)
+        {
+            foreach (var claim in user.Claims.Where(c => !applicationUser.Claims.Any(e => e.ClaimId == c.ClaimId)).ToList())
             {
-                if (!user.Roles.Any(c => c.Id == role.Id))
-                    user.Roles.Add(role);
+                user.Claims.Remove(claim);
             }
 
-            foreach (var externalLogin in applicationUser.ExternalLogins)
+            foreach (var claim in applicationUser.Claims.Where(c => !user.Claims.Any(e => e.ClaimId == c.ClaimId)))
             {
-                if (!user.ExternalLogins.Any(c => c.LoginProvider.ToLower() == externalLogin.LoginProvider.ToLower()))
-                    user.ExternalLogins.Add(externalLogin);
+                user.AddClaim(claim.ClaimType, claim.ClaimValue);
+            }
+        }
+
+        private static void UpdateExternalLogn(User user, ApplicationUser applicationUser)
+        {
+            foreach (var externalLogin in user.ExternalLogins.Where(c => !applicationUser.ExternalLogins
+                        .Any(e => e.ProviderKey == c.ProviderKey)).ToList())
+            {
+                user.ExternalLogins.Remove(externalLogin);
             }
 
-            foreach(var claim in applicationUser.Claims)
+            foreach (var externalLogin in applicationUser.ExternalLogins
+                .Where(c => !user.ExternalLogins.Any(e => e.ProviderKey == c.ProviderKey)))
             {
-                if (!user.Claims.Any(c => c.ClaimId == claim.ClaimId))
-                    user.AddClaim(claim.ClaimType, claim.ClaimValue);
+                user.ExternalLogins.Add(externalLogin);
+            }
+        }
+
+        private static void UpdateRoles(User user, ApplicationUser applicationUser)
+        {
+            foreach (var role in user.Roles.Where(c => !applicationUser.Roles.Any(e => e.Id == c.Id)).ToList())
+            {
+                user.Roles.Remove(role);
+            }
+
+            foreach (var role in applicationUser.Roles.Where(c => !user.Roles.Any(e => e.Id == c.Id)))
+            {
+                user.Roles.Add(role);
             }
         }
         #endregion

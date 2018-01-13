@@ -10,6 +10,11 @@ namespace CommonSettings.Domain.Entities
 {
     public class Region : Entity<int>
     {
+        public Region()
+        {
+            Cities = new HashSet<City>();
+        }
+
         public string Name { get; set; }
                 
         public string NameEn { get; set; }
@@ -20,6 +25,6 @@ namespace CommonSettings.Domain.Entities
         
         public Country Country { get; set; }
 
-        public ICollection<City> Cities { get; set; }
+        public ICollection<City> Cities { get; private set; }
     }
 }

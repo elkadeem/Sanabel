@@ -1,6 +1,7 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Infra.Validation;
 using Security.Application.Models;
+using Security.AspIdentity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,14 @@ namespace Security.Application.Users
 {
     public interface IUserService
     {
-        Task<EntityResult> AddUser(RegisterViewModel userModel);
+        Task<EntityResult> AddUser(VolunteerViewModel userModel);
 
-        PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel);
+        PagedEntity<ViewVolunteerViewModel> SearchUser(SearchVolunteersViewModel searchUserModel);
 
-        Task<RegisterViewModel> GetUser(Guid id);
+        Task<VolunteerViewModel> GetUser(Guid id);
 
-        Task<EntityResult> UpdateUser(RegisterViewModel userModel);
+        Task<EntityResult> UpdateUser(VolunteerViewModel userModel);
+
+        List<ApplicationRole> GetAllRoles();
     }
 }

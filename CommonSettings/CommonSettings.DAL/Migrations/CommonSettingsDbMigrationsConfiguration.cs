@@ -19,38 +19,48 @@
             context.Database.ExecuteSqlCommand("DELETE FROM Common.Regions");
             context.Database.ExecuteSqlCommand("DELETE FROM Common.Countries");
 
-            for (int i = 1; i <= 20; i++)
+            var country = new Country()
             {
-                context.Countries.AddOrUpdate(c => c.Name,  new Country
-                {
-                    Name = "الدولة " + i,
-                    NameEn = "Country" + i,
-                    Code = i.ToString("0000"),
-                });
-            }
-
+                Code = "KSA",
+                Name = "الممكلة العربية السعودية",
+                NameEn = "Saudi Arabia",
+            };
+            context.Countries.AddOrUpdate(c => c.Name, country);
             context.SaveChanges();
-            var country = context.Countries.First();
-            for (int i = 1; i <= 20; i++)
+            var region = new Region
             {
-                context.Regions.AddOrUpdate(c => c.Name, new Region
-                {
-                    Name = "المنطقة" + i,
-                    CountryId = country.Id
-                });
-            }
+                Name = "الرياض",
+                NameEn = "Riyadh",
+                CountryId = country.Id,
+            };
+            context.Regions.AddOrUpdate(c => c.Name, region);
+            context.SaveChanges();
+            var city = new City
+            {
+                Name = "الرياض",
+                RegionId = region.Id,
+                NameEn = "Riyadh",
+            };
+
+            context.Cities.AddOrUpdate(c => c.Name, city);
             context.SaveChanges();
 
-            var region = context.Regions.First();
-            for(int i = 0; i < 20; i ++)
+            var district = new District
             {
-                context.Cities.AddOrUpdate(c => c.Name, new City
-                {
-                    Name = "المدينة" + i,
-                    RegionId = region.Id
-                });
-            }
+                Name = "الازدهار",
+                NameEn = "Alizdehar",
+                CityId = city.Id,
+            };
+            context.Districts.AddOrUpdate(c => c.Name, district);
 
+            district = new District
+            {
+                Name = "المروج",
+                NameEn = "Almoruj",
+                CityId = city.Id,
+            };
+
+            context.Districts.AddOrUpdate(c => c.Name, district);
             context.SaveChanges();
 
         }

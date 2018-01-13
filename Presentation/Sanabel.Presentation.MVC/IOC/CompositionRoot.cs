@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Grace.DependencyInjection;
-using Grace.MVC.DependencyInjection;
 using Microsoft.AspNet.Identity;
 using Security.AspIdentity;
 using Microsoft.Owin.Security;
@@ -42,7 +41,10 @@ namespace Sanabel.Presentation.MVC.IOC
             var logger = NLog.LogManager.CreateNullLogger();
             registrationBlock.ExportInstance(logger).As<NLog.ILogger>()
                 .Lifestyle.Singleton();
-            registrationBlock.ExportController(this.GetType().Assembly.ExportedTypes);
+
+            registrationBlock.ExportAssemblyContaining<CompositionRoot>()
+                .BasedOn<Controller>();
+            
         }
     }
 }

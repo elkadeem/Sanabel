@@ -153,6 +153,9 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>البريد الإلكتروني غير صحيح</value>
   </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>كلمة المرور يجب أن تتكون من 6 إلي 20 حرف وتحتوي علي رقم وحرف كبير وحرف صغير وعلي أحد هذه الرموز @#$% علي الأقل.</value>
+  </data>
   <data name="Mobile" xml:space="preserve">
     <value>الجوال</value>
   </data>

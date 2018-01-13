@@ -23,7 +23,7 @@ namespace CommonSettings.DAL
 
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<District> District { get; set; }
+        public DbSet<District> Districts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

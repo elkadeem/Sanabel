@@ -5,6 +5,7 @@ using Security.Application.Models;
 using Security.AspIdentity;
 using Security.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -31,7 +32,7 @@ namespace Security.Application.Users
             _securityUnitOfWork = securityUnitOfWork;
         }
 
-        public async Task<EntityResult> AddUser(RegisterViewModel userModel)
+        public async Task<EntityResult> AddUser(VolunteerViewModel userModel)
         {
             try
             {
@@ -46,6 +47,7 @@ namespace Security.Application.Users
                         CityId = userModel.CityId,
                         DistrictId = userModel.DistrictId,
                         PhoneNumber = userModel.Mobile,
+                        FullName = userModel.FullName,
                     };
 
                     var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -62,6 +64,7 @@ namespace Security.Application.Users
                     if (result.Succeeded)
                     {
                         transactionScop.Complete();
+                        userModel.Id = user.Id;
                     }
 
                     return GetEntityResult(result);
@@ -73,13 +76,18 @@ namespace Security.Application.Users
             }
         }
 
-        public async Task<RegisterViewModel> GetUser(Guid userId)
+        public List<ApplicationRole> GetAllRoles()
+        {
+            return _roleManager.Roles.ToList();
+        }
+
+        public async Task<VolunteerViewModel> GetUser(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 throw new ArgumentException("User is not exist.", "userId");
 
-            return new RegisterViewModel
+            return new VolunteerViewModel
             {
                 Address = user.Address,
                 CityId = user.CityId,
@@ -89,11 +97,12 @@ namespace Security.Application.Users
                 FullName = user.FullName,
                 Mobile = user.PhoneNumber,
                 RegionId = user.City.RegionId,
-                Roles = user.Roles?.Select(c => c.Id).ToList()
+                Roles = user.Roles?.Select(c => c.Id).ToList(),
+                Id = user.Id,
             };
         }
 
-        public PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel)
+        public PagedEntity<ViewVolunteerViewModel> SearchUser(SearchVolunteersViewModel searchUserModel)
         {
             if (searchUserModel == null)
                 throw new ArgumentNullException("searchUserModel");
@@ -103,11 +112,11 @@ namespace Security.Application.Users
                 , searchUserModel.CityId, searchUserModel.DistrictId
                 , searchUserModel.PageIndex, searchUserModel.PageSize);
 
-            return new PagedEntity<ViewUserViewModel>(result.Items.Select(c => GetViewUserViewModel(c)), result.TotalCount);
+            return new PagedEntity<ViewVolunteerViewModel>(result.Items.Select(c => GetViewUserViewModel(c)), result.TotalCount);
 
         }
 
-        public async Task<EntityResult> UpdateUser(RegisterViewModel userModel)
+        public async Task<EntityResult> UpdateUser(VolunteerViewModel userModel)
         {
             if (userModel == null)
                 throw new ArgumentNullException("userModel");
@@ -122,13 +131,35 @@ namespace Security.Application.Users
             user.FullName = userModel.FullName;
             user.PhoneNumber = userModel.Mobile;
 
-            _userManager.UpdateAsync(user);
-            foreach(var role in user.Roles.ToList())
+            using (TransactionScope transactionScop = new TransactionScope(TransactionScopeOption.RequiresNew
+                    , TransactionScopeAsyncFlowOption.Enabled))
             {
-                if(userModel.Roles.Any(c => c == role.Id))
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    var rolesToRemove = user.Roles.Where(c => !userModel.Roles.Contains(c.Id))
+                        .Select(c => c.RoleName);
+                    if (rolesToRemove.Count() > 0)
+                        result = await _userManager.RemoveFromRolesAsync(user.Id, rolesToRemove.ToArray());
+
+                    if (result.Succeeded)
+                    {
+                        var rolesToAdd = _roleManager.Roles.Where(c => userModel.Roles.Contains(c.Id)
+                           && !user.Roles.Any(e => e.Id == c.Id))
+                            .Select(c => c.Name);
+
+                        if (rolesToAdd.Count() > 0)
+                            result = await _userManager.AddToRolesAsync(user.Id, rolesToAdd.ToArray());
+                    }
+                }
+
+                if (result.Succeeded)
+                {
+                    transactionScop.Complete();
+                }
+
+                return GetEntityResult(result);
             }
-
-
         }
 
         private EntityResult GetEntityResult(IdentityResult result)
@@ -143,12 +174,12 @@ namespace Security.Application.Users
                 .Select(c => new ValidationError(c, ValidationErrorTypes.BusinessError))
                 .ToArray());
         }
-        
-        private ViewUserViewModel GetViewUserViewModel(User user)
+
+        private ViewVolunteerViewModel GetViewUserViewModel(User user)
         {
             if (user == null)
                 return null;
-            return new ViewUserViewModel
+            return new ViewVolunteerViewModel
             {
                 Address = user.Address,
                 CityName = user.City?.Name,

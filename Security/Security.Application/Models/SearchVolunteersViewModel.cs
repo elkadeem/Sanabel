@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Security.Application.Models
 {
-    public class SearchUsersViewModel : BaseSearchViewModel<ViewUserViewModel>
+    public class SearchVolunteersViewModel : BaseSearchViewModel<ViewVolunteerViewModel>
     {
-        public SearchUsersViewModel() : base()
+        public SearchVolunteersViewModel() : base()
         {
         }
 
-        public SearchUsersViewModel(int pageSize) : base(pageSize)
+        public SearchVolunteersViewModel(int pageSize) : base(pageSize)
         {
         }
 

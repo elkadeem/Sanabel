@@ -17,7 +17,8 @@ namespace Sanabel.Presentation.Areas.Cases
             context.MapRoute(
                 "Cases_default",
                 "Cases/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "Sanabel.Presentation.MVC.Areas.Cases.Controllers" }
             );
         }
     }

@@ -9,9 +9,7 @@ namespace Sanabel.Presentation.MVC
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
-
-            GraceIOC.Config();
+            ConfigureAuth(app);            
         }
     }
 }
