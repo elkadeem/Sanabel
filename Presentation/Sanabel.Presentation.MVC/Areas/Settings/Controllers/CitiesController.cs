@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
+    [Authorize]
     public class CitiesController : BaseController
     {
         private IPlacesService _placesService;

@@ -88,6 +88,15 @@ namespace Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الرمز.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تأكيد كلمة المرور.
         /// </summary>
         public static string ConfirmPassword {
@@ -228,6 +237,24 @@ namespace Security.Application.Localization {
         public static string RegionId {
             get {
                 return ResourceManager.GetString("RegionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تذكرني ؟.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تذكرني ؟.
+        /// </summary>
+        public static string RememberThisBrowser {
+            get {
+                return ResourceManager.GetString("RememberThisBrowser", resourceCulture);
             }
         }
         

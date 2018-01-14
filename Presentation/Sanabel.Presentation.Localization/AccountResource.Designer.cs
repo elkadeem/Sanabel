@@ -61,6 +61,33 @@ namespace Sanabel.Presentation.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم إضافة الهاتف.
+        /// </summary>
+        public static string AddPhoneSuccess {
+            get {
+                return ResourceManager.GetString("AddPhoneSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تغيير كلمة المرور.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم تغيير كلمة المرور بنجاح..
+        /// </summary>
+        public static string ChangePasswordSuccess {
+            get {
+                return ResourceManager.GetString("ChangePasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تأكيد كلمة المرور.
         /// </summary>
         public static string ConfirmPassword {
@@ -187,6 +214,15 @@ namespace Sanabel.Presentation.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حدث خطأ ما.
+        /// </summary>
+        public static string ManagerError {
+            get {
+                return ResourceManager.GetString("ManagerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to جمعية سنابل.
         /// </summary>
         public static string PageTitle {
@@ -201,6 +237,15 @@ namespace Sanabel.Presentation.Localization {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم حذف الهاتف.
+        /// </summary>
+        public static string RemovePhoneSuccess {
+            get {
+                return ResourceManager.GetString("RemovePhoneSuccess", resourceCulture);
             }
         }
         
@@ -255,6 +300,33 @@ namespace Sanabel.Presentation.Localization {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إعادة تعيين كلمة المرور.
+        /// </summary>
+        public static string SetPasswordSuccess {
+            get {
+                return ResourceManager.GetString("SetPasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم تعيين التحقق .
+        /// </summary>
+        public static string SetTwoFactorSuccess {
+            get {
+                return ResourceManager.GetString("SetTwoFactorSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تسجيل الخروج.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
             }
         }
     }

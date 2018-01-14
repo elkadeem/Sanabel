@@ -126,6 +126,9 @@
   <data name="CityId" xml:space="preserve">
     <value>المدينة</value>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>الرمز</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
@@ -173,6 +176,12 @@
   </data>
   <data name="RegionId" xml:space="preserve">
     <value>المنطقة</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>تذكرني ؟</value>
+  </data>
+  <data name="RememberThisBrowser" xml:space="preserve">
+    <value>تذكرني ؟</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>الصلاحيات</value>

@@ -171,6 +171,9 @@
   <data name="InvalidData" xml:space="preserve">
     <value>برجاء مراجعة البيانات</value>
   </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>البريد الإلكتروني غير صحيح</value>
+  </data>
   <data name="NoDataFound" xml:space="preserve">
     <value>لا يوجد بيانات</value>
   </data>

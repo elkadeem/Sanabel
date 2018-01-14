@@ -37,15 +37,23 @@ namespace Security.AspIdentity
             };
 
             this.UserLockoutEnabledByDefault = true;
-            this.MaxFailedAccessAttemptsBeforeLockout = 5;            
+            this.MaxFailedAccessAttemptsBeforeLockout = 5;
             this.DefaultAccountLockoutTimeSpan = TimeSpan.FromDays(365 * 100);
-            
+
             if (emailService != null)
             {
                 this.EmailService = emailService;
             }
 
-            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, Guid>(new MachineKeyProtectionProvider().Create("Sanabel Identity"));
+            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, Guid>
+                (new MachineKeyProtectionProvider().Create("Sanabel Identity"));
+
+            this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser, Guid>
+            {
+                Subject = "Security Code",
+                BodyFormat = "Your security code is {0}"
+            });
+
         }
     }
 }

@@ -2,18 +2,11 @@
 @using BusinessSolutions.Localization;
 @{
     ViewBag.Title = "Create";
+    
 }
 
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body card-table">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h4 class="card-title font-weight-bold">إضافة حالة جديدة</h4><hr />
-                    </div>
-                </div>
+
                 @Html.Partial("_TempDataHeaderMessages")
                 @Html.Partial("_ViewDataHeaderMessages")
                 @using (Html.BeginForm("Create", "Countries", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -54,10 +47,7 @@
 
                 }
 
-            </div>
-        </div>
-    </div>
-</div>
+            
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

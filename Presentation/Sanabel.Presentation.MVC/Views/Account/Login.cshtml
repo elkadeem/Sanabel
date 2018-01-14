@@ -22,14 +22,19 @@
             @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = AccountResource.Password })
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
-
+        <div class="input-group mb-4">
+            <label>
+                @Html.CheckBoxFor(model => model.RememberMe)
+                @Html.DisplayNameFor(model => model.RememberMe)
+            </label>
+        </div>
         <div class="row">
             <div class="col-6">
                 <button type="submit" class="btn btn-primary px-4">@AccountResource.Login</button>
             </div>
             <div class="col-6 text-left">
                 @Html.ActionLink(AccountResource.ForgetPasswordLinkText, "ForgotPassword"
-                                                            , "Account", new { @class = "btn btn-link px-0" })
+                                                                      , "Account", new { @class = "btn btn-link px-0" })
             </div>
         </div>
         @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))

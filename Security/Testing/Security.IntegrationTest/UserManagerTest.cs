@@ -26,7 +26,7 @@ namespace Security.IntegrationTest
             _securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
             var userStore = new AspIdentity.UserStore(_securityUnitOfWork);
 
-            userManager = new AspIdentity.ApplicationUserManager(userStore)
+            userManager = new AspIdentity.ApplicationUserManager(userStore, null)
             {
                 UserLockoutEnabledByDefault = false,
                 MaxFailedAccessAttemptsBeforeLockout = 3,

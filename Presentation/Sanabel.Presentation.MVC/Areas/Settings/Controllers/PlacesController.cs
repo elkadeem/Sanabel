@@ -8,13 +8,13 @@ using System.Web.Http;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
-
+    [Authorize]
     public class PlacesController : ApiController
     {
         private IPlacesService _placesService;
-        public PlacesController(PlacesService _placesService)
+        public PlacesController(PlacesService placesService)
         {
-
+            _placesService = placesService;
         }
         
         public HttpResponseMessage GetAllCountries()

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public HomeController()

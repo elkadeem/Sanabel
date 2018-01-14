@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
 {
+    [Authorize]
     public class DefaultController : Controller
     {
         // GET: Volunteers/Default

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Cases.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Cases/Home

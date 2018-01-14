@@ -8,173 +8,159 @@
     ViewBag.Title = "Users";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body card-table">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h4 class="card-title font-weight-bold">Users</h4><hr />
-                    </div>
-                </div>
-                @Html.Partial("_TempDataHeaderMessages")
-                @Html.Partial("_ViewDataHeaderMessages")
-                <!-- form ############################################################### -->
-                @using (Html.BeginForm("Index", "Volunteer", FormMethod.Get, new { @class = "form-horizontal" }))
-                {
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
-                        <div class="col-md-4">
-                            @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
-                        <div class="col-md-4">
-                            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(Model => Model.CountryId
-                                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                                    , CommonResources.All
-                                    , new { @class = "form-control" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(Model => Model.RegionId
-                                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                                    , CommonResources.All
-                                    , new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(Model => Model.CityId
-                                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                                    , CommonResources.All
-                                    , new { @class = "form-control" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(Model => Model.DistrictId
-                                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                                    , CommonResources.All
-                                    , new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
-                        <div class="col-md-10">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
-                            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
-                        </div>
-
-                    </div>
-                }
-                <!-- /.form ######################################################### -->
-                @if (Model.Items != null && Model.Items.Any())
-                {
-
-                    <table class="table table-responsive table-hover table-outline mb-0">
-                        <thead class="thead-default">
-                            <tr>
-                                <th>
-                                    @Html.Encode(SecurityResource.UserName)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.Email)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.FullName)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.Country)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.Region)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.City)
-                                </th>
-                                <th>
-                                    @Html.Encode(SecurityResource.District)
-                                </th>
-                                <th>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (Security.Application.Models.ViewVolunteerViewModel item in Model.Items)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.Encode(item.UserName)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.FullName)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.CountryName)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.RegionName)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.CityName)
-                                    </td>
-                                    <td>
-                                        @Html.Encode(item.DistrictName)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Edit", new { id = item.UserId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                                        <a href="@Url.Action("Details", new { id = item.UserId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
-                                        <a data-id="@item.UserId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div>
-                        @if (Model.Items.PageCount > 1)
-                        {
-                            <div class="panel-footer clearfix">
-                                <div class="col-xs-4 search_results_text">
-                                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
-                                </div>
-
-                                @Html.PagedListPager(Model.Items, page => Url.Action("Index"
-                                    , new
-                                    {
-                                        PageIndex = page - 1,
-                                        CountryId = Model.CountryId,
-                                        RegionId = Model.RegionId,
-                                        UserName = Model.UserName,
-                                        Email = Model.Email,
-                                        CityId = Model.CityId,
-                                        DistrictId = Model.DistrictId
-                                    }), PagedListRenderOptions.ClassicPlusFirstAndLast)
-                            </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <div class="alert alert-info" role="alert">
-                        @CommonResources.NoDataFound
-                    </div>
-                }
-
-            </div>
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+<!-- form ############################################################### -->
+@using (Html.BeginForm("Index", "Volunteer", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
         </div>
     </div>
-</div>
+
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.CountryId
+                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                         , CommonResources.All
+                         , new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.RegionId
+                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                         , CommonResources.All
+                         , new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.CityId
+                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                         , CommonResources.All
+                         , new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.DistrictId
+                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                         , CommonResources.All
+                         , new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
+            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
+        </div>
+
+    </div>
+}
+<!-- /.form ######################################################### -->
+@if (Model.Items != null && Model.Items.Any())
+{
+
+    <table class="table table-responsive table-hover table-outline mb-0">
+        <thead class="thead-default">
+            <tr>
+                <th>
+                    @Html.Encode(SecurityResource.UserName)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.Email)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.FullName)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.Country)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.Region)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.City)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.District)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Security.Application.Models.ViewVolunteerViewModel item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(item.UserName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.Email)
+                    </td>
+                    <td>
+                        @Html.Encode(item.FullName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CountryName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.RegionName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CityName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.DistrictName)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.UserId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                        <a href="@Url.Action("Details", new { id = item.UserId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                        <a data-id="@item.UserId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @if (Model.Items.PageCount > 1)
+        {
+            <div class="panel-footer clearfix">
+                <div class="col-xs-4 search_results_text">
+                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
+                </div>
+
+                @Html.PagedListPager(Model.Items, page => Url.Action("Index"
+                         , new
+                         {
+                             PageIndex = page - 1,
+                             CountryId = Model.CountryId,
+                             RegionId = Model.RegionId,
+                             UserName = Model.UserName,
+                             Email = Model.Email,
+                             CityId = Model.CityId,
+                             DistrictId = Model.DistrictId
+                         }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        @CommonResources.NoDataFound
+    </div>
+}
 
 @section scripts
 {

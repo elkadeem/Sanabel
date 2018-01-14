@@ -13,6 +13,7 @@ using BusinessSolutions.MVCCommon;
 
 namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
 {
+    [Authorize]
     public class CountriesController : BaseController
     {
         private IPlacesService _placesService;
