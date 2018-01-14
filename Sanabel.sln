@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Presentation.MVC", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Application", "Security\Security.Application\Security.Application.csproj", "{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Presentation.Localization", "Presentation\Sanabel.Presentation.Localization\Sanabel.Presentation.Localization.csproj", "{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +159,10 @@ Global
 		{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,6 +192,7 @@ Global
 		{ABE9D79D-0CB3-41B3-A991-9A490674192B} = {4691016A-569C-4E35-8729-0F2D29AC9400}
 		{B5503B80-B3D2-42A9-8F13-46CB8DE9815C} = {A83D1088-52AA-4AE7-B95F-4780CE1F225D}
 		{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE} = {D84DF8A7-DD01-4B78-B7D7-07ABAC4A4200}
+		{A96B1851-1E4C-4E2F-B55D-87A47CDE3203} = {A83D1088-52AA-4AE7-B95F-4780CE1F225D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13720C3F-5797-4EF2-AF6F-9CEE1825CF91}

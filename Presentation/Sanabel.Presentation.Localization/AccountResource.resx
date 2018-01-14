@@ -117,67 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Address" xml:space="preserve">
-    <value>العنوان</value>
-  </data>
-  <data name="City" xml:space="preserve">
-    <value>المدينة</value>
-  </data>
-  <data name="CityId" xml:space="preserve">
-    <value>المدينة</value>
-  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
-  <data name="ConfirmPasswordInvalid" xml:space="preserve">
-    <value>تأكيد كلمة المرور لا يتطابق مع كلمة المرور.</value>
-  </data>
-  <data name="Country" xml:space="preserve">
-    <value>الدولة</value>
-  </data>
-  <data name="CountryId" xml:space="preserve">
-    <value>الدولة</value>
-  </data>
-  <data name="District" xml:space="preserve">
-    <value>الحي</value>
-  </data>
-  <data name="DistrictId" xml:space="preserve">
-    <value>الحي</value>
-  </data>
   <data name="Email" xml:space="preserve">
-    <value>البريد الإلكتروني</value>
+    <value>البريد الالكتروني</value>
   </data>
-  <data name="EmailVerificationEmailMessage" xml:space="preserve">
-    <value>برجاء الضغط علي الرابط لتأكيد البريد الإلكتروني الخاص بك &lt;a href=\"{0}\"&gt;هنا&lt;/a&gt;</value>
+  <data name="EmailConfimrationSucessMessage" xml:space="preserve">
+    <value>شكر لك لتأكيد البريد الالكتروني. برجاء &lt;a href="{0}"&gt;الضغط هنا لتسجيل الدخول&lt;/a&gt;</value>
   </data>
-  <data name="EmailVerificationEmailSubject" xml:space="preserve">
+  <data name="EmailConfirmation" xml:space="preserve">
     <value>تأكيد البريد الإلكتروني</value>
   </data>
-  <data name="FullName" xml:space="preserve">
-    <value>الإسم</value>
+  <data name="EmailConfirmationMessage" xml:space="preserve">
+    <value>برجاء تأكيد البريد الإلكتروني الخاص بك بالضغط &lt;a href="{0}"&gt;هنا&lt;/a&gt;</value>
   </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>البريد الإلكتروني غير صحيح</value>
+  <data name="EmailIsNotConfirmedMessage" xml:space="preserve">
+    <value>برجاء مراجعة البريد الإلكتروني الخاص بك.لتأكيد البريد الإلكتروني لتستطيع تسجيل الدخول.</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>كلمة المرور يجب أن تتكون من 6 إلي 20 حرف وتحتوي علي رقم وحرف كبير وحرف صغير وعلي أحد هذه الرموز @#$% علي الأقل.</value>
+  <data name="ForgetPasswordConfirmation" xml:space="preserve">
+    <value>تأكيد تغيير كلمة المرور</value>
   </data>
-  <data name="Mobile" xml:space="preserve">
-    <value>الجوال</value>
+  <data name="ForgetPasswordConfirmationMessage" xml:space="preserve">
+    <value>برجاء مراجعة البريد الإلكتروني الخاص به لتغيير كلمة المرور.</value>
+  </data>
+  <data name="ForgetPasswordLinkText" xml:space="preserve">
+    <value>نسيت كلمة المرور ؟</value>
+  </data>
+  <data name="ForgetPasswordPageTitle" xml:space="preserve">
+    <value>استعادة كلمة المرور</value>
+  </data>
+  <data name="ForgetPasswordTip" xml:space="preserve">
+    <value>برجاء إدخال البريد الإلكتروني الخاص بك</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginErrorMessage" xml:space="preserve">
+    <value>بيانات الحساب غير صحيحة</value>
+  </data>
+  <data name="LoginTip" xml:space="preserve">
+    <value>يمكنكم تسجيل الدخول هنا</value>
+  </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>جمعية سنابل</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
-  <data name="Region" xml:space="preserve">
-    <value>المنطقة</value>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>تغيير كلمة المرور</value>
   </data>
-  <data name="RegionId" xml:space="preserve">
-    <value>المنطقة</value>
+  <data name="ResetPasswordConfimationMessage" xml:space="preserve">
+    <value>تم تغيير كلمة المرور الخاصة بك.</value>
   </data>
-  <data name="Roles" xml:space="preserve">
-    <value>الصلاحيات</value>
+  <data name="ResetPasswordConfirmation" xml:space="preserve">
+    <value>تأكيد تغيير كلمة المرور</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>اسم المستخدم</value>
+  <data name="ResetPasswordConfirmationLoginLinkText" xml:space="preserve">
+    <value>برجاء الضغط هنا لتسجيل الدخول</value>
+  </data>
+  <data name="ResetPasswordEmail" xml:space="preserve">
+    <value>رجاء الضغط علي الرابط لتغيير كلمة المرور &lt;a href="{0}"&gt;هنا&lt;/a&gt;</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ارسال</value>
   </data>
 </root>

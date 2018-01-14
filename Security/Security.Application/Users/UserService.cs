@@ -1,6 +1,7 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Infra.Validation;
 using Microsoft.AspNet.Identity;
+using Security.Application.Localization;
 using Security.Application.Models;
 using Security.AspIdentity;
 using Security.Domain;
@@ -63,6 +64,10 @@ namespace Security.Application.Users
 
                     if (result.Succeeded)
                     {
+                        string emailConfirmationcode = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        string message = string.Format(SecurityResource.EmailVerificationEmailMessage, emailConfirmationcode);
+                        await _userManager.SendEmailAsync(user.Id, SecurityResource.EmailVerificationEmailSubject, message);
+
                         transactionScop.Complete();
                         userModel.Id = user.Id;
                     }

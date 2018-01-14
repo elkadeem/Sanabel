@@ -7,7 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
 
-    @Styles.Render("~/Content/appcss")    
+    <!-- Icons -->
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/simple-line-icons/css/simple-line-icons.css")" rel="stylesheet">
+    <link href="@Url.Content("~/fonts/fonts.css")" rel="stylesheet">
+    <!-- Main styles for this application -->
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+    <!-- Styles required by this views -->
 </head>
 <body class="app flex-row align-items-center login-bg">
     <div class="container">
@@ -15,7 +21,9 @@
             <div class="col-md-8 text-center"><img src="@Url.Content("~/content/img/logo.png")" class="img-responsive" style="max-width:150px;margin-bottom:20px;" /></div>
             <div class="col-md-8">
                 <div class="card-group mb-0">
-                    @RenderBody()
+                    <div class="card p-4">
+                        @RenderBody()
+                    </div>
                     <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
                             <div>
@@ -27,8 +35,11 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Bootstrap and necessary plugins -->
+    <script src="@Url.Content("~/scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/scripts/popper.min.js")"></script>
+    <script src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

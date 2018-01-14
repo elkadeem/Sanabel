@@ -236,6 +236,7 @@
     <Compile Include="Areas\Volunteers\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Volunteers\Controllers\VolunteerController.cs" />
     <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -821,6 +822,17 @@
     <Content Include="Views\Shared\_ViewDataHeaderMessages.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Home\FullView.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -985,6 +997,10 @@
     <ProjectReference Include="..\..\Security\Security.Domain\Security.Domain.csproj">
       <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
       <Name>Security.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sanabel.Presentation.Localization\Sanabel.Presentation.Localization.csproj">
+      <Project>{a96b1851-1e4c-4e2f-b55d-87a47cde3203}</Project>
+      <Name>Sanabel.Presentation.Localization</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

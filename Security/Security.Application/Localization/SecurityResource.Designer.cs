@@ -151,6 +151,24 @@ namespace Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to برجاء الضغط علي الرابط لتأكيد البريد الإلكتروني الخاص بك &lt;a href=\&quot;{0}\&quot;&gt;هنا&lt;/a&gt;.
+        /// </summary>
+        public static string EmailVerificationEmailMessage {
+            get {
+                return ResourceManager.GetString("EmailVerificationEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تأكيد البريد الإلكتروني.
+        /// </summary>
+        public static string EmailVerificationEmailSubject {
+            get {
+                return ResourceManager.GetString("EmailVerificationEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الإسم.
         /// </summary>
         public static string FullName {

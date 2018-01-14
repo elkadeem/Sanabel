@@ -7,6 +7,7 @@ using Grace.DependencyInjection;
 using Microsoft.AspNet.Identity;
 using Security.AspIdentity;
 using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
@@ -14,7 +15,11 @@ namespace Sanabel.Presentation.MVC.IOC
     {
         public void Configure(IExportRegistrationBlock registrationBlock)
         {
-            var assembly = System.Reflection.Assembly.Load("CommonSettings.DAL");
+            var assembly = System.Reflection.Assembly.Load("BusinessSolutions.Common.Infra");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
+
+            assembly = System.Reflection.Assembly.Load("CommonSettings.DAL");
             registrationBlock.ExportAssembly(assembly)
                 .ExportAttributedTypes();
 
@@ -29,7 +34,7 @@ namespace Sanabel.Presentation.MVC.IOC
             assembly = System.Reflection.Assembly.Load("Security.AspIdentity");
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
-
+            
             assembly = System.Reflection.Assembly.Load("Security.Application");
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();

@@ -14,17 +14,16 @@ using Security.Application.Models;
 using Security.Application.Users;
 using PagedList;
 using BusinessSolutions.Common.Infra.Validation;
+using Sanabel.Presentation.Localization;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private IUserService _userService;
-        public AccountController(IUserService userService, ApplicationUserManager userManager
+        public AccountController(ApplicationUserManager userManager
             , ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
-            _userService = userService;
             UserManager = userManager;
             SignInManager = signInManager;
             RoleManager = roleManager;
@@ -33,109 +32,6 @@ namespace Sanabel.Presentation.MVC.Controllers
         public ApplicationRoleManager RoleManager { get; private set; }
         public ApplicationSignInManager SignInManager { get; private set; }
         public ApplicationUserManager UserManager { get; private set; }
-
-        #region XXX
-        
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            Security.Application.Models.VolunteerViewModel model = new Security.Application.Models.VolunteerViewModel()
-            {
-                Roles = new System.Collections.Generic.List<Guid> { Guid.Parse("CC3E67C9-F3A3-4B03-BA8A-304460DDD78E")
-            , Guid.Parse("F1F04D00-E3C4-4B56-9097-CF5E060F8142") }
-            };
-            ViewBag.Roles = RoleManager.Roles.Select(c =>
-            new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.RoleNameAr
-            }).ToList();
-
-            return View(model);
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Security.Application.Models.VolunteerViewModel model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var entityResult = await _userService.AddUser(model);
-                    if (entityResult.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        foreach (var error in entityResult.ValidationErrors)
-                        {
-                            ModelState.AddModelError("", error.Message);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            ViewBag.Roles = RoleManager.Roles.Select(c =>
-                new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.RoleNameAr
-                }).ToList();
-            return View(model);
-        }
-
-        [AllowAnonymous]
-        public ActionResult Users(SearchVolunteersViewModel searchUserModel)
-        {
-            var result = _userService.SearchUser(searchUserModel);
-            searchUserModel.Items = new StaticPagedList<ViewVolunteerViewModel>(result.Items
-                , searchUserModel.PageIndex + 1, searchUserModel.PageSize, result.TotalCount);
-            return View(searchUserModel);
-        }
-
-        [AllowAnonymous]
-        public async Task<ActionResult> EditUser(Guid id)
-        {
-            Security.Application.Models.VolunteerViewModel userModel = await _userService.GetUser(id);
-            return View(userModel);
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<ActionResult> EditUser(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]Security.Application.Models.VolunteerViewModel userModel)
-        {
-            try
-            {
-                userModel.Id = id;
-                EntityResult result = await _userService.UpdateUser(userModel);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Users");
-                }
-                else
-                {
-                    foreach (var error in result.ValidationErrors)
-                    {
-                        ModelState.AddModelError("", error.Message);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-
-            return View(userModel);
-        }
-        #endregion
 
         //
         // GET: /Account/Login
@@ -158,9 +54,19 @@ namespace Sanabel.Presentation.MVC.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+            if (user != null)
+            {
+                if(!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    await SendEmailConfirmationTokenAsync(user.Id);
+                    ViewBag.ErrorMessage = AccountResource.EmailIsNotConfirmedMessage;
+                    return View(model);
+                }
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe
+                , shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -171,7 +77,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ViewBag.ErrorMessage = AccountResource.LoginErrorMessage;
                     return View(model);
             }
         }
@@ -219,8 +125,6 @@ namespace Sanabel.Presentation.MVC.Controllers
             }
         }
 
-
-
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -258,12 +162,11 @@ namespace Sanabel.Presentation.MVC.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, AccountResource.ResetPassword
+                    , string.Format(AccountResource.ResetPasswordEmail, callbackUrl));
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -476,6 +379,17 @@ namespace Sanabel.Presentation.MVC.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private async Task<string> SendEmailConfirmationTokenAsync(Guid userID)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, AccountResource.EmailConfirmation,
+               string.Format(AccountResource.EmailConfirmationMessage, callbackUrl));
+
+            return callbackUrl;
         }
 
         #region Helpers
