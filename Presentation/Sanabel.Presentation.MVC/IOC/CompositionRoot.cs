@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Security.AspIdentity;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
+using System.Web.Http;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
@@ -49,7 +50,10 @@ namespace Sanabel.Presentation.MVC.IOC
 
             registrationBlock.ExportAssemblyContaining<CompositionRoot>()
                 .BasedOn<Controller>();
-            
+
+            registrationBlock.ExportAssemblyContaining<CompositionRoot>()
+                .BasedOn<ApiController>();
+
         }
     }
 }

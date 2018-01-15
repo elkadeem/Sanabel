@@ -3,11 +3,12 @@ using Grace.DependencyInjection.Impl;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Http.Dependencies;
 using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
-    public class GraceDependencyResolver : IDependencyResolver
+    public class GraceDependencyResolver : System.Web.Mvc.IDependencyResolver        
     {
         private const string NestedScopeKey = "Nested.Grace.Container";
         public IInjectionScope Container { get; set; }
@@ -33,20 +34,6 @@ namespace Sanabel.Presentation.MVC.IOC
             }
         }
 
-        public void CreateChildContainer()
-        {
-            CurrentNestedContainer = Container.CreateChildScope();
-        }
-
-        public void DisposeNestedContainer()
-        {
-            if(CurrentNestedContainer != null)
-            {
-                CurrentNestedContainer.Dispose();
-                CurrentNestedContainer = null;
-            }
-        }
-
         public GraceDependencyResolver(IInjectionScope container)
         {
             if (container == null)
@@ -55,11 +42,25 @@ namespace Sanabel.Presentation.MVC.IOC
             this.Container = container;
         }
 
+        public void CreateChildContainer()
+        {
+            CurrentNestedContainer = Container.CreateChildScope();
+        }
+
+        public void DisposeNestedContainer()
+        {
+            if (CurrentNestedContainer != null)
+            {
+                CurrentNestedContainer.Dispose();
+                CurrentNestedContainer = null;
+            }
+        }
+        
         public object GetService(Type serviceType)
         {
             try
             {
-                return (CurrentNestedContainer?? Container).Locate(serviceType);
+                return (CurrentNestedContainer ?? Container).Locate(serviceType);
             }
             catch
             {
@@ -71,7 +72,7 @@ namespace Sanabel.Presentation.MVC.IOC
         {
             try
             {
-                return (CurrentNestedContainer?? Container).LocateAll(serviceType);
+                return (CurrentNestedContainer ?? Container).LocateAll(serviceType);
             }
             catch
             {
