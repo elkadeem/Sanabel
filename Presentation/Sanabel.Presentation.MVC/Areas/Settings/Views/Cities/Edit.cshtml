@@ -24,17 +24,17 @@
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.CountryId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })
+                                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                                         , CommonResources.All
+                                         , new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
                         </div>
                         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
                         <div class="col-md-4">
                             @Html.DropDownListFor(Model => Model.RegionId
-                               , new SelectList(Enumerable.Empty<SelectListItem>())
-                               , CommonResources.All
-                               , new { @class = "form-control" })
+                                         , new SelectList(Enumerable.Empty<SelectListItem>())
+                                         , CommonResources.All
+                                         , new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -83,57 +83,25 @@
 
     <script>
         $(function () {
-            FillCities();
-            $('#CountryId').change(function () {
-                FillRegionsByCountryId($(this).val());
+            $('#CountryId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/Countries")',
+                dataValeuProperty: 'countryId',
+                dataTextProperty: 'countryName',
+                selectedValue: '@Model.CountryId',
+                callback: fillRegions
+            }).change(function () {
+                fillRegions($(this).val());
             });
         });
 
-        function FillCities()
+        function fillRegions(countryId)
         {
-            $.get("@Url.Action("GetAllCountries", "Countries")")
-                .done(function (data) {
-                    $('#CountryId:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.countryId,
-                            text: item.countryName,
-                        }).appendTo('#CountryId');
-                    });
-
-                    var countryId = @Model.CountryId;
-                    $('#CountryId').val(countryId == 0 ? "" : countryId);
-                    FillRegionsByCountryId(countryId);
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-
-        }
-
-        function FillRegionsByCountryId(countryId)
-        {
-            $.get("@Url.Action("GetRegionsByCountryId", "Regions")" + "?countryId=" + countryId)
-                .done(function (data) {
-                    $('#RegionId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-                        $('<option/>', {
-                            'value': item.regionId,
-                            text: item.regionName,
-                        }).appendTo('#RegionId');
-
-                        var regionId = @Model.RegionId;
-                        if ($('#RegionId option[value="' + regionId + '"]').length > 0)
-                            $('#RegionId').val(regionId);
-                        else
-                            $('#RegionId').val("");
-                    });
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+                dataValeuProperty: 'regionId',
+                dataTextProperty: 'regionName',
+                selectedValue: '@Model.RegionId',
+            });
         }
     </script>
 }

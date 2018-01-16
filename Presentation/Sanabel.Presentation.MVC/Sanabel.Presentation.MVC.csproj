@@ -778,7 +778,8 @@
     <Content Include="Areas\Cases\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Cases\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
-    <Content Include="Scripts\CustomValidations.js" />
+    <Content Include="Scripts\Custom\Common.js" />
+    <Content Include="Scripts\Custom\CustomValidations.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />

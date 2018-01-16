@@ -77,98 +77,41 @@
 
     <script>
         $(function () {
-            fillCountries();
-            $('#CountryId').change(function () {
-                fillRegionsByCountryId($(this).val());
-            });
+            $('#CountryId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/Countries")',
+                dataValeuProperty: 'countryId',
+                dataTextProperty: 'countryName',
+                selectedValue: '@Model.CountryId',
+                callback: fillRegions
+            }).change(function () {
+                fillRegions($(this).val());
+                });
 
             $('#RegionId').change(function () {
-                fillCitiesByRegionId($(this).val());
+                fillCities($(this).val());
             });
         });
 
-        function fillCountries()
+        function fillRegions(countryId)
         {
-            $.get("@Url.Action("GetAllCountries", "Countries")")
-                .done(function (data) {
-                    $('#CountryId:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.countryId,
-                            text: item.countryName,
-                        }).appendTo('#CountryId');
-                    });
-
-                    var countryId = @Model.CountryId;
-                    $('#CountryId').val(countryId == 0 ? "" : countryId);
-                    fillRegionsByCountryId(countryId);
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+                dataValeuProperty: 'regionId',
+                dataTextProperty: 'regionName',
+                selectedValue: '@Model.RegionId',
+                callback: fillCities
+            });
         }
 
-        function fillRegionsByCountryId(countryId)
+        function fillCities(regionId)
         {
-            $.get("@Url.Action("GetRegionsByCountryId", "Regions")" + "?countryId=" + countryId)
-                .done(function (data) {
-                    $('#RegionId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-                        $('<option/>', {
-                            'value': item.regionId,
-                            text: item.regionName,
-                        }).appendTo('#RegionId');
-                    });
-
-                    setRegionValue();
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
+                dataValeuProperty: 'cityId',
+                dataTextProperty: 'cityName',
+                selectedValue: '@Model.RegionId',
+            });
         }
 
-        function fillCitiesByRegionId(regionId)
-        {
-            $.get("@Url.Action("GetCitiesByRegionId", "Cities")" + "?regionId=" + regionId)
-                .done(function (data) {
-                    $('#CityId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.cityId,
-                            text: item.cityName,
-                        }).appendTo('#CityId');
-                    });
-
-                    setCityValue();
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-        }
-
-        function setRegionValue()
-        {
-            var regionId = @Model.RegionId;
-            if ($('#RegionId option[value="' + regionId + '"]').length > 0)
-              $('#RegionId').val(regionId);
-              else
-                $('#RegionId').val("");
-
-            fillCitiesByRegionId(regionId);
-        }
-
-        function setCityValue()
-        {
-            var cityId = @Model.CityId;
-            if ($('#CityId option[value="' + cityId + '"]').length > 0)
-                            $('#CityId').val(cityId);
-                        else
-                            $('#CityId').val("");
-        }
     </script>
 }

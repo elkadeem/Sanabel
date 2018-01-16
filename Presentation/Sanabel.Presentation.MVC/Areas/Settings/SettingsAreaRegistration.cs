@@ -17,7 +17,8 @@ namespace Sanabel.Presentation.MVC.Areas.Settings
             context.MapRoute(
                 "Settings_default",
                 "Settings/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "Sanabel.Presentation.MVC.Settings.Controllers" }
             );
         }
     }

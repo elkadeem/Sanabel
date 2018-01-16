@@ -12,7 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
+namespace Sanabel.Presentation.MVC.Settings.Controllers
 {
     [Authorize]
     public class RegionsController : BaseController

@@ -13,7 +13,7 @@ namespace Sanabel.Presentation.MVC
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",
-                        "~/Scripts/CustomValidations.js"));
+                        "~/Scripts/Custom/CustomValidations.js"));
 
             bundles.Add(new StyleBundle("~/bundles/appplugins").Include(
                 "~/Scripts/pace.min.js",

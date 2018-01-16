@@ -11,7 +11,7 @@ using System.Web.Mvc;
 using System.Linq;
 using BusinessSolutions.MVCCommon;
 
-namespace Sanabel.Presentation.MVC.Areas.Settings.Controllers
+namespace Sanabel.Presentation.MVC.Settings.Controllers
 {
     [Authorize]
     public class CountriesController : BaseController
