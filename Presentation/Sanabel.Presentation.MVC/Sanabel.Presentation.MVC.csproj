@@ -777,6 +777,10 @@
     <Content Include="Areas\Volunteers\Views\Volunteer\Edit.cshtml" />
     <Content Include="Areas\Cases\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Cases\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\Countries\_CountryInfo.cshtml" />
+    <Content Include="Areas\Settings\Views\Cities\_CityInfo.cshtml" />
+    <Content Include="Areas\Settings\Views\Districts\_DistrictInfo.cshtml" />
+    <Content Include="Areas\Settings\Views\Regions\_RegionInfo.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\Custom\Common.js" />
     <Content Include="Scripts\Custom\CustomValidations.js" />

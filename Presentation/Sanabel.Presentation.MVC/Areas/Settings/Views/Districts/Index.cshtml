@@ -18,26 +18,26 @@
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CountryId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                             , CommonResources.All
+                                             , new { @class = "form-control" })
         </div>
 
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.RegionId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                             , CommonResources.All
+                                             , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CityId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                             , CommonResources.All
+                                             , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictName)</label>
         <div class="col-md-4">
@@ -64,10 +64,10 @@
                     @Html.DisplayNameFor(model => model.Items[0].DistricCode)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].DistricName)
+                    @Html.DisplayNameFor(model => model.Items[0].DistrictName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].DistricNameEn)
+                    @Html.DisplayNameFor(model => model.Items[0].DistrictNameEn)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Items[0].City.CityName)
@@ -86,10 +86,10 @@
                         @Html.Encode(item.DistricCode)
                     </td>
                     <td>
-                        @Html.Encode(item.DistricName)
+                        @Html.Encode(item.DistrictName)
                     </td>
                     <td>
-                        @Html.Encode(item.DistricName)
+                        @Html.Encode(item.DistrictNameEn)
                     </td>
                     <td>
                         @Html.Encode(item.City.CityName)
@@ -115,14 +115,14 @@
                 </div>
 
                 @Html.PagedListPager(Model.Items, page => Url.Action("Index"
-                         , new
-                         {
-                             PageIndex = page - 1,
-                             CountryId = Model.CountryId,
-                             RegionId = Model.RegionId,
-                             CityId = Model.CityId,
-                             DistrictName = Model.DistrictName
-                         }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                             , new
+                                             {
+                                                 PageIndex = page - 1,
+                                                 CountryId = Model.CountryId,
+                                                 RegionId = Model.RegionId,
+                                                 CityId = Model.CityId,
+                                                 DistrictName = Model.DistrictName
+                                             }), PagedListRenderOptions.ClassicPlusFirstAndLast)
             </div>
         }
     </div>
@@ -153,12 +153,17 @@ else
                 fillCities($(this).val());
             });
 
+
             $('.btnDelete').click(function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                $('#deleteForm').attr('action', "@Url.Action("Delete", "Districts")/" + id
-                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, "")));
-                $('#confirmDeleteModal').modal('show');
+                var actionUrl = "@Url.Action("Delete", "Districts")/" + id
+                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, ""));
+                $util.confirmDialogWithActionForm("@CommonResources.DeleteConfirmation"
+                    , "@CommonResources.DeleteConfirmationTitle"
+                    , actionUrl
+                    , "@CommonResources.Delete"
+                    , "@CommonResources.Cancel");
             });
 
         });
@@ -183,31 +188,5 @@ else
                 selectedValue: '@Model.RegionId',
             });
         }
-    </script>    
+    </script>
 }
-
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-danger" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">@CommonResources.DeleteConfirmationTitle</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>@CommonResources.DeleteConfirmation</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">@CommonResources.Cancel</button>
-                <form id="deleteForm" method="post">
-                    <button type="submit" class="btn btn-danger">@CommonResources.Delete</button>
-                </form>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->

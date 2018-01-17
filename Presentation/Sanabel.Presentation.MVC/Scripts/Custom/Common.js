@@ -11,7 +11,7 @@
             callback: function () { }
         };
 
-        var settings = $.extend(true, defaults, options);
+        var settings = $.extend({}, defaults, options);
         var elements = this;
         $.get(settings.url).done(function (data) {
             elements.each(function () {
@@ -33,7 +33,8 @@
                     element.val(settings.selectedValue);
                 }
 
-                settings.callback.call(settings.selectedValue);
+                if (settings.callback)
+                    settings.callback(settings.selectedValue);
 
             });
         });
@@ -41,3 +42,41 @@
         return this;
     };
 }(jQuery));
+
+
+var $util = $util || {};
+
+$util.confirmDialogWithActionForm = function (confirmationText, title, actionUrl, confirmButtonText, cancelButtonText) {
+    var html = '<div class="modal fade" id="confirmDialogWithFormModal" tabindex="-1" role="dialog" aria-labelledby="confirmDialogModalTitle" aria-hidden="true">'
+        + '<div class="modal-dialog modal-danger" role= "document">'
+        + ' <div class="modal-content">'
+        + '   <div class="modal-header">'
+        + '     <h4 class="modal-title" id="confirmDialogModalTitle">' + title + '</h4>'
+        + '     <button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+        + '         <span aria-hidden="true">×</span>'
+        + '     </button>'
+        + ' </div>'
+        + ' <div class="modal-body">'
+        + '     <p>' + confirmationText + '</p>'
+        + ' </div>'
+        + ' <div class="modal-footer">'
+        + '     <button type="button" class="btn btn-secondary" data-dismiss="modal">' + cancelButtonText + '</button>'
+        + '     <form id="deleteForm" action="' + actionUrl + '" method="post">'
+        + '         <button type="submit" class="btn btn-danger">' + confirmButtonText + '</button>'
+        + '     </form>'
+        + ' </div> '
+        + ' </div> '
+        + '   </div >'
+        + ' </div >';
+
+    $(html).appendTo('body');    
+    $('#confirmDialogWithFormModal').modal('show');
+    $('#confirmDialogWithFormModal').on("hidden.bs.modal", function (e) {        
+        $('#confirmDialogWithFormModal').modal('dispose');
+        $('body #confirmDialogWithFormModal').remove();        
+    });
+
+    $('#confirmDialogWithFormModal btn-secondary').click(function () {
+        $('#confirmDialogWithFormModal').modal('hide');        
+    });
+};

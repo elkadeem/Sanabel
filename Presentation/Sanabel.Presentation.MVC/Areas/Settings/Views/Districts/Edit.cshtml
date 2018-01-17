@@ -12,53 +12,8 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
-        <div class="col-md-4">
-            @Html.DropDownListFor(Model => Model.CountryId
-                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                    , CommonResources.All
-                    , new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
-        </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
-        <div class="col-md-4">
-            @Html.DropDownListFor(Model => Model.RegionId
-                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                    , CommonResources.All
-                    , new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
-        <div class="col-md-4">
-            @Html.DropDownListFor(Model => Model.CityId
-                    , new SelectList(Enumerable.Empty<SelectListItem>())
-                    , CommonResources.All
-                    , new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
-        </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricName)</label>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.DistricName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DistricName, "", new { @class = "text-danger" })
-        </div>
 
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricNameEn)</label>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.DistricNameEn, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DistricNameEn, "", new { @class = "text-danger" })
-        </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistricCode)</label>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.DistricCode, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DistricCode, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
+    Html.RenderPartial("_DistrictInfo");
 
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
@@ -74,7 +29,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
+    
     <script>
         $(function () {
             $('#CountryId').fillDropDownList({
@@ -105,11 +60,11 @@
 
         function fillCities(regionId)
         {
-            $('#RegionId').fillDropDownList({
+            $('#CityId').fillDropDownList({
                 url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
                 dataValeuProperty: 'cityId',
                 dataTextProperty: 'cityName',
-                selectedValue: '@Model.RegionId',
+                selectedValue: '@Model.CityId',
             });
         }
 

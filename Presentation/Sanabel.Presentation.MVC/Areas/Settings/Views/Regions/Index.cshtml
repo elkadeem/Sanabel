@@ -117,9 +117,13 @@ else
             $('.btnDelete').click(function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                $('#deleteForm').attr('action', "@Url.Action("Delete", "Regions")/" + id
-                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, "")));
-                $('#confirmDeleteModal').modal('show');
+                var actionUrl = "@Url.Action("Delete", "Regions")/" + id
+                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, ""));
+                $util.confirmDialogWithActionForm("@CommonResources.DeleteConfirmation"
+                    , "@CommonResources.DeleteConfirmationTitle"
+                    , actionUrl
+                    , "@CommonResources.Delete"
+                    , "@CommonResources.Cancel");
             });
         });
     </script>

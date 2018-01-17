@@ -15,6 +15,8 @@ using Security.Application.Users;
 using PagedList;
 using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Presentation.Localization;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
@@ -38,6 +40,7 @@ namespace Sanabel.Presentation.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

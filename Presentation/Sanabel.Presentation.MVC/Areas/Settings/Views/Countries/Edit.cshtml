@@ -15,28 +15,7 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(c => c.CountryId)
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryCode)</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
-                        <div class="col-md-4">&nbsp;</div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryName)</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
-                        </div>
-                        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryNameEn)</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.CountryNameEn, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CountryNameEn, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                    Html.RenderPartial("_CountryInfo");
                     <div class="form-group row">
                         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
                         <div class="col-md-10">
