@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Sanable.Cases.Domain.Model.Case">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAgAACAAAAAEAQAAAAAAACCEAAAIAAAAAA=</HashCode>
+      <FileName>Model\Case.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Gender" />
+      <Property Name="CaseType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sanable.Cases.Domain.Model.CaseFollower">
+    <Position X="8.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABiAAAABAAAAAQAAAAAAAQAAAACAAAAAIAgAAAAAgA=</HashCode>
+      <FileName>Model\CaseFollower.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HealthStatus" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sanable.Cases.Domain.Model.CaseResearch">
+    <Position X="2.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>LKLBAAAJBgogAAABAgCAACAAAAICCAQCBIEAABAAAAg=</HashCode>
+      <FileName>Model\CaseResearch.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HealthStatus" />
+      <Property Name="ResearchType" />
+      <Property Name="JobType" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="Sanable.Cases.Domain.Model.Genders" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Model\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sanable.Cases.Domain.Model.CaseTypes" Collapsed="true">
+    <Position X="12.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAACAAAAAAAAAEAAAAAAADAA=</HashCode>
+      <FileName>Model\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sanable.Cases.Domain.Model.ResearchTypes" Collapsed="true">
+    <Position X="5.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Model\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sanable.Cases.Domain.Model.JobTypes">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAgAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sanable.Cases.Domain.Model.HealthStatuses">
+    <Position X="5.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAACAACAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
