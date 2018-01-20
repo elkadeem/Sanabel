@@ -12,7 +12,13 @@ namespace BusinessSolutions.MVCCommon.Controllers
         private NLog.ILogger _logger;
         protected NLog.ILogger Logger => this._logger;
 
-        public BaseController(NLog.ILogger logger)
+        public BaseController()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-SA");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-SA");
+        }
+
+        public BaseController(NLog.ILogger logger): this()
         {
             _logger = logger;
         }
@@ -39,10 +45,21 @@ namespace BusinessSolutions.MVCCommon.Controllers
 
         public ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult RedirectToLocal(string returnUrl, ActionResult defaultActionResult)
+        {
+            if (defaultActionResult == null)
+                throw new ArgumentNullException("defaultActionResult");
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+
+            return defaultActionResult;
         }
 
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding)

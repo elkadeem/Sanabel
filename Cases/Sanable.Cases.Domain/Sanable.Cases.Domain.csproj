@@ -59,6 +59,10 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">
+      <Project>{1f1175f0-3cde-41ee-b7ff-a0b2682450b9}</Project>
+      <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3ff09941-9dd7-4a2f-bf77-b93dd747bdd0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +41,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICasesService.cs" />
+    <Compile Include="CasesService.cs" />
+    <Compile Include="Model\CaseResearchViewModel.cs" />
+    <Compile Include="Model\CaseSearchViewModel.cs" />
+    <Compile Include="Model\CaseViewModel.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\CasesResource.Designer.cs">
+      <DependentUpon>CasesResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonSettings\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
+      <Project>{ABE9D79D-0CB3-41B3-A991-9A490674192B}</Project>
+      <Name>BusinessSolutions.MVCCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">
+      <Project>{1F1175F0-3CDE-41EE-B7FF-A0B2682450B9}</Project>
+      <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
+      <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
+      <Name>BusinessSolutions.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Localization\BusinessSolutions.Localization.csproj">
+      <Project>{a8c9d7e2-6493-4758-8335-02b187fa6045}</Project>
+      <Name>BusinessSolutions.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sanable.Cases.Domain\Sanable.Cases.Domain.csproj">
+      <Project>{1aefd2f0-4c49-4bdc-8cb3-4e8a37ec182b}</Project>
+      <Name>Sanable.Cases.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CasesResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CasesResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

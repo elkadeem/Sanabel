@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core.Entities;
+using CommonSettings.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ namespace Sanable.Cases.Domain.Model
         public string Description { get; set; }
 
         public ICollection<CaseResearch> CaseResearchs { get; private set; }
+
+        public City City { get; set; }
+
+        public District District { get; set; }
 
     }
 }

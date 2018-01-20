@@ -39,8 +39,15 @@ namespace Sanabel.Presentation.MVC.IOC
             assembly = System.Reflection.Assembly.Load("Security.Application");
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
-            //registrationBlock.ExportAssembly(assembly).BasedOn<UserManager<ApplicationUser, Guid>>();
-            //registrationBlock.ExportAssembly(assembly).BasedOn<RoleManager<ApplicationRole, Guid>>();
+
+            assembly = System.Reflection.Assembly.Load("Sanable.Cases.Infra");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
+
+            assembly = System.Reflection.Assembly.Load("Sanabel.Cases.App");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
+
 
             registrationBlock.ExportFactory<IAuthenticationManager>(() => HttpContext.Current.GetOwinContext().Authentication);
 

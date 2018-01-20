@@ -19,6 +19,12 @@ namespace Sanable.Cases.Infra
 
             this.HasIndex(c => c.Name).HasName("IX_CaseName").IsUnique();
             this.HasIndex(c => c.Phone).HasName("IX_CasePhone").IsUnique();
+
+            this.HasRequired(c => c.City).WithMany()
+                .HasForeignKey(c => c.CityId).WillCascadeOnDelete(false);
+
+            this.HasOptional(c => c.District).WithMany()
+                .HasForeignKey(c => c.DistrictId).WillCascadeOnDelete(false);
         }
     }
 }

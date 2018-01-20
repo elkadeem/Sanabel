@@ -81,6 +81,7 @@
     <Compile Include="Common\UIMessage.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Filters\ParametersGreateThanZeroFilter.cs" />
+    <Compile Include="Helpers\EnumHelperExtension.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

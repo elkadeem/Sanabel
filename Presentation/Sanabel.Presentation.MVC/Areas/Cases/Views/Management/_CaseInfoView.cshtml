@@ -1,0 +1,94 @@
+﻿@model Sanabel.Cases.App.Model.CaseViewModel
+@using BusinessSolutions.Localization;
+@using Sanabel.Cases.App.Resources
+@using BusinessSolutions.MVCCommon.Helpers
+
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseName)</label>
+    <div class="col-md-4">
+        @Html.TextBoxFor(c => c.CaseName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CaseName, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+    <div class="col-md-4">
+        @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
+    <div class="col-md-4">
+        @Html.DropDownListFor(Model => Model.CountryId
+                                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                             , CommonResources.All
+                                                             , new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
+    <div class="col-md-4">
+        @Html.DropDownListFor(Model => Model.RegionId
+                                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                             , CommonResources.All
+                                                             , new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
+    <div class="col-md-4">
+        @Html.DropDownListFor(Model => Model.CityId
+                                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                             , CommonResources.All
+                                                             , new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
+    <div class="col-md-4">
+        @Html.DropDownListFor(Model => Model.DistrictId
+                                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                             , CommonResources.All
+                                                             , new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+    </div>
+
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Gender)</label>
+    <div class="col-md-4">        
+        <label class="radio-inline" for="inline-radio1">
+            @Html.RadioButtonFor(c => c.Gender, "Male", new { @class = "radio-inline" })@CasesResource.Male
+        </label>
+        <label class="radio-inline" for="inline-radio2">
+            @Html.RadioButtonFor(c => c.Gender, "Female", new { @class = "radio-inline" })@CasesResource.Female
+        </label>
+        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseType)</label>
+    <div class="col-md-4">
+        @Html.LocalizedEnumDropDownListFor(c => c.CaseType, CommonResources.All, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CaseType, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Address)</label>
+    <div class="col-md-10">
+        @Html.TextBoxFor(c => c.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Gender)</label>
+    <div class="col-md-10">
+        @Html.TextAreaFor(c => c.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+    <div class="col-md-10">
+        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i> @CommonResources.Reset</button>
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+    </div>
+</div>

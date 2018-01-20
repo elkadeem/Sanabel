@@ -18,7 +18,7 @@ namespace Sanabel.Presentation.Areas.Cases
                 "Cases_default",
                 "Cases/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new string[] { "Sanabel.Presentation.MVC.Areas.Cases.Controllers" }
+                new string[] { "Sanabel.Presentation.MVC.Cases.Controllers" }
             );
         }
     }

@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201801181502181_Initial.Designer.cs">
       <DependentUpon>201801181502181_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801191346460_AddPlaceToCases.cs" />
+    <Compile Include="Migrations\201801191346460_AddPlaceToCases.Designer.cs">
+      <DependentUpon>201801191346460_AddPlaceToCases.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
@@ -62,6 +66,10 @@
     <Compile Include="Repositories\CaseUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">
+      <Project>{1F1175F0-3CDE-41EE-B7FF-A0B2682450B9}</Project>
+      <Name>CommonSettings.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3ff09941-9dd7-4a2f-bf77-b93dd747bdd0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
@@ -82,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801181502181_Initial.resx">
       <DependentUpon>201801181502181_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801191346460_AddPlaceToCases.resx">
+      <DependentUpon>201801191346460_AddPlaceToCases.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

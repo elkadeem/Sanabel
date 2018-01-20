@@ -1,29 +1,38 @@
-﻿@model CommonSettings.ViewModels.SearchDistrictViewModel
+﻿@model Sanabel.Cases.App.Model.CaseSearchViewModel
 @using PagedList.Mvc
-@using BusinessSolutions.Localization;
+@using BusinessSolutions.Localization
+@using Sanabel.Cases.App.Resources
 
 
 @{
-    ViewBag.Title = CommonResources.Districts;
+    ViewBag.Title = CasesResource.Cases;
 }
-
-
 
 @Html.Partial("_TempDataHeaderMessages")
 @Html.Partial("_ViewDataHeaderMessages")
 <!-- form ############################################################### -->
-@using (Html.BeginForm("Index", "Districts", FormMethod.Get, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Index", "Management", FormMethod.Get, new { @class = "form-horizontal" }))
 {
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.CaseName, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CountryId
                                              , new SelectList(Enumerable.Empty<SelectListItem>())
                                              , CommonResources.All
                                              , new { @class = "form-control" })
         </div>
-
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.RegionId
                                              , new SelectList(Enumerable.Empty<SelectListItem>())
@@ -39,11 +48,25 @@
                                              , CommonResources.All
                                              , new { @class = "form-control" })
         </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictName)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
         <div class="col-md-4">
-            @Html.TextBoxFor(model => model.DistrictName, new { @class = "form-control" })
+            @Html.DropDownListFor(Model => Model.DistrictId
+                                             , new SelectList(Enumerable.Empty<SelectListItem>())
+                                             , CommonResources.All
+                                             , new { @class = "form-control" })
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseType)</label>
+        <div class="col-md-4">
+            @Html.EnumDropDownListFor(c => c.CaseType, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
         <div class="col-md-10">
@@ -61,46 +84,59 @@
         <thead class="thead-default">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].DistricCode)
+                    @CasesResource.CaseName
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].DistrictName)
+                    @CasesResource.Phone
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].DistrictNameEn)
+                    @CasesResource.CaseType.
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].City.CityName)
+                    @CasesResource.Country
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items[0].City.Region.Country.CountryName)
+                    @CasesResource.Region
                 </th>
-                <th></th>
+                <th>
+                    @CasesResource.City
+                </th>
+                <th>
+                    @CasesResource.District
+                </th>
+                <th>
+                </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (CommonSettings.ViewModels.DistrictViewModel item in Model.Items)
+            @foreach (Sanabel.Cases.App.Model.CaseViewModel item in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.Encode(item.DistricCode)
+                        @Html.Encode(item.CaseName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.Phone)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CaseType)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CountryName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.RegionName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CityName)
                     </td>
                     <td>
                         @Html.Encode(item.DistrictName)
                     </td>
                     <td>
-                        @Html.Encode(item.DistrictNameEn)
-                    </td>
-                    <td>
-                        @Html.Encode(item.City.CityName)
-                    </td>
-                    <td>
-                        @Html.Encode(item.City.Region.Country.CountryName)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", new { id = item.DistrictId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                        <a href="@Url.Action("Details", new { id = item.DistrictId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
-                        <a data-id="@item.DistrictId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                        <a href="@Url.Action("Edit", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                        <a href="@Url.Action("Details", new { id = item.CaseId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                        <a data-id="@item.CaseId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
                     </td>
                 </tr>
             }
@@ -120,8 +156,11 @@
                                                  PageIndex = page - 1,
                                                  CountryId = Model.CountryId,
                                                  RegionId = Model.RegionId,
+                                                 CaseName = Model.CaseName,
+                                                 Phone = Model.Phone,
+                                                 CaseType = Model.CaseType,
                                                  CityId = Model.CityId,
-                                                 DistrictName = Model.DistrictName
+                                                 DistrictId = Model.DistrictId
                                              }), PagedListRenderOptions.ClassicPlusFirstAndLast)
             </div>
         }
@@ -134,11 +173,11 @@ else
     </div>
 }
 
-
 @section scripts
 {
-    <script>
+    <script type="text/javascript">
         $(function () {
+           
             $('#CountryId').fillDropDownList({
                 url: '@Url.Content("~/api/Settings/Places/Countries")',
                 dataValeuProperty: 'countryId',
@@ -153,11 +192,14 @@ else
                 fillCities($(this).val());
             });
 
+            $('#CityId').change(function () {
+                fillDistricts($(this).val());
+            });
 
             $('.btnDelete').click(function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                var actionUrl = "@Url.Action("Delete", "Districts")/" + id
+                var actionUrl = "@Url.Action("Delete", "Management")/" + id
                     + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, ""));
                 $util.confirmDialogWithActionForm("@CommonResources.DeleteConfirmation"
                     , "@CommonResources.DeleteConfirmationTitle"
@@ -186,6 +228,17 @@ else
                 dataValeuProperty: 'cityId',
                 dataTextProperty: 'cityName',
                 selectedValue: '@Model.CityId',
+                callback: fillDistricts
+            });
+        }
+
+        function fillDistricts(cityId)
+        {
+            $('#DistrictId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CityDistricts")?cityId=' + cityId,
+                dataValeuProperty: 'districtId',
+                dataTextProperty: 'districtName',
+                selectedValue: '@Model.DistrictId',
             });
         }
     </script>

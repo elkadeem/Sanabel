@@ -230,14 +230,13 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
-    <Compile Include="Areas\Cases\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Cases\Controllers\ManagementController.cs" />
     <Compile Include="Areas\Settings\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
     <Compile Include="Areas\Settings\Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Settings\Controllers\PlacesController.cs" />
     <Compile Include="Areas\Settings\Controllers\RegionsController.cs" />
     <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
-    <Compile Include="Areas\Volunteers\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Volunteers\Controllers\VolunteerController.cs" />
     <Compile Include="Areas\Volunteers\VolunteersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -776,11 +775,15 @@
     <Content Include="Areas\Volunteers\Views\Volunteer\Create.cshtml" />
     <Content Include="Areas\Volunteers\Views\Volunteer\Edit.cshtml" />
     <Content Include="Areas\Cases\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Cases\Views\Home\Index.cshtml" />
     <Content Include="Areas\Settings\Views\Countries\_CountryInfo.cshtml" />
     <Content Include="Areas\Settings\Views\Cities\_CityInfo.cshtml" />
     <Content Include="Areas\Settings\Views\Districts\_DistrictInfo.cshtml" />
     <Content Include="Areas\Settings\Views\Regions\_RegionInfo.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Index.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Details.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Create.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Edit.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\_CaseInfoView.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\Custom\Common.js" />
     <Content Include="Scripts\Custom\CustomValidations.js" />
@@ -854,7 +857,6 @@
     <Folder Include="Areas\Settings\Models\" />
     <Folder Include="Areas\Settings\Views\Shared\" />
     <Folder Include="Areas\Volunteers\Models\" />
-    <Folder Include="Areas\Volunteers\Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\TheSans-Bold.eot" />
@@ -959,6 +961,18 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cases\Sanabel.Cases.App\Sanabel.Cases.App.csproj">
+      <Project>{7791503d-101e-4904-9828-57b61d48659d}</Project>
+      <Name>Sanabel.Cases.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cases\Sanable.Cases.Domain\Sanable.Cases.Domain.csproj">
+      <Project>{1aefd2f0-4c49-4bdc-8cb3-4e8a37ec182b}</Project>
+      <Name>Sanable.Cases.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cases\Sanable.Cases.Infra\Sanable.Cases.Infra.csproj">
+      <Project>{bdfa9941-48ba-4ba9-bdb6-7ebce9046392}</Project>
+      <Name>Sanable.Cases.Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings\BusinessSolutions.MVCCommon\BusinessSolutions.MVCCommon.csproj">
       <Project>{abe9d79d-0cb3-41b3-a991-9a490674192b}</Project>
       <Name>BusinessSolutions.MVCCommon</Name>

@@ -18,10 +18,10 @@
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> طالبي المساعدة</a>
         <ul class="nav-dropdown-items">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases"})"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+                <a class="nav-link" href="@Url.Action("Create", "Management", new { area = "Cases"})"><i class="icon-star"></i> إضافة جديد</a>
             </li>
         </ul>
     </li>
@@ -82,7 +82,7 @@
                 <a class="nav-link" href="@Url.Action("Index", "Cities", new { Area = "Settings" })"><i class="icon-star"></i>المدن</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i>المناطق</a>
+                <a class="nav-link" href="@Url.Action("Index", "Districts", new { Area = "Settings" })"><i class="icon-star"></i>المناطق</a>
             </li>
         </ul>
     </li>

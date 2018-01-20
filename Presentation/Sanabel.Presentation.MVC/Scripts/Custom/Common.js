@@ -41,6 +41,8 @@
 
         return this;
     };
+
+
 }(jQuery));
 
 
@@ -69,14 +71,66 @@ $util.confirmDialogWithActionForm = function (confirmationText, title, actionUrl
         + '   </div >'
         + ' </div >';
 
-    $(html).appendTo('body');    
+    $(html).appendTo('body');
     $('#confirmDialogWithFormModal').modal('show');
-    $('#confirmDialogWithFormModal').on("hidden.bs.modal", function (e) {        
+    $('#confirmDialogWithFormModal').on("hidden.bs.modal", function (e) {
         $('#confirmDialogWithFormModal').modal('dispose');
-        $('body #confirmDialogWithFormModal').remove();        
+        $('body #confirmDialogWithFormModal').remove();
     });
 
     $('#confirmDialogWithFormModal btn-secondary').click(function () {
-        $('#confirmDialogWithFormModal').modal('hide');        
+        $('#confirmDialogWithFormModal').modal('hide');
     });
 };
+
+$util.populatePlaces = function (placeBaseUrl, countryElment, regionElement, cityElement, districtElement) {
+
+    $(countryElment).fillDropDownList({
+        url: placeBaseUrl + '/Countries',
+        dataValeuProperty: 'countryId',
+        dataTextProperty: 'countryName',
+        selectedValue: '@Model.CountryId',
+        callback: fillRegions
+    }).change(function () {
+        fillRegions($(this).val());
+    });
+
+    $(regionElement).change(function () {
+        fillCities($(regionElement), $(this).val());
+    });
+
+    $(cityElement).change(function () {
+        fillDistricts(cityElement, $(this).val());
+    });
+
+};
+
+
+function fillRegions(countryId, regionElement) {
+    $(regionElement).fillDropDownList({
+        url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+        dataValeuProperty: 'regionId',
+        dataTextProperty: 'regionName',
+        selectedValue: '@Model.RegionId',
+        callback: fillCities
+    });
+}
+
+function fillCities(regionId, cityElement) {
+    $(cityElement).fillDropDownList({
+        url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
+        dataValeuProperty: 'cityId',
+        dataTextProperty: 'cityName',
+        selectedValue: '@Model.CityId',
+        callback: fillDistricts
+    });
+}
+
+function fillDistricts(cityId) {
+    $('#DistrictId').fillDropDownList({
+        url: '@Url.Content("~/api/Settings/Places/CityDistricts")?cityId=' + cityId,
+        dataValeuProperty: 'districtId',
+        dataTextProperty: 'districtName',
+        selectedValue: '@Model.DistrictId',
+    });
+}
