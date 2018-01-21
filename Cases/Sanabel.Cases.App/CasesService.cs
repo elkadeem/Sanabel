@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Core.Specifications;
 using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Cases.App.Model;
 using Sanabel.Cases.App.Resources;
@@ -24,8 +25,16 @@ namespace Sanabel.Cases.App
         {
             try
             {
+                if (caseModel == null)
+                    throw new ArgumentNullException(nameof(caseModel));
+
                 Case newCase = new Case();
                 PopulateCase(newCase, caseModel);
+
+                var validationResult = ValidationCase(newCase);
+                if(validationResult != null)
+                    return EntityResult.Failed(validationResult.ToArray());
+
                 _caseUnitOfWork.CaseRepository.Add(newCase);
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
@@ -58,6 +67,9 @@ namespace Sanabel.Cases.App
 
         public async Task<PagedEntity<CaseViewModel>> GetCases(CaseSearchViewModel searchViewModel)
         {
+            if (searchViewModel == null)
+                throw new ArgumentNullException(nameof(searchViewModel));
+
             PagedEntity<Case> result = await _caseUnitOfWork.CaseRepository
                 .SearchCases(searchViewModel.CaseName, searchViewModel.Phone
                 , (Sanable.Cases.Domain.Model.CaseTypes)searchViewModel.CaseType, searchViewModel.CountryId
@@ -71,8 +83,18 @@ namespace Sanabel.Cases.App
         {
             try
             {
+                if (caseModel == null)
+                    throw new ArgumentNullException(nameof(caseModel));
+
                 Case currentCase = await _caseUnitOfWork.CaseRepository.GetByIDAsync(caseModel.CaseId);
+                if (currentCase == null)
+                    throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseModel));
+
                 PopulateCase(currentCase, caseModel);
+                var validationResult = ValidationCase(currentCase);
+                if (validationResult != null)
+                    return EntityResult.Failed(validationResult.ToArray());
+
                 _caseUnitOfWork.CaseRepository.Update(currentCase);
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
@@ -122,6 +144,24 @@ namespace Sanabel.Cases.App
                 CountryId = currentCase.City?.Region?.CountryId,
                 RegionId = currentCase.City?.RegionId,
             };
+        }
+
+        private List<ValidationError> ValidationCase(Case caseToValidate)
+        {
+            List<ValidationError> result = new List<ValidationError>();
+            var isNameExistSpecification = new ExpressionSpecification<Case>(c => c.Id != caseToValidate.Id
+                && c.Name.ToLower().Trim() == caseToValidate.Name.ToLower().Trim());
+
+            if (_caseUnitOfWork.CaseRepository.Find(isNameExistSpecification).Any())
+                result.Add(new ValidationError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
+
+            var isPhoneExistSpecification = new ExpressionSpecification<Case>(c => c.Id != caseToValidate.Id
+                && c.Phone.ToLower().Trim() == caseToValidate.Phone.ToLower().Trim());
+
+            if (_caseUnitOfWork.CaseRepository.Find(isNameExistSpecification).Any())
+                result.Add(new ValidationError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
+
+            return result.Count == 0 ? null : result;
         }
     }
 }

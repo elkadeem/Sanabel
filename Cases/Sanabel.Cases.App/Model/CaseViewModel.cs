@@ -68,8 +68,10 @@ namespace Sanabel.Cases.App.Model
         [Display(Name = "District", ResourceType = typeof(CasesResource))]
         public string DistrictName { get; set; }
 
+        [Display(Name = "Country", ResourceType = typeof(CasesResource))]
         public int? CountryId { get; set; }
 
+        [Display(Name = "Region", ResourceType = typeof(CasesResource))]
         public int? RegionId { get; set; }
     }
 }

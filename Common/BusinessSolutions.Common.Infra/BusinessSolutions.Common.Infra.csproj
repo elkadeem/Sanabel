@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Attributes\LocalizedDescriptionAttribute.cs" />
     <Compile Include="Expressions\Helper.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Log\LogExtensions.cs" />
     <Compile Include="Notifications\EmailService.cs" />
     <Compile Include="Notifications\IEmailService.cs" />
@@ -67,8 +68,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

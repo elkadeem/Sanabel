@@ -69,8 +69,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         private void AddErrors(EntityResult result)
         {
             foreach (var error in result.ValidationErrors)
-            {
-                if (error.ValidationErrorType == ValidationErrorTypes.DuplicatedValue)
+            {                
                     ModelState.AddModelError("", error.Message);
             }
         }

@@ -2,6 +2,8 @@
 @using PagedList.Mvc
 @using BusinessSolutions.Localization
 @using Sanabel.Cases.App.Resources
+@using BusinessSolutions.Common.Infra.Extensions
+@using BusinessSolutions.MVCCommon.Helpers
 
 
 @{
@@ -28,38 +30,38 @@
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CountryId
-                                             , new SelectList(Enumerable.Empty<SelectListItem>())
-                                             , CommonResources.All
-                                             , new { @class = "form-control" })
+                                                  , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                  , CommonResources.All
+                                                  , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.RegionId
-                                             , new SelectList(Enumerable.Empty<SelectListItem>())
-                                             , CommonResources.All
-                                             , new { @class = "form-control" })
+                                                  , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                  , CommonResources.All
+                                                  , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CityId
-                                             , new SelectList(Enumerable.Empty<SelectListItem>())
-                                             , CommonResources.All
-                                             , new { @class = "form-control" })
+                                                  , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                  , CommonResources.All
+                                                  , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.DistrictId
-                                             , new SelectList(Enumerable.Empty<SelectListItem>())
-                                             , CommonResources.All
-                                             , new { @class = "form-control" })
+                                                  , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                  , CommonResources.All
+                                                  , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseType)</label>
         <div class="col-md-4">
-            @Html.EnumDropDownListFor(c => c.CaseType, new { @class = "form-control" })
+            @Html.LocalizedEnumDropDownListFor(c => c.CaseType, CommonResources.All, new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
         <div class="col-md-4">
@@ -119,7 +121,7 @@
                         @Html.Encode(item.Phone)
                     </td>
                     <td>
-                        @Html.Encode(item.CaseType)
+                        @Html.Encode(item.CaseType.GetLocalizedEnumDescription())
                     </td>
                     <td>
                         @Html.Encode(item.CountryName)
@@ -151,17 +153,17 @@
                 </div>
 
                 @Html.PagedListPager(Model.Items, page => Url.Action("Index"
-                                             , new
-                                             {
-                                                 PageIndex = page - 1,
-                                                 CountryId = Model.CountryId,
-                                                 RegionId = Model.RegionId,
-                                                 CaseName = Model.CaseName,
-                                                 Phone = Model.Phone,
-                                                 CaseType = Model.CaseType,
-                                                 CityId = Model.CityId,
-                                                 DistrictId = Model.DistrictId
-                                             }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                                  , new
+                                                  {
+                                                      PageIndex = page - 1,
+                                                      CountryId = Model.CountryId,
+                                                      RegionId = Model.RegionId,
+                                                      CaseName = Model.CaseName,
+                                                      Phone = Model.Phone,
+                                                      CaseType = Model.CaseType,
+                                                      CityId = Model.CityId,
+                                                      DistrictId = Model.DistrictId
+                                                  }), PagedListRenderOptions.ClassicPlusFirstAndLast)
             </div>
         }
     </div>
@@ -177,7 +179,7 @@ else
 {
     <script type="text/javascript">
         $(function () {
-           
+
             $('#CountryId').fillDropDownList({
                 url: '@Url.Content("~/api/Settings/Places/Countries")',
                 dataValeuProperty: 'countryId',

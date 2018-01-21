@@ -70,11 +70,38 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الحالة غير موجودة..
+        /// </summary>
+        public static string CaseIsNotExist {
+            get {
+                return ResourceManager.GetString("CaseIsNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الاسم.
         /// </summary>
         public static string CaseName {
             get {
                 return ResourceManager.GetString("CaseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الحالة مسجل لحالة أخري.برجاء مراجعة الحالات أو التأكد من الأسم..
+        /// </summary>
+        public static string CaseNameExist {
+            get {
+                return ResourceManager.GetString("CaseNameExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الهاتف مسجل لحالة أخري. برجاء مراجعة الحالات أو تغيير رقم الهاتف.
+        /// </summary>
+        public static string CasePhoneExist {
+            get {
+                return ResourceManager.GetString("CasePhoneExist", resourceCulture);
             }
         }
         

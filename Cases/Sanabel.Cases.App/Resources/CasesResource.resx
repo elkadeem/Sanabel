@@ -171,4 +171,13 @@
   <data name="Widow" xml:space="preserve">
     <value>أرملة</value>
   </data>
+  <data name="CaseIsNotExist" xml:space="preserve">
+    <value>الحالة غير موجودة.</value>
+  </data>
+  <data name="CaseNameExist" xml:space="preserve">
+    <value>اسم الحالة مسجل لحالة أخري.برجاء مراجعة الحالات أو التأكد من الأسم.</value>
+  </data>
+  <data name="CasePhoneExist" xml:space="preserve">
+    <value>رقم الهاتف مسجل لحالة أخري. برجاء مراجعة الحالات أو تغيير رقم الهاتف</value>
+  </data>
 </root>
