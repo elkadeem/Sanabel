@@ -43,6 +43,10 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PagedEntity.cs" />
+    <Compile Include="Events\DomainEvents.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IHandler.cs" />
+    <Compile Include="IOC\IDependancyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\IReadOnlyRepository.cs" />
     <Compile Include="Respository\IRepository.cs" />

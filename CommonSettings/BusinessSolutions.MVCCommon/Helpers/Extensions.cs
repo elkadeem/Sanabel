@@ -81,6 +81,7 @@ namespace BusinessSolutions.MVCCommon.Helpers
             if (!string.IsNullOrEmpty(optionLabel) && selectList.Count != 0 && string.IsNullOrEmpty(selectList[0].Text))
             {
                 selectList[0].Text = optionLabel;
+                selectList[0].Value = "";
                 optionLabel = (string)null;
             }
 
