@@ -25,7 +25,7 @@ namespace Security.DataAccessLayer
             this.HasMany(c => c.ExternalLogins);
             this.HasMany(c => c.Claims);
             this.HasMany(c => c.Roles)
-                .WithMany(c => c.Users)
+                .WithMany()
                 .Map(c =>
                 {
                     c.MapLeftKey("UserId");

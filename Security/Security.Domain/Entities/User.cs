@@ -1,4 +1,6 @@
 ﻿using BusinessSolutions.Common.Core.Entities;
+using BusinessSolutions.Common.Infra.Validation;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +9,46 @@ using System.Threading.Tasks;
 
 namespace Security.Domain
 {
-    public class User : Entity<Guid>
+    public class User : Entity<Guid>, IUser<Guid>
     {
+        private string _userName;
+        private string _email;
+
         public User()
         {
-            Id = Guid.NewGuid();
+
             ExternalLogins = new HashSet<ExternalLogin>();
             Claims = new HashSet<Claim>();
             Roles = new HashSet<Role>();
         }
 
-        public string UserName { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return _userName;
+            }
+            set
+            {
+                Guard.StringIsNull<ArgumentOutOfRangeException>(value, nameof(UserName));
+                _userName = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                Guard.StringIsNull<ArgumentOutOfRangeException>(value, nameof(Email));
+                _email = value;
+            }
+        }
 
         public string FullName { get; set; }
-
-        public string Email { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 
@@ -60,25 +87,18 @@ namespace Security.Domain
         public void AddExternalLogin(string loginProvider, string providerkey)
         {
             var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
-            if (externalLogin == null)
-            {
-                externalLogin = new ExternalLogin() { LoginProvider = loginProvider };
-                ExternalLogins.Add(externalLogin);
-            }
-
             externalLogin.ProviderKey = providerkey;
         }
 
         public void RemoveExternalLogin(string loginProvider)
         {
             var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
-            if (externalLogin != null)
-                ExternalLogins.Remove(externalLogin);
+            Guard.ArgumentIsNull<ArgumentException>(externalLogin, nameof(loginProvider), "Login provider is not exist");
+            ExternalLogins.Remove(externalLogin);
         }
 
         public void AddClaim(string claimType, string claimValue)
         {
-
             var claim = new Claim { ClaimType = claimType, ClaimValue = claimValue, UserId = this.Id };
             Claims.Add(claim);
         }
@@ -101,15 +121,19 @@ namespace Security.Domain
 
         public void AddRole(Role role)
         {
-            if (!Roles.Any(c => c.RoleName == role.RoleName))
-                Roles.Add(role);
+            Roles.Add(role);
         }
 
-        public void RemoveRole(Role role)
+        public void RemoveRole(string roleName)
         {
-            var roleToRemove = Roles.FirstOrDefault(c => c.RoleName == role.RoleName);
-            if (roleToRemove != null)
-                Roles.Remove(roleToRemove);
+            var roleToRemove = Roles.FirstOrDefault(c => c.Name == roleName);
+            Roles.Remove(roleToRemove);
         }
+
+        public bool IsInRole(string roleName)
+        {
+            return Roles.Any(c => c.Name.ToLower() == roleName.ToLower());
+        }
+
     }
 }

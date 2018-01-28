@@ -18,19 +18,19 @@ namespace Security.DataAccessLayer.Repositories
 
         public Role FindByName(string roleName)
         {
-            var role = Set.FirstOrDefault(c => c.RoleName == roleName);
+            var role = Set.FirstOrDefault(c => c.Name == roleName);
             return role;
         }
 
         public async Task<Role> FindByNameAsync(string roleName)
         {
-            var role = await Set.FirstOrDefaultAsync(c => c.RoleName == roleName);
+            var role = await Set.FirstOrDefaultAsync(c => c.Name == roleName);
             return role;
         }
 
         public async Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
         {
-            var role = await Set.FirstOrDefaultAsync(c => c.RoleName == roleName, cancellationToken);
+            var role = await Set.FirstOrDefaultAsync(c => c.Name == roleName, cancellationToken);
             return role;
         }
         

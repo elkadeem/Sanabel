@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BusinessSolutions.Common.Infra.Validation;
+using Microsoft.AspNet.Identity;
 using Security.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Security.AspIdentity
 {
-    public class UserStore : IUserStore<ApplicationUser, Guid>, IUserLoginStore<ApplicationUser, Guid>
-        , IUserClaimStore<ApplicationUser, Guid>, IUserEmailStore<ApplicationUser, Guid>
-        , IUserLockoutStore<ApplicationUser, Guid>, IUserPasswordStore<ApplicationUser, Guid>
-        , IUserPhoneNumberStore<ApplicationUser, Guid>, IUserSecurityStampStore<ApplicationUser, Guid>
-        , IUserTwoFactorStore<ApplicationUser, Guid>, IUserRoleStore<ApplicationUser, Guid>
+    public class UserStore : IUserStore<User, Guid>, IUserLoginStore<User, Guid>
+        , IUserClaimStore<User, Guid>, IUserEmailStore<User, Guid>
+        , IUserLockoutStore<User, Guid>, IUserPasswordStore<User, Guid>
+        , IUserPhoneNumberStore<User, Guid>, IUserSecurityStampStore<User, Guid>
+        , IUserTwoFactorStore<User, Guid>, IUserRoleStore<User, Guid>
     {
         private ISecurityUnitOfWork _securityUnitOfWork;
 
@@ -22,452 +23,306 @@ namespace Security.AspIdentity
         }
 
         #region IUserStore
-        public Task CreateAsync(ApplicationUser user)
+        public Task CreateAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            User newUser = new User();
-            UpdateUserData(newUser, user);
-            _securityUnitOfWork.UserRepository.Add(newUser);
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            _securityUnitOfWork.UserRepository.Add(user);
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task DeleteAsync(ApplicationUser user)
+        public Task DeleteAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             _securityUnitOfWork.UserRepository.Remove(user.Id);
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<ApplicationUser> FindByIdAsync(Guid Id)
+        public Task<User> FindByIdAsync(Guid Id)
         {
-            var user = _securityUnitOfWork.UserRepository.GetByID(Id);
-            var applicationUser = GetApplicationUser(user);
-            return Task.FromResult(applicationUser);
+            var user = _securityUnitOfWork.UserRepository.GetByID(Id);           
+            return Task.FromResult(user);
         }
 
-        public async Task<ApplicationUser> FindByNameAsync(string userName)
+        public Task<User> FindByNameAsync(string userName)
         {
-            if (string.IsNullOrEmpty(userName))
-                throw new ArgumentNullException("userName");
-
-            var user = await _securityUnitOfWork.UserRepository.FindByUserNameAsync(userName);
-            var applicationUser = GetApplicationUser(user);
-            return applicationUser;
+            Guard.ArgumentIsNull<ArgumentNullException>(userName, nameof(userName));
+            return _securityUnitOfWork.UserRepository.FindByUserNameAsync(userName);
         }
 
-        public Task UpdateAsync(ApplicationUser user)
+        public Task UpdateAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            UpdateUserData(entity, user);
-            _securityUnitOfWork.UserRepository.Update(entity);
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));            
+            _securityUnitOfWork.UserRepository.Update(user);
             return _securityUnitOfWork.SaveAsync();
         }
         #endregion
 
         #region IUserLoginStore
-        public Task AddLoginAsync(ApplicationUser user, UserLoginInfo login)
+        public Task AddLoginAsync(User user, UserLoginInfo login)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (login == null)
-                throw new ArgumentNullException("login");
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.ArgumentIsNull<ArgumentNullException>(login, nameof(login));
 
             user.AddExternalLogin(login.LoginProvider, login.ProviderKey);
             return Task.FromResult(0);
         }
 
-        public async Task<ApplicationUser> FindAsync(UserLoginInfo login)
+        public async Task<User> FindAsync(UserLoginInfo login)
         {
-            if (login == null)
-                throw new ArgumentNullException("login");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(login, nameof(login));
             var user = await _securityUnitOfWork.UserRepository
                 .FindByLoginAsync(login.LoginProvider, login.ProviderKey);
-            return GetApplicationUser(user);
+            return user;
         }
 
-        public Task<IList<UserLoginInfo>> GetLoginsAsync(ApplicationUser user)
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            var entityUser = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entityUser == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            IList<UserLoginInfo> result = null;
-            if (entityUser.ExternalLogins != null || entityUser.ExternalLogins.Count > 0)
-                result = entityUser.ExternalLogins.Select(c => new UserLoginInfo(c.LoginProvider, c.ProviderKey))
-                    .ToList();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));             
+            IList<UserLoginInfo>  result = user.ExternalLogins?
+                .Select(c => new UserLoginInfo(c.LoginProvider, c.ProviderKey))
+                .ToList();
 
             return Task.FromResult(result);
         }
 
-        public Task RemoveLoginAsync(ApplicationUser user, UserLoginInfo login)
+        public Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (login == null)
-                throw new ArgumentNullException("login");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.ArgumentIsNull<ArgumentNullException>(login, nameof(login));
             user.RemoveExternalLogin(login.LoginProvider);
             return Task.FromResult(0);
         }
         #endregion 
 
         #region IUserClaimStore
-        public async Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(ApplicationUser user)
+        public Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            var entityUser = await _securityUnitOfWork.UserRepository.GetByIDAsync(user.Id);
-
-            if (entityUser == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            IList<System.Security.Claims.Claim> claims = entityUser.Claims.Select(c => new System.Security.Claims.Claim(c.ClaimType, c.ClaimValue)).ToList();
-            return claims;
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            IList<System.Security.Claims.Claim> claims = user.Claims.Select(c => new System.Security.Claims.Claim(c.ClaimType, c.ClaimValue)).ToList();
+            return Task.FromResult(claims);
         }
 
-        public Task AddClaimAsync(ApplicationUser user, System.Security.Claims.Claim claim)
+        public Task AddClaimAsync(User user, System.Security.Claims.Claim claim)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (claim == null)
-                throw new ArgumentNullException("claim");
-
-            var entityUser = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entityUser == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entityUser.AddClaim(claim.Type, claim.Value);
-            _securityUnitOfWork.UserRepository.Update(entityUser);
-            return _securityUnitOfWork.SaveAsync();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.ArgumentIsNull<ArgumentNullException>(claim, nameof(claim));
+            user.AddClaim(claim.Type, claim.Value);
+            return Task.FromResult(0);
         }
 
-        public Task RemoveClaimAsync(ApplicationUser user, System.Security.Claims.Claim claim)
+        public Task RemoveClaimAsync(User user, System.Security.Claims.Claim claim)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (claim == null)
-                throw new ArgumentNullException("claim");
-
-            var entityUser = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-
-            if (entityUser == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            entityUser.RemoveClaim(claim.Type, claim.Value);
-
-            _securityUnitOfWork.UserRepository.Update(entityUser);
-            return _securityUnitOfWork.SaveAsync();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.ArgumentIsNull<ArgumentNullException>(claim, nameof(claim));
+            user.RemoveClaim(claim.Type, claim.Value);
+            return Task.FromResult(0);
         }
         #endregion
 
         #region IUserEmailStore
-        public Task SetEmailAsync(ApplicationUser user, string email)
+        public Task SetEmailAsync(User user, string email)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(email))
-                throw new ArgumentNullException("email");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
             user.Email = email;
             return Task.FromResult(0);
         }
 
-        public Task<string> GetEmailAsync(ApplicationUser user)
+        public Task<string> GetEmailAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.Email);
         }
 
-        public Task<bool> GetEmailConfirmedAsync(ApplicationUser user)
+        public Task<bool> GetEmailConfirmedAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.IsEmailConfirmed);
         }
 
-        public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
+        public Task SetEmailConfirmedAsync(User user, bool confirmed)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.IsEmailConfirmed = confirmed;
             return Task.FromResult(0);
         }
 
-        public Task<ApplicationUser> FindByEmailAsync(string email)
+        public Task<User> FindByEmailAsync(string email)
         {
-            if (string.IsNullOrEmpty(email))
-                throw new ArgumentNullException("email");
-
-            var entity = _securityUnitOfWork.UserRepository.FindByEmail(email);
-            var user = GetApplicationUser(entity);
+            Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
+            var user = _securityUnitOfWork.UserRepository.FindByEmail(email);           
             return Task.FromResult(user);
         }
         #endregion
 
         #region IUserLockoutStore
-        public Task<DateTimeOffset> GetLockoutEndDateAsync(ApplicationUser user)
+        public Task<DateTimeOffset> GetLockoutEndDateAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             DateTimeOffset date = DateTimeOffset.MinValue;
             if (user.LockedOutDate.HasValue)
                 date = new DateTimeOffset(user.LockedOutDate.Value);
-
             return Task.FromResult(date);
         }
 
-        public Task SetLockoutEndDateAsync(ApplicationUser user, DateTimeOffset lockoutEnd)
+        public Task SetLockoutEndDateAsync(User user, DateTimeOffset lockoutEnd)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             if (lockoutEnd == DateTimeOffset.MinValue)
                 user.LockedOutDate = null;
             else
                 user.LockedOutDate = lockoutEnd.UtcDateTime;
-
             return Task.FromResult(0);
         }
 
-        public Task<int> IncrementAccessFailedCountAsync(ApplicationUser user)
+        public Task<int> IncrementAccessFailedCountAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.AccessFailedCount = user.AccessFailedCount + 1;
             return Task.FromResult(user.AccessFailedCount);
         }
 
-        public Task ResetAccessFailedCountAsync(ApplicationUser user)
+        public Task ResetAccessFailedCountAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.AccessFailedCount = 0;
             return Task.FromResult(0);
         }
 
-        public Task<int> GetAccessFailedCountAsync(ApplicationUser user)
+        public Task<int> GetAccessFailedCountAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.AccessFailedCount);
         }
 
-        public Task<bool> GetLockoutEnabledAsync(ApplicationUser user)
+        public Task<bool> GetLockoutEnabledAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.IsLocked);
         }
 
-        public Task SetLockoutEnabledAsync(ApplicationUser user, bool enabled)
+        public Task SetLockoutEnabledAsync(User user, bool enabled)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.IsLocked = enabled;
             return Task.FromResult(0);
         }
         #endregion
 
         #region IUserPasswordStore
-        public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
+        public Task SetPasswordHashAsync(User user, string passwordHash)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.PasswordHash = passwordHash;
             return Task.FromResult(0);
         }
 
-        public Task<string> GetPasswordHashAsync(ApplicationUser user)
+        public Task<string> GetPasswordHashAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.PasswordHash);
         }
 
-        public Task<bool> HasPasswordAsync(ApplicationUser user)
+        public Task<bool> HasPasswordAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             bool hasPassword = !string.IsNullOrEmpty(user.PasswordHash);
             return Task.FromResult(hasPassword);
         }
         #endregion
 
         #region IUserPhoneNumberStore
-        public Task SetPhoneNumberAsync(ApplicationUser user, string phoneNumber)
+        public Task SetPhoneNumberAsync(User user, string phoneNumber)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(phoneNumber))
-                throw new ArgumentNullException("phoneNumber");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(phoneNumber, nameof(phoneNumber));
             user.PhoneNumber = phoneNumber;
             return Task.FromResult(0);
         }
 
-        public Task<string> GetPhoneNumberAsync(ApplicationUser user)
+        public Task<string> GetPhoneNumberAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.PhoneNumber);
         }
 
-        public Task<bool> GetPhoneNumberConfirmedAsync(ApplicationUser user)
+        public Task<bool> GetPhoneNumberConfirmedAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.IsPhoneConfirmed);
         }
 
-        public Task SetPhoneNumberConfirmedAsync(ApplicationUser user, bool confirmed)
+        public Task SetPhoneNumberConfirmedAsync(User user, bool confirmed)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.IsPhoneConfirmed = confirmed;
             return Task.FromResult(0);
         }
         #endregion
 
         #region IUserSecurityStampStore
-        public Task SetSecurityStampAsync(ApplicationUser user, string stamp)
+        public Task SetSecurityStampAsync(User user, string stamp)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(stamp))
-                throw new ArgumentNullException("stamp");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(stamp, nameof(stamp));
             user.SecurityStamp = stamp;
             return Task.FromResult(0);
         }
 
-        public Task<string> GetSecurityStampAsync(ApplicationUser user)
+        public Task<string> GetSecurityStampAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.SecurityStamp);
         }
         #endregion
 
         #region IUserTwoFactorStore
-        public Task SetTwoFactorEnabledAsync(ApplicationUser user, bool enabled)
+        public Task SetTwoFactorEnabledAsync(User user, bool enabled)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             user.EnableTowFactorAuthentication = enabled;
             return Task.FromResult(0);
         }
 
-        public Task<bool> GetTwoFactorEnabledAsync(ApplicationUser user)
+        public Task<bool> GetTwoFactorEnabledAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
             return Task.FromResult(user.EnableTowFactorAuthentication);
         }
         #endregion
 
         #region IUserRoleStore
-        public Task AddToRoleAsync(ApplicationUser user, string roleName)
+        public Task AddToRoleAsync(User user, string roleName)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(roleName))
-                throw new ArgumentNullException("roleName");
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(roleName, nameof(roleName));
 
             var role = _securityUnitOfWork.RoleRepository.FindByName(roleName);
-            if (role == null)
-                throw new ArgumentException("Role is not found.", "roleName");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(role, nameof(roleName), "Role is not exist");
             user.AddRole(role);
             return Task.FromResult(0);
         }
 
-        public Task RemoveFromRoleAsync(ApplicationUser user, string roleName)
+        public Task RemoveFromRoleAsync(User user, string roleName)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(roleName))
-                throw new ArgumentNullException("roleName");
-
-            if (user.Roles != null)
-            {
-                var role = user.Roles.FirstOrDefault(c => c.RoleName.ToLower() == roleName.ToLower());
-                if (role != null)
-                    user.RemoveRole(role);
-            }
-
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(roleName, nameof(roleName));
+            user.RemoveRole(roleName);
             return Task.FromResult(0);
         }
 
-        public Task<IList<string>> GetRolesAsync(ApplicationUser user)
+        public Task<IList<string>> GetRolesAsync(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-            IList<string> rolesName = entity.Roles?.Select(c => c.RoleName).ToList();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            IList<string> rolesName = user.Roles?.Select(c => c.Name).ToList();
             return Task.FromResult(rolesName);
         }
 
-        public Task<bool> IsInRoleAsync(ApplicationUser user, string roleName)
+        public Task<bool> IsInRoleAsync(User user, string roleName)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-
-            if (string.IsNullOrEmpty(roleName))
-                throw new ArgumentNullException("roleName");
-
-            var entity = _securityUnitOfWork.UserRepository.GetByID(user.Id);
-            if (entity == null)
-                throw new ArgumentException("User is not found.", "user");
-
-            bool isUserInRole = entity.Roles.Any(c => c.RoleName.ToLower() == roleName.ToLower());
-            return Task.FromResult(isUserInRole);
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            Guard.StringIsNull<ArgumentNullException>(roleName, nameof(roleName));
+            return Task.FromResult(user.IsInRole(roleName));
         }
         #endregion
 
@@ -493,111 +348,6 @@ namespace Security.AspIdentity
                 }
             }
         }
-        #endregion
-
-        #region Private Methods
-        private ApplicationUser GetApplicationUser(User user)
-        {
-            if (user == null)
-                return null;
-
-            var applicationUser = new ApplicationUser
-            {
-                AccessFailedCount = user.AccessFailedCount,
-                Email = user.Email,
-                EnableTowFactorAuthentication = user.EnableTowFactorAuthentication,
-                FullName = user.FullName,
-                IsEmailConfirmed = user.IsEmailConfirmed,
-                IsLocked = user.IsLocked,
-                IsPhoneConfirmed = user.IsPhoneConfirmed,
-                LockedOutDate = user.LockedOutDate,
-                PasswordHash = user.PasswordHash,
-                PhoneNumber = user.PhoneNumber,
-                SecurityStamp = user.SecurityStamp,
-                Id = user.Id,
-                UserName = user.UserName,
-                CityId = user.CityId,
-                DistrictId = user.DistrictId,
-                Address = user.Address,
-                City = user.City,
-                District = user.District,
-                Roles = user.Roles,
-                ExternalLogins = user.ExternalLogins,
-                Claims = user.Claims,
-            };
-           
-            return applicationUser;
-        }
-
-        private void UpdateUserData(User user, ApplicationUser applicationUser)
-        {
-            if (user == null)
-                throw new ArgumentNullException("user");
-            if (applicationUser == null)
-                throw new ArgumentNullException("applicationUser");
-
-            user.AccessFailedCount = applicationUser.AccessFailedCount;
-            user.Email = applicationUser.Email;
-            user.EnableTowFactorAuthentication = applicationUser.EnableTowFactorAuthentication;
-            user.FullName = applicationUser.FullName;
-            user.IsEmailConfirmed = applicationUser.IsEmailConfirmed;
-            user.IsLocked = applicationUser.IsLocked;
-            user.IsPhoneConfirmed = applicationUser.IsPhoneConfirmed;
-            user.LockedOutDate = applicationUser.LockedOutDate;
-            user.PasswordHash = applicationUser.PasswordHash;
-            user.PhoneNumber = applicationUser.PhoneNumber;
-            user.SecurityStamp = applicationUser.SecurityStamp;
-            user.Id = applicationUser.Id;
-            user.UserName = applicationUser.UserName;
-            user.CityId = applicationUser.CityId;
-            user.DistrictId = applicationUser.DistrictId;
-            user.Address = applicationUser.Address;
-
-            UpdateRoles(user, applicationUser);
-            UpdateExternalLogn(user, applicationUser);
-            UpdateClaims(user, applicationUser);
-        }
-
-        private static void UpdateClaims(User user, ApplicationUser applicationUser)
-        {
-            foreach (var claim in user.Claims.Where(c => !applicationUser.Claims.Any(e => e.ClaimId == c.ClaimId)).ToList())
-            {
-                user.Claims.Remove(claim);
-            }
-
-            foreach (var claim in applicationUser.Claims.Where(c => !user.Claims.Any(e => e.ClaimId == c.ClaimId)))
-            {
-                user.AddClaim(claim.ClaimType, claim.ClaimValue);
-            }
-        }
-
-        private static void UpdateExternalLogn(User user, ApplicationUser applicationUser)
-        {
-            foreach (var externalLogin in user.ExternalLogins.Where(c => !applicationUser.ExternalLogins
-                        .Any(e => e.ProviderKey == c.ProviderKey)).ToList())
-            {
-                user.ExternalLogins.Remove(externalLogin);
-            }
-
-            foreach (var externalLogin in applicationUser.ExternalLogins
-                .Where(c => !user.ExternalLogins.Any(e => e.ProviderKey == c.ProviderKey)))
-            {
-                user.ExternalLogins.Add(externalLogin);
-            }
-        }
-
-        private static void UpdateRoles(User user, ApplicationUser applicationUser)
-        {
-            foreach (var role in user.Roles.Where(c => !applicationUser.Roles.Any(e => e.Id == c.Id)).ToList())
-            {
-                user.Roles.Remove(role);
-            }
-
-            foreach (var role in applicationUser.Roles.Where(c => !user.Roles.Any(e => e.Id == c.Id)))
-            {
-                user.Roles.Add(role);
-            }
-        }
-        #endregion
+        #endregion       
     }
 }

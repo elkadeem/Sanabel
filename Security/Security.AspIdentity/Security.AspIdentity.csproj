@@ -67,9 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationRole.cs" />
     <Compile Include="ApplicationRoleManager.cs" />
-    <Compile Include="ApplicationUser.cs" />
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="DataProtection\MachineKeyDataProtector.cs" />
     <Compile Include="DataProtection\MachineKeyProtectionProvider.cs" />

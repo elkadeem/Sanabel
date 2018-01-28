@@ -13,11 +13,10 @@ namespace Security.DataAccessLayer
         public RolesConfiguration()
         {
             this.ToTable("Roles").HasKey(c => c.Id);
-            this.Property(c => c.RoleName).IsRequired().HasMaxLength(50);
-            this.Property(c => c.RoleNameAr).IsRequired().HasMaxLength(50);
-
-            this.HasMany(c => c.Users);
-            this.HasIndex(c => c.RoleName).HasName("IX_RoleName").IsUnique();
+            this.Property(c => c.Name).IsRequired().HasMaxLength(50);
+            this.Property(c => c.NameAr).IsRequired().HasMaxLength(50);
+            
+            this.HasIndex(c => c.Name).HasName("IX_RoleName").IsUnique();
         }
     }
 }
