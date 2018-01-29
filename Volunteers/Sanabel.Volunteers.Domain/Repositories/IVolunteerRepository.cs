@@ -10,7 +10,8 @@ namespace Sanabel.Volunteers.Domain.Repositories
         Task<Volunteer> GetVolunteerById(Guid id);
 
         Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, int countryId, int regionId
-            , int cityId, int districtId, Genders? gender);
+            , int cityId, int districtId, Genders? gender
+            , int pageIndex, int pageSize);
 
         Task AddVolunteer(Volunteer volunteer);
 

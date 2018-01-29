@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
-    public abstract class BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity> :
+    public class BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity> :
         IReadOnlyRepository<Tkey, TEntity>
         where TEntity : Entity<Tkey>
     {
@@ -21,6 +21,8 @@ namespace BusinessSolutions.Common.EntityFramework
         protected DbContext DbContext => _dbContext;
 
         protected DbSet<TEntity> Set => _set;
+
+        public IQueryable<TEntity> Query => Set.AsNoTracking();
 
         public BaseReadOnlyEntityFrameworkRepository(DbContext dbContext)
         {
@@ -50,16 +52,14 @@ namespace BusinessSolutions.Common.EntityFramework
             return Set.Find(key);
         }
 
-        public virtual async Task<TEntity> GetByIDAsync(Tkey key)
+        public virtual Task<TEntity> GetByIDAsync(Tkey key)
         {
-            var item = await Set.FindAsync(key);
-            return item;
+            return Set.FindAsync(key);            
         }
 
-        public virtual async Task<TEntity> GetByIDAsync(CancellationToken cancellationToken, Tkey key)
+        public virtual Task<TEntity> GetByIDAsync(CancellationToken cancellationToken, Tkey key)
         {
-            var item = await Set.FindAsync(cancellationToken, key);
-            return item;
+            return Set.FindAsync(cancellationToken, key);
         }
 
         public virtual PagedEntity<TEntity> PageAll(int pageIndex, int pageSize)

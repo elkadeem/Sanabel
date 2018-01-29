@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ using System.Web.Security;
 
 namespace Security.AspIdentity
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser, Guid>
+    public class ApplicationUserManager : UserManager<User, Guid>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser, Guid> store
+        public ApplicationUserManager(IUserStore<User, Guid> store
             , EmailService emailService)
     : base(store)
         {
@@ -20,7 +21,7 @@ namespace Security.AspIdentity
 
         private void ConfigureUserManager(EmailService emailService)
         {
-            this.UserValidator = new UserValidator<ApplicationUser, Guid>(this)
+            this.UserValidator = new UserValidator<User, Guid>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true,
@@ -45,10 +46,10 @@ namespace Security.AspIdentity
                 this.EmailService = emailService;
             }
 
-            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, Guid>
+            this.UserTokenProvider = new DataProtectorTokenProvider<User, Guid>
                 (new MachineKeyProtectionProvider().Create("Sanabel Identity"));
 
-            this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser, Guid>
+            this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User, Guid>
             {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"

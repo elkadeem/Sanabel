@@ -17,6 +17,7 @@ using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Presentation.Localization;
 using System.Collections.Generic;
 using System.Collections;
+using Security.Domain;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
@@ -322,7 +323,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

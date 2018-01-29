@@ -21,8 +21,8 @@ namespace Security.IntegrationTest
         {
             var roles = new List<Role>
             {
-                new Role{ Id = Guid.NewGuid(), RoleName = "Administrator", RoleNameAr = "مدير النظام"},
-                new Role{ Id = Guid.NewGuid(), RoleName = "User", RoleNameAr = "مستخدم"}
+                new Role{ Id = Guid.NewGuid(), Name = "Administrator", NameAr = "مدير النظام"},
+                new Role{ Id = Guid.NewGuid(), Name = "User", NameAr = "مستخدم"}
             };
 
             context.Roles.AddOrUpdate(roles.ToArray());

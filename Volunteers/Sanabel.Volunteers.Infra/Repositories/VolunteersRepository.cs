@@ -1,4 +1,6 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.EntityFramework;
+using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Volunteers.Domain.Model;
 using Sanabel.Volunteers.Domain.Repositories;
 using System;
@@ -6,35 +8,74 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Sanabel.Volunteers.Infra.Repositories
 {
-    public class VolunteersRepository : IVolunteerRepository
+    internal class VolunteersRepository : IVolunteerRepository
     {
+        BaseEntityFrameworkRepository<Guid, Volunteer> _repository;
+        public VolunteersRepository(VolunteersDbCotext dbContext)
+        {
+            Guard.ArgumentIsNull<ArgumentNullException>(dbContext, nameof(dbContext));
+            _repository = new BaseEntityFrameworkRepository<Guid, Volunteer>(dbContext);
+        }
+
+
         public Task AddVolunteer(Volunteer volunteer)
         {
-            throw new NotImplementedException();
+            _repository.Add(volunteer);
+            return Task.FromResult(0);
         }
 
         public Task<Volunteer> GetVolunteerById(Guid id)
         {
-            throw new NotImplementedException();
+            return _repository.GetByIDAsync(id);
         }
 
         public Task RemoveVolunteer(Volunteer volunteer)
         {
-            throw new NotImplementedException();
+            _repository.Remove(volunteer);
+            return Task.FromResult(0);
         }
 
-        public Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, int countryId
-            , int regionId, int cityId, int districtId, Genders? gender)
+        public async Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, int countryId
+            , int regionId, int cityId, int districtId, Genders? gender
+            , int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            var query = _repository.Query
+                .Include(c => c.District)
+                .Include(c => c.City.Region.Country);
+
+            if (!string.IsNullOrEmpty(name))
+                query = query.Where(c => c.Name.Contains(name));
+            if (!string.IsNullOrEmpty(email))
+                query = query.Where(c => c.Email.Contains(email));
+            if (countryId > 0)
+                query = query.Where(c => c.City.Region.CountryId == countryId);
+            if (regionId > 0)
+                query = query.Where(c => c.City.RegionId == regionId);
+            if (cityId > 0)
+                query = query.Where(c => c.CityId == cityId);
+            if (districtId > 0)
+                query = query.Where(c => c.DistrictId == districtId);
+            if (gender.HasValue)
+                query = query.Where(c => c.Gender == gender);
+
+            var countTask = query.CountAsync();
+            var resultTask = query.OrderBy(c => c.Name)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            await Task.WhenAll(countTask, resultTask);
+            return new PagedEntity<Volunteer>(resultTask.Result
+                , countTask.Result);
         }
 
         public Task UpdateVolunteer(Volunteer volunteer)
         {
-            throw new NotImplementedException();
+            _repository.Update(volunteer);
+            return Task.FromResult(0);
         }
     }
 }

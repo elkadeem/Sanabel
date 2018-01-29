@@ -13,6 +13,8 @@ namespace BusinessSolutions.Common.Core
 
         void Update(TEntity entity);
 
+        void Remove(TEntity entity);
+
         void Remove(Tkey id);
 
         Tkey GetPrimaryKey(TEntity entity);

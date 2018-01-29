@@ -2,6 +2,7 @@
 using BusinessSolutions.Common.Infra.Validation;
 using Security.Application.Models;
 using Security.AspIdentity;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,6 @@ namespace Security.Application.Users
 
         Task<EntityResult> UpdateUser(VolunteerViewModel userModel);
 
-        List<ApplicationRole> GetAllRoles();
+        List<Role> GetAllRoles();
     }
 }

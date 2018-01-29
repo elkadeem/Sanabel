@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Security.AspIdentity
 {
-    public class ApplicationRoleManager : RoleManager<ApplicationRole, Guid>
+    public class ApplicationRoleManager : RoleManager<Role, Guid>
     {
-        public ApplicationRoleManager(IRoleStore<ApplicationRole, Guid> roleStore)
+        public ApplicationRoleManager(IRoleStore<Role, Guid> roleStore)
                : base(roleStore)
         {
         }

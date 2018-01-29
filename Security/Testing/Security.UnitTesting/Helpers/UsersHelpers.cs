@@ -1,4 +1,5 @@
 ﻿using Security.AspIdentity;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Security.UnitTesting.Helpers
 {
     public class UsersHelpers
     {
-        public List<ApplicationUser> users = new List<ApplicationUser> {
-            new ApplicationUser
+        public List<User> users = new List<User> {
+            new User
             {
                 Email = "elkadeem@hotmail.com",
                 FullName = "elkadeem",

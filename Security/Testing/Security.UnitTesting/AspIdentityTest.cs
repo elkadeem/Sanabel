@@ -18,7 +18,7 @@ namespace Security.UnitTesting
         private Mock<Security.Domain.ISecurityUnitOfWork> unitOfWorkMok;
         private Mock<IRoleRepository> roleRepository;
         private Mock<IUserRepository> userRepository;
-        private AspIdentity.ApplicationUser user;
+        private User user;
         private List<Role> roles;
         [SetUp]
         public void Initiate()
@@ -31,7 +31,7 @@ namespace Security.UnitTesting
 
             userStore = new AspIdentity.UserStore(unitOfWorkMok.Object);
 
-            user = new AspIdentity.ApplicationUser
+            user = new User
             {
                 Email = "elkadeem@hotmail.com",
                 FullName = "elkadeem",
@@ -40,8 +40,8 @@ namespace Security.UnitTesting
             };
 
             roles = new List<Role> {
-                new Role{Id  = Guid.NewGuid(), RoleName = "Role1"},
-                new Role{Id  = Guid.NewGuid(), RoleName = "Role2"}
+                new Role{Id  = Guid.NewGuid(), Name = "Role1"},
+                new Role{Id  = Guid.NewGuid(), Name = "Role2"}
             };
         }
 
@@ -132,7 +132,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task AddLoginAsync_WithNullUser_ThrowArgumentNullException()
         {
-            ApplicationUser user = null;
+            User user = null;
             UserLoginInfo login = null;
 
             try
@@ -149,7 +149,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task AddLoginAsync_WithNullLogin_ThrowArgumentNullException()
         {
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             UserLoginInfo login = null;
 
             try
@@ -167,7 +167,7 @@ namespace Security.UnitTesting
         public async Task AddLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
             userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
 
@@ -239,12 +239,12 @@ namespace Security.UnitTesting
         public async Task GetLoginsAsync_WithNullUser_ReturnArrgmentNullExceptionOfUser()
         {
             //Arrange
-            ApplicationUser applicationUser = null;
+            User User = null;
 
             try
             {
                 //Act
-                var result = await userStore.GetLoginsAsync(applicationUser);
+                var result = await userStore.GetLoginsAsync(User);
             }
             catch (ArgumentNullException ex)
             {
@@ -258,7 +258,7 @@ namespace Security.UnitTesting
         public async Task GetLoginsAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
 
             try
@@ -296,7 +296,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task RemoveLoginAsync_WithNullUser_ThrowArgumentNullException()
         {
-            ApplicationUser user = null;
+            User user = null;
             UserLoginInfo login = null;
 
             try
@@ -313,7 +313,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task RemoveLoginAsync_WithNullLogin_ThrowArgumentNullException()
         {
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             UserLoginInfo login = null;
 
             try
@@ -331,7 +331,7 @@ namespace Security.UnitTesting
         public async Task RemoveLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
             userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
 
@@ -376,7 +376,7 @@ namespace Security.UnitTesting
         public async Task GetClaimsAsync_WithNullUser_ThrowArrgmentNullException()
         {
             //Arrange
-            ApplicationUser user = null;
+            User user = null;
 
             try
             {
@@ -395,7 +395,7 @@ namespace Security.UnitTesting
         public async Task GetClaimsAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
 
             try
             {
@@ -430,7 +430,7 @@ namespace Security.UnitTesting
         public async Task AddClaimAsync_WithNullUser_ThrowArrgmentNullException()
         {
             //Arrange
-            ApplicationUser user = null;
+            User user = null;
             System.Security.Claims.Claim claim = null;
             try
             {
@@ -468,7 +468,7 @@ namespace Security.UnitTesting
         public async Task AddClaimAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             System.Security.Claims.Claim claim = new System.Security.Claims.Claim("Department", "Department");
 
             try
@@ -506,7 +506,7 @@ namespace Security.UnitTesting
         public async Task RemoveClaimAsync_WithNullUser_ThrowArrgmentNullException()
         {
             //Arrange
-            ApplicationUser user = null;
+            User user = null;
             System.Security.Claims.Claim claim = null;
             try
             {
@@ -544,7 +544,7 @@ namespace Security.UnitTesting
         public async Task RemoveClaimAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            ApplicationUser user = new ApplicationUser();
+            User user = new User();
             System.Security.Claims.Claim claim = new System.Security.Claims.Claim("Department", "Department");
 
             try
@@ -585,7 +585,7 @@ namespace Security.UnitTesting
         #endregion
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "SetEmailTestCases")]
-        public void SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException(ApplicationUser testUser
+        public void SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException(User testUser
             , string testEmail)
         {
             try
@@ -606,7 +606,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "GetEmailTestCases")]
-        public void GetEmailAsync_WithMultliSource(ApplicationUser testUser)
+        public void GetEmailAsync_WithMultliSource(User testUser)
         {
             try
             {
@@ -632,7 +632,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "GetEmailConfirmedTestCases")]
-        public void GetEmailConfirmedAsync_WithMultliSource(ApplicationUser testUser)
+        public void GetEmailConfirmedAsync_WithMultliSource(User testUser)
         {
             try
             {
@@ -659,7 +659,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "GetEmailConfirmedTestCases")]
-        public void FindByEmailAsync_WithMultliSource(ApplicationUser testUser)
+        public void FindByEmailAsync_WithMultliSource(User testUser)
         {
             try
             {
@@ -710,7 +710,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "GetLockoutEndDateCases")]
-        public async Task GetLockoutEndDateAsync_Tests(ApplicationUser userToTest)
+        public async Task GetLockoutEndDateAsync_Tests(User userToTest)
         {
             try
             {
@@ -732,7 +732,7 @@ namespace Security.UnitTesting
 
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "SetLockoutEndDateAsyncDateCases")]
-        public async Task SetLockoutEndDateAsync_Tests(ApplicationUser userToTest, DateTimeOffset lockOutDate)
+        public async Task SetLockoutEndDateAsync_Tests(User userToTest, DateTimeOffset lockOutDate)
         {
             try
             {
@@ -754,7 +754,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task IncrementAccessFailedCountAsync_Tests(ApplicationUser userToTest)
+        public async Task IncrementAccessFailedCountAsync_Tests(User userToTest)
         {
             try
             {
@@ -773,7 +773,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task ResetAccessFailedCountAsync_Tests(ApplicationUser userToTest)
+        public async Task ResetAccessFailedCountAsync_Tests(User userToTest)
         {
             try
             {
@@ -796,7 +796,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetLockoutEnabledAsync_Tests(ApplicationUser userToTest)
+        public async Task SetLockoutEnabledAsync_Tests(User userToTest)
         {
             try
             {
@@ -814,7 +814,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetPasswordHashAsync_Tests(ApplicationUser userToTest)
+        public async Task SetPasswordHashAsync_Tests(User userToTest)
         {
             try
             {
@@ -833,7 +833,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetPasswordHashAsync_Tests(ApplicationUser userToTest)
+        public async Task GetPasswordHashAsync_Tests(User userToTest)
         {
             try
             {
@@ -851,7 +851,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task HasPasswordAsync_Tests(ApplicationUser userToTest)
+        public async Task HasPasswordAsync_Tests(User userToTest)
         {
             try
             {
@@ -877,7 +877,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetPhoneNumberAsync_Tests(ApplicationUser userToTest)
+        public async Task SetPhoneNumberAsync_Tests(User userToTest)
         {
             try
             {
@@ -896,7 +896,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetPhoneNumberAsync_Tests(ApplicationUser userToTest)
+        public async Task GetPhoneNumberAsync_Tests(User userToTest)
         {
             try
             {
@@ -914,7 +914,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetPhoneNumberConfirmedAsync_Tests(ApplicationUser userToTest)
+        public async Task GetPhoneNumberConfirmedAsync_Tests(User userToTest)
         {
             try
             {
@@ -937,7 +937,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetPhoneNumberConfirmedAsync_Tests(ApplicationUser userToTest)
+        public async Task SetPhoneNumberConfirmedAsync_Tests(User userToTest)
         {
             try
             {
@@ -956,7 +956,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetSecurityStampAsync_Tests(ApplicationUser userToTest)
+        public async Task GetSecurityStampAsync_Tests(User userToTest)
         {
             try
             {
@@ -974,7 +974,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetSecurityStampAsync_Tests(ApplicationUser userToTest)
+        public async Task SetSecurityStampAsync_Tests(User userToTest)
         {
             try
             {
@@ -993,7 +993,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetTwoFactorEnabledAsync_Tests(ApplicationUser userToTest)
+        public async Task GetTwoFactorEnabledAsync_Tests(User userToTest)
         {
             try
             {
@@ -1019,7 +1019,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task SetTwoFactorEnabledAsync_Tests(ApplicationUser userToTest)
+        public async Task SetTwoFactorEnabledAsync_Tests(User userToTest)
         {
             try
             {
@@ -1039,12 +1039,12 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UsersGenericTestCases")]
-        public async Task GetRolesAsync_Tests(ApplicationUser userToTest)
+        public async Task GetRolesAsync_Tests(User userToTest)
         {
             try
             {
-                user.AddRole(new Role { Id = Guid.NewGuid(), RoleName = "Role1" });
-                user.AddRole(new Role { Id = Guid.NewGuid(), RoleName = "Role2" });
+                user.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role1" });
+                user.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role2" });
 
                 //Arrange
                 userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
@@ -1067,19 +1067,19 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UserRolesGenericTestCases")]
-        public async Task AddToRoleAsync_Tests(ApplicationUser userToTest, string roleNameToTest)
+        public async Task AddToRoleAsync_Tests(User userToTest, string NameToTest)
         {
             try
             {
                 //Arrange
                 roleRepository.Setup(c => c.FindByName(It.IsAny<string>()))
-                    .Returns<string>((a) => roles.FirstOrDefault(c => c.RoleName == a));
+                    .Returns<string>((a) => roles.FirstOrDefault(c => c.Name == a));
                 userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
-                await userStore.AddToRoleAsync(userToTest, roleNameToTest);
+                await userStore.AddToRoleAsync(userToTest, NameToTest);
                 //Assert                
                 user.Roles.Count.Should().Be(1);
-                user.Roles.Should().Contain(c => c.RoleName == "Role1");
+                user.Roles.Should().Contain(c => c.Name == "Role1");
                 userRepository.Verify(c => c.Update(user), Times.Once);
                 unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
             }
@@ -1089,7 +1089,7 @@ namespace Security.UnitTesting
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
                 else
-                    ex.ParamName.Should().Be("roleName");
+                    ex.ParamName.Should().Be("Name");
 
             }
             catch (ArgumentException ex)
@@ -1098,12 +1098,12 @@ namespace Security.UnitTesting
                 if (userToTest.Id != user.Id)
                     ex.ParamName.Should().Be("user");
                 else
-                    ex.ParamName.Should().Be("roleName");
+                    ex.ParamName.Should().Be("Name");
             }
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UserRolesGenericTestCases")]
-        public async Task RemoveFromRoleAsync_Tests(ApplicationUser userToTest, string roleNameToTest)
+        public async Task RemoveFromRoleAsync_Tests(User userToTest, string NameToTest)
         {
             try
             {
@@ -1112,12 +1112,12 @@ namespace Security.UnitTesting
                 user.AddRole(roles[1]);
                 userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
-                await userStore.RemoveFromRoleAsync(userToTest, roleNameToTest);
+                await userStore.RemoveFromRoleAsync(userToTest, NameToTest);
                 //Assert  
-                if (roles.Any(c => c.RoleName == roleNameToTest))
+                if (roles.Any(c => c.Name == NameToTest))
                 {
                     user.Roles.Count.Should().Be(1);
-                    user.Roles.Should().NotContain(c => c.RoleName == "Role1");
+                    user.Roles.Should().NotContain(c => c.Name == "Role1");
                     userRepository.Verify(c => c.Update(user), Times.Once);
                     unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
                 }
@@ -1131,8 +1131,8 @@ namespace Security.UnitTesting
                 //Assert 
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
-                else if (string.IsNullOrEmpty(roleNameToTest))
-                    ex.ParamName.Should().Be("roleName");
+                else if (string.IsNullOrEmpty(NameToTest))
+                    ex.ParamName.Should().Be("Name");
 
             }
             catch (ArgumentException ex)
@@ -1143,7 +1143,7 @@ namespace Security.UnitTesting
         }
 
         [Test, TestCaseSource(typeof(SetEmailDataTestCases), "UserRolesGenericTestCases")]
-        public async Task IsInRoleAsync_Tests(ApplicationUser userToTest, string roleNameToTest)
+        public async Task IsInRoleAsync_Tests(User userToTest, string NameToTest)
         {
             try
             {
@@ -1152,17 +1152,17 @@ namespace Security.UnitTesting
                 user.AddRole(roles[1]);
                 userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
                 //Act
-                var result = await userStore.IsInRoleAsync(userToTest, roleNameToTest);
+                var result = await userStore.IsInRoleAsync(userToTest, NameToTest);
                 //Assert                
-                result.Should().Be(roles.Any(c => c.RoleName == roleNameToTest));
+                result.Should().Be(roles.Any(c => c.Name == NameToTest));
             }
             catch (ArgumentNullException ex)
             {
                 //Assert 
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
-                else if (string.IsNullOrEmpty(roleNameToTest))
-                    ex.ParamName.Should().Be("roleName");
+                else if (string.IsNullOrEmpty(NameToTest))
+                    ex.ParamName.Should().Be("Name");
 
             }
             catch (ArgumentException ex)

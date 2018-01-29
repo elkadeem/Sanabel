@@ -7,6 +7,7 @@ using System.Linq;
 using Security.DataAccessLayer;
 using Microsoft.AspNet.Identity;
 using Security.DataAccessLayer.UnitOfWork;
+using Security.Domain;
 
 namespace Security.IntegrationTest
 {
@@ -14,7 +15,7 @@ namespace Security.IntegrationTest
     public class UserManagerTest
     {
         private Security.AspIdentity.ApplicationUserManager userManager;
-        private AspIdentity.ApplicationUser user;
+        private User user;
         private SecurityUnitOfWork _securityUnitOfWork;
 
         public TestContext TestContext { get; set; }
@@ -34,7 +35,7 @@ namespace Security.IntegrationTest
 
             };
 
-            user = new AspIdentity.ApplicationUser()
+            user = new User()
             {
                 UserName = "defaultUser",
                 Email = "defaultUser@email.com",
@@ -53,7 +54,7 @@ namespace Security.IntegrationTest
         [Test]
         public async Task CreateUser_WithValidInformation_SaveUser()
         {
-            var newUser = new ApplicationUser()
+            var newUser = new User()
             {
                 UserName = "elkadeem@hotmail.com",
                 Email = "elkadeem@hotmail.com",
@@ -68,7 +69,7 @@ namespace Security.IntegrationTest
         }
 
         [Test, TestCaseSource(typeof(UserManagerTestCases), "CreateUserTestCases")]
-        public async Task CreateUser(ApplicationUser user, string password, string userDescription)
+        public async Task CreateUser(User user, string password, string userDescription)
         {
             IdentityResult result = await userManager.CreateAsync(user, password);
 
@@ -151,13 +152,13 @@ namespace Security.IntegrationTest
 
         [Test]
         [TestCaseSource(typeof(UserManagerTestCases), "AddUserLoginTestCases")]
-        public async Task<bool> AddExternalLogin(ApplicationUser userToUpdate, UserLoginInfo userLogin)
+        public async Task<bool> AddExternalLogin(User userToUpdate, UserLoginInfo userLogin)
         {
             IdentityResult result;
-            ApplicationUser currentUser;
+            User currentUser;
             if (userToUpdate == null)
             {
-                currentUser = new ApplicationUser
+                currentUser = new User
                 {
                     UserName = userLogin.ProviderKey,
                     Email = userLogin.ProviderKey,

@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using Sanabel.Presentation.Localization;
 using Sanabel.Presentation.MVC.Models;
 using Security.AspIdentity;
+using Security.Domain;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {
@@ -25,9 +26,9 @@ namespace Sanabel.Presentation.MVC.Controllers
             _signInManager = signInManager;
         }
 
-        public SignInManager<ApplicationUser, Guid> SignInManager => _signInManager;
+        public SignInManager<User, Guid> SignInManager => _signInManager;
 
-        public UserManager<ApplicationUser, Guid> UserManager => _userManager;
+        public UserManager<User, Guid> UserManager => _userManager;
 
         //
         // GET: /Manage/Index

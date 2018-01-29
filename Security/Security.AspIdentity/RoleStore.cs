@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Security.AspIdentity
 {
-    public class RoleStore : IRoleStore<ApplicationRole, Guid>, IQueryableRoleStore<ApplicationRole, Guid>
+    public class RoleStore : IRoleStore<Role, Guid>, IQueryableRoleStore<Role, Guid>
     {
         private ISecurityUnitOfWork _securityUnitOfWork;
 
@@ -17,17 +17,16 @@ namespace Security.AspIdentity
             _securityUnitOfWork = securityUnitOfWork;
         }
 
-        public IQueryable<ApplicationRole> Roles
+        public IQueryable<Role> Roles
         {
             get
             {
-                return _securityUnitOfWork.RoleRepository.GetAll()
-                    .Select(c => GetApplicationRole(c))
+                return _securityUnitOfWork.RoleRepository.GetAll()                    
                     .AsQueryable();
             }
         }
 
-        public Task CreateAsync(ApplicationRole role)
+        public Task CreateAsync(Role role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
@@ -36,7 +35,7 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task DeleteAsync(ApplicationRole role)
+        public Task DeleteAsync(Role role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
@@ -49,22 +48,22 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<ApplicationRole> FindByIdAsync(Guid Id)
+        public Task<Role> FindByIdAsync(Guid Id)
         {
             var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(Id);
-            return Task.FromResult(GetApplicationRole(roleEntity));
+            return Task.FromResult(roleEntity);
         }
 
-        public Task<ApplicationRole> FindByNameAsync(string roleName)
+        public Task<Role> FindByNameAsync(string roleName)
         {
             if (string.IsNullOrEmpty(roleName))
                 throw new ArgumentNullException("roleName");
 
             var roleEntity = _securityUnitOfWork.RoleRepository.FindByName(roleName);
-            return Task.FromResult(GetApplicationRole(roleEntity));
+            return Task.FromResult(roleEntity);
         }
 
-        public Task UpdateAsync(ApplicationRole role)
+        public Task UpdateAsync(Role role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
@@ -77,19 +76,7 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        #region private methods
-        private ApplicationRole GetApplicationRole(Role role)
-        {
-            if (role == null)
-                return null;
-            return new ApplicationRole
-            {
-                Id = role.Id,
-                RoleName = role.RoleName,
-                RoleNameAr = role.RoleNameAr,
-            };
-        }
-        #endregion
+        
 
         #region IDisposable
         public void Dispose()

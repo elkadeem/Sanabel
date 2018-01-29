@@ -21,10 +21,7 @@ namespace Sanabel.Volunteers.Domain.Model
             , string email
             , string phone
             , int cityId
-            , int? districtId
-            , bool hasCar
-            , Genders gender
-            , string notes)
+            , int? districtId)
         {
 
             Guard.StringIsNull<ArgumentNullException>(name, nameof(name));
@@ -38,9 +35,6 @@ namespace Sanabel.Volunteers.Domain.Model
             this.Phone = phone;
             this.CityId = cityId;
             this.DistrictId = districtId;
-            this.HasCar = hasCar;
-            this.Gender = gender;
-            this.Notes = notes;
 
             DomainEvents.Raise<VolunteerCreated>(new VolunteerCreated
             {
@@ -61,9 +55,9 @@ namespace Sanabel.Volunteers.Domain.Model
 
         public int? DistrictId { get; private set; }
 
-        public bool HasCar { get; private set; }
+        public bool HasCar { get; set; }
 
-        public Genders Gender { get; private set; }
+        public Genders Gender { get; set; }
 
         public string Notes { get; set; }
 

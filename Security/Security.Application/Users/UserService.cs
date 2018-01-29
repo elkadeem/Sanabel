@@ -40,7 +40,7 @@ namespace Security.Application.Users
                 using (TransactionScope transactionScop = new TransactionScope(TransactionScopeOption.RequiresNew
                     , TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    var user = new ApplicationUser
+                    var user = new User
                     {
                         UserName = userModel.Email,
                         Email = userModel.Email,
@@ -81,7 +81,7 @@ namespace Security.Application.Users
             }
         }
 
-        public List<ApplicationRole> GetAllRoles()
+        public List<Role> GetAllRoles()
         {
             return _roleManager.Roles.ToList();
         }
@@ -143,7 +143,7 @@ namespace Security.Application.Users
                 if (result.Succeeded)
                 {
                     var rolesToRemove = user.Roles.Where(c => !userModel.Roles.Contains(c.Id))
-                        .Select(c => c.RoleName);
+                        .Select(c => c.Name);
                     if (rolesToRemove.Count() > 0)
                         result = await _userManager.RemoveFromRolesAsync(user.Id, rolesToRemove.ToArray());
 

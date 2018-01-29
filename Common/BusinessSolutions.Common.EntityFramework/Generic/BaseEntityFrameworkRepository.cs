@@ -11,7 +11,7 @@ using BusinessSolutions.Common.Core.Entities;
 
 namespace BusinessSolutions.Common.EntityFramework
 {
-    public abstract class BaseEntityFrameworkRepository<Tkey, TEntity>
+    public class BaseEntityFrameworkRepository<Tkey, TEntity>
         : BaseReadOnlyEntityFrameworkRepository<Tkey, TEntity>
         , IRepository<Tkey, TEntity>
         where TEntity : Entity<Tkey>
@@ -36,10 +36,16 @@ namespace BusinessSolutions.Common.EntityFramework
                 Set.Remove(item);
         }
 
+        public virtual void Remove(TEntity entity)
+        {
+            if (entity != null)
+                Set.Remove(entity);
+        }
+
         public virtual void Update(TEntity entity)
         {
             var item = Set.Local.FirstOrDefault(c => entity.Equals(c));
-            if (item != null 
+            if (item != null
                 && _dbContext.Entry(item).State != EntityState.Detached)
             {
                 _dbContext.Entry(item).CurrentValues.SetValues(entity);

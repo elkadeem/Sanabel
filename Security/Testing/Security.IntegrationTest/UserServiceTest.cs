@@ -3,6 +3,7 @@ using Security.Application.Models;
 using Security.Application.Users;
 using Security.AspIdentity;
 using Security.DataAccessLayer.UnitOfWork;
+using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Security.IntegrationTest
     public class UserServiceTest
     {
         private Security.AspIdentity.ApplicationUserManager userManager;
-        private AspIdentity.ApplicationUser user;
+        private User user;
         private SecurityUnitOfWork _securityUnitOfWork;
         private IUserService _userService;
         private ApplicationRoleManager _roleManager;
@@ -27,7 +28,7 @@ namespace Security.IntegrationTest
             _securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
             var userStore = new AspIdentity.UserStore(_securityUnitOfWork);
 
-            userManager = new AspIdentity.ApplicationUserManager(userStore, null)
+            userManager = new ApplicationUserManager(userStore, null)
             {
                 UserLockoutEnabledByDefault = false,
                 MaxFailedAccessAttemptsBeforeLockout = 3,

@@ -46,6 +46,7 @@
     <Compile Include="Model\Volunteer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IVolunteerRepository.cs" />
+    <Compile Include="Repositories\IVolunteerUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">
