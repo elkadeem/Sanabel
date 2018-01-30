@@ -59,6 +59,8 @@ namespace Sanabel.Volunteers.Domain.Model
 
         public Genders Gender { get; set; }
 
+        public string Address { get; set; }
+
         public string Notes { get; set; }
 
         public City City { get; private set; }
