@@ -39,7 +39,7 @@ namespace Sanabel.Volunteers.Infra.Repositories
             return Task.FromResult(0);
         }
 
-        public async Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, int countryId
+        public async Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, string phone, int countryId
             , int regionId, int cityId, int districtId, Genders? gender
             , int pageIndex, int pageSize)
         {
@@ -51,6 +51,8 @@ namespace Sanabel.Volunteers.Infra.Repositories
                 query = query.Where(c => c.Name.Contains(name));
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(c => c.Email.Contains(email));
+            if(!string.IsNullOrEmpty(phone))
+                query = query.Where(c => c.Phone.Contains(phone));
             if (countryId > 0)
                 query = query.Where(c => c.City.Region.CountryId == countryId);
             if (regionId > 0)
