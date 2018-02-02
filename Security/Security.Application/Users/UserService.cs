@@ -1,7 +1,9 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
 using Microsoft.AspNet.Identity;
 using Sanabel.Security.Application.Localization;
+using Sanabel.Security.Application.Models;
 using Sanabel.Security.Domain;
 using Security.AspIdentity;
 using System;
@@ -14,18 +16,20 @@ namespace Sanabel.Security.Application
 {
     public class UserService : IUserService
     {
-        private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
-        private ISecurityUnitOfWork _securityUnitOfWork;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleManager _roleManager;
+        private readonly ISecurityUnitOfWork _securityUnitOfWork;
+        private readonly ILogger _logger;
         public UserService(ApplicationUserManager userManager, ApplicationRoleManager roleManager
-            , ISecurityUnitOfWork securityUnitOfWork)
+            , ISecurityUnitOfWork securityUnitOfWork, ILogger logger)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(userManager, nameof(userManager));
             Guard.ArgumentIsNull<ArgumentNullException>(roleManager, nameof(roleManager));
-            Guard.ArgumentIsNull<ArgumentNullException>(securityUnitOfWork, nameof(securityUnitOfWork));            
+            Guard.ArgumentIsNull<ArgumentNullException>(securityUnitOfWork, nameof(securityUnitOfWork));
             _userManager = userManager;
             _roleManager = roleManager;
             _securityUnitOfWork = securityUnitOfWork;
+            _logger = logger;
         }
 
         public async Task<EntityResult> AddUser(UserViewModel userModel)
@@ -38,7 +42,7 @@ namespace Sanabel.Security.Application
                     var user = new User
                     {
                         UserName = userModel.Email,
-                        Email = userModel.Email,                        
+                        Email = userModel.Email,
                         PhoneNumber = userModel.Mobile,
                         FullName = userModel.FullName,
                     };
@@ -69,8 +73,41 @@ namespace Sanabel.Security.Application
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw ex;
             }
+        }
+
+        public async Task<EntityResult> BlockUser(Guid userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+                IdentityResult result = await _userManager.SetLockoutEnabledAsync(user.Id, true);
+                return GetEntityResult(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw ex;
+            }
+            
+        }
+
+        public async Task<EntityResult> ChangePassword(Guid userId, ChangePasswordViewModel model)
+        {
+            try
+            {
+                var result = await _userManager.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
+                return GetEntityResult(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw ex;
+            }
+            
         }
 
         public List<Role> GetAllRoles()
@@ -86,13 +123,30 @@ namespace Sanabel.Security.Application
 
             return new UserViewModel
             {
-                
+
                 Email = user.Email,
                 FullName = user.FullName,
-                Mobile = user.PhoneNumber,                
+                Mobile = user.PhoneNumber,
                 Roles = user.Roles?.Select(c => c.Id).ToList(),
                 Id = user.Id,
             };
+        }
+
+        public async Task<EntityResult> ResetUserPassword(Guid userId, SetPasswordViewModel model)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+                string token = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+                var result = await _userManager.ResetPasswordAsync(user.Id, token, model.NewPassword);
+                return GetEntityResult(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw ex;
+            }            
         }
 
         public PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel)
@@ -108,6 +162,22 @@ namespace Sanabel.Security.Application
 
         }
 
+        public async Task<EntityResult> UnBlockUser(Guid userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+                IdentityResult result = await _userManager.SetLockoutEnabledAsync(user.Id, false);
+                return GetEntityResult(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw ex;
+            }
+        }
+
         public async Task<EntityResult> UpdateUser(UserViewModel userModel)
         {
             if (userModel == null)
@@ -115,7 +185,7 @@ namespace Sanabel.Security.Application
             var user = await _userManager.FindByIdAsync(userModel.Id);
             if (user == null)
                 throw new ArgumentException("User is not found.", "userModel");
-            
+
             user.Email = userModel.Email;
             user.FullName = userModel.FullName;
             user.PhoneNumber = userModel.Mobile;
@@ -169,7 +239,7 @@ namespace Sanabel.Security.Application
             if (user == null)
                 return null;
             return new ViewUserViewModel
-            {                
+            {
                 Email = user.Email,
                 FullName = user.FullName,
                 UserId = user.Id,

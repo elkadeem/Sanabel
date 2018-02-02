@@ -1,13 +1,11 @@
-﻿using BusinessSolutions.Common.Infra.Validation;
+﻿using BusinessSolutions.Common.Infra.Log;
+using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
 using BusinessSolutions.MVCCommon.Controllers;
 using PagedList;
 using Sanabel.Cases.App.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Cases.Controllers
@@ -16,7 +14,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
     public class ManagementController : BaseController
     {
         private Sanabel.Cases.App.ICasesService _caseService;
-        public ManagementController(Sanabel.Cases.App.ICasesService caseService, NLog.ILogger logger): base(logger)
+        public ManagementController(Sanabel.Cases.App.ICasesService caseService, ILogger logger): base(logger)
         {
             _caseService = caseService ?? throw new ArgumentNullException("caseService");
         }

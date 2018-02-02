@@ -39,8 +39,8 @@ namespace Security.UnitTesting
             };
 
             roles = new List<Role> {
-                new Role{Id  = Guid.NewGuid(), Name = "Role1"},
-                new Role{Id  = Guid.NewGuid(), Name = "Role2"}
+                new Role("Role1", "Role1"),
+                new Role("Role2", "Role2")
             };
         }
 
@@ -1009,8 +1009,8 @@ namespace Security.UnitTesting
             {
                 if (userToTest != null)
                 {
-                    userToTest.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role1" });
-                    userToTest.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role2" });
+                    userToTest.AddRole(new Role("Role1", "Role1"));
+                    userToTest.AddRole(new Role("Role2", "Role2"));
                 }
                 //Act
                 var roles = await userStore.GetRolesAsync(userToTest);

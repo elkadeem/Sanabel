@@ -1,5 +1,7 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Infra.Validation;
+using Microsoft.AspNet.Identity;
+using Sanabel.Security.Application.Models;
 using Sanabel.Security.Domain;
 using Security.Application.Models;
 using System;
@@ -19,5 +21,10 @@ namespace Sanabel.Security.Application
         Task<EntityResult> UpdateUser(UserViewModel userModel);
 
         List<Role> GetAllRoles();
+        
+        Task<EntityResult> ChangePassword(Guid userId, ChangePasswordViewModel model);
+        Task<EntityResult> ResetUserPassword(Guid userId, SetPasswordViewModel model);
+        Task<EntityResult> BlockUser(Guid userId);
+        Task<EntityResult> UnBlockUser(Guid id);
     }
 }

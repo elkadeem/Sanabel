@@ -1,4 +1,5 @@
-﻿using BusinessSolutions.Common.Infra.Validation;
+﻿using BusinessSolutions.Common.Infra.Log;
+using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
 using BusinessSolutions.MVCCommon;
 using BusinessSolutions.MVCCommon.Controllers;
@@ -7,9 +8,6 @@ using CommonSettings.Localization;
 using CommonSettings.ViewModels;
 using PagedList;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Settings.Controllers
@@ -18,7 +16,7 @@ namespace Sanabel.Presentation.MVC.Settings.Controllers
     public class DistrictsController : BaseController
     {
         private IPlacesService _placesService;
-        public DistrictsController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
+        public DistrictsController(IPlacesService placesService, ILogger logger) : base(logger)
         {
             _placesService = placesService;
         }

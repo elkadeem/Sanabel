@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BusinessSolutions.Common.Infra.Log;
+using BusinessSolutions.Common.Infra.Validation;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Sanabel.Presentation.Localization;
 using Sanabel.Presentation.MVC.Models;
+using Sanabel.Security.Application;
+using Sanabel.Security.Application.Models;
 using Sanabel.Security.Domain;
 using Security.AspIdentity;
 using System;
@@ -15,19 +19,18 @@ namespace Sanabel.Presentation.MVC.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        
-        public ManageController(ApplicationUserManager userManager
-            , ApplicationSignInManager signInManager)
+        private readonly IUserService _userService;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
+        private readonly ILogger _logger;
+        public ManageController(IUserService userService, ApplicationUserManager userManager, ApplicationSignInManager signInManager, ILogger logger)
         {
+            Guard.ArgumentIsNull<ArgumentNullException>(userService, nameof(userService));
+            _userService = userService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
-
-        public SignInManager<User, Guid> SignInManager => _signInManager;
-
-        public UserManager<User, Guid> UserManager => _userManager;
 
         //
         // GET: /Manage/Index
@@ -46,20 +49,22 @@ namespace Sanabel.Presentation.MVC.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
+                PhoneNumber = await _userManager.GetPhoneNumberAsync(userId),
+                TwoFactor = await _userManager.GetTwoFactorEnabledAsync(userId),
+                Logins = await _userManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
             };
             return View(model);
         }
-        
+
         //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
+
+        
 
         //
         // POST: /Manage/ChangePassword
@@ -72,33 +77,33 @@ namespace Sanabel.Presentation.MVC.Controllers
                 return View(model);
             }
             Guid userId = Guid.Parse(User.Identity.GetUserId());
-            var result = await UserManager.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
+            EntityResult entityResult = await _userService.ChangePassword(userId, model);
+            if (entityResult.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(userId);
+                var user = await _userManager.FindByIdAsync(userId);
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
-            AddErrors(result);
+
+            AddErrors(entityResult);
             return View(model);
         }
 
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
             {
                 _userManager.Dispose();
-                _userManager = null;
             }
 
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -110,18 +115,18 @@ namespace Sanabel.Presentation.MVC.Controllers
             }
         }
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors(EntityResult result)
         {
-            foreach (var error in result.Errors)
+            foreach (var error in result.ValidationErrors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error.Message);
             }
         }
 
         private bool HasPassword()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user != null)
             {
                 return user.PasswordHash != null;
@@ -132,7 +137,7 @@ namespace Sanabel.Presentation.MVC.Controllers
         private bool HasPhoneNumber()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user != null)
             {
                 return user.PhoneNumber != null;
@@ -151,6 +156,6 @@ namespace Sanabel.Presentation.MVC.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

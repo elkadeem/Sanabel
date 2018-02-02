@@ -1,15 +1,15 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.Localization;
+using BusinessSolutions.MVCCommon;
 using BusinessSolutions.MVCCommon.Controllers;
 using CommonSettings.BLL;
 using CommonSettings.Localization;
 using CommonSettings.ViewModels;
-using Microsoft.Ajax.Utilities;
 using System;
-using System.Web.Mvc;
 using System.Linq;
-using BusinessSolutions.MVCCommon;
+using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Settings.Controllers
 {
@@ -18,7 +18,7 @@ namespace Sanabel.Presentation.MVC.Settings.Controllers
     {
         private IPlacesService _placesService;
 
-        public CountriesController(IPlacesService placesService, NLog.ILogger logger) : base(logger)
+        public CountriesController(IPlacesService placesService, ILogger logger) : base(logger)
         {
             _placesService = placesService;
         }

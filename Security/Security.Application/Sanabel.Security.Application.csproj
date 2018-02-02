@@ -50,6 +50,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SecurityResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\SetPasswordViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SearchUsersViewModel.cs" />

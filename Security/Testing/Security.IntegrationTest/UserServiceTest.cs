@@ -33,7 +33,7 @@ namespace Security.IntegrationTest
             };
 
             _roleManager = new ApplicationRoleManager(new RoleStore(_securityUnitOfWork));
-            _userService = new UserService(userManager, _roleManager, _securityUnitOfWork);
+            _userService = new UserService(userManager, _roleManager, _securityUnitOfWork, new TestLogger());
         }
 
         [Test]

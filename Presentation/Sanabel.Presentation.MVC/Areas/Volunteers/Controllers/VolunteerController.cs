@@ -1,6 +1,7 @@
-﻿using BusinessSolutions.Common.Infra.Validation;
+﻿using BusinessSolutions.Common.Infra.Log;
+using BusinessSolutions.Common.Infra.Validation;
 using BusinessSolutions.MVCCommon.Controllers;
-using NLog;
+
 using PagedList;
 using Sanabel.Security.Application;
 using Sanabel.Volunteers.Application.Models;

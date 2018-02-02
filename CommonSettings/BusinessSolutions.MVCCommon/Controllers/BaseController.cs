@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Infra.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +9,15 @@ using System.Web.Mvc;
 namespace BusinessSolutions.MVCCommon.Controllers
 {
     public class BaseController : Controller
-    {
-        private NLog.ILogger _logger;
-        protected NLog.ILogger Logger => this._logger;
-
-        public BaseController()
+    {        
+        protected ILogger Logger;        
+        public BaseController(ILogger logger)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-SA");
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-SA");
+            this.Logger = logger;
         }
-
-        public BaseController(NLog.ILogger logger): this()
-        {
-            _logger = logger;
-        }
-
+        
         protected void AddMessageToView(string message, MessageType messageType = MessageType.Information)
         {
             List<UIMessage> messages = ViewBag.HeaderMessages as List<UIMessage>;

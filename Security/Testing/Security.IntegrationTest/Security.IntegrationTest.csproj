@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\TestSetup.cs" />
+    <Compile Include="TestLogger.cs" />
     <Compile Include="UserManagerTestCases.cs" />
     <Compile Include="UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
