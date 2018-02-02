@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.EntityFramework;
+using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Security.Domain;
 using System;
 using System.Data.Entity;
@@ -10,23 +11,26 @@ using System.Threading.Tasks;
 namespace Sanabel.Security.Infra
 {
     public class UserRepository :  IUserRepository
-    {
-        BaseEntityFrameworkRepository<Guid, User> _repository;
-        private SecurityContext _dbContext;
+    {       
+        private readonly SecurityContext _dbContext;
         public UserRepository(SecurityContext dbContext)
         {
+            Guard.ArgumentIsNull<ArgumentNullException>(dbContext, nameof(dbContext));
             _dbContext = dbContext;
-            _repository = new BaseEntityFrameworkRepository<Guid, User>(dbContext);
         }
 
         public void Add(User user)
         {
-            throw new NotImplementedException();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            _dbContext.Users.Add(user);
         }
 
         public Task<User> FindByEmailAsync(string email)
         {
-            return _dbContext.
+            Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
+            return _dbContext.Users.Include(c => c.Roles).Include(c => c.Claims)
+                .Include(c => c.ExternalLogins)
+                .FirstOrDefaultAsync(c => c.Email.ToLower() == email.ToLower());
         }
 
         public Task<User> FindByLoginAsync(string loginProvider, string providerKey)
