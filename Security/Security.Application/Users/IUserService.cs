@@ -23,8 +23,11 @@ namespace Sanabel.Security.Application
         List<Role> GetAllRoles();
         
         Task<EntityResult> ChangePassword(Guid userId, ChangePasswordViewModel model);
+
         Task<EntityResult> ResetUserPassword(Guid userId, SetPasswordViewModel model);
+
         Task<EntityResult> BlockUser(Guid userId);
+
         Task<EntityResult> UnBlockUser(Guid id);
     }
 }

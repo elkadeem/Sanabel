@@ -17,7 +17,7 @@ namespace Sanabel.Security.Application
     public class UserService : IUserService
     {
         private readonly ApplicationUserManager _userManager;
-        private readonly ApplicationRoleManager _roleManager;
+        private readonly ApplicationRoleManager _roleManager;        
         private readonly ISecurityUnitOfWork _securityUnitOfWork;
         private readonly ILogger _logger;
         public UserService(ApplicationUserManager userManager, ApplicationRoleManager roleManager
@@ -85,6 +85,9 @@ namespace Sanabel.Security.Application
                 var user = await _userManager.FindByIdAsync(userId);
                 Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
                 IdentityResult result = await _userManager.SetLockoutEnabledAsync(user.Id, true);
+                if (result.Succeeded)
+                    result = await _userManager.SetLockoutEndDateAsync(user.Id, DateTime.Now.Add(TimeSpan.FromDays(365 * 100)));
+
                 return GetEntityResult(result);
             }
             catch (Exception ex)
@@ -169,6 +172,8 @@ namespace Sanabel.Security.Application
                 var user = await _userManager.FindByIdAsync(userId);
                 Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
                 IdentityResult result = await _userManager.SetLockoutEnabledAsync(user.Id, false);
+                if (result.Succeeded)
+                    result = await _userManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MinValue);
                 return GetEntityResult(result);
             }
             catch (Exception ex)
