@@ -1,20 +1,17 @@
 ﻿namespace Security.DataAccessLayer.Migrations
 {
-    using Security.Domain;
+    using Sanabel.Security.Domain;
     using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Security.DataAccessLayer.SecurityContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Sanabel.Security.Infra.SecurityContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Security.DataAccessLayer.SecurityContext context)
+        protected override void Seed(Sanabel.Security.Infra.SecurityContext context)
         {
             context.Roles.AddOrUpdate(c => c.Name
               , new Role[] {

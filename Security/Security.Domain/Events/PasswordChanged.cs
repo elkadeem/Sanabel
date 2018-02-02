@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Security.Domain.Repositories
+namespace Sanabel.Security.Domain
 {
-    class ICountryRepository
+    class PasswordChanged
     {
     }
 }

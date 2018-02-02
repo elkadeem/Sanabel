@@ -1,99 +1,58 @@
-﻿using BusinessSolutions.Common.EntityFramework;
-using Security.Domain;
+﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.EntityFramework;
+using Sanabel.Security.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Data.Entity;
-using BusinessSolutions.Common.Core;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Security.DataAccessLayer.Repositories
+namespace Sanabel.Security.Infra
 {
-    public class UserRepository : BaseEntityFrameworkRepository<Guid, User>, IUserRepository
+    public class UserRepository :  IUserRepository
     {
-        public UserRepository(SecurityContext securityContext) : base(securityContext)
+        BaseEntityFrameworkRepository<Guid, User> _repository;
+        private SecurityContext _dbContext;
+        public UserRepository(SecurityContext dbContext)
         {
-
+            _dbContext = dbContext;
+            _repository = new BaseEntityFrameworkRepository<Guid, User>(dbContext);
         }
 
-        public override User GetByID(Guid key)
+        public void Add(User user)
         {
-            return Set.Include(c => c.Roles)
-                .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins)
-                .Include(c => c.City.Region.Country)
-                .Include(c => c.District).FirstOrDefault(c => c.Id == key);
+            throw new NotImplementedException();
         }
 
-        public override Task<User> GetByIDAsync(Guid key)
+        public Task<User> FindByEmailAsync(string email)
         {
-            return Set.Include(c => c.Roles)
-                .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins)
-                .Include(c => c.City.Region.Country)
-                .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == key);
+            return _dbContext.
         }
 
-        public override Task<User> GetByIDAsync(CancellationToken cancellationToken, Guid key)
+        public Task<User> FindByLoginAsync(string loginProvider, string providerKey)
         {
-            return Set.Include(c => c.Roles)
-                .Include(c => c.Claims)
-                .Include(c => c.ExternalLogins)
-                .Include(c => c.City.Region.Country)
-                .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == key, cancellationToken);
+            throw new NotImplementedException();
         }
 
-        public User FindByEmail(string email)
+        public Task<User> FindByUserNameAsync(string userName)
         {
-            return Set.FirstOrDefault(c => c.Email == email);
+            throw new NotImplementedException();
         }
 
-        public async Task<User> FindByEmailAsync(string email)
+        public Task<User> GetUserByIdAsync(Guid id)
         {
-            var user = await Set.FirstOrDefaultAsync(c => c.Email == email);
-            return user;
+            throw new NotImplementedException();
         }
 
-        public async Task<User> FindByEmailAsync(CancellationToken cancellationToken, string email)
+        public void Remove(User user)
         {
-            var user = await Set.FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
-            return user;
-        }
-
-        public async Task<User> FindByLoginAsync(string loginProvider, string loginKey)
-        {
-            var user = await Set.FirstOrDefaultAsync(c => c.ExternalLogins.Any(e => e.LoginProvider == loginProvider
-             && e.ProviderKey == loginKey));
-
-            return user;
-        }
-
-        public User FindByUserName(string userName)
-        {
-            var user = Set.FirstOrDefault(c => c.UserName == userName);
-            return user;
-        }
-
-        public async Task<User> FindByUserNameAsync(string userName)
-        {
-            var user = await Set.FirstOrDefaultAsync(c => c.UserName == userName);
-            return user;
-        }
-
-        public async Task<User> FindByUserNameAsync(CancellationToken cancellationToken, string userName)
-        {
-            var user = await Set.FirstOrDefaultAsync(c => c.UserName == userName, cancellationToken);
-            return user;
+            throw new NotImplementedException();
         }
 
         public PagedEntity<User> SearchUsers(string userName, string email, string fullName
-            , int countryId, int regionId, int cityId, int districtId, int pageIndex, int pageSize)
+            , int pageIndex, int pageSize)
         {
-            var query = Set.AsNoTracking().Include(c => c.District)
-                .Include(c => c.City.Region.Country);
-
+            var query = _repository.Query;
             if (!string.IsNullOrEmpty(userName))
                 query = query.Where(c => c.UserName.Contains(userName));
 
@@ -103,24 +62,17 @@ namespace Security.DataAccessLayer.Repositories
             if (!string.IsNullOrEmpty(fullName))
                 query = query.Where(c => c.FullName.Contains(fullName));
 
-            if (countryId > 0)
-                query = query.Where(c => c.City.Region.CountryId == countryId);
-
-            if (regionId > 0)
-                query = query.Where(c => c.City.RegionId == regionId);
-
-            if (cityId > 0)
-                query = query.Where(c => c.CityId == cityId);
-
-            if (districtId > 0)
-                query = query.Where(c => c.DistrictId == districtId);
-
             int totalItemsCount = query.Count();
             var items = query.OrderBy(c => c.UserName)
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize);
 
             return new PagedEntity<User>(items, totalItemsCount);
+        }
+
+        public void Update(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

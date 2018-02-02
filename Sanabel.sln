@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4691016A-569C-4E35-8729-0F2D29AC9400}"
 EndProject
@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTesting", "Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.IntegrationTest", "Common\Testing\Common.IntegrationTest\Common.IntegrationTest.csproj", "{C297A2D3-8F9F-439E-965A-A8A9282B7DF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Domain", "Security\Security.Domain\Security.Domain.csproj", "{705682BC-8929-4204-B35D-CE01F8BB453F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Security.Domain", "Security\Security.Domain\Sanabel.Security.Domain.csproj", "{705682BC-8929-4204-B35D-CE01F8BB453F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.AspIdentity", "Security\Security.AspIdentity\Security.AspIdentity.csproj", "{DAB8B715-900D-4936-B06B-BC1967DA0943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.DataAccessLayer", "Security\Security.DataAccessLayer\Security.DataAccessLayer.csproj", "{44859A1F-9523-460C-99B7-219AEDE202ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Security.Infra", "Security\Security.DataAccessLayer\Sanabel.Security.Infra.csproj", "{44859A1F-9523-460C-99B7-219AEDE202ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{08F1FA32-6686-44A9-939C-6458D5827728}"
 EndProject

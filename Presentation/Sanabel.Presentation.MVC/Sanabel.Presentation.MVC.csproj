@@ -981,10 +981,6 @@
       <Project>{410AE9ED-DC2B-4BFF-BA93-7DD5B25B5758}</Project>
       <Name>CommonSettings.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CommonSettings\CommonSettings.DAL\CommonSettings.DAL.csproj">
-      <Project>{b8b6cf0e-8653-4b19-83a6-79752bb4c769}</Project>
-      <Name>CommonSettings.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.Resourses\CommonSettings.Localization.csproj">
       <Project>{2F6B193A-C8BF-4FC1-A474-396C7077D0DA}</Project>
       <Name>CommonSettings.Localization</Name>
@@ -996,10 +992,6 @@
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.EntityFramework\BusinessSolutions.Common.EntityFramework.csproj">
-      <Project>{4298e9be-4bf6-4edc-8e90-2d4e54efb16d}</Project>
-      <Name>BusinessSolutions.Common.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
@@ -1017,13 +1009,13 @@
       <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
       <Name>Security.AspIdentity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security\Security.DataAccessLayer\Security.DataAccessLayer.csproj">
+    <ProjectReference Include="..\..\Security\Security.DataAccessLayer\Sanabel.Security.Infra.csproj">
       <Project>{44859a1f-9523-460c-99b7-219aede202ed}</Project>
-      <Name>Security.DataAccessLayer</Name>
+      <Name>Sanabel.Security.Infra</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security\Security.Domain\Security.Domain.csproj">
+    <ProjectReference Include="..\..\Security\Security.Domain\Sanabel.Security.Domain.csproj">
       <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
-      <Name>Security.Domain</Name>
+      <Name>Sanabel.Security.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sanabel.Presentation.Localization\Sanabel.Presentation.Localization.csproj">
       <Project>{a96b1851-1e4c-4e2f-b55d-87a47cde3203}</Project>

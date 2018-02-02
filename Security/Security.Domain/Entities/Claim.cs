@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Security.Domain
+namespace Sanabel.Security.Domain
 {
     public class Claim
     {

@@ -1,13 +1,8 @@
-﻿using Security.Domain;
-using System;
-using System.Collections.Generic;
+﻿using Sanabel.Security.Domain;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Security.DataAccessLayer
+namespace Sanabel.Security.Infra
 {
     internal class ClaimsConfiguration : EntityTypeConfiguration<Claim>
     {

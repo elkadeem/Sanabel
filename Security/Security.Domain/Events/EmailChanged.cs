@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessSolutions.Common.Core.Events
+namespace Sanabel.Security.Domain
 {
-    public interface IHandles<T> where T : IDomainEvent
+    class EmailChanged
     {
-        void Handle(T args);
     }
 }

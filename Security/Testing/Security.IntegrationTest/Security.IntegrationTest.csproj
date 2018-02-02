@@ -100,13 +100,13 @@
       <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
       <Name>Security.AspIdentity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security.DataAccessLayer\Security.DataAccessLayer.csproj">
+    <ProjectReference Include="..\..\Security.DataAccessLayer\Sanabel.Security.Infra.csproj">
       <Project>{44859a1f-9523-460c-99b7-219aede202ed}</Project>
-      <Name>Security.DataAccessLayer</Name>
+      <Name>Sanabel.Security.Infra</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security.Domain\Security.Domain.csproj">
+    <ProjectReference Include="..\..\Security.Domain\Sanabel.Security.Domain.csproj">
       <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
-      <Name>Security.Domain</Name>
+      <Name>Sanabel.Security.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

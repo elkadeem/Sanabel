@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 
-namespace Security.Domain
+namespace Sanabel.Security.Domain
 {
     public class Role : Entity<Guid>, IRole<Guid>
     {

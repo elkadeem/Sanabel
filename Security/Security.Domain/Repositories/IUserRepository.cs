@@ -3,23 +3,19 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Security.Domain
+namespace Sanabel.Security.Domain
 {
-    public interface IUserRepository : IRepository<Guid, User>
+    public interface IUserRepository
     {
-        User FindByUserName(string userName);
-        Task<User> FindByUserNameAsync(string userName);
-        Task<User> FindByUserNameAsync(CancellationToken cancellationToken, string userName);
-
-        User FindByEmail(string email);
-        Task<User> FindByEmailAsync(string email);
-        Task<User> FindByEmailAsync(CancellationToken cancellationToken, string email);
-
-        Task<User> FindByLoginAsync(string loginProvider, string loginKey);
-
-        PagedEntity<User> SearchUsers(string userName, string email, string fullName
-            , int countryId, int regionId, int cityId, int districtId
+        PagedEntity<User> SearchUsers(string userName, string email, string fullName            
             , int pageIndex, int pageSize);
+        void Add(User user);
+        void Remove(User user);
+        Task<User> GetUserByIdAsync(Guid id);
+        Task<User> FindByUserNameAsync(string userName);
+        void Update(User user);
+        Task<User> FindByLoginAsync(string loginProvider, string providerKey);
+        Task<User> FindByEmailAsync(string email);
     }
-   
+
 }

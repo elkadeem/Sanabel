@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using Security.Domain;
+using Sanabel.Security.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Security.AspIdentity
@@ -40,18 +38,17 @@ namespace Security.AspIdentity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(role.Id);
+            var roleEntity = _securityUnitOfWork.RoleRepository.GetByIdAsync(role.Id);
             if (roleEntity == null)
                 throw new ArgumentException("Role is not exist.", "role");
 
-            _securityUnitOfWork.RoleRepository.Remove(roleEntity.Id);
+            _securityUnitOfWork.RoleRepository.Remove(roleEntity);
             return _securityUnitOfWork.SaveAsync();
         }
 
         public Task<Role> FindByIdAsync(Guid Id)
         {
-            var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(Id);
-            return Task.FromResult(roleEntity);
+            return _securityUnitOfWork.RoleRepository.GetByIdAsync(Id);            
         }
 
         public Task<Role> FindByNameAsync(string roleName)
@@ -59,8 +56,7 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(roleName))
                 throw new ArgumentNullException("roleName");
 
-            var roleEntity = _securityUnitOfWork.RoleRepository.FindByName(roleName);
-            return Task.FromResult(roleEntity);
+            return _securityUnitOfWork.RoleRepository.FindByNameAsync(roleName);            
         }
 
         public Task UpdateAsync(Role role)
@@ -68,15 +64,13 @@ namespace Security.AspIdentity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var roleEntity = _securityUnitOfWork.RoleRepository.GetByID(role.Id);
+            var roleEntity = _securityUnitOfWork.RoleRepository.GetByIdAsync(role.Id);
             if (roleEntity == null)
                 throw new ArgumentException("Role is not exist.", "role");
 
             _securityUnitOfWork.RoleRepository.Update(role);
             return _securityUnitOfWork.SaveAsync();
         }
-
-        
 
         #region IDisposable
         public void Dispose()

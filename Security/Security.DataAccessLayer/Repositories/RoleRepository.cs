@@ -1,38 +1,52 @@
 ﻿using BusinessSolutions.Common.EntityFramework;
-using Security.Domain;
+using Sanabel.Security.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
-using System.Data.Entity;
 
-namespace Security.DataAccessLayer.Repositories
+namespace Sanabel.Security.Infra
 {
-    public class RoleRepository : BaseEntityFrameworkRepository<Guid, Role>, IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
-        public RoleRepository(SecurityContext dbContext) : base(dbContext)
+        BaseEntityFrameworkRepository<Guid, Role> _repository;
+        public RoleRepository(SecurityContext dbContext)
         {
+            _repository = new BaseEntityFrameworkRepository<Guid, Role>(dbContext);
+        }
+
+        public void Add(Role role)
+        {
+            throw new NotImplementedException();
         }
 
         public Role FindByName(string roleName)
         {
-            var role = Set.FirstOrDefault(c => c.Name == roleName);
-            return role;
+            throw new NotImplementedException();
         }
 
-        public async Task<Role> FindByNameAsync(string roleName)
+        public Task<Role> FindByNameAsync(string roleName)
         {
-            var role = await Set.FirstOrDefaultAsync(c => c.Name == roleName);
-            return role;
+            throw new NotImplementedException();
         }
 
-        public async Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
+        public List<Role> GetAll()
         {
-            var role = await Set.FirstOrDefaultAsync(c => c.Name == roleName, cancellationToken);
-            return role;
+            throw new NotImplementedException();
         }
-        
+
+        public Task<Role> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(object roleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Role role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

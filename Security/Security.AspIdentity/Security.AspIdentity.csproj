@@ -89,9 +89,9 @@
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
       <Name>BusinessSolutions.Common.Infra</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Security.Domain\Security.Domain.csproj">
+    <ProjectReference Include="..\Security.Domain\Sanabel.Security.Domain.csproj">
       <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
-      <Name>Security.Domain</Name>
+      <Name>Sanabel.Security.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

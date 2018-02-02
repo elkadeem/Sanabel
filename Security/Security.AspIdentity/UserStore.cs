@@ -1,10 +1,9 @@
 ﻿using BusinessSolutions.Common.Infra.Validation;
 using Microsoft.AspNet.Identity;
-using Security.Domain;
+using Sanabel.Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Security.AspIdentity
@@ -33,14 +32,13 @@ namespace Security.AspIdentity
         public Task DeleteAsync(User user)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
-            _securityUnitOfWork.UserRepository.Remove(user.Id);
+            _securityUnitOfWork.UserRepository.Remove(user);
             return _securityUnitOfWork.SaveAsync();
         }
 
         public Task<User> FindByIdAsync(Guid Id)
         {
-            var user = _securityUnitOfWork.UserRepository.GetByID(Id);           
-            return Task.FromResult(user);
+            return _securityUnitOfWork.UserRepository.GetUserByIdAsync(Id);                       
         }
 
         public Task<User> FindByNameAsync(string userName)
@@ -67,12 +65,12 @@ namespace Security.AspIdentity
             return Task.FromResult(0);
         }
 
-        public async Task<User> FindAsync(UserLoginInfo login)
+        public Task<User> FindAsync(UserLoginInfo login)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(login, nameof(login));
-            var user = await _securityUnitOfWork.UserRepository
+            return _securityUnitOfWork.UserRepository
                 .FindByLoginAsync(login.LoginProvider, login.ProviderKey);
-            return user;
+            
         }
 
         public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
@@ -150,8 +148,7 @@ namespace Security.AspIdentity
         public Task<User> FindByEmailAsync(string email)
         {
             Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
-            var user = _securityUnitOfWork.UserRepository.FindByEmail(email);           
-            return Task.FromResult(user);
+            return _securityUnitOfWork.UserRepository.FindByEmailAsync(email);                       
         }
         #endregion
 

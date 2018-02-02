@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -48,13 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\VolunteerConfiguration.cs" />
+    <Compile Include="Events\VolunteerCreatedHandler.cs" />
     <Compile Include="Migrations\201801281409207_Initial.cs" />
     <Compile Include="Migrations\201801281409207_Initial.Designer.cs">
       <DependentUpon>201801281409207_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\VolunteersRepository.cs" />
-    <Compile Include="UnitOfWork\IVolunteerUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\VolunteerUnitOfWork.cs" />
     <Compile Include="VolunteersDbCotext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +78,10 @@
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
       <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\Security.Domain\Sanabel.Security.Domain.csproj">
+      <Project>{705682BC-8929-4204-B35D-CE01F8BB453F}</Project>
+      <Name>Sanabel.Security.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sanabel.Volunteers.Domain\Sanabel.Volunteers.Domain.csproj">
       <Project>{c390ac25-4f49-42fc-82ef-7b2166e81a48}</Project>

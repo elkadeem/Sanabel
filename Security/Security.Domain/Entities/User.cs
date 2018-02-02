@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Security.Domain
+namespace Sanabel.Security.Domain
 {
     public class User : Entity<Guid>, IUser<Guid>
     {
@@ -16,7 +16,6 @@ namespace Security.Domain
 
         public User()
         {
-
             ExternalLogins = new HashSet<ExternalLogin>();
             Claims = new HashSet<Claim>();
             Roles = new HashSet<Role>();
@@ -67,23 +66,13 @@ namespace Security.Domain
         public int AccessFailedCount { get; set; }
 
         public bool EnableTowFactorAuthentication { get; set; }
-
-        public int CityId { get; set; }
-
-        public int? DistrictId { get; set; }
-
-        public string Address { get; set; }
-
+        
         public ICollection<Claim> Claims { get; set; }
 
         public ICollection<ExternalLogin> ExternalLogins { get; set; }
 
         public ICollection<Role> Roles { get; set; }
-
-        public City City { get; set; }
-
-        public District District { get; set; }
-
+        
         public void AddExternalLogin(string loginProvider, string providerkey)
         {
             var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);

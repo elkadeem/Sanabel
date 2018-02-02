@@ -1,16 +1,19 @@
 ﻿using BusinessSolutions.Common.Core;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Security.Domain
+namespace Sanabel.Security.Domain
 {
-    public interface IRoleRepository : IRepository<Guid, Role>
+    public interface IRoleRepository
     {
-        Role FindByName(string roleName);
-
         Task<Role> FindByNameAsync(string roleName);
-
-        Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName);
+        List<Role> GetAll();
+        void Add(Role role);
+        Task<Role> GetByIdAsync(Guid id);
+        void Remove(object roleEntity);
+        void Update(Role role);
+        Role FindByName(string roleName);
     }
 }
