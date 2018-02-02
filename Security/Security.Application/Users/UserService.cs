@@ -1,17 +1,16 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Infra.Validation;
 using Microsoft.AspNet.Identity;
-using Security.Application.Localization;
-using Security.Application.Models;
+using Sanabel.Security.Application.Localization;
+using Sanabel.Security.Domain;
 using Security.AspIdentity;
-using Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace Security.Application.Users
+namespace Sanabel.Security.Application
 {
     public class UserService : IUserService
     {
@@ -21,19 +20,15 @@ namespace Security.Application.Users
         public UserService(ApplicationUserManager userManager, ApplicationRoleManager roleManager
             , ISecurityUnitOfWork securityUnitOfWork)
         {
-            if (userManager == null)
-                throw new ArgumentNullException("userManager");
-            if (roleManager == null)
-                throw new ArgumentNullException("roleManager");
-            if (securityUnitOfWork == null)
-                throw new ArgumentNullException("securityUnitOfWork");
-
+            Guard.ArgumentIsNull<ArgumentNullException>(userManager, nameof(userManager));
+            Guard.ArgumentIsNull<ArgumentNullException>(roleManager, nameof(roleManager));
+            Guard.ArgumentIsNull<ArgumentNullException>(securityUnitOfWork, nameof(securityUnitOfWork));            
             _userManager = userManager;
             _roleManager = roleManager;
             _securityUnitOfWork = securityUnitOfWork;
         }
 
-        public async Task<EntityResult> AddUser(VolunteerViewModel userModel)
+        public async Task<EntityResult> AddUser(UserViewModel userModel)
         {
             try
             {
@@ -43,10 +38,7 @@ namespace Security.Application.Users
                     var user = new User
                     {
                         UserName = userModel.Email,
-                        Email = userModel.Email,
-                        Address = userModel.Address,
-                        CityId = userModel.CityId,
-                        DistrictId = userModel.DistrictId,
+                        Email = userModel.Email,                        
                         PhoneNumber = userModel.Mobile,
                         FullName = userModel.FullName,
                     };
@@ -86,52 +78,44 @@ namespace Security.Application.Users
             return _roleManager.Roles.ToList();
         }
 
-        public async Task<VolunteerViewModel> GetUser(Guid userId)
+        public async Task<UserViewModel> GetUser(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 throw new ArgumentException("User is not exist.", "userId");
 
-            return new VolunteerViewModel
+            return new UserViewModel
             {
-                Address = user.Address,
-                CityId = user.CityId,
-                CountryId = user.City.Region.CountryId,
-                DistrictId = user.DistrictId,
+                
                 Email = user.Email,
                 FullName = user.FullName,
-                Mobile = user.PhoneNumber,
-                RegionId = user.City.RegionId,
+                Mobile = user.PhoneNumber,                
                 Roles = user.Roles?.Select(c => c.Id).ToList(),
                 Id = user.Id,
             };
         }
 
-        public PagedEntity<ViewVolunteerViewModel> SearchUser(SearchVolunteersViewModel searchUserModel)
+        public PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel)
         {
             if (searchUserModel == null)
                 throw new ArgumentNullException("searchUserModel");
 
             PagedEntity<User> result = _securityUnitOfWork.UserRepository.SearchUsers(searchUserModel.UserName, searchUserModel.Email
-                , searchUserModel.FullName, searchUserModel.CountryId, searchUserModel.RegionId
-                , searchUserModel.CityId, searchUserModel.DistrictId
+                , searchUserModel.FullName
                 , searchUserModel.PageIndex, searchUserModel.PageSize);
 
-            return new PagedEntity<ViewVolunteerViewModel>(result.Items.Select(c => GetViewUserViewModel(c)), result.TotalCount);
+            return new PagedEntity<ViewUserViewModel>(result.Items.Select(c => GetViewUserViewModel(c)), result.TotalCount);
 
         }
 
-        public async Task<EntityResult> UpdateUser(VolunteerViewModel userModel)
+        public async Task<EntityResult> UpdateUser(UserViewModel userModel)
         {
             if (userModel == null)
                 throw new ArgumentNullException("userModel");
             var user = await _userManager.FindByIdAsync(userModel.Id);
             if (user == null)
                 throw new ArgumentException("User is not found.", "userModel");
-
-            user.Address = userModel.Address;
-            user.CityId = userModel.CityId;
-            user.DistrictId = userModel.DistrictId;
+            
             user.Email = userModel.Email;
             user.FullName = userModel.FullName;
             user.PhoneNumber = userModel.Mobile;
@@ -180,19 +164,14 @@ namespace Security.Application.Users
                 .ToArray());
         }
 
-        private ViewVolunteerViewModel GetViewUserViewModel(User user)
+        private ViewUserViewModel GetViewUserViewModel(User user)
         {
             if (user == null)
                 return null;
-            return new ViewVolunteerViewModel
-            {
-                Address = user.Address,
-                CityName = user.City?.Name,
-                CountryName = user.City?.Region?.Country?.Name,
-                DistrictName = user.District?.Name,
+            return new ViewUserViewModel
+            {                
                 Email = user.Email,
                 FullName = user.FullName,
-                RegionName = user.City?.Region?.Name,
                 UserId = user.Id,
                 UserName = user.UserName,
                 IsLockOut = user.IsLocked,

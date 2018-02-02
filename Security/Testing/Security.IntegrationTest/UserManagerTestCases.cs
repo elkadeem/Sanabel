@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using NUnit.Framework;
-using Security.AspIdentity;
-using Security.Domain;
+using Sanabel.Security.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Security.IntegrationTest
 {
@@ -22,8 +18,8 @@ namespace Security.IntegrationTest
             get
             {
                 return new List<TestCaseData> {
-                    new TestCaseData(new User{ UserName = "user1", Email = "user1@email.com"}, "P@ssw0rd", "ExistUser"),
-                    new TestCaseData(new User{ UserName = "user2", Email = "user1@email.com"}, "P@ssw0rd", "ExistEmail"),
+                    new TestCaseData(new User{ UserName = "defaultUser", Email = "user1@email.com"}, "P@ssw0rd", "ExistUser"),
+                    new TestCaseData(new User{ UserName = "user2", Email = "defaultUser@email.com"}, "P@ssw0rd", "ExistEmail"),
                     new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "", "EmptyPassword"),
                     new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "123456", "InvalidPassword"),
                     new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "P@ssw0rd", "ValidUserNameAndPassword"),

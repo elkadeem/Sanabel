@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.EntityFramework;
-using CommonSettings.Domain.Repositories;
 using CommonSettings.Domain.Entities;
-using BusinessSolutions.Common.Core;
-using System.Linq;
-using System.Data.Entity;
+using CommonSettings.Domain.Repositories;
 using Grace.DependencyInjection.Attributes;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace CommonSettings.DAL
 {

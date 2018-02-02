@@ -1,23 +1,15 @@
-﻿using System;
-using System.Globalization;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Sanabel.Presentation.Localization;
+using Sanabel.Presentation.MVC.Models;
+using Sanabel.Security.Domain;
+using Security.AspIdentity;
+using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Sanabel.Presentation.MVC.Models;
-using Security.AspIdentity;
-using Security.Application.Models;
-using Security.Application.Users;
-using PagedList;
-using BusinessSolutions.Common.Infra.Validation;
-using Sanabel.Presentation.Localization;
-using System.Collections.Generic;
-using System.Collections;
-using Security.Domain;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {

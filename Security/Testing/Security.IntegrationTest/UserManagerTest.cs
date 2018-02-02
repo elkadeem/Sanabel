@@ -1,13 +1,11 @@
-﻿using System;
-using NUnit.Framework;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Security.AspIdentity;
-using System.Linq;
-using Security.DataAccessLayer;
+﻿using FluentAssertions;
 using Microsoft.AspNet.Identity;
-using Security.DataAccessLayer.UnitOfWork;
-using Security.Domain;
+using NUnit.Framework;
+using Sanabel.Security.Domain;
+using Sanabel.Security.Infra;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Security.IntegrationTest
 {
@@ -23,8 +21,8 @@ namespace Security.IntegrationTest
         [OneTimeSetUp]
         public void Initiate()
         {
-            var dataContext = new Security.DataAccessLayer.SecurityContext();
-            _securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
+            var dataContext = new SecurityContext();
+            _securityUnitOfWork = new SecurityUnitOfWork(dataContext);
             var userStore = new AspIdentity.UserStore(_securityUnitOfWork);
 
             userManager = new AspIdentity.ApplicationUserManager(userStore, null)
@@ -39,10 +37,7 @@ namespace Security.IntegrationTest
             {
                 UserName = "defaultUser",
                 Email = "defaultUser@email.com",
-                Id = UserManagerTestCases.ValidUserId,
-                Address = "Address",
-                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
-                DistrictId = null,
+                Id = UserManagerTestCases.ValidUserId,               
                 PhoneNumber = "050",
             };
 
@@ -57,10 +52,7 @@ namespace Security.IntegrationTest
             var newUser = new User()
             {
                 UserName = "elkadeem@hotmail.com",
-                Email = "elkadeem@hotmail.com",
-                Address = "Address",
-                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
-                DistrictId = null,// _securityUnitOfWork.DistrictRepository.GetAll().First().Id,
+                Email = "elkadeem@hotmail.com",                
                 PhoneNumber = "0506823646",
             };
 
@@ -86,8 +78,8 @@ namespace Security.IntegrationTest
         }
 
         [Test]
-        [TestCase("user1", "P@ssw0rd", TestName = "FindUser_ByValidUserNameAndPAssword_ReturnUser")]
-        [TestCase("user1", "p@ssw0rd", TestName = "FindUser_ByInValidUserNameOrPAssword_ReturnNull")]
+        [TestCase("defaultUser", "P@ssw0rd", TestName = "FindUser_ByValidUserNameAndPAssword_ReturnUser")]
+        [TestCase("user3", "p@ssw0rd", TestName = "FindUser_ByInValidUserNameOrPAssword_ReturnNull")]
         public async Task FindUser(string userName, string password)
         {
             var currentUser = await userManager.FindAsync(userName, password);
@@ -101,7 +93,7 @@ namespace Security.IntegrationTest
         }
 
         [Test]
-        [TestCase("user1@email.com", TestName = "FindUser_WithValidEmail_ReturnUser")]
+        [TestCase("defaultUser@email.com", TestName = "FindUser_WithValidEmail_ReturnUser")]
         [TestCase("user3@email.com", TestName = "FindUser_WithInValidEmail_ReturnNull")]
         public async Task FindByEmail(string email)
         {
@@ -135,8 +127,8 @@ namespace Security.IntegrationTest
         }
 
         [Test]
-        [TestCase("user1", TestName = "FindUserByName_WithValidUserName_ReturnUser")]
-        [TestCase("User1", TestName = "FindUserByName_WithValidUserNameWithDifferentCase_ReturnUser")]
+        [TestCase("defaultUser", TestName = "FindUserByName_WithValidUserName_ReturnUser")]
+        [TestCase("deFaultUser", TestName = "FindUserByName_WithValidUserNameWithDifferentCase_ReturnUser")]
         [TestCase("user3", TestName = "FindUserByName_WithInValidUserName_ReturnNull")]
         public async Task FindByNameAsync(string userName)
         {

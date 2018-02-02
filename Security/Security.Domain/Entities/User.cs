@@ -16,6 +16,7 @@ namespace Sanabel.Security.Domain
 
         public User()
         {
+            Id = Guid.NewGuid();
             ExternalLogins = new HashSet<ExternalLogin>();
             Claims = new HashSet<Claim>();
             Roles = new HashSet<Role>();
@@ -66,29 +67,28 @@ namespace Sanabel.Security.Domain
         public int AccessFailedCount { get; set; }
 
         public bool EnableTowFactorAuthentication { get; set; }
-        
+
         public ICollection<Claim> Claims { get; set; }
 
         public ICollection<ExternalLogin> ExternalLogins { get; set; }
 
         public ICollection<Role> Roles { get; set; }
-        
+
         public void AddExternalLogin(string loginProvider, string providerkey)
         {
-            var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
-            externalLogin.ProviderKey = providerkey;
+            ExternalLogins.Add(new ExternalLogin(this.Id, loginProvider, providerkey));
         }
 
         public void RemoveExternalLogin(string loginProvider)
         {
             var externalLogin = ExternalLogins.FirstOrDefault(c => c.LoginProvider == loginProvider);
-            Guard.ArgumentIsNull<ArgumentException>(externalLogin, nameof(loginProvider), "Login provider is not exist");
+            Guard.ArgumentIsNull<ArgumentNullException>(externalLogin, nameof(loginProvider), "Login provider is not exist");
             ExternalLogins.Remove(externalLogin);
         }
 
         public void AddClaim(string claimType, string claimValue)
         {
-            var claim = new Claim { ClaimType = claimType, ClaimValue = claimValue, UserId = this.Id };
+            var claim = new Claim(this.Id, claimType, claimValue);
             Claims.Add(claim);
         }
 

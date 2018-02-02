@@ -1,12 +1,8 @@
 ﻿using BusinessSolutions.Common.Core.Events;
 using Microsoft.AspNet.Identity;
+using Sanabel.Security.Domain;
 using Sanabel.Volunteers.Domain.Events;
-using Security.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sanabel.Volunteers.Infra.Events
 {

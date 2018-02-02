@@ -1,17 +1,28 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Infra.Validation;
+using System;
 
 namespace Sanabel.Security.Domain
 {
     public class Claim
     {
-        public int ClaimId { get; set; }
+        private Claim()
+        {
+        }
 
-        public Guid UserId { get; set; }
+        public Claim(Guid userId, string claimType, string claimValue)
+        {
+            Guard.StringIsNull<ArgumentNullException>(claimType, nameof(claimType));
+            this.UserId = userId;
+            this.ClaimType = claimType;
+            this.ClaimValue = claimValue;
+        }
 
-        public string ClaimType { get; set; }
+        public int ClaimId { get; private set; }
 
-        public string ClaimValue { get; set; }
+        public Guid UserId { get; private set; }
 
-        public User User { get; set; }
+        public string ClaimType { get; private set; }
+
+        public string ClaimValue { get; private  set; }
     }
 }

@@ -1,27 +1,30 @@
-ï»¿namespace Security.DataAccessLayer.Migrations
+namespace Sanabel.Security.Infra.Migrations
 {
     using Sanabel.Security.Domain;
     using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Sanabel.Security.Infra.SecurityContext>
+    public sealed class SecurityContextConfiguration : DbMigrationsConfiguration<Sanabel.Security.Infra.SecurityContext>
     {
-        public Configuration()
+        public SecurityContextConfiguration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "SecurityContextConfiguration";
         }
 
         protected override void Seed(Sanabel.Security.Infra.SecurityContext context)
         {
             context.Roles.AddOrUpdate(c => c.Name
               , new Role[] {
-                  new Role{ Id = Guid.NewGuid(), Name = "Administrator", NameAr = "Ù…Ø¯ÙŠØ± Ø§Ù„Ù†Ø¸Ø§Ù…"},
-                  new Role{ Id = Guid.NewGuid(), Name = "DataEntery", NameAr = "Ù…Ø¯Ø®Ù„ Ø¨ÙŠØ§Ù†Ø§Øª"},
-                  new Role{ Id = Guid.NewGuid(), Name = "Member", NameAr = "Ø¹Ø¶Ùˆ"},
-                  new Role{ Id = Guid.NewGuid(), Name = "MainBoard", NameAr = "Ù…Ø¬Ù„Ø³ Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©"},
-                  new Role{ Id = Guid.NewGuid(), Name = "FinancialCommitte", NameAr = "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ù…Ø§Ù„ÙŠØ©"},
-                  new Role{ Id = Guid.NewGuid(), Name = "MedicalCommitte", NameAr = "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ø·Ø¨ÙŠØ©"},
-                  new Role{ Id = Guid.NewGuid(), Name = "LegalCommittee", NameAr = "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ù‚Ø§Ù†ÙˆÙ†ÙŠØ©"},                  
+                  new Role("Administrator", "ãÏíÑ ÇáäÙÇã"),
+                  new Role("DataEntery", "ãÏÎá ÈíÇäÇÊ"),
+                  new Role("Member", "ÚÖæ"),
+                  new Role("MainBoard", "ãÌáÓ ÇáÅÏÇÑÉ"),
+                  new Role("FinancialCommitte", "ÇááÌäÉ ÇáãÇáíÉ"),
+                  new Role("MedicalCommitte", "ÇááÌäÉ ÇáØÈíÉ"),
+                  new Role("LegalCommittee", "ÇááÌäÉ ÇáŞÇäæäíÉ"),
               });
 
             context.SaveChanges();

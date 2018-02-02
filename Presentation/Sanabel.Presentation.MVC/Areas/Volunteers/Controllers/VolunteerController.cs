@@ -2,13 +2,12 @@
 using BusinessSolutions.MVCCommon.Controllers;
 using NLog;
 using PagedList;
-using Security.Application.Models;
-using Security.Application.Users;
+using Sanabel.Security.Application;
+using Sanabel.Volunteers.Application.Models;
+using Sanabel.Volunteers.Application.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
@@ -16,16 +15,20 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
     [Authorize]
     public class VolunteerController : BaseController
     {        
+        private IVolunteerService _volunteerService;
         private IUserService _userService;
-        public VolunteerController(IUserService userService, ILogger logger) : base(logger)
+        public VolunteerController(IVolunteerService volunteerService, IUserService userService, ILogger logger) : base(logger)
         {
+            Guard.ArgumentIsNull<ArgumentNullException>(volunteerService, nameof(volunteerService));
+            Guard.ArgumentIsNull<ArgumentNullException>(userService, nameof(userService));
+            _volunteerService = volunteerService;
             _userService = userService;
         }
 
         
-        public ActionResult Index(SearchVolunteersViewModel searchUserModel)
+        public async Task<ActionResult> Index(SearchVolunteersViewModel searchUserModel)
         {
-            var result = _userService.SearchUser(searchUserModel);
+            var result = await _volunteerService.SearchVolunteers(searchUserModel);
             searchUserModel.Items = new StaticPagedList<ViewVolunteerViewModel>(result.Items
                 , searchUserModel.PageIndex + 1, searchUserModel.PageSize, result.TotalCount);
             return View(searchUserModel);
@@ -41,13 +44,13 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Security.Application.Models.VolunteerViewModel model)
+        public async Task<ActionResult> Create(VolunteerViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var entityResult = await _userService.AddUser(model);
+                    var entityResult = await _volunteerService.AddVolunteer(model);
                     if (entityResult.Succeeded)
                     {
                         return RedirectToAction("Index");
@@ -73,7 +76,7 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Edit(Guid id)
         {
-            Security.Application.Models.VolunteerViewModel userModel = await _userService.GetUser(id);
+            VolunteerViewModel userModel = await _volunteerService.GetVolunteer(id);
             GetRoles();
             return View(userModel);
         }
@@ -81,12 +84,12 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]Security.Application.Models.VolunteerViewModel userModel)
+        public async Task<ActionResult> Edit(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]VolunteerViewModel volunteerModel)
         {
             try
             {
-                userModel.Id = id;
-                EntityResult result = await _userService.UpdateUser(userModel);
+                volunteerModel.Id = id;
+                EntityResult result = await _volunteerService.UpdateVolunteer(volunteerModel);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -105,7 +108,7 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             }
 
             GetRoles();
-            return View(userModel);
+            return View(volunteerModel);
         }
 
         private void GetRoles()

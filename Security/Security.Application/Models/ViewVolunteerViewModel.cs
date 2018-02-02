@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Security.Application.Models
+namespace Sanabel.Security.Application
 {
-    public class ViewVolunteerViewModel
+    public class ViewUserViewModel
     {
         public Guid UserId { get; set; }
 
@@ -20,21 +20,7 @@ namespace Security.Application.Models
         [Display(Name = "Email", ResourceType = typeof(Localization.SecurityResource))]
         public string Email { get; set; }
 
-        [Display(Name = "Country", ResourceType = typeof(Localization.SecurityResource))]
-        public string CountryName { get; set; }
-
-        [Display(Name = "Region", ResourceType = typeof(Localization.SecurityResource))]
-        public string RegionName { get; set; }
-
-        [Display(Name = "City", ResourceType = typeof(Localization.SecurityResource))]
-        public string CityName { get; set; }
-
-        [Display(Name = "District", ResourceType = typeof(Localization.SecurityResource))]
-        public string DistrictName { get; set; }
-
-        [Display(Name = "Address", ResourceType = typeof(Localization.SecurityResource))]
-        public string Address { get; set; }
-
+        [Display(Name = "IsLockOut", ResourceType = typeof(Localization.SecurityResource))]
         public bool IsLockOut { get; internal set; }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using NUnit.Framework;
-using FluentAssertions;
-using Moq;
-using Security.Domain;
-using System.Threading.Tasks;
-using Security.AspIdentity;
+﻿using FluentAssertions;
 using Microsoft.AspNet.Identity;
+using Moq;
+using NUnit.Framework;
+using Sanabel.Security.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Security.UnitTesting
 {
@@ -15,7 +14,7 @@ namespace Security.UnitTesting
     public class AspIdentityTest
     {
         private Security.AspIdentity.UserStore userStore;
-        private Mock<Security.Domain.ISecurityUnitOfWork> unitOfWorkMok;
+        private Mock<ISecurityUnitOfWork> unitOfWorkMok;
         private Mock<IRoleRepository> roleRepository;
         private Mock<IUserRepository> userRepository;
         private User user;
@@ -25,7 +24,7 @@ namespace Security.UnitTesting
         {
             userRepository = new Mock<IUserRepository>();
             roleRepository = new Mock<IRoleRepository>();
-            unitOfWorkMok = new Mock<Security.Domain.ISecurityUnitOfWork>();
+            unitOfWorkMok = new Mock<ISecurityUnitOfWork>();
             unitOfWorkMok.Setup<IUserRepository>(c => c.UserRepository).Returns(userRepository.Object);
             unitOfWorkMok.Setup<IRoleRepository>(c => c.RoleRepository).Returns(roleRepository.Object);
 
@@ -75,7 +74,7 @@ namespace Security.UnitTesting
             await userStore.DeleteAsync(user);
 
             //Assert
-            userRepository.Verify(c => c.Remove(user.Id), Times.Once());
+            userRepository.Verify(c => c.Remove(user), Times.Once());
             unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
         }
 
@@ -83,7 +82,7 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithValidUserId_ReturnUser()
         {
             //Arrange
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => a == user.Id ? user : null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>( (a) =>  a == user.Id ? Task.FromResult(user) : null);
             //Act
             var result = await userStore.FindByIdAsync(user.Id);
             //Assert
@@ -96,7 +95,7 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithUnValidUserId_ReturnNull()
         {
             //Arrange
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => a == user.Id ? user : null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => a == user.Id ? Task.FromResult(user) : Task.FromResult(null as User));
             //Act
             var result = await userStore.FindByIdAsync(Guid.NewGuid());
             //Assert
@@ -169,7 +168,7 @@ namespace Security.UnitTesting
             //Arrange
             User user = new User();
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>(null);
 
             try
             {
@@ -189,15 +188,13 @@ namespace Security.UnitTesting
         {
             //Arrange
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns(user);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(user));
 
             //Act
             await userStore.AddLoginAsync(user, login);
 
             //Assert
-            user.ExternalLogins.Count.Should().Be(1);
-            userRepository.Verify(c => c.Update(user), Times.Once);
-            unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+            user.ExternalLogins.Count.Should().Be(1);            
         }
 
         [Test]
@@ -226,7 +223,7 @@ namespace Security.UnitTesting
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
             user.AddExternalLogin(login.LoginProvider, login.ProviderKey);
             userRepository.Setup(c => c.FindByLoginAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(async () => user);
+                .Returns(() => Task.FromResult(user));
 
             //Act
             var result = await userStore.FindAsync(login);
@@ -259,7 +256,7 @@ namespace Security.UnitTesting
         {
             //Arrange
             User user = new User();
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>(null);
 
             try
             {
@@ -284,7 +281,7 @@ namespace Security.UnitTesting
             login = new UserLoginInfo("facebook", "elkadeem@facebook.com");
             user.AddExternalLogin(login.LoginProvider, login.ProviderKey);
 
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns(user);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(user));
 
             //Act
             var result = await userStore.GetLoginsAsync(user);
@@ -326,28 +323,7 @@ namespace Security.UnitTesting
                 ex.ParamName.Should().Be("login");
             }
         }
-
-        [Test]
-        public async Task RemoveLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
-        {
-            //Arrange
-            User user = new User();
-            UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>(null);
-
-            try
-            {
-                //Act
-                await userStore.RemoveLoginAsync(user, login);
-            }
-            catch (ArgumentException ex)
-            {
-                //Assert
-                ex.Should().NotBeNull();
-                ex.ParamName.Should().Be("user");
-            }
-        }
-
+        
         [Test]
         public async Task RemoveLoginAsync_WithValidUser_AddLoginToUser()
         {
@@ -358,16 +334,14 @@ namespace Security.UnitTesting
             UserLoginInfo loginToDelete = new UserLoginInfo("facebook", "elkadeem@facebook.com");
             user.AddExternalLogin(loginToDelete.LoginProvider, loginToDelete.ProviderKey);
 
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns(user);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(user));
 
             //Act
             await userStore.RemoveLoginAsync(user, loginToDelete);
 
             //Assert
             user.ExternalLogins.Count.Should().Be(1);
-            user.ExternalLogins.Should().NotContain(c => c.LoginProvider == "facebook");
-            userRepository.Verify(c => c.Update(user), Times.Once);
-            unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+            user.ExternalLogins.Should().NotContain(c => c.LoginProvider == "facebook");            
         }
         #endregion
 
@@ -416,7 +390,7 @@ namespace Security.UnitTesting
             //Arrange
             user.AddClaim("Department", "Department");
             user.AddClaim("Department", "Department2");
-            userRepository.Setup(c => c.GetByIDAsync(It.IsAny<Guid>())).Returns(async () => user);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns(() => Task.FromResult(user));
 
             //Act
             var result = await userStore.GetClaimsAsync(user);
@@ -489,17 +463,14 @@ namespace Security.UnitTesting
         {
             //Arrange
             System.Security.Claims.Claim claim = new System.Security.Claims.Claim("Department", "Department");
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns(() => user);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns(() => Task.FromResult(user));
 
             //Act
             await userStore.AddClaimAsync(user, claim);
 
             //Assert
             user.Claims.Count.Should().Be(1);
-            user.Claims.Should().OnlyContain(c => c.ClaimType == "Department");
-
-            userRepository.Verify(c => c.Update(user), Times.Once);
-            unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+            user.Claims.Should().OnlyContain(c => c.ClaimType == "Department");            
         }
 
         [Test]
@@ -568,19 +539,13 @@ namespace Security.UnitTesting
             user.AddClaim("Department", "Department1");
             user.AddClaim("Department", "Department2");
 
-            System.Security.Claims.Claim claimToDelete = new System.Security.Claims.Claim("Department", "Department");
-
-            userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns(() => user);
-
+            System.Security.Claims.Claim claimToDelete = new System.Security.Claims.Claim("Department", "Department");            
             //Act
             await userStore.RemoveClaimAsync(user, claimToDelete);
 
             //Assert
             user.Claims.Count.Should().Be(2);
-            user.Claims.Should().NotContain(c => c.ClaimType == "Department" && c.ClaimValue == "Department");
-
-            userRepository.Verify(c => c.Update(user), Times.Once);
-            unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+            user.Claims.Should().NotContain(c => c.ClaimType == "Department" && c.ClaimValue == "Department");            
         }
         #endregion
 
@@ -611,7 +576,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 userStore.GetEmailAsync(testUser);
                 //Assert
@@ -638,7 +603,7 @@ namespace Security.UnitTesting
             {
                 user.IsEmailConfirmed = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 userStore.GetEmailConfirmedAsync(user);
                 //Assert
@@ -665,7 +630,7 @@ namespace Security.UnitTesting
             {
                 user.IsEmailConfirmed = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 userStore.GetEmailConfirmedAsync(user);
                 //Assert
@@ -691,7 +656,7 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                userRepository.Setup(c => c.FindByEmail(It.IsAny<string>())).Returns<string>((a) => user.Email == a ? user : null);
+                userRepository.Setup(c => c.FindByEmailAsync(It.IsAny<string>())).Returns<string>((a) => user.Email == a ? Task.FromResult(user) : Task.FromResult(null as User));
                 //Act
                 var result = await userStore.FindByEmailAsync(testEmail);
                 //Assert    
@@ -702,8 +667,7 @@ namespace Security.UnitTesting
             }
             catch (ArgumentNullException ex)
             {
-                //Assert
-                if (user == null)
+                
                     ex.ParamName.Should().Be("email");
 
             }
@@ -857,7 +821,7 @@ namespace Security.UnitTesting
             {
                 user.PasswordHash = "passwordHash";
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 var result = await userStore.HasPasswordAsync(userToTest);
                 //Assert                
@@ -999,7 +963,7 @@ namespace Security.UnitTesting
             {
                 user.EnableTowFactorAuthentication = false;
                 //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 var result = await userStore.GetTwoFactorEnabledAsync(userToTest);
                 //Assert                
@@ -1043,11 +1007,11 @@ namespace Security.UnitTesting
         {
             try
             {
-                user.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role1" });
-                user.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role2" });
-
-                //Arrange
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                if (userToTest != null)
+                {
+                    userToTest.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role1" });
+                    userToTest.AddRole(new Role { Id = Guid.NewGuid(), Name = "Role2" });
+                }
                 //Act
                 var roles = await userStore.GetRolesAsync(userToTest);
                 //Assert                
@@ -1074,14 +1038,12 @@ namespace Security.UnitTesting
                 //Arrange
                 roleRepository.Setup(c => c.FindByName(It.IsAny<string>()))
                     .Returns<string>((a) => roles.FirstOrDefault(c => c.Name == a));
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? Task.FromResult(user) : null);
                 //Act
                 await userStore.AddToRoleAsync(userToTest, NameToTest);
                 //Assert                
-                user.Roles.Count.Should().Be(1);
-                user.Roles.Should().Contain(c => c.Name == "Role1");
-                userRepository.Verify(c => c.Update(user), Times.Once);
-                unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                userToTest.Roles.Count.Should().Be(1);
+                userToTest.Roles.Should().Contain(c => c.Name == "Role1");                
             }
             catch (ArgumentNullException ex)
             {
@@ -1089,7 +1051,7 @@ namespace Security.UnitTesting
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
                 else
-                    ex.ParamName.Should().Be("Name");
+                    ex.ParamName.Should().Be("roleName");
 
             }
             catch (ArgumentException ex)
@@ -1098,7 +1060,7 @@ namespace Security.UnitTesting
                 if (userToTest.Id != user.Id)
                     ex.ParamName.Should().Be("user");
                 else
-                    ex.ParamName.Should().Be("Name");
+                    ex.ParamName.Should().Be("roleName");
             }
         }
 
@@ -1108,22 +1070,23 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                user.AddRole(roles[0]);
-                user.AddRole(roles[1]);
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                if (userToTest != null)
+                {
+                    userToTest.AddRole(roles[0]);
+                    userToTest.AddRole(roles[1]);
+                }
+                
                 //Act
                 await userStore.RemoveFromRoleAsync(userToTest, NameToTest);
                 //Assert  
                 if (roles.Any(c => c.Name == NameToTest))
                 {
-                    user.Roles.Count.Should().Be(1);
-                    user.Roles.Should().NotContain(c => c.Name == "Role1");
-                    userRepository.Verify(c => c.Update(user), Times.Once);
-                    unitOfWorkMok.Verify(c => c.SaveAsync(), Times.Once);
+                    userToTest.Roles.Count.Should().Be(1);
+                    userToTest.Roles.Should().NotContain(c => c.Name == "Role1");                    
                 }
                 else
                 {
-                    user.Roles.Count.Should().Be(2);
+                    userToTest.Roles.Count.Should().Be(2);
                 }
             }
             catch (ArgumentNullException ex)
@@ -1132,7 +1095,7 @@ namespace Security.UnitTesting
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
                 else if (string.IsNullOrEmpty(NameToTest))
-                    ex.ParamName.Should().Be("Name");
+                    ex.ParamName.Should().Be("roleName");
 
             }
             catch (ArgumentException ex)
@@ -1148,9 +1111,11 @@ namespace Security.UnitTesting
             try
             {
                 //Arrange
-                user.AddRole(roles[0]);
-                user.AddRole(roles[1]);
-                userRepository.Setup(c => c.GetByID(It.IsAny<Guid>())).Returns<Guid>((a) => user.Id == a ? user : null);
+                if (userToTest != null)
+                {
+                    userToTest.AddRole(roles[0]);
+                    userToTest.AddRole(roles[1]);
+                }
                 //Act
                 var result = await userStore.IsInRoleAsync(userToTest, NameToTest);
                 //Assert                
@@ -1162,7 +1127,7 @@ namespace Security.UnitTesting
                 if (userToTest == null)
                     ex.ParamName.Should().Be("user");
                 else if (string.IsNullOrEmpty(NameToTest))
-                    ex.ParamName.Should().Be("Name");
+                    ex.ParamName.Should().Be("roleName");
 
             }
             catch (ArgumentException ex)

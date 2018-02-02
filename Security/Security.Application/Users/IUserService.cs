@@ -1,25 +1,22 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Infra.Validation;
+using Sanabel.Security.Domain;
 using Security.Application.Models;
-using Security.AspIdentity;
-using Security.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Security.Application.Users
+namespace Sanabel.Security.Application
 {
     public interface IUserService
     {
-        Task<EntityResult> AddUser(VolunteerViewModel userModel);
+        Task<EntityResult> AddUser(UserViewModel userModel);
 
-        PagedEntity<ViewVolunteerViewModel> SearchUser(SearchVolunteersViewModel searchUserModel);
+        PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel);
 
-        Task<VolunteerViewModel> GetUser(Guid id);
+        Task<UserViewModel> GetUser(Guid id);
 
-        Task<EntityResult> UpdateUser(VolunteerViewModel userModel);
+        Task<EntityResult> UpdateUser(UserViewModel userModel);
 
         List<Role> GetAllRoles();
     }

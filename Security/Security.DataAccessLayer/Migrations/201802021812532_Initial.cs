@@ -1,4 +1,4 @@
-namespace Security.DataAccessLayer.Migrations
+namespace Sanabel.Security.Infra.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -26,8 +26,8 @@ namespace Security.DataAccessLayer.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 50),
-                        FullName = c.String(),
                         Email = c.String(nullable: false, maxLength: 50),
+                        FullName = c.String(maxLength: 100),
                         IsEmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(maxLength: 200),
                         SecurityStamp = c.String(maxLength: 200),
@@ -59,11 +59,11 @@ namespace Security.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        RoleName = c.String(nullable: false, maxLength: 50),
-                        RoleNameAr = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 50),
+                        NameAr = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.RoleName, unique: true);
+                .Index(t => t.Name, unique: true, name: "IX_RoleName");
             
             CreateTable(
                 "Security.UserRoles",
@@ -88,7 +88,7 @@ namespace Security.DataAccessLayer.Migrations
             DropForeignKey("Security.UserLogins", "UserId", "Security.Users");
             DropIndex("Security.UserRoles", new[] { "RoleId" });
             DropIndex("Security.UserRoles", new[] { "UserId" });
-            DropIndex("Security.Roles", new[] { "RoleName" });
+            DropIndex("Security.Roles", "IX_RoleName");
             DropIndex("Security.UserLogins", new[] { "UserId" });
             DropIndex("Security.Users", new[] { "Email" });
             DropIndex("Security.Users", new[] { "UserName" });

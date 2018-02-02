@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Sanabel.Security.Domain;
 using Security.AspIdentity;
-using Security.Domain;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

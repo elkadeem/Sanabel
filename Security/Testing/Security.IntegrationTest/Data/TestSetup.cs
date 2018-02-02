@@ -1,15 +1,13 @@
-﻿using System;
+﻿using NUnit.Framework;
+using Sanabel.Security.Infra;
+using Sanabel.Security.Infra.Migrations;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Security;
-using System.Data.Entity.Migrations;
-using System.Data.Entity;
 
 namespace Security.IntegrationTest
 {
@@ -40,9 +38,9 @@ namespace Security.IntegrationTest
                 , CommonSettings.DAL.Migrations.CommonSettingsDbMigrationsConfiguration>("CommonSettingConnectionString");
             commonMigration.InitializeDatabase(new CommonSettings.DAL.CommonSettingDataContext());
 
-            var migration = new MigrateDatabaseToLatestVersion<Security.DataAccessLayer.SecurityContext
-                , Security.DataAccessLayer.Migrations.Configuration>("SecurityConnectionString");
-            migration.InitializeDatabase(new DataAccessLayer.SecurityContext());
+            var migration = new MigrateDatabaseToLatestVersion<SecurityContext
+                , SecurityContextConfiguration>("SecurityConnectionString");
+            migration.InitializeDatabase(new SecurityContext());
         }
 
         private static List<T> ExecuteSqlQuery<T>(

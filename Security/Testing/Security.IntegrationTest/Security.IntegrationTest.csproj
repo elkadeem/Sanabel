@@ -64,7 +64,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\SecurityDatabaseInitializar.cs" />
     <Compile Include="Data\TestSetup.cs" />
     <Compile Include="UserManagerTestCases.cs" />
     <Compile Include="UserManagerTest.cs" />
@@ -92,9 +91,9 @@
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
       <Name>BusinessSolutions.Common.Infra</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security.Application\Security.Application.csproj">
+    <ProjectReference Include="..\..\Security.Application\Sanabel.Security.Application.csproj">
       <Project>{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}</Project>
-      <Name>Security.Application</Name>
+      <Name>Sanabel.Security.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Security.AspIdentity\Security.AspIdentity.csproj">
       <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>

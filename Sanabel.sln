@@ -65,7 +65,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{89C18E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Presentation.MVC", "Presentation\Sanabel.Presentation.MVC\Sanabel.Presentation.MVC.csproj", "{B5503B80-B3D2-42A9-8F13-46CB8DE9815C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Application", "Security\Security.Application\Security.Application.csproj", "{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Security.Application", "Security\Security.Application\Sanabel.Security.Application.csproj", "{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Presentation.Localization", "Presentation\Sanabel.Presentation.Localization\Sanabel.Presentation.Localization.csproj", "{A96B1851-1E4C-4E2F-B55D-87A47CDE3203}"
 EndProject

@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Sanabel.Security.Infra
 {
-    public class UserRepository :  IUserRepository
-    {       
+    public class UserRepository : IUserRepository
+    {
         private readonly SecurityContext _dbContext;
         public UserRepository(SecurityContext dbContext)
         {
@@ -30,33 +30,44 @@ namespace Sanabel.Security.Infra
             Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
             return _dbContext.Users.Include(c => c.Roles).Include(c => c.Claims)
                 .Include(c => c.ExternalLogins)
-                .FirstOrDefaultAsync(c => c.Email.ToLower() == email.ToLower());
+                .FirstOrDefaultAsync(c => c.Email == email);
         }
 
         public Task<User> FindByLoginAsync(string loginProvider, string providerKey)
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins)
+                .FirstOrDefaultAsync(c => c.ExternalLogins.Any(e => e.LoginProvider == loginProvider
+                && e.ProviderKey == providerKey));
         }
 
         public Task<User> FindByUserNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins)
+                .FirstOrDefaultAsync(c => c.UserName == userName);
         }
 
         public Task<User> GetUserByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.Include(c => c.Roles)
+                .Include(c => c.Claims)
+                .Include(c => c.ExternalLogins)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public void Remove(User user)
         {
-            throw new NotImplementedException();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            _dbContext.Users.Remove(user);
         }
 
         public PagedEntity<User> SearchUsers(string userName, string email, string fullName
             , int pageIndex, int pageSize)
         {
-            var query = _repository.Query;
+            var query = _dbContext.Users.AsQueryable();
             if (!string.IsNullOrEmpty(userName))
                 query = query.Where(c => c.UserName.Contains(userName));
 
@@ -76,7 +87,15 @@ namespace Sanabel.Security.Infra
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
+            var entry = _dbContext.Entry(user);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbContext.Users.Attach(user);
+                entry = _dbContext.Entry(user);
+            }
+
+            entry.State = EntityState.Modified;
         }
     }
 }

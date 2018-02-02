@@ -7,8 +7,8 @@
     <ProjectGuid>{C1E7285D-4108-4D69-87E7-FE3D1F58D8EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Security.Application</RootNamespace>
-    <AssemblyName>Security.Application</AssemblyName>
+    <RootNamespace>Sanabel.Security.Application</RootNamespace>
+    <AssemblyName>Sanabel.Security.Application</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,9 +50,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SecurityResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\VolunteerViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
-    <Compile Include="Models\SearchVolunteersViewModel.cs" />
+    <Compile Include="Models\SearchUsersViewModel.cs" />
     <Compile Include="Models\ViewVolunteerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\IUserService.cs" />

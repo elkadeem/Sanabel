@@ -2,13 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Security.Application.Models
+namespace Sanabel.Security.Application
 {
-    public class VolunteerViewModel
+    public class UserViewModel
     {
         public Guid Id { get; set; }
 
@@ -29,11 +26,7 @@ namespace Security.Application.Models
         [Display(Name = "ConfirmPassword", ResourceType = typeof(Localization.SecurityResource))]
         [Compare("Password", ErrorMessageResourceName ="ConfirmPasswordInvalid", ErrorMessageResourceType = typeof(Localization.SecurityResource))]
         public string ConfirmPassword { get; set; }
-
-        [StringLength(200, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [Display(Name = "Address", ResourceType = typeof(Localization.SecurityResource))]
-        public string Address { get; set; }
-
+        
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(100, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "FullName", ResourceType = typeof(Localization.SecurityResource))]
@@ -42,21 +35,10 @@ namespace Security.Application.Models
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(15, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "Mobile", ResourceType = typeof(Localization.SecurityResource))]
-        public string Mobile { get; set; }
-
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [Display(Name = "CityId", ResourceType = typeof(Localization.SecurityResource))]
-        public int CityId { get; set; }
-
-        [Display(Name = "DistrictId", ResourceType = typeof(Localization.SecurityResource))]
-        public int? DistrictId { get; set; }
+        public string Mobile { get; set; }        
 
         [CollectionLengthValidationAttribute(2, ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "Roles", ResourceType = typeof(Localization.SecurityResource))]
-        public List<Guid> Roles { get; set; }
-
-        public int CountryId { get; set; }
-
-        public int RegionId { get; set; }
+        public List<Guid> Roles { get; set; }        
     }
 }

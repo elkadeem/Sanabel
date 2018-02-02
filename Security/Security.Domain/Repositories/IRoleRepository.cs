@@ -12,7 +12,7 @@ namespace Sanabel.Security.Domain
         List<Role> GetAll();
         void Add(Role role);
         Task<Role> GetByIdAsync(Guid id);
-        void Remove(object roleEntity);
+        void Remove(Role role);
         void Update(Role role);
         Role FindByName(string roleName);
     }

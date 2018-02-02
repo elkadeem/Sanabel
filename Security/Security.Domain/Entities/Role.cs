@@ -9,10 +9,18 @@ namespace Sanabel.Security.Domain
     public class Role : Entity<Guid>, IRole<Guid>
     {
         private string _name;
-        public Role()
+        private Role()
         {
+            Id = Guid.NewGuid();
+        }
 
-        }        
+        public Role(string name, string nameAr) : this()
+        {
+            Guard.StringIsNull<ArgumentNullException>(name, nameof(name));
+            Guard.StringIsNull<ArgumentNullException>(nameAr, nameof(nameAr));
+            this.Name = name;
+            this.NameAr = nameAr;
+        }
 
         public string Name {
             get
@@ -26,6 +34,6 @@ namespace Sanabel.Security.Domain
             }
         }
         
-        public string NameAr { get; set; }
+        public string NameAr { get; private set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using BusinessSolutions.Localization;
 using Sanabel.Presentation.Localization;
-using Security.Application.Localization;
+using Sanabel.Security.Application.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

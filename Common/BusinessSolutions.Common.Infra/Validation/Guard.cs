@@ -11,19 +11,28 @@ namespace BusinessSolutions.Common.Infra.Validation
         public static void ArgumentIsNull<T>(object obj, string paramName, string message = null) where T : ArgumentException
         {
             if (obj == null)
-                throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                if (!string.IsNullOrEmpty(message))
+                    throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                else
+                    throw (T)Activator.CreateInstance(typeof(T), paramName);
         }
 
         public static void StringIsNull<T>(string obj, string paramName, string message = null) where T : ArgumentException
-        {
+        {            
             if (string.IsNullOrEmpty(obj))
-                throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                if (!string.IsNullOrEmpty(message))
+                    throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                else
+                    throw (T)Activator.CreateInstance(typeof(T), paramName);
         }
 
         public static void GuidIsEmpty<T>(Guid obj, string paramName, string message = null) where T : ArgumentException
         {
             if (obj == Guid.Empty)
-                throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                if (!string.IsNullOrEmpty(message))
+                    throw (T)Activator.CreateInstance(typeof(T), paramName, message);
+                else
+                    throw (T)Activator.CreateInstance(typeof(T), paramName);
         }
 
         public static void LessThanOrEqualZero(int value, string paramName, string message = null)

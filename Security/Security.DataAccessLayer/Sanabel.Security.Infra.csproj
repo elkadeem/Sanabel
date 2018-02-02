@@ -51,21 +51,9 @@
     <Compile Include="Configurations\ClaimsConfiguration.cs" />
     <Compile Include="Configurations\RolesConfiguration.cs" />
     <Compile Include="Configurations\UsersConfiguration.cs" />
-    <Compile Include="Migrations\201801080902524_Initial.cs" />
-    <Compile Include="Migrations\201801080902524_Initial.Designer.cs">
-      <DependentUpon>201801080902524_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801080913575_SetMaxLengthToFullName.cs" />
-    <Compile Include="Migrations\201801080913575_SetMaxLengthToFullName.Designer.cs">
-      <DependentUpon>201801080913575_SetMaxLengthToFullName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801081323034_AddCitiesAndDistricts.cs" />
-    <Compile Include="Migrations\201801081323034_AddCitiesAndDistricts.Designer.cs">
-      <DependentUpon>201801081323034_AddCitiesAndDistricts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801090706275_AddAddressColumnToUser.cs" />
-    <Compile Include="Migrations\201801090706275_AddAddressColumnToUser.Designer.cs">
-      <DependentUpon>201801090706275_AddAddressColumnToUser.cs</DependentUpon>
+    <Compile Include="Migrations\201802021812532_Initial.cs" />
+    <Compile Include="Migrations\201802021812532_Initial.Designer.cs">
+      <DependentUpon>201802021812532_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,17 +85,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801080902524_Initial.resx">
-      <DependentUpon>201801080902524_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080913575_SetMaxLengthToFullName.resx">
-      <DependentUpon>201801080913575_SetMaxLengthToFullName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801081323034_AddCitiesAndDistricts.resx">
-      <DependentUpon>201801081323034_AddCitiesAndDistricts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801090706275_AddAddressColumnToUser.resx">
-      <DependentUpon>201801090706275_AddAddressColumnToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802021812532_Initial.resx">
+      <DependentUpon>201802021812532_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

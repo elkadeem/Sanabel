@@ -1,15 +1,28 @@
-﻿using System;
+﻿using BusinessSolutions.Common.Infra.Validation;
+using System;
 
 namespace Sanabel.Security.Domain
 {
     public class ExternalLogin
     {
-        public Guid UserId { get; set; }
+        private ExternalLogin()
+        {
+        }
 
-        public string LoginProvider { get; set; }
+        public ExternalLogin(Guid userId, string loginProvider, string providerKey)
+        {
+            Guard.StringIsNull<ArgumentNullException>(loginProvider, nameof(loginProvider));
+            Guard.StringIsNull<ArgumentNullException>(providerKey, nameof(providerKey));
+            this.UserId = UserId;
+            this.LoginProvider = loginProvider;
+            this.ProviderKey = providerKey;
+        }
 
-        public string ProviderKey { get; set; }
+        public Guid UserId { get; private set; }
 
-        public User User { get; set; }
+        public string LoginProvider { get; private set; }
+
+        public string ProviderKey { get; private set; }
+        
     }
 }

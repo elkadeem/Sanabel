@@ -19,7 +19,7 @@ namespace Security.AspIdentity
         {
             get
             {
-                return _securityUnitOfWork.RoleRepository.GetAll()                    
+                return _securityUnitOfWork.RoleRepository.GetAll()
                     .AsQueryable();
             }
         }
@@ -33,22 +33,22 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task DeleteAsync(Role role)
+        public async Task DeleteAsync(Role role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var roleEntity = _securityUnitOfWork.RoleRepository.GetByIdAsync(role.Id);
+            var roleEntity = await _securityUnitOfWork.RoleRepository.GetByIdAsync(role.Id);
             if (roleEntity == null)
                 throw new ArgumentException("Role is not exist.", "role");
 
             _securityUnitOfWork.RoleRepository.Remove(roleEntity);
-            return _securityUnitOfWork.SaveAsync();
+            await _securityUnitOfWork.SaveAsync();
         }
 
         public Task<Role> FindByIdAsync(Guid Id)
         {
-            return _securityUnitOfWork.RoleRepository.GetByIdAsync(Id);            
+            return _securityUnitOfWork.RoleRepository.GetByIdAsync(Id);
         }
 
         public Task<Role> FindByNameAsync(string roleName)
@@ -56,7 +56,7 @@ namespace Security.AspIdentity
             if (string.IsNullOrEmpty(roleName))
                 throw new ArgumentNullException("roleName");
 
-            return _securityUnitOfWork.RoleRepository.FindByNameAsync(roleName);            
+            return _securityUnitOfWork.RoleRepository.FindByNameAsync(roleName);
         }
 
         public Task UpdateAsync(Role role)

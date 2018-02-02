@@ -15,7 +15,6 @@ namespace Sanabel.Security.Infra
             this.Property(c => c.ClaimType).IsRequired().HasMaxLength(200);
             this.Property(c => c.ClaimValue).HasMaxLength(100);
             
-            this.HasRequired(c => c.User);
             this.HasIndex(c => new { c.UserId, c.ClaimType, c.ClaimValue}).HasName("IX_UserClaim").IsUnique();
         }
     }

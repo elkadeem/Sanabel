@@ -10,8 +10,7 @@ namespace Sanabel.Security.Infra
             this.ToTable("UserLogins").HasKey(c => new { c.UserId, c.LoginProvider });
             this.Property(c => c.UserId).IsRequired();
             this.Property(c => c.LoginProvider).IsRequired().HasMaxLength(100);
-            this.Property(c => c.ProviderKey).IsRequired().HasMaxLength(100);
-            this.HasRequired(c => c.User);
+            this.Property(c => c.ProviderKey).IsRequired().HasMaxLength(100);            
         }
     }
 }

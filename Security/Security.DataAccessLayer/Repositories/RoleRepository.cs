@@ -1,52 +1,63 @@
 ﻿using BusinessSolutions.Common.EntityFramework;
+using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Security.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sanabel.Security.Infra
 {
     public class RoleRepository : IRoleRepository
     {
-        BaseEntityFrameworkRepository<Guid, Role> _repository;
+        private readonly SecurityContext _dbContext;
         public RoleRepository(SecurityContext dbContext)
         {
-            _repository = new BaseEntityFrameworkRepository<Guid, Role>(dbContext);
+            Guard.ArgumentIsNull<ArgumentNullException>(dbContext, nameof(dbContext));
+            _dbContext = dbContext;
         }
 
         public void Add(Role role)
         {
-            throw new NotImplementedException();
+            _dbContext.Roles.Add(role);
         }
 
         public Role FindByName(string roleName)
         {
-            throw new NotImplementedException();
+            return _dbContext.Roles.FirstOrDefault(c => c.Name == roleName);
         }
 
         public Task<Role> FindByNameAsync(string roleName)
         {
-            throw new NotImplementedException();
+            return _dbContext.Roles.FirstOrDefaultAsync(c => c.Name == roleName);
         }
 
         public List<Role> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Roles.ToList();
         }
 
         public Task<Role> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Roles.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public void Remove(object roleEntity)
+        public void Remove(Role role)
         {
-            throw new NotImplementedException();
+            _dbContext.Roles.Remove(role);
         }
 
         public void Update(Role role)
         {
-            throw new NotImplementedException();
+            var entry = _dbContext.Entry(role);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbContext.Roles.Attach(role);
+                entry = _dbContext.Entry(role);
+            }
+
+            entry.State = EntityState.Modified;
         }
     }
 }

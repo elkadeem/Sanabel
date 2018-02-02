@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Sanabel.Presentation.Localization;
 using Sanabel.Presentation.MVC.Models;
+using Sanabel.Security.Domain;
 using Security.AspIdentity;
-using Security.Domain;
+using System;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {

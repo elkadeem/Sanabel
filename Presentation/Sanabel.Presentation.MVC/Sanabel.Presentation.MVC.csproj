@@ -1001,9 +1001,9 @@
       <Project>{A8C9D7E2-6493-4758-8335-02B187FA6045}</Project>
       <Name>BusinessSolutions.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Security\Security.Application\Security.Application.csproj">
+    <ProjectReference Include="..\..\Security\Security.Application\Sanabel.Security.Application.csproj">
       <Project>{c1e7285d-4108-4d69-87e7-fe3d1f58d8ee}</Project>
-      <Name>Security.Application</Name>
+      <Name>Sanabel.Security.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Security\Security.AspIdentity\Security.AspIdentity.csproj">
       <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
@@ -1016,6 +1016,18 @@
     <ProjectReference Include="..\..\Security\Security.Domain\Sanabel.Security.Domain.csproj">
       <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
       <Name>Sanabel.Security.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Volunteers\Sanabel.Volunteers.Application\Sanabel.Volunteers.Application.csproj">
+      <Project>{954e5bed-6db7-457f-b22c-ffe2b303f286}</Project>
+      <Name>Sanabel.Volunteers.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Volunteers\Sanabel.Volunteers.Domain\Sanabel.Volunteers.Domain.csproj">
+      <Project>{c390ac25-4f49-42fc-82ef-7b2166e81a48}</Project>
+      <Name>Sanabel.Volunteers.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Volunteers\Sanabel.Volunteers.Infra\Sanabel.Volunteers.Infra.csproj">
+      <Project>{45211785-39ff-497e-ba16-4198055e37ef}</Project>
+      <Name>Sanabel.Volunteers.Infra</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sanabel.Presentation.Localization\Sanabel.Presentation.Localization.csproj">
       <Project>{a96b1851-1e4c-4e2f-b55d-87a47cde3203}</Project>

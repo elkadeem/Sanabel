@@ -1,13 +1,10 @@
 ﻿using NUnit.Framework;
-using Security.Application.Models;
-using Security.Application.Users;
+using Sanabel.Security.Application;
+using Sanabel.Security.Domain;
+using Sanabel.Security.Infra;
 using Security.AspIdentity;
-using Security.DataAccessLayer.UnitOfWork;
-using Security.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Security.IntegrationTest
@@ -15,8 +12,7 @@ namespace Security.IntegrationTest
     [TestFixture]
     public class UserServiceTest
     {
-        private Security.AspIdentity.ApplicationUserManager userManager;
-        private User user;
+        private Security.AspIdentity.ApplicationUserManager userManager;        
         private SecurityUnitOfWork _securityUnitOfWork;
         private IUserService _userService;
         private ApplicationRoleManager _roleManager;
@@ -24,8 +20,8 @@ namespace Security.IntegrationTest
         [OneTimeSetUp]
         public void Initiate()
         {
-            var dataContext = new Security.DataAccessLayer.SecurityContext();
-            _securityUnitOfWork = new Security.DataAccessLayer.UnitOfWork.SecurityUnitOfWork(dataContext);
+            var dataContext = new SecurityContext();
+            _securityUnitOfWork = new SecurityUnitOfWork(dataContext);
             var userStore = new AspIdentity.UserStore(_securityUnitOfWork);
 
             userManager = new ApplicationUserManager(userStore, null)
@@ -43,10 +39,8 @@ namespace Security.IntegrationTest
         [Test]
         public async Task AddUser_WithRole_AddUserAndUserRoles()
         {
-            var user = new VolunteerViewModel()
-            {
-                Address = "Address",
-                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+            var user = new UserViewModel()
+            {                
                 ConfirmPassword = "P@ssw0rd",
                 Email = "AddUser@Email.com",
                 FullName = "AddUser",
@@ -68,10 +62,8 @@ namespace Security.IntegrationTest
         [Test]
         public async Task SearchUsers_WithNoFilteration_GetAllUsers()
         {
-            var user = new VolunteerViewModel()
-            {
-                Address = "Address",
-                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+            var user = new UserViewModel()
+            {                
                 ConfirmPassword = "P@ssw0rd",
                 Email = "searchUser@Email.com",
                 FullName = "searchUser",
@@ -83,7 +75,7 @@ namespace Security.IntegrationTest
             var entityResult = await _userService.AddUser(user);
             Assert.IsTrue(entityResult.Succeeded);
 
-            SearchVolunteersViewModel searchUsersViewModel = new SearchVolunteersViewModel();
+            SearchUsersViewModel searchUsersViewModel = new SearchUsersViewModel();
             var result = _userService.SearchUser(searchUsersViewModel);
             Assert.Greater(result.TotalCount, 0);
             Assert.GreaterOrEqual(result.Items.Count, 0);
@@ -92,10 +84,8 @@ namespace Security.IntegrationTest
         [Test]
         public async Task UpdateUser_WithValid_Data_UpateUserAndRoles()
         {
-            var user = new VolunteerViewModel()
-            {
-                Address = "Address",
-                CityId = _securityUnitOfWork.CityRepository.GetAll().First().Id,
+            var user = new UserViewModel()
+            {                
                 ConfirmPassword = "P@ssw0rd",
                 Email = "UserToUodate@Email.com",
                 FullName = "UserToUpdate",
@@ -108,10 +98,8 @@ namespace Security.IntegrationTest
             Assert.IsTrue(entityResult.Succeeded);
 
             var currentUser = await _userService.GetUser(user.Id);
-            Assert.IsNotNull(currentUser);
-            currentUser.Address = "NewAddress";
-            currentUser.FullName = "NameAfterUpdate";
-            currentUser.CityId = _securityUnitOfWork.CityRepository.GetAll().Last().Id;
+            Assert.IsNotNull(currentUser);            
+            currentUser.FullName = "NameAfterUpdate";            
             currentUser.Mobile = "0123";
             currentUser.Roles = _roleManager.Roles.Skip(2).Take(3).Select(c => c.Id).ToList();
 

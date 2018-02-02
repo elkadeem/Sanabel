@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Security.Application.Localization {
+namespace Sanabel.Security.Application.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Security.Application.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Security.Application.Localization.SecurityResource", typeof(SecurityResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sanabel.Security.Application.Localization.SecurityResource", typeof(SecurityResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
