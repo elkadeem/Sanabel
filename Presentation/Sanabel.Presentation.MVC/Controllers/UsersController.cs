@@ -49,6 +49,7 @@ namespace Sanabel.Presentation.MVC.Controllers
         public ActionResult Create()
         {
             UserViewModel model = new UserViewModel();
+            ViewBag.Roles = GetRoles();
             return View(model);
         }
 
@@ -63,7 +64,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                     EntityResult result = await _userService.AddUser(userModel);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Users");
+                        return RedirectToAction("Index");
                     }
 
                     AddErrors(result);
@@ -74,19 +75,33 @@ namespace Sanabel.Presentation.MVC.Controllers
                 _logger.Error(ex);
             }
 
-
+            ViewBag.Roles = GetRoles();
             return View(userModel);
         }
 
-        public async Task<ActionResult> Update(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             var user = await _userService.GetUser(id);
-            return View(user);
+            if (user == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Roles = GetRoles();
+            return View(new EditUserViewModel {
+                Id = user.UserId,
+                Email = user.Email,
+                FullName = user.FullName,
+                Phone = user.Phone,
+                IsLockOut = user.IsLockOut,
+                Roles = user.Roles?.Select(c => c.Key).ToList()
+            });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(Guid id, [Bind(Exclude = "Password,ConfirmPassword")]UserViewModel userModel)
+        public async Task<ActionResult> Edit(Guid id, EditUserViewModel userModel)
         {
             try
             {
@@ -96,7 +111,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                     EntityResult result = await _userService.UpdateUser(userModel);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Users");
+                        return RedirectToAction("Index");
                     }
 
                     AddErrors(result);
@@ -107,26 +122,33 @@ namespace Sanabel.Presentation.MVC.Controllers
                 _logger.Error(ex);
             }
 
-
+            ViewBag.Roles = GetRoles();
             return View(userModel);
         }
 
-        public ActionResult ResetPassword()
+        public async Task<ActionResult> ResetPassword(Guid id)
         {
-            return View();
+            var user = await _userService.GetUser(id);
+            if (user == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
+            return View(new SetPasswordViewModel { FullName =  user.FullName, UserName = user.UserName });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(Guid userId, SetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(Guid id, SetPasswordViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    EntityResult result = await _userService.ResetUserPassword(userId, model);
+                    EntityResult result = await _userService.ResetUserPassword(id, model);
                     if (result.Succeeded)
-                        return RedirectToAction("Users");
+                        return RedirectToAction("Index");
 
                     AddErrors(result);
                 }
@@ -149,7 +171,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     EntityResult result = await _userService.BlockUser(id);
                     if (result.Succeeded)
-                        return RedirectToAction("Users");
+                        return RedirectToAction("Index");
 
                     AddErrors(result);
                 }
@@ -172,7 +194,7 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     EntityResult result = await _userService.UnBlockUser(id);
                     if (result.Succeeded)
-                        return RedirectToAction("Users");
+                        return RedirectToAction("Index");
 
                     AddErrors(result);
                 }
@@ -183,6 +205,14 @@ namespace Sanabel.Presentation.MVC.Controllers
             }
 
             return RedirectToAction("Details", new { id = id });
+        }
+        
+        private List<SelectListItem> GetRoles()
+        {
+            return _userService.GetAllRoles().Select(c => new SelectListItem {
+                Value = c.Id.ToString(),
+                Text = c.NameAr,                
+            }).ToList();
         }
 
         private void AddErrors(EntityResult result)

@@ -44,7 +44,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "AddUser@Email.com",
                 FullName = "AddUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -67,7 +67,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "searchUser@Email.com",
                 FullName = "searchUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -89,7 +89,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "UserToUodate@Email.com",
                 FullName = "UserToUpdate",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -98,15 +98,21 @@ namespace Security.IntegrationTest
             Assert.IsTrue(entityResult.Succeeded);
 
             var currentUser = await _userService.GetUser(user.Id);
-            Assert.IsNotNull(currentUser);            
-            currentUser.FullName = "NameAfterUpdate";            
-            currentUser.Mobile = "0123";
-            currentUser.Roles = _roleManager.Roles.Skip(2).Take(3).Select(c => c.Id).ToList();
+            Assert.IsNotNull(currentUser);
+            var editUserModel = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+            };
 
-            entityResult = await _userService.UpdateUser(currentUser);
+            editUserModel.FullName = "NameAfterUpdate";
+            editUserModel.Phone = "0123";
+            editUserModel.Roles = _roleManager.Roles.Skip(2).Take(3).Select(c => c.Id).ToList();
+
+            entityResult = await _userService.UpdateUser(editUserModel);
             Assert.IsTrue(entityResult.Succeeded);
 
-            var storedUser = await userManager.FindByIdAsync(currentUser.Id);
+            var storedUser = await userManager.FindByIdAsync(currentUser.UserId);
             Assert.IsNotNull(storedUser);
             Assert.AreEqual(storedUser.Roles.Count, 3);
         }
@@ -119,7 +125,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "CPUser@Email.com",
                 FullName = "CPUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -144,7 +150,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "RPUser@Email.com",
                 FullName = "RPUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -169,7 +175,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "BLUser@Email.com",
                 FullName = "BLUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };
@@ -192,7 +198,7 @@ namespace Security.IntegrationTest
                 ConfirmPassword = "P@ssw0rd",
                 Email = "UBLUser@Email.com",
                 FullName = "UBLUser",
-                Mobile = "0123456",
+                Phone = "0123456",
                 Password = "P@ssw0rd",
                 Roles = _roleManager.Roles.Take(2).Select(c => c.Id).ToList()
             };

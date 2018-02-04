@@ -16,9 +16,9 @@ namespace Sanabel.Security.Application
 
         PagedEntity<ViewUserViewModel> SearchUser(SearchUsersViewModel searchUserModel);
 
-        Task<UserViewModel> GetUser(Guid id);
+        Task<ViewUserViewModel> GetUser(Guid id);
 
-        Task<EntityResult> UpdateUser(UserViewModel userModel);
+        Task<EntityResult> UpdateUser(EditUserViewModel userModel);
 
         List<Role> GetAllRoles();
         

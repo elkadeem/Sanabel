@@ -1,0 +1,67 @@
+﻿@model Sanabel.Security.Application.ViewUserViewModel
+@using BusinessSolutions.Localization
+@using Sanabel.Security.Application.Localization
+@using BusinessSolutions.MVCCommon.Helpers;
+
+@{
+    ViewBag.Title = Model.Email;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.UserName
+                                                              , new { @class = "form-control", style = "text-align:left;direction:ltr" })
+
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Email)</label>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.Email
+                                                              , new { @class = "form-control", style = "text-align:left;direction:ltr" })
+
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.FullName)</label>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.FullName, new { @class = "form-control" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left"></label>
+    <div class="col-md-4">
+        <label>
+            @Html.DisplayFor(model => model.IsLockOut)
+            @Html.DisplayNameFor(model => model.IsLockOut)
+        </label>
+    </div>
+    <label class="col-md-2 form-control-label text-left"></label>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">@SecurityResource.Roles</label>
+    <div class="col-md-10">
+        <ul>
+            @foreach (string role in Model.Roles.Values)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+    <div class="col-md-10">
+        <a href="@Url.Action("Edit", new { id = Model.UserId })" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+    </div>
+</div>
+

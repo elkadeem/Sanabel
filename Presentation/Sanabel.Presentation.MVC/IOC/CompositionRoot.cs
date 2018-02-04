@@ -9,6 +9,8 @@ using Security.AspIdentity;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
+using Sanabel.Presentation.MVC.Logs;
+using BusinessSolutions.Common.Infra.Log;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
@@ -28,7 +30,7 @@ namespace Sanabel.Presentation.MVC.IOC
             registrationBlock.ExportAssembly(assembly)
                 .ExportAttributedTypes();
 
-            assembly = System.Reflection.Assembly.Load("Security.DataAccessLayer");
+            assembly = System.Reflection.Assembly.Load("Sanabel.Security.Infra");
             registrationBlock.ExportAssembly(assembly).ByInterfaces(c => c.Name.EndsWith("Repository")
                 || c.Name.EndsWith("UnitOfWork"));
 
@@ -36,7 +38,7 @@ namespace Sanabel.Presentation.MVC.IOC
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
             
-            assembly = System.Reflection.Assembly.Load("Security.Application");
+            assembly = System.Reflection.Assembly.Load("Sanabel.Security.Application");
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
 
@@ -54,6 +56,8 @@ namespace Sanabel.Presentation.MVC.IOC
             var logger = NLog.LogManager.CreateNullLogger();
             registrationBlock.ExportInstance(logger).As<NLog.ILogger>()
                 .Lifestyle.Singleton();
+
+            registrationBlock.ExportAs<AppLogger, ILogger>();
 
             registrationBlock.ExportAssemblyContaining<CompositionRoot>()
                 .BasedOn<Controller>();

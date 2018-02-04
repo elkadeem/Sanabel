@@ -43,7 +43,7 @@ namespace Sanabel.Security.Application
                     {
                         UserName = userModel.Email,
                         Email = userModel.Email,
-                        PhoneNumber = userModel.Mobile,
+                        PhoneNumber = userModel.Phone,
                         FullName = userModel.FullName,
                     };
 
@@ -118,21 +118,13 @@ namespace Sanabel.Security.Application
             return _roleManager.Roles.ToList();
         }
 
-        public async Task<UserViewModel> GetUser(Guid userId)
+        public async Task<ViewUserViewModel> GetUser(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 throw new ArgumentException("User is not exist.", "userId");
 
-            return new UserViewModel
-            {
-
-                Email = user.Email,
-                FullName = user.FullName,
-                Mobile = user.PhoneNumber,
-                Roles = user.Roles?.Select(c => c.Id).ToList(),
-                Id = user.Id,
-            };
+            return GetViewUserViewModel(user);
         }
 
         public async Task<EntityResult> ResetUserPassword(Guid userId, SetPasswordViewModel model)
@@ -183,17 +175,22 @@ namespace Sanabel.Security.Application
             }
         }
 
-        public async Task<EntityResult> UpdateUser(UserViewModel userModel)
+        public async Task<EntityResult> UpdateUser(EditUserViewModel userModel)
         {
             if (userModel == null)
                 throw new ArgumentNullException("userModel");
             var user = await _userManager.FindByIdAsync(userModel.Id);
             if (user == null)
                 throw new ArgumentException("User is not found.", "userModel");
-
-            user.Email = userModel.Email;
+            
             user.FullName = userModel.FullName;
-            user.PhoneNumber = userModel.Mobile;
+            user.PhoneNumber = userModel.Phone;            
+            user.IsLocked = userModel.IsLockOut;
+            if (!user.IsLocked && user.LockedOutDate.HasValue)
+                user.LockedOutDate = null;
+            if (user.IsLocked && (!user.LockedOutDate.HasValue
+                || user.LockedOutDate.Value == DateTime.MinValue))
+                user.LockedOutDate = DateTime.Now.Add(TimeSpan.FromDays(365 * 100));
 
             using (TransactionScope transactionScop = new TransactionScope(TransactionScopeOption.RequiresNew
                     , TransactionScopeAsyncFlowOption.Enabled))
@@ -250,6 +247,8 @@ namespace Sanabel.Security.Application
                 UserId = user.Id,
                 UserName = user.UserName,
                 IsLockOut = user.IsLocked,
+                Phone = user.PhoneNumber,
+                Roles = user.Roles?.ToDictionary(c => c.Id, c => c.NameAr)
             };
 
         }

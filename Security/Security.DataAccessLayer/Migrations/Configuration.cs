@@ -1,4 +1,4 @@
-namespace Sanabel.Security.Infra.Migrations
+ï»¿namespace Sanabel.Security.Infra.Migrations
 {
     using Sanabel.Security.Domain;
     using System;
@@ -18,13 +18,13 @@ namespace Sanabel.Security.Infra.Migrations
         {
             context.Roles.AddOrUpdate(c => c.Name
               , new Role[] {
-                  new Role("Administrator", "ãÏíÑ ÇáäÙÇã"),
-                  new Role("DataEntery", "ãÏÎá ÈíÇäÇÊ"),
-                  new Role("Member", "ÚÖæ"),
-                  new Role("MainBoard", "ãÌáÓ ÇáÅÏÇÑÉ"),
-                  new Role("FinancialCommitte", "ÇááÌäÉ ÇáãÇáíÉ"),
-                  new Role("MedicalCommitte", "ÇááÌäÉ ÇáØÈíÉ"),
-                  new Role("LegalCommittee", "ÇááÌäÉ ÇáŞÇäæäíÉ"),
+                  new Role("Administrator", "Ù…Ø¯ÙŠØ± Ø§Ù„Ù†Ø¸Ø§Ù…"),
+                  new Role("DataEntery", "Ù…Ø¯Ø®Ù„ Ø¨ÙŠØ§Ù†Ø§Øª"),
+                  new Role("Member", "Ø¹Ø¶Ùˆ"),
+                  new Role("MainBoard", "Ù…Ø¬Ù„Ø³ Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©"),
+                  new Role("FinancialCommitte", "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ù…Ø§Ù„ÙŠØ©"),
+                  new Role("MedicalCommitte", "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ø·Ø¨ÙŠØ©"),
+                  new Role("LegalCommittee", "Ø§Ù„Ù„Ø¬Ù†Ø© Ø§Ù„Ù‚Ø§Ù†ÙˆÙ†ÙŠØ©"),
               });
 
             context.SaveChanges();

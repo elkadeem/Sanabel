@@ -252,6 +252,7 @@
     <Compile Include="IOC\GraceDependencyResolver.cs" />
     <Compile Include="IOC\GraceScopeModule.cs" />
     <Compile Include="IOC\GraceWebApiDependencyResolver.cs" />
+    <Compile Include="Logs\AppLogger.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -785,6 +786,12 @@
     <Content Include="Areas\Cases\Views\Management\Create.cshtml" />
     <Content Include="Areas\Cases\Views\Management\Edit.cshtml" />
     <Content Include="Areas\Cases\Views\Management\_CaseInfoView.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\Custom\Common.js" />
     <Content Include="Scripts\Custom\CustomValidations.js" />
@@ -850,6 +857,11 @@
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Manage\ChangePasswordConfirmation.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -858,7 +870,7 @@
     <Folder Include="Areas\Settings\Models\" />
     <Folder Include="Areas\Settings\Views\Shared\" />
     <Folder Include="Areas\Volunteers\Models\" />
-    <Folder Include="Views\Users\" />
+    <Folder Include="EventLogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\TheSans-Bold.eot" />

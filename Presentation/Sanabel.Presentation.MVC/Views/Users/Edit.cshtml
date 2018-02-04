@@ -1,0 +1,64 @@
+﻿@model Sanabel.Security.Application.EditUserViewModel
+@using BusinessSolutions.Localization
+@using Sanabel.Security.Application.Localization
+@using BusinessSolutions.MVCCommon.Helpers;
+
+@{
+    ViewBag.Title = SecurityResource.EditUser;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Email)</label>
+        <div class="col-md-4">
+            @Html.DisplayFor(model => model.Email
+                                         , new { @class = "form-control", style = "text-align:left;direction:ltr" })
+
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.FullName)</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left"></label>
+        <div class="col-md-4">
+            <label>
+                @Html.CheckBoxFor(model => model.IsLockOut)
+                @Html.DisplayNameFor(model => model.IsLockOut)
+            </label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@SecurityResource.Roles</label>
+        <div class="col-md-10">
+            @Html.CheckBoxListFor(Model => Model.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "" })
+            @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i> @CommonResources.Reset</button>
+            <a href="@Url.Action("Index")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+        </div>
+    </div>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

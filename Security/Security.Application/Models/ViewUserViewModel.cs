@@ -20,7 +20,13 @@ namespace Sanabel.Security.Application
         [Display(Name = "Email", ResourceType = typeof(Localization.SecurityResource))]
         public string Email { get; set; }
 
+        [Display(Name = "Phone", ResourceType = typeof(Localization.SecurityResource))]
+        public string Phone { get; set; }
+
         [Display(Name = "IsLockOut", ResourceType = typeof(Localization.SecurityResource))]
         public bool IsLockOut { get; internal set; }
+
+        [Display(Name = "Roles", ResourceType = typeof(Localization.SecurityResource))]
+        public Dictionary<Guid, string> Roles { get; set; }
     }
 }

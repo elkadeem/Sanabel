@@ -70,6 +70,15 @@ namespace Sanabel.Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تغيير كلمة المرور.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to المدينة.
         /// </summary>
         public static string City {
@@ -133,6 +142,15 @@ namespace Sanabel.Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إنشاء مستخدم.
+        /// </summary>
+        public static string CreateUserTitle {
+            get {
+                return ResourceManager.GetString("CreateUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحي.
         /// </summary>
         public static string District {
@@ -147,6 +165,15 @@ namespace Sanabel.Security.Application.Localization {
         public static string DistrictId {
             get {
                 return ResourceManager.GetString("DistrictId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعديل بيانات مستخدم.
+        /// </summary>
+        public static string EditUser {
+            get {
+                return ResourceManager.GetString("EditUser", resourceCulture);
             }
         }
         
@@ -205,11 +232,29 @@ namespace Sanabel.Security.Application.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to الجوال.
+        ///   Looks up a localized string similar to الحساب مغلق.
         /// </summary>
-        public static string Mobile {
+        public static string IsLockOut {
             get {
-                return ResourceManager.GetString("Mobile", resourceCulture);
+                return ResourceManager.GetString("IsLockOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كلمة المرور الجديدة.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كلمة المرور الحالية.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -219,6 +264,15 @@ namespace Sanabel.Security.Application.Localization {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الجوال.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
             }
         }
         
@@ -259,6 +313,15 @@ namespace Sanabel.Security.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إعادة كلمة المرور.
+        /// </summary>
+        public static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الصلاحيات.
         /// </summary>
         public static string Roles {
@@ -273,6 +336,15 @@ namespace Sanabel.Security.Application.Localization {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المستخدمين.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }

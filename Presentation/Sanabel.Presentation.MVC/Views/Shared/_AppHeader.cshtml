@@ -6,27 +6,34 @@
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">☰</button>
 
+    @if (User.Identity.IsAuthenticated)
+    {
+        <ul class="nav navbar-nav ml-auto">
 
-    <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="d-md-down-none">@User.Identity.GetUserName()</span>
+                </a>
 
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="d-md-down-none">@User.Identity.GetUserName()</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header text-center">
-                    <strong>حسابي</strong>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>حسابي</strong>
+                    </div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> رسائل<span class="badge badge-info">42</span></a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> تنبيهات<span class="badge badge-success">42</span></a>
+
+                    <a class="dropdown-item" href="@Url.Action("ChangePassword", "Manage", new { area = ""})"><i class="fa fa-lock"></i> @AccountResource.ChangePassword</a>
+
+                    @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> @AccountResource.SignOut</a>
+                    }
+
                 </div>
-                <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> رسائل<span class="badge badge-info">42</span></a>
-                <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> تنبيهات<span class="badge badge-success">42</span></a>
-                <a class="dropdown-item" href="@Url.Action("ChangePassword", "Manage")"><i class="fa fa-lock"></i> @AccountResource.ChangePassword</a>
-                @using (Html.BeginForm("LogOff", "Account", new { area = "Account"}, FormMethod.Post, new { id= "logoutForm" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> @AccountResource.SignOut</a>
-                }
-            </div>
-        </li>
-    </ul>
+
+            </li>
+        </ul>
+    }
     <button class="navbar-toggler aside-menu-toggler" type="button">☰</button>
 </header>

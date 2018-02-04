@@ -1,0 +1,121 @@
+﻿@model Sanabel.Security.Application.SearchUsersViewModel
+@using PagedList.Mvc
+@using BusinessSolutions.Localization
+@using Sanabel.Security.Application.Localization
+
+@{
+    ViewBag.Title = SecurityResource.Users;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+<!-- form ############################################################### -->
+@using (Html.BeginForm("Index", "Users", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.FullName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.FullName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Email)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
+            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
+        </div>
+
+    </div>
+}
+<!-- /.form ######################################################### -->
+@if (Model.Items != null && Model.Items.Any())
+{
+
+    <table class="table table-responsive table-hover table-outline mb-0">
+        <thead class="thead-default">
+            <tr>
+                <th>
+                    @Html.Encode(SecurityResource.UserName)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.Email)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.FullName)
+                </th>
+                <th>
+                    @Html.Encode(SecurityResource.IsLockOut)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Sanabel.Security.Application.ViewUserViewModel item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(item.UserName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.Email)
+                    </td>
+                    <td>
+                        @Html.Encode(item.FullName)
+                    </td>
+                    <td>
+                        @if (item.IsLockOut)
+                        {
+                            <span><i class="fa fa-check"></i></span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.UserId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                        <a href="@Url.Action("Details", new { id = item.UserId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                        <a href="@Url.Action("ResetPassword", new { id = item.UserId})" class="btn btn-sm btn-danger"><i class="fa fa-key"></i> @SecurityResource.ResetPassword</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @if (Model.Items.PageCount > 1)
+        {
+            <div class="panel-footer clearfix">
+                <div class="col-xs-4 search_results_text">
+                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
+                </div>
+
+                @Html.PagedListPager(Model.Items, page => Url.Action("Index"
+                                             , new
+                                             {
+                                                 PageIndex = page - 1,
+                                                 UserName = Model.UserName,
+                                                 Email = Model.Email,
+                                                 Phone = Model.Phone,
+                                                 FullName = Model.FullName
+                                             }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        @CommonResources.NoDataFound
+    </div>
+}

@@ -34,10 +34,10 @@ namespace Sanabel.Security.Application
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(15, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [Display(Name = "Mobile", ResourceType = typeof(Localization.SecurityResource))]
-        public string Mobile { get; set; }        
+        [Display(Name = "Phone", ResourceType = typeof(Localization.SecurityResource))]
+        public string Phone { get; set; }        
 
-        [CollectionLengthValidationAttribute(2, ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [CollectionLengthValidationAttribute(1, ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "Roles", ResourceType = typeof(Localization.SecurityResource))]
         public List<Guid> Roles { get; set; }        
     }
