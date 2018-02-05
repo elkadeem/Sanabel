@@ -1,11 +1,11 @@
-﻿@model Security.Application.Models.SearchVolunteersViewModel
+﻿@model Sanabel.Volunteers.Application.Models.SearchVolunteersViewModel
 @using PagedList.Mvc
 @using BusinessSolutions.Localization
-@using Security.Application.Localization
+@using Sanabel.Volunteers.Application.Localization
 
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = VolunteerResource.Volunteers;
 }
 
 @Html.Partial("_TempDataHeaderMessages")
@@ -14,13 +14,23 @@
 @using (Html.BeginForm("Index", "Volunteer", FormMethod.Get, new { @class = "form-horizontal" }))
 {
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.VolunteerName)</label>
         <div class="col-md-4">
-            @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.VolunteerName, new { @class = "form-control" })
         </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.UserName)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.VolunteerEmail)</label>
         <div class="col-md-4">
-            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.VolunteerEmail, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left"></label>
+        <div class="col-md-4">
+            
         </div>
     </div>
 
@@ -28,32 +38,32 @@
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CountryId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                        , new SelectList(Enumerable.Empty<SelectListItem>())
+                                        , CommonResources.All
+                                        , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.RegionId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                        , new SelectList(Enumerable.Empty<SelectListItem>())
+                                        , CommonResources.All
+                                        , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CityId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                        , new SelectList(Enumerable.Empty<SelectListItem>())
+                                        , CommonResources.All
+                                        , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.DistrictId
-                         , new SelectList(Enumerable.Empty<SelectListItem>())
-                         , CommonResources.All
-                         , new { @class = "form-control" })
+                                        , new SelectList(Enumerable.Empty<SelectListItem>())
+                                        , CommonResources.All
+                                        , new { @class = "form-control" })
         </div>
     </div>
 
@@ -74,42 +84,36 @@
         <thead class="thead-default">
             <tr>
                 <th>
-                    @Html.Encode(SecurityResource.UserName)
+                    @Html.Encode(VolunteerResource.Name)
                 </th>
                 <th>
-                    @Html.Encode(SecurityResource.Email)
+                    @Html.Encode(VolunteerResource.Email)
                 </th>
                 <th>
-                    @Html.Encode(SecurityResource.FullName)
+                    @Html.Encode(VolunteerResource.Country)
                 </th>
                 <th>
-                    @Html.Encode(SecurityResource.Country)
+                    @Html.Encode(VolunteerResource.Region)
                 </th>
                 <th>
-                    @Html.Encode(SecurityResource.Region)
+                    @Html.Encode(VolunteerResource.City)
                 </th>
                 <th>
-                    @Html.Encode(SecurityResource.City)
-                </th>
-                <th>
-                    @Html.Encode(SecurityResource.District)
+                    @Html.Encode(VolunteerResource.District)
                 </th>
                 <th>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Security.Application.Models.ViewVolunteerViewModel item in Model.Items)
+            @foreach (Sanabel.Volunteers.Application.Models.ViewVolunteerViewModel item in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.Encode(item.UserName)
+                        @Html.Encode(item.VolunteerName)
                     </td>
                     <td>
-                        @Html.Encode(item.Email)
-                    </td>
-                    <td>
-                        @Html.Encode(item.FullName)
+                        @Html.Encode(item.VolunteerName)
                     </td>
                     <td>
                         @Html.Encode(item.CountryName)
@@ -124,9 +128,9 @@
                         @Html.Encode(item.DistrictName)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", new { id = item.UserId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                        <a href="@Url.Action("Details", new { id = item.UserId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
-                        <a data-id="@item.UserId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
+                        <a href="@Url.Action("Details", new { id = item.Id})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                        <a data-id="@item.Id" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
                     </td>
                 </tr>
             }
@@ -141,16 +145,16 @@
                 </div>
 
                 @Html.PagedListPager(Model.Items, page => Url.Action("Index"
-                         , new
-                         {
-                             PageIndex = page - 1,
-                             CountryId = Model.CountryId,
-                             RegionId = Model.RegionId,
-                             UserName = Model.UserName,
-                             Email = Model.Email,
-                             CityId = Model.CityId,
-                             DistrictId = Model.DistrictId
-                         }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                        , new
+                                        {
+                                            PageIndex = page - 1,
+                                            CountryId = Model.CountryId,
+                                            RegionId = Model.RegionId,
+                                            VolunteerName = Model.VolunteerName,
+                                            VolunteerEmail = Model.VolunteerEmail,
+                                            CityId = Model.CityId,
+                                            DistrictId = Model.DistrictId
+                                        }), PagedListRenderOptions.ClassicPlusFirstAndLast)
             </div>
         }
     </div>
@@ -169,168 +173,68 @@ else
             $('.btnDelete').click(function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                $('#deleteForm').attr('action', "@Url.Action("Delete", "Districts")/" + id
-                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, "")));
-                $('#confirmDeleteModal').modal('show');
+                var actionUrl = "@Url.Action("Delete", "Volunteer")/" + id
+                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, ""));
+                $util.confirmDialogWithActionForm("@CommonResources.DeleteConfirmation"
+                    , "@CommonResources.DeleteConfirmationTitle"
+                    , actionUrl
+                    , "@CommonResources.Delete"
+                    , "@CommonResources.Cancel");
             });
-        });
+    </script>
 
-
+    <script>
         $(function () {
-            fillCountries();
-            $('#CountryId').change(function () {
-                fillRegionsByCountryId($(this).val());
-            });
+            $('#CountryId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/Countries")',
+                dataValeuProperty: 'countryId',
+                dataTextProperty: 'countryName',
+                selectedValue: '@Model.CountryId',
+                callback: fillRegions
+            }).change(function () {
+                fillRegions($(this).val());
+                });
 
             $('#RegionId').change(function () {
-                fillCitiesByRegionId($(this).val());
+                fillCities($(this).val());
             });
 
             $('#CityId').change(function () {
-                fillDistrictsByCityId($(this).val());
+                fillDistricts($(this).val());
             });
+
         });
 
-        function fillCountries()
+        function fillRegions(countryId)
         {
-            $.get("@Url.Action("GetAllCountries", "Countries", new { area = "Settings" })")
-                .done(function (data) {
-                    $('#CountryId:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.countryId,
-                            text: item.countryName,
-                        }).appendTo('#CountryId');
-                    });
-
-                    var countryId = @Model.CountryId;
-                    $('#CountryId').val(countryId == 0 ? "" : countryId);
-                    fillRegionsByCountryId(countryId);
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+                dataValeuProperty: 'regionId',
+                dataTextProperty: 'regionName',
+                selectedValue: '@Model.RegionId',
+                callback: fillCities
+            });
         }
 
-        function fillRegionsByCountryId(countryId)
+        function fillCities(regionId)
         {
-            $.get("@Url.Action("GetRegionsByCountryId", "Regions", new { area = "Settings" })" + "?countryId=" + countryId)
-                .done(function (data) {
-                    $('#RegionId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-                        $('<option/>', {
-                            'value': item.regionId,
-                            text: item.regionName,
-                        }).appendTo('#RegionId');
-                    });
-
-                    setRegionValue();
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#CityId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
+                dataValeuProperty: 'cityId',
+                dataTextProperty: 'cityName',
+                selectedValue: '@Model.CityId',
+                callback: fillDistricts
+            });
         }
 
-        function fillCitiesByRegionId(regionId)
+        function fillDistricts(cityId)
         {
-            $.get("@Url.Action("GetCitiesByRegionId", "Cities", new { area = "Settings" })" + "?regionId=" + regionId)
-                .done(function (data) {
-                    $('#CityId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.cityId,
-                            text: item.cityName,
-                        }).appendTo('#CityId');
-                    });
-
-                    setCityValue();
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#DistrictId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CityDistricts")?cityId=' + cityId,
+                dataValeuProperty: 'districtId',
+                dataTextProperty: 'districtName',
+                selectedValue: '@Model.DistrictId',
+            });
         }
-
-        function fillDistrictsByCityId(cityId)
-        {
-            $.get("@Url.Action("GetDistrictsByCityId", "Districts", new { area = "Settings" })" + "?cityId=" + cityId)
-                .done(function (data) {
-                    $('#DistrictId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.districtId,
-                            text: item.districtName,
-                        }).appendTo('#DistrictId');
-                    });
-
-                    setDistrictValue();
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-        }
-
-        function setRegionValue()
-        {
-            var regionId = @Model.RegionId;
-            if ($('#RegionId option[value="' + regionId + '"]').length > 0)
-              $('#RegionId').val(regionId);
-              else
-                $('#RegionId').val("");
-
-            fillCitiesByRegionId(regionId);
-        }
-
-        function setCityValue()
-        {
-            var cityId = @Model.CityId;
-            if ($('#CityId option[value="' + cityId + '"]').length > 0)
-                            $('#CityId').val(cityId);
-                        else
-                $('#CityId').val("");
-            fillDistrictsByCityId(cityId);
-        }
-
-        function setDistrictValue()
-        {
-            var districtId = "@Model.DistrictId";
-if ($('#DistrictId option[value="' + districtId + '"]').length > 0)
-                $('#DistrictId').val(districtId);
-                   else
-                $('#DistrictId').val("");
-            }
-
-
     </script>
 }
-
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-danger" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">@CommonResources.DeleteConfirmationTitle</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>@CommonResources.DeleteConfirmation</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">@CommonResources.Cancel</button>
-                <form id="deleteForm" method="post">
-                    <button type="submit" class="btn btn-danger">@CommonResources.Delete</button>
-                </form>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->

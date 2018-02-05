@@ -28,7 +28,7 @@ namespace Sanabel.Volunteers.Application.Services
         {
             try
             {
-                Volunteer volunteer = new Volunteer(volunteerModel.VolunteerName, volunteerModel.Email
+                Volunteer volunteer = new Volunteer(volunteerModel.Name, volunteerModel.Email
                     , volunteerModel.Phone, volunteerModel.CityId, volunteerModel.DistrictId)
                 {
                     Gender = (Domain.Model.Genders)volunteerModel.Gender,
@@ -59,7 +59,7 @@ namespace Sanabel.Volunteers.Application.Services
             var result = await _volunteerUnitOfWork.VolunteerRepository.SearchVolunteer(searchVolunteerModel.VolunteerName
                 , searchVolunteerModel.VolunteerEmail, searchVolunteerModel.Phone, searchVolunteerModel.CountryId, searchVolunteerModel.RegionId
                 , searchVolunteerModel.CityId, searchVolunteerModel.DistrictId
-                , (Domain.Model.Genders)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
+                , searchVolunteerModel.Gender == null? null : (Domain.Model.Genders?)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
 
             return new PagedEntity<ViewVolunteerViewModel>(result.Items.Select(c => GetViewVolunteerViewModel(c)), result.TotalCount);
         }
@@ -98,7 +98,7 @@ namespace Sanabel.Volunteers.Application.Services
                 CountryId = volunteer.City?.Region?.CountryId,
                 DistrictId = volunteer.DistrictId,
                 Email = volunteer.Email,
-                VolunteerName = volunteer.Name,
+                Name = volunteer.Name,
                 Gender = (Models.Genders)volunteer.Gender,
                 HasCar = volunteer.HasCar,
                 Id = volunteer.Id,

@@ -129,6 +129,9 @@
   <data name="Country" xml:space="preserve">
     <value>الدولة</value>
   </data>
+  <data name="CreateVolunteer" xml:space="preserve">
+    <value>إضافة متطوع</value>
+  </data>
   <data name="District" xml:space="preserve">
     <value>الحي</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="Name" xml:space="preserve">
     <value>الإسم</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
   <data name="Notes" xml:space="preserve">
     <value>ملاحظات</value>
   </data>
@@ -164,5 +170,11 @@
   </data>
   <data name="VolunteerNotFound" xml:space="preserve">
     <value>هذا المتطوع غير موجود.</value>
+  </data>
+  <data name="Volunteers" xml:space="preserve">
+    <value>المتطوعون</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
   </data>
 </root>

@@ -5,11 +5,11 @@ namespace Sanabel.Volunteers.Infra.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Sanabel.Volunteers.Infra.VolunteersDbCotext>
+    public sealed class Configuration : DbMigrationsConfiguration<Sanabel.Volunteers.Infra.VolunteersDbCotext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Sanabel.Volunteers.Infra.VolunteersDbCotext context)

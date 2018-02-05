@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Controllers
 {    
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;        

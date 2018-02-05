@@ -50,6 +50,14 @@ namespace Sanabel.Presentation.MVC.IOC
             registrationBlock.ExportAssembly(assembly)
                 .ByInterfaces();
 
+            assembly = System.Reflection.Assembly.Load("Sanabel.Volunteers.Infra");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
+
+            assembly = System.Reflection.Assembly.Load("Sanabel.Volunteers.Application");
+            registrationBlock.ExportAssembly(assembly)
+                .ByInterfaces();
+
 
             registrationBlock.ExportFactory<IAuthenticationManager>(() => HttpContext.Current.GetOwinContext().Authentication);
 

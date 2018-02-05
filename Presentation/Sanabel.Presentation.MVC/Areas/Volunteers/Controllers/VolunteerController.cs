@@ -35,7 +35,7 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             return View(searchUserModel);
         }
 
-        [AllowAnonymous]
+        
         public ActionResult Create()
         {
             var  model = new VolunteerViewModel();
@@ -74,7 +74,7 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             return View(model);
         }        
 
-        [AllowAnonymous]
+        
         public async Task<ActionResult> Edit(Guid id)
         {
             VolunteerViewModel userModel = await _volunteerService.GetVolunteer(id);
@@ -82,10 +82,10 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             return View(userModel);
         }
 
-        [AllowAnonymous]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id, [Bind(Exclude = "UserName,Password,ConfirmPassword")]VolunteerViewModel volunteerModel)
+        public async Task<ActionResult> Edit(Guid id, VolunteerViewModel volunteerModel)
         {
             try
             {

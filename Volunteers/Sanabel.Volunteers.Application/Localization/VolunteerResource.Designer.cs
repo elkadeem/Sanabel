@@ -97,6 +97,15 @@ namespace Sanabel.Volunteers.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة متطوع.
+        /// </summary>
+        public static string CreateVolunteer {
+            get {
+                return ResourceManager.GetString("CreateVolunteer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحي.
         /// </summary>
         public static string District {
@@ -169,6 +178,15 @@ namespace Sanabel.Volunteers.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لا.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ملاحظات.
         /// </summary>
         public static string Notes {
@@ -201,6 +219,24 @@ namespace Sanabel.Volunteers.Application.Localization {
         public static string VolunteerNotFound {
             get {
                 return ResourceManager.GetString("VolunteerNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المتطوعون.
+        /// </summary>
+        public static string Volunteers {
+            get {
+                return ResourceManager.GetString("Volunteers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نعم.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

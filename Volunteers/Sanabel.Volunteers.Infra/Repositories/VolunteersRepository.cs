@@ -15,27 +15,30 @@ namespace Sanabel.Volunteers.Infra.Repositories
     internal class VolunteersRepository : IVolunteerRepository
     {
         BaseEntityFrameworkRepository<Guid, Volunteer> _repository;
+        private readonly VolunteersDbCotext _dbContext;
         public VolunteersRepository(VolunteersDbCotext dbContext)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(dbContext, nameof(dbContext));
+            _dbContext = dbContext;
             _repository = new BaseEntityFrameworkRepository<Guid, Volunteer>(dbContext);
         }
 
 
         public Task AddVolunteer(Volunteer volunteer)
         {
-            _repository.Add(volunteer);
+            _dbContext.Volunteers.Add(volunteer);
             return Task.FromResult(0);
         }
 
         public Task<Volunteer> GetVolunteerById(Guid id)
         {
-            return _repository.GetByIDAsync(id);
+            return _dbContext.Volunteers.Include(c => c.City.Region.Country)
+                .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public Task RemoveVolunteer(Volunteer volunteer)
         {
-            _repository.Remove(volunteer);
+            _dbContext.Volunteers.Remove(volunteer);
             return Task.FromResult(0);
         }
 
@@ -51,7 +54,7 @@ namespace Sanabel.Volunteers.Infra.Repositories
                 query = query.Where(c => c.Name.Contains(name));
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(c => c.Email.Contains(email));
-            if(!string.IsNullOrEmpty(phone))
+            if (!string.IsNullOrEmpty(phone))
                 query = query.Where(c => c.Phone.Contains(phone));
             if (countryId > 0)
                 query = query.Where(c => c.City.Region.CountryId == countryId);
@@ -64,14 +67,13 @@ namespace Sanabel.Volunteers.Infra.Repositories
             if (gender.HasValue)
                 query = query.Where(c => c.Gender == gender);
 
-            var countTask = query.CountAsync();
-            var resultTask = query.OrderBy(c => c.Name)
+            var count = await query.CountAsync();
+            var result = await query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize).ToListAsync();
 
-            await Task.WhenAll(countTask, resultTask);
-            return new PagedEntity<Volunteer>(resultTask.Result
-                , countTask.Result);
+            return new PagedEntity<Volunteer>(result
+                , count);
         }
 
         public Task UpdateVolunteer(Volunteer volunteer)

@@ -995,6 +995,10 @@
       <Project>{410AE9ED-DC2B-4BFF-BA93-7DD5B25B5758}</Project>
       <Name>CommonSettings.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.DAL\CommonSettings.DAL.csproj">
+      <Project>{b8b6cf0e-8653-4b19-83a6-79752bb4c769}</Project>
+      <Name>CommonSettings.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.Resourses\CommonSettings.Localization.csproj">
       <Project>{2F6B193A-C8BF-4FC1-A474-396C7077D0DA}</Project>
       <Name>CommonSettings.Localization</Name>
@@ -1006,6 +1010,10 @@
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Core\BusinessSolutions.Common.Core.csproj">
       <Project>{3FF09941-9DD7-4A2F-BF77-B93DD747BDD0}</Project>
       <Name>BusinessSolutions.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\BusinessSolutions.Common.EntityFramework\BusinessSolutions.Common.EntityFramework.csproj">
+      <Project>{4298e9be-4bf6-4edc-8e90-2d4e54efb16d}</Project>
+      <Name>BusinessSolutions.Common.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>

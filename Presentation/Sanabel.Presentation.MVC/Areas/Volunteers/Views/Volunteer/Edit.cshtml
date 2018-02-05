@@ -1,46 +1,45 @@
-﻿@model Security.Application.Models.VolunteerViewModel
+﻿@model Sanabel.Volunteers.Application.Models.VolunteerViewModel
 @using BusinessSolutions.Localization
-@using Security.Application.Localization
+@using Sanabel.Volunteers.Application.Localization
 @using BusinessSolutions.MVCCommon.Helpers;
 
 @{
-    ViewBag.Title = "تعديل مستخدم";
+    ViewBag.Title = VolunteerResource.CreateVolunteer;
 }
 
 @Html.Partial("_TempDataHeaderMessages")
 @Html.Partial("_ViewDataHeaderMessages")
-@using (Html.BeginForm("Edit", "Volunteer", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Create", "Volunteer", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Name)</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Email)</label>
         <div class="col-md-4">
             @Html.EditorFor(model => model.Email, new
             {
                 htmlAttributes = new
                 {
-                    @class = "form-control"
-              ,
+                    @class = "form-control",
                     style = "text-align:left;direction:ltr"
                 }
             })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.FullName)</label>
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-        </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@SecurityResource.CountryId</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CountryId)</label>
         <div class="col-md-4">
             <select id="CountryId" name="CountryId" class="form-control">
                 <option value="">@CommonResources.Select</option>
             </select>
         </div>
-        <label class="col-md-2 form-control-label text-left">@SecurityResource.RegionId</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.RegionId)</label>
         <div class="col-md-4">
             <select id="RegionId" name="RegionId" class="form-control">
                 <option value="">@CommonResources.Select</option>
@@ -51,18 +50,35 @@
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CityId
-                  , new SelectList(Enumerable.Empty<SelectListItem>())
-                  , CommonResources.All
-                  , new { @class = "form-control" })
+                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                       , CommonResources.All
+                                                       , new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.DistrictId
-                  , new SelectList(Enumerable.Empty<SelectListItem>())
-                  , CommonResources.All
-                  , new { @class = "form-control" })
+                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                       , CommonResources.All
+                                                       , new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Gender)</label>
+        <div class="col-md-4">
+            <label class="radio-inline" for="inline-radio1">
+                @Html.RadioButtonFor(c => c.Gender, "Male", new { @class = "radio-inline" })@VolunteerResource.Male
+            </label>
+            <label class="radio-inline" for="inline-radio2">
+                @Html.RadioButtonFor(c => c.Gender, "Female", new { @class = "radio-inline" })@VolunteerResource.Female
+            </label>
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group row">
@@ -73,20 +89,25 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Mobile)</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.HasCar)</label>
         <div class="col-md-4">
-            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+            <label class="radio-inline" for="inline-radio1">
+                @Html.RadioButtonFor(c => c.HasCar, true, new { @class = "radio-inline" })@VolunteerResource.Yes
+            </label>
+            <label class="radio-inline" for="inline-radio2">
+                @Html.RadioButtonFor(c => c.HasCar, false, new { @class = "radio-inline" })@VolunteerResource.No
+            </label>
+            @Html.ValidationMessageFor(model => model.HasCar, "", new { @class = "text-danger" })
         </div>
         <label class="col-md-2 form-control-label text-left"></label>
         <div class="col-md-4">
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@SecurityResource.Roles</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Notes)</label>
         <div class="col-md-10">
-            @Html.CheckBoxListFor(Model => Model.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "" })
-            @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group row">
@@ -100,139 +121,61 @@
 
 }
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
     <script>
         $(function () {
-            fillCountries();
-            $('#CountryId').change(function () {
-                fillRegionsByCountryId($(this).val());
-            });
+            $('#CountryId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/Countries")',
+                dataValeuProperty: 'countryId',
+                dataTextProperty: 'countryName',
+                selectedValue: '@Model.CountryId',
+                callback: fillRegions
+            }).change(function () {
+                fillRegions($(this).val());
+                });
 
             $('#RegionId').change(function () {
-                fillCitiesByRegionId($(this).val());
+                fillCities($(this).val());
             });
 
             $('#CityId').change(function () {
-                fillDistrictsByCityId($(this).val());
+                fillDistricts($(this).val());
             });
-
 
         });
 
-        function fillCountries()
+        function fillRegions(countryId)
         {
-            $.get("@Url.Action("GetAllCountries", "Countries", new { area = "Settings" })")
-                .done(function (data) {
-                    $('#CountryId:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.countryId,
-                            text: item.countryName,
-                        }).appendTo('#CountryId');
-                    });
-
-                    var countryId = @Model.CountryId;
-                    $('#CountryId').val(countryId == 0 ? "" : countryId);
-                    fillRegionsByCountryId(countryId);
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+                dataValeuProperty: 'regionId',
+                dataTextProperty: 'regionName',
+                selectedValue: '@Model.RegionId',
+                callback: fillCities
+            });
         }
 
-        function fillRegionsByCountryId(countryId)
+        function fillCities(regionId)
         {
-            $.get("@Url.Action("GetRegionsByCountryId", "Regions", new { area = "Settings" })" + "?countryId=" + countryId)
-                .done(function (data) {
-                    $('#RegionId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-                        $('<option/>', {
-                            'value': item.regionId,
-                            text: item.regionName,
-                        }).appendTo('#RegionId');
-                    });
-
-                    setRegionValue();
-
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#CityId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
+                dataValeuProperty: 'cityId',
+                dataTextProperty: 'cityName',
+                selectedValue: '@Model.CityId',
+                callback: fillDistricts
+            });
         }
 
-        function fillCitiesByRegionId(regionId)
+        function fillDistricts(cityId)
         {
-            $.get("@Url.Action("GetCitiesByRegionId", "Cities", new { area = "Settings" })" + "?regionId=" + regionId)
-                .done(function (data) {
-                    $('#CityId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.cityId,
-                            text: item.cityName,
-                        }).appendTo('#CityId');
-                    });
-
-                    setCityValue();
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
+            $('#DistrictId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CityDistricts")?cityId=' + cityId,
+                dataValeuProperty: 'districtId',
+                dataTextProperty: 'districtName',
+                selectedValue: '@Model.DistrictId',
+            });
         }
-
-        function fillDistrictsByCityId(cityId)
-        {
-            $.get("@Url.Action("GetDistrictsByCityId", "Districts", new { area = "Settings" })" + "?cityId=" + cityId)
-                .done(function (data) {
-                    $('#DistrictId option:first-child ~ option').remove();
-                    $.each(data, function (index, item) {
-
-                        $('<option/>', {
-                            'value': item.districtId,
-                            text: item.districtName,
-                        }).appendTo('#DistrictId');
-                    });
-
-                    setDistrictValue();
-                }).fail(function (error) {
-                    console.log(error);
-                }).always(function () {
-                });
-        }
-
-        function setRegionValue()
-        {
-            var regionId = @Model.RegionId;
-            if ($('#RegionId option[value="' + regionId + '"]').length > 0)
-              $('#RegionId').val(regionId);
-              else
-                $('#RegionId').val("");
-
-            fillCitiesByRegionId(regionId);
-        }
-
-        function setCityValue()
-        {
-            var cityId = @Model.CityId;
-            if ($('#CityId option[value="' + cityId + '"]').length > 0)
-                            $('#CityId').val(cityId);
-                        else
-                $('#CityId').val("");
-            fillDistrictsByCityId(cityId);
-        }
-
-        function setDistrictValue()
-        {
-            var districtId = "@Model.DistrictId";
-if ($('#DistrictId option[value="' + districtId + '"]').length > 0)
-                $('#DistrictId').val(districtId);
-                   else
-                $('#DistrictId').val("");
-            }
     </script>
 }

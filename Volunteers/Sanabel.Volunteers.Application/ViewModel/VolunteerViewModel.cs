@@ -15,6 +15,11 @@ namespace Sanabel.Volunteers.Application.Models
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(100, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "Name", ResourceType = typeof(Localization.VolunteerResource))]
+        public string Name { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [StringLength(100, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [EmailAddress(ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Localization.VolunteerResource))]
         [Display(Name = "Email", ResourceType =typeof(Localization.VolunteerResource))]        
         public string Email { get; set; }
@@ -22,11 +27,6 @@ namespace Sanabel.Volunteers.Application.Models
         [StringLength(200, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "Address", ResourceType = typeof(Localization.VolunteerResource))]
         public string Address { get; set; }
-
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [StringLength(100, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [Display(Name = "Name", ResourceType = typeof(Localization.VolunteerResource))]
-        public string VolunteerName { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [StringLength(15, ErrorMessageResourceName = "StringLengthErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
@@ -49,11 +49,12 @@ namespace Sanabel.Volunteers.Application.Models
         [Display(Name = "Gender", ResourceType = typeof(Localization.VolunteerResource))]
         public Genders Gender { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "HasCar", ResourceType = typeof(Localization.VolunteerResource))]
-        public bool HasCar { get; internal set; }
+        public bool HasCar { get;  set; }
 
         [Display(Name = "Notes", ResourceType = typeof(Localization.VolunteerResource))]
-        public string Notes { get; internal set; }
+        public string Notes { get;  set; }
     }
 
     public enum Genders : byte

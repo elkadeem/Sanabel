@@ -40,6 +40,6 @@ namespace Sanabel.Volunteers.Application.Models
         public string Phone { get; set; }
 
         [Display(Name = "Gender", ResourceType = typeof(Localization.VolunteerResource))]
-        public Genders Gender { get; set; }
+        public Genders? Gender { get; set; }
     }
 }
