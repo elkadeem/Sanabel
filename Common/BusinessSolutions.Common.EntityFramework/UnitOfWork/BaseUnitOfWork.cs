@@ -37,6 +37,7 @@ namespace BusinessSolutions.Common.EntityFramework
 
         #region IDisposable Support
         private bool disposedValue = false;
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

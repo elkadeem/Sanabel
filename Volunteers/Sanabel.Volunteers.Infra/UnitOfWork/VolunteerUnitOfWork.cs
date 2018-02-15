@@ -11,7 +11,7 @@ namespace Sanabel.Volunteers.Infra.UnitOfWork
 {
     public class VolunteerUnitOfWork : BaseUnitOfWork, IVolunteerUnitOfWork
     {
-        public IVolunteerRepository _volunteerRepository;
+        private IVolunteerRepository _volunteerRepository;
         public VolunteerUnitOfWork(VolunteersDbCotext dbContext) 
             : base(dbContext)
         {
@@ -19,5 +19,15 @@ namespace Sanabel.Volunteers.Infra.UnitOfWork
         }
 
         public IVolunteerRepository VolunteerRepository => _volunteerRepository;
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                if (_volunteerRepository != null)
+                    _volunteerRepository = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

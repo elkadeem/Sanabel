@@ -26,5 +26,17 @@ namespace Sanabel.Security.Infra
             UserRepository = new UserRepository(dbContext);
             RoleRepository = new RoleRepository(dbContext);            
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (RoleRepository != null)
+                    RoleRepository = null;
+                if (UserRepository != null)
+                    UserRepository = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -55,6 +55,18 @@ namespace Sanabel.Volunteers.Application.Models
 
         [Display(Name = "Notes", ResourceType = typeof(Localization.VolunteerResource))]
         public string Notes { get;  set; }
+
+        [Display(Name = "Country", ResourceType = typeof(Localization.VolunteerResource))]
+        public string CountryName { get; set; }
+
+        [Display(Name = "Region", ResourceType = typeof(Localization.VolunteerResource))]
+        public string RegionName { get; set; }
+
+        [Display(Name = "City", ResourceType = typeof(Localization.VolunteerResource))]
+        public string CityName { get; set; }
+
+        [Display(Name = "District", ResourceType = typeof(Localization.VolunteerResource))]
+        public string DistrictName { get; set; }
     }
 
     public enum Genders : byte

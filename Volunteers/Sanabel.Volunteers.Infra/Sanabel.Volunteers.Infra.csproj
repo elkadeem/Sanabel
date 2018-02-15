@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201801281409207_Initial.Designer.cs">
       <DependentUpon>201801281409207_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802060649436_ChangeSchema.cs" />
+    <Compile Include="Migrations\201802060649436_ChangeSchema.Designer.cs">
+      <DependentUpon>201802060649436_ChangeSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\VolunteersRepository.cs" />
     <Compile Include="UnitOfWork\VolunteerUnitOfWork.cs" />
@@ -95,6 +99,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801281409207_Initial.resx">
       <DependentUpon>201801281409207_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802060649436_ChangeSchema.resx">
+      <DependentUpon>201802060649436_ChangeSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

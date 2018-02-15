@@ -66,5 +66,27 @@ namespace Sanabel.Volunteers.Domain.Model
         public City City { get; private set; }
 
         public District District { get; private set; }
+
+        public void Update(string name, string email, string phone, int cityId, int? districtId)
+        {
+            Guard.StringIsNull<ArgumentNullException>(name, nameof(name));
+            Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
+            Guard.StringIsNull<ArgumentNullException>(phone, nameof(phone));
+            Guard.LessThanOrEqualZero(cityId, nameof(cityId));
+
+            this.Name = name;
+            this.Email = email;
+            this.Phone = phone;
+            this.CityId = cityId;
+            this.DistrictId = districtId;
+
+            DomainEvents.Raise<VolunteerUpdated>(new VolunteerUpdated
+            {
+                CityId = this.CityId,
+                DistrictId = this.DistrictId,
+                Email = this.Email,
+                Name = this.Name,
+            });
+        }
     }
 }

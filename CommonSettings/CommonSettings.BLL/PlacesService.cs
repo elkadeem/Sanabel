@@ -80,7 +80,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -107,7 +107,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -192,7 +192,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -218,7 +218,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -313,7 +313,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -337,7 +337,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -352,7 +352,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -434,7 +434,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -458,7 +458,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 

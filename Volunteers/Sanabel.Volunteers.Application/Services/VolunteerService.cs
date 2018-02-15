@@ -39,6 +39,7 @@ namespace Sanabel.Volunteers.Application.Services
 
                 await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
                 await _volunteerUnitOfWork.SaveAsync();
+                volunteerModel.Id = volunteer.Id;
                 return EntityResult.Success;
             }
             catch (Exception ex)
@@ -70,10 +71,15 @@ namespace Sanabel.Volunteers.Application.Services
             {
                 var volunteer = await _volunteerUnitOfWork.VolunteerRepository.GetVolunteerById(volunteerModel.Id);
                 Guard.ArgumentIsNull<ArgumentException>(volunteer, nameof(volunteer), Localization.VolunteerResource.VolunteerNotFound);
+                volunteer.Update(volunteerModel.Name
+                    , volunteerModel.Email, volunteerModel.Phone
+                    , volunteerModel.CityId
+                    , volunteerModel.DistrictId);                
                 volunteer.Gender = (Domain.Model.Genders)volunteerModel.Gender;
                 volunteer.HasCar = volunteerModel.HasCar;
                 volunteer.Address = volunteerModel.Address;
                 volunteer.Notes = volunteerModel.Notes;
+                
 
                 await _volunteerUnitOfWork.VolunteerRepository.UpdateVolunteer(volunteer);
                 await _volunteerUnitOfWork.SaveAsync();
@@ -104,7 +110,11 @@ namespace Sanabel.Volunteers.Application.Services
                 Id = volunteer.Id,
                 Phone = volunteer.Phone,
                 Notes = volunteer.Notes,
-                RegionId = volunteer.City?.RegionId,                
+                RegionId = volunteer.City?.RegionId,
+                CityName = volunteer.City?.Name,
+                CountryName = volunteer.City?.Region?.Country.Name,
+                DistrictName = volunteer.District?.Name,
+                RegionName = volunteer.City?.Region?.Name,
             };
         }
 

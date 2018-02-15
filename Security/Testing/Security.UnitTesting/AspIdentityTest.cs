@@ -82,7 +82,8 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithValidUserId_ReturnUser()
         {
             //Arrange
-            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>( (a) =>  a == user.Id ? Task.FromResult(user) : null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>()))
+                .Returns<Guid>( (a) =>  a == user.Id ? Task.FromResult(user) : null);
             //Act
             var result = await userStore.FindByIdAsync(user.Id);
             //Assert
@@ -95,7 +96,8 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithUnValidUserId_ReturnNull()
         {
             //Arrange
-            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => a == user.Id ? Task.FromResult(user) : Task.FromResult(null as User));
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>()))
+                .Returns<Guid>((a) => a == user.Id ? Task.FromResult(user) : Task.FromResult(null as User));
             //Act
             var result = await userStore.FindByIdAsync(Guid.NewGuid());
             //Assert
@@ -106,7 +108,8 @@ namespace Security.UnitTesting
         public async Task FindByNameAsync_WithValidUserName_ReturnUser()
         {
             //Arrange
-            userRepository.Setup(c => c.FindByUserNameAsync(It.IsAny<string>())).Returns<string>((a) => Task.FromResult((User)(a == user.UserName ? user : null)));
+            userRepository.Setup(c => c.FindByUserNameAsync(It.IsAny<string>()))
+                .Returns<string>((a) => Task.FromResult((User)(a == user.UserName ? user : null)));
             //Act
             var result = await userStore.FindByNameAsync("elkadeem");
             //Assert
