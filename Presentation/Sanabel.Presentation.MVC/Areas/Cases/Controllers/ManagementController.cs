@@ -13,7 +13,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
     [Authorize]
     public class ManagementController : BaseController
     {
-        private Sanabel.Cases.App.ICasesService _caseService;
+        private readonly Sanabel.Cases.App.ICasesService _caseService;
         public ManagementController(Sanabel.Cases.App.ICasesService caseService, ILogger logger): base(logger)
         {
             _caseService = caseService ?? throw new ArgumentNullException("caseService");

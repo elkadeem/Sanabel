@@ -8,7 +8,7 @@ namespace Sanabel.Volunteers.Infra.Events
 {
     public class VolunteerCreatedHandler : IHandles<VolunteerCreated>
     {
-        private UserManager<User, Guid> _userManager;
+        private readonly UserManager<User, Guid> _userManager;
         public VolunteerCreatedHandler(UserManager<User, Guid> userManager)
         {
             _userManager = userManager;

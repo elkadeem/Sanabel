@@ -45,7 +45,9 @@ namespace BusinessSolutions.Common.EntityFramework
                 if (disposing)
                 {
                     if (DbContext != null)
+                    {
                         DbContext.Dispose();
+                    }
                 }
                 disposedValue = true;
             }

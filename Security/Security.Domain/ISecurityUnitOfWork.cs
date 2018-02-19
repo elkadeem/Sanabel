@@ -3,7 +3,7 @@ using System;
 
 namespace Sanabel.Security.Domain
 {
-    public interface ISecurityUnitOfWork : IUnitOfWork, IDisposable
+    public interface ISecurityUnitOfWork : IUnitOfWork
     {
         IRoleRepository RoleRepository { get; }
 

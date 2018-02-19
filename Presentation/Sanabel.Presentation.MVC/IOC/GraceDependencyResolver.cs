@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
-    public class GraceDependencyResolver : System.Web.Mvc.IDependencyResolver        
+    public class GraceDependencyResolver : System.Web.Mvc.IDependencyResolver, IDisposable    
     {
         private const string NestedScopeKey = "Nested.Grace.Container";
         public IInjectionScope Container { get; set; }

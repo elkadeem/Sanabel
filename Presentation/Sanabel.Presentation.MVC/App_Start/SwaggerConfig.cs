@@ -7,7 +7,7 @@ using Swashbuckle.Application;
 
 namespace Sanabel.Presentation.MVC
 {
-    public class SwaggerConfig
+    public static class SwaggerConfig
     {
         public static void Register()
         {

@@ -16,7 +16,7 @@ namespace Sanabel.Presentation.MVC.Settings.Controllers
     [Authorize]
     public class CountriesController : BaseController
     {
-        private IPlacesService _placesService;
+        private readonly IPlacesService _placesService;
 
         public CountriesController(IPlacesService placesService, ILogger logger) : base(logger)
         {

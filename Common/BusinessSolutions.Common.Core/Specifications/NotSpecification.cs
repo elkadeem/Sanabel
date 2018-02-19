@@ -9,7 +9,7 @@ namespace BusinessSolutions.Common.Core.Specifications
 {
     internal class NotSpecification<T> : CompositeSpecification<T>
     {
-        private ISpecification<T> _specification;
+        private readonly ISpecification<T> _specification;
         
         public NotSpecification(ISpecification<T> specification)
         {

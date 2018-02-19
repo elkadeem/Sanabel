@@ -8,7 +8,7 @@ namespace Sanable.Cases.Infra
 {
     public class CaseUnitOfWork : ICaseUnitOfWork
     {
-        private CaseResearchDataContext _dbContext;
+        private readonly CaseResearchDataContext _dbContext;
 
         public ICaseRepository CaseRepository { get; private set; }
 

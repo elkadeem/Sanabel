@@ -74,7 +74,7 @@ namespace Sanabel.Security.Application
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Sanabel.Security.Application
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
             
         }
@@ -108,7 +108,7 @@ namespace Sanabel.Security.Application
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
             
         }
@@ -118,11 +118,11 @@ namespace Sanabel.Security.Application
             return _roleManager.Roles.ToList();
         }
 
-        public async Task<ViewUserViewModel> GetUser(Guid userId)
+        public async Task<ViewUserViewModel> GetUser(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
-                throw new ArgumentException("User is not exist.", "userId");
+                throw new ArgumentException("User is not exist.", nameof(id));
 
             return GetViewUserViewModel(user);
         }
@@ -140,7 +140,7 @@ namespace Sanabel.Security.Application
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }            
         }
 
@@ -157,11 +157,11 @@ namespace Sanabel.Security.Application
 
         }
 
-        public async Task<EntityResult> UnBlockUser(Guid userId)
+        public async Task<EntityResult> UnBlockUser(Guid id)
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(userId);
+                var user = await _userManager.FindByIdAsync(id);
                 Guard.ArgumentIsNull<ArgumentNullException>(user, nameof(user));
                 IdentityResult result = await _userManager.SetLockoutEnabledAsync(user.Id, false);
                 if (result.Succeeded)
@@ -171,7 +171,7 @@ namespace Sanabel.Security.Application
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -200,7 +200,7 @@ namespace Sanabel.Security.Application
                 {
                     var rolesToRemove = user.Roles.Where(c => !userModel.Roles.Contains(c.Id))
                         .Select(c => c.Name);
-                    if (rolesToRemove.Count() > 0)
+                    if (rolesToRemove.Any())
                         result = await _userManager.RemoveFromRolesAsync(user.Id, rolesToRemove.ToArray());
 
                     if (result.Succeeded)

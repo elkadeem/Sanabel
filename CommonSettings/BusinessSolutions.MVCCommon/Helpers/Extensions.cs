@@ -24,7 +24,7 @@ namespace BusinessSolutions.MVCCommon.Helpers
 
             string htmlFullName = htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             if (string.IsNullOrEmpty(htmlFullName))
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(expression), "The model name is not exist for expression");
 
             string[] values = null;
             if (metaData.Model != null && metaData.Model is IEnumerable)
@@ -37,7 +37,7 @@ namespace BusinessSolutions.MVCCommon.Helpers
             containerDivTag.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 
             IDictionary<string, object> dictionary = htmlHelper.GetUnobtrusiveValidationAttributes(name, metaData);
-            if (selectList != null && selectList.Count() > 0)
+            if (selectList != null && selectList.Any())
             {
                 int index = 0;
                 foreach (var item in selectList)

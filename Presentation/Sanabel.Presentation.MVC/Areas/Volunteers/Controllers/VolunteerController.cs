@@ -17,8 +17,8 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
     [Authorize]
     public class VolunteerController : BaseController
     {
-        private IVolunteerService _volunteerService;
-        private IUserService _userService;
+        private readonly IVolunteerService _volunteerService;
+        private readonly IUserService _userService;
         public VolunteerController(IVolunteerService volunteerService, IUserService userService, ILogger logger) : base(logger)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(volunteerService, nameof(volunteerService));

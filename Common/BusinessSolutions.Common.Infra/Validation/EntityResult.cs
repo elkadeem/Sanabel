@@ -8,8 +8,8 @@ namespace BusinessSolutions.Common.Infra.Validation
 {
     public class EntityResult
     {
-        private List<ValidationError> _errors = new List<ValidationError>();
-        private bool _succeeded = false;
+        private readonly List<ValidationError> _errors = new List<ValidationError>();
+        private readonly bool _succeeded = false;
 
         public bool Succeeded => _succeeded;
 
@@ -17,7 +17,7 @@ namespace BusinessSolutions.Common.Infra.Validation
 
         public EntityResult(params ValidationError[] errors)
         {
-            if (errors == null || errors.Count() == 0)
+            if (errors == null || errors.Any())
                 throw new ArgumentNullException("errors");
             
             foreach (var error in errors)
@@ -28,7 +28,7 @@ namespace BusinessSolutions.Common.Infra.Validation
 
         public EntityResult(IEnumerable<ValidationError> errors)
         {
-            if (errors == null || errors.Count() == 0)
+            if (errors == null || errors.Any())
                 throw new ArgumentNullException("errors");
 
             foreach (var error in errors)

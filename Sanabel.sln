@@ -89,6 +89,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{29FD9E1A-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanabel.Volunteers.IntegrationTest", "Volunteers\Test\Sanabel.Volunteers.IntegrationTest\Sanabel.Volunteers.IntegrationTest.csproj", "{1A266F76-3070-4BEB-904D-7E4DEEA1D5A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{FB9BCB2D-B40E-4C52-B4D1-10622B1F66CF}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\sanabelCSharp.ruleset = SonarQube\sanabelCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -10,7 +10,7 @@ namespace Security.AspIdentity
 {
     public class EmailService : IIdentityMessageService
     {
-        private IEmailService _emailService;
+        private readonly IEmailService _emailService;
         public EmailService(IEmailService emailService)
         {
             if (emailService == null)

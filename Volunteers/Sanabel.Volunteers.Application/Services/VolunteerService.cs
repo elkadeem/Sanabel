@@ -14,8 +14,8 @@ namespace Sanabel.Volunteers.Application.Services
 {
     public class VolunteerService : IVolunteerService
     {
-        private IVolunteerUnitOfWork _volunteerUnitOfWork;
-        private ILogger _logger;
+        private readonly IVolunteerUnitOfWork _volunteerUnitOfWork;
+        private readonly ILogger _logger;
         public VolunteerService(IVolunteerUnitOfWork volunteerUnitOfWork, ILogger logger)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(volunteerUnitOfWork, nameof(volunteerUnitOfWork));
@@ -45,7 +45,7 @@ namespace Sanabel.Volunteers.Application.Services
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -88,7 +88,7 @@ namespace Sanabel.Volunteers.Application.Services
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 

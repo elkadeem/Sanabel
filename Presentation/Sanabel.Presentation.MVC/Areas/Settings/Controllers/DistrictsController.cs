@@ -15,7 +15,7 @@ namespace Sanabel.Presentation.MVC.Settings.Controllers
     [Authorize]
     public class DistrictsController : BaseController
     {
-        private IPlacesService _placesService;
+        private readonly IPlacesService _placesService;
         public DistrictsController(IPlacesService placesService, ILogger logger) : base(logger)
         {
             _placesService = placesService;

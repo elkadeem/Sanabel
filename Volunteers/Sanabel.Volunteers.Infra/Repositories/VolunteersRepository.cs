@@ -14,7 +14,7 @@ namespace Sanabel.Volunteers.Infra.Repositories
 {
     internal class VolunteersRepository : IVolunteerRepository
     {
-        BaseEntityFrameworkRepository<Guid, Volunteer> _repository;
+        private readonly BaseEntityFrameworkRepository<Guid, Volunteer>  _repository;
         private readonly VolunteersDbCotext _dbContext;
         public VolunteersRepository(VolunteersDbCotext dbContext)
         {

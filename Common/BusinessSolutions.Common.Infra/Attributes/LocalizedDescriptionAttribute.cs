@@ -10,8 +10,8 @@ namespace BusinessSolutions.Common.Infra.Attributes
 {
     public class LocalizedDescriptionAttribute : DescriptionAttribute
     {
-        private ResourceManager _resourceManager;
-        private string _resourceName;
+        private readonly ResourceManager _resourceManager;
+        private readonly string _resourceName;
         public LocalizedDescriptionAttribute(string resourceName, Type resourceType)
         {
             if (string.IsNullOrEmpty(resourceName))

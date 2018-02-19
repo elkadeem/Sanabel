@@ -24,7 +24,9 @@ namespace Sanabel.Volunteers.Infra.UnitOfWork
         {
             if(disposing)
             {
+#pragma warning disable S1066 // Collapsible "if" statements should be merged
                 if (_volunteerRepository != null)
+#pragma warning restore S1066 // Collapsible "if" statements should be merged
                     _volunteerRepository = null;
             }
             base.Dispose(disposing);

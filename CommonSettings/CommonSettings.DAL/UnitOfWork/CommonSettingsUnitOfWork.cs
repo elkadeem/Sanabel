@@ -13,7 +13,7 @@ namespace CommonSettings.DAL
     [ExportByInterfaces()]
     public class CommonSettingsUnitOfWork : ICommonSettingsUnitOfWork
     {
-        private CommonSettingDataContext _dataContext;
+        private readonly CommonSettingDataContext _dataContext;
         public CommonSettingsUnitOfWork(CommonSettingDataContext dataContext)
         {
             if (dataContext == null)

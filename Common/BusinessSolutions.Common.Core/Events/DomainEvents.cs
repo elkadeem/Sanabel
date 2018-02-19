@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core.Events
 {
-    public class DomainEvents
+    public static class DomainEvents
     {
         [ThreadStatic]
-        public static List<Delegate> _actions;
+        private static List<Delegate> _actions;
 
         private static IDependancyResolver _dependancyResolver;
 

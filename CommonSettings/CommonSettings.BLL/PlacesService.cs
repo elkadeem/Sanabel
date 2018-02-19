@@ -16,8 +16,8 @@ namespace CommonSettings.BLL
     [ExportByInterfaces()]
     public class PlacesService : IPlacesService
     {
-        private ICommonSettingsUnitOfWork _unitOfWork;
-        private ILogger _logger;
+        private readonly ICommonSettingsUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
         public PlacesService(ICommonSettingsUnitOfWork unitOfWork, ILogger log)
         {
@@ -245,7 +245,7 @@ namespace CommonSettings.BLL
                 throw new ArgumentNullException("Name");
 
             var isCountryExist = new ExpressionSpecification<Country>(c => c.Id == region.CountryId);
-            if (_unitOfWork.CountryRepository.Find(isCountryExist).Any() == false)
+            if (!_unitOfWork.CountryRepository.Find(isCountryExist).Any())
                 throw new ArgumentException("Country is not exist.", "CountryId");
 
             List<ValidationError> errors = new List<ValidationError>();
@@ -358,13 +358,8 @@ namespace CommonSettings.BLL
 
         private List<ValidationError> ValidateCity(City city)
         {
-
-            var isNameIsNotEmpty = new ExpressionSpecification<City>(c => !string.IsNullOrEmpty(c.Name));
-            if (!isNameIsNotEmpty.IsSatisfiedBy(city))
-                throw new ArgumentNullException("Name");
-
             var isRegionExist = new ExpressionSpecification<Region>(c => c.Id == city.RegionId);
-            if (_unitOfWork.RegionRepository.Find(isRegionExist).Any() == false)
+            if (!_unitOfWork.RegionRepository.Find(isRegionExist).Any())
                 throw new ArgumentException("Region is not exist.", "RegionId");
 
             List<ValidationError> errors = new List<ValidationError>();
@@ -428,7 +423,7 @@ namespace CommonSettings.BLL
                 var district = districtModel.ToDistrict();
                 _unitOfWork.DistrictRepository.Add(district);
                 _unitOfWork.Save();
-                district.Id = district.Id;
+                districtModel.DistrictId = district.Id;
                 return EntityResult.Success;
             }
             catch (Exception ex)
@@ -460,27 +455,6 @@ namespace CommonSettings.BLL
                 _logger.Error(ex, ex.Message);
                 throw;
             }
-        }
-
-        private List<ValidationError> ValidateDistrict(District district)
-        {
-            var isNameIsNotEmpty = new ExpressionSpecification<District>(c => !string.IsNullOrEmpty(c.Name));
-            if (!isNameIsNotEmpty.IsSatisfiedBy(district))
-                throw new ArgumentNullException("Name");
-
-            var isCityExist = new ExpressionSpecification<City>(c => c.Id == district.CityId);
-            if (_unitOfWork.CityRepository.Find(isCityExist).Any() == false)
-                throw new ArgumentException("City is not exist.", "CityId");
-
-            List<ValidationError> errors = new List<ValidationError>();
-            var isDistrictExistInCity = new ExpressionSpecification<District>(c => c.Id != district.Id
-             && c.CityId == district.CityId && c.Name.ToLower() == district.Name.ToLower());
-
-            if (_unitOfWork.DistrictRepository.Find(isDistrictExistInCity).Any())
-                errors.Add(new ValidationError($"District { district.Name } is already exist."
-                    , ValidationErrorTypes.DuplicatedValue));
-
-            return errors;
         }
         #endregion
     }

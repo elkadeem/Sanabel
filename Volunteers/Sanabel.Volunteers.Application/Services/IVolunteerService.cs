@@ -17,6 +17,6 @@ namespace Sanabel.Volunteers.Application.Services
 
         Task<VolunteerViewModel> GetVolunteer(Guid id);
 
-        Task<EntityResult> UpdateVolunteer(VolunteerViewModel VolunteerModel);
+        Task<EntityResult> UpdateVolunteer(VolunteerViewModel volunteerModel);
     }
 }

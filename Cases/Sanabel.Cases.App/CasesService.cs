@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Core.Specifications;
+using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Cases.App.Model;
 using Sanabel.Cases.App.Resources;
@@ -15,10 +16,13 @@ namespace Sanabel.Cases.App
 {
     public class CasesService : ICasesService
     {
-        private ICaseUnitOfWork _caseUnitOfWork;
-        public CasesService(ICaseUnitOfWork caseUnitOfWork)
+        private readonly ICaseUnitOfWork _caseUnitOfWork;
+        private readonly ILogger _logger;
+
+        public CasesService(ICaseUnitOfWork caseUnitOfWork, ILogger logger)
         {
-            _caseUnitOfWork = caseUnitOfWork ?? throw new ArgumentNullException("caseUnitOfWork");
+            this._caseUnitOfWork = caseUnitOfWork ?? throw new ArgumentNullException("caseUnitOfWork");
+            this._logger = logger;
         }
 
         public async Task<EntityResult> AddCase(CaseViewModel caseModel)
@@ -41,7 +45,8 @@ namespace Sanabel.Cases.App
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.Error(ex);
+                throw;
             }
         }
 
@@ -55,7 +60,8 @@ namespace Sanabel.Cases.App
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.Error(ex);
+                throw;
             }
         }
 
@@ -101,7 +107,8 @@ namespace Sanabel.Cases.App
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.Error(ex);
+                throw;
             }
         }
 
@@ -160,6 +167,9 @@ namespace Sanabel.Cases.App
 
             if (_caseUnitOfWork.CaseRepository.Find(isNameExistSpecification).Any())
                 result.Add(new ValidationError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
+
+            if(_caseUnitOfWork.CaseRepository.Find(isPhoneExistSpecification).Any())
+                result.Add(new ValidationError(CasesResource.CasePhoneExist, ValidationErrorTypes.BusinessError));
 
             return result.Count == 0 ? null : result;
         }

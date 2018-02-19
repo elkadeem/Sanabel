@@ -10,7 +10,7 @@ namespace BusinessSolutions.MVCCommon
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class MustBeGreateThanZeroFilterAttribute : ActionFilterAttribute
     {
-        private List<string> _paramterNames;
+        private readonly List<string> _paramterNames;
         public MustBeGreateThanZeroFilterAttribute(params string[] paramterNames)
         {
             if (paramterNames == null || paramterNames.Length == 0)

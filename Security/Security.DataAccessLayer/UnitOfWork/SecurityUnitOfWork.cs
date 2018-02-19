@@ -9,22 +9,17 @@ namespace Sanabel.Security.Infra
 {
     public class SecurityUnitOfWork : BaseUnitOfWork, ISecurityUnitOfWork
     {
-        private SecurityContext _dbContext;
+        private readonly SecurityContext _dbContext;
         public IRoleRepository RoleRepository { get; private set; }
 
         public IUserRepository UserRepository { get; private set; }
         
-        public SecurityUnitOfWork() : this(new SecurityContext())
-        {
-
-        }
-
         public SecurityUnitOfWork(SecurityContext dbContext) : base(dbContext)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(dbContext, nameof(dbContext));
             _dbContext = dbContext;
-            UserRepository = new UserRepository(dbContext);
-            RoleRepository = new RoleRepository(dbContext);            
+            UserRepository = new UserRepository(_dbContext);
+            RoleRepository = new RoleRepository(_dbContext);            
         }
 
         protected override void Dispose(bool disposing)

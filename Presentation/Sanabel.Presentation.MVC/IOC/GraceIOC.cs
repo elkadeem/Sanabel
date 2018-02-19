@@ -2,7 +2,7 @@
 
 namespace Sanabel.Presentation.MVC.IOC
 {
-    public class GraceIOC
+    public static class GraceIoc
     {
         public static DependencyInjectionContainer Initialize()
         {

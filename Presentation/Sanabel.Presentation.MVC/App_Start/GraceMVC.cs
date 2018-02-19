@@ -9,11 +9,11 @@ using Sanabel.Presentation.MVC;
 using Sanabel.Presentation.MVC.IOC;
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(GraceMVC), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(GraceMVC), "End")]
+[assembly: PreApplicationStartMethod(typeof(GraceMvc), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(GraceMvc), "End")]
 namespace Sanabel.Presentation.MVC
 {
-    public static class GraceMVC
+    public static class GraceMvc
     {
         public static GraceDependencyResolver GraceDependencyResolver { get; private set; }
         private static GraceWebApiDependencyResolver _graceWebApiDependencyResolver;
@@ -27,7 +27,7 @@ namespace Sanabel.Presentation.MVC
 
         public static void Start()
         {
-            DependencyInjectionContainer container = GraceIOC.Initialize();
+            DependencyInjectionContainer container = GraceIoc.Initialize();
             GraceDependencyResolver = new GraceDependencyResolver(container);
             DependencyResolver.SetResolver(GraceDependencyResolver);
 
