@@ -59,10 +59,16 @@
     <Compile Include="Specifications\CompositeSpecification.cs" />
     <Compile Include="Specifications\ISpecification.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Validation\EntityValidator.cs" />
+    <Compile Include="Validation\IValidationRule.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\ValidationResult.cs" />
+    <Compile Include="Validation\ValidationRule.cs" />
+    <Compile Include="Validation\IEntityValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastrcutre\" />
-    <Folder Include="Validation\" />
+    <Folder Include="Validations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessSolutions.Common.Core.ruleset" />
@@ -72,6 +78,12 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.8.1.4648\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.8.1.4648\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.8.1.4648\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
+      <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
+      <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

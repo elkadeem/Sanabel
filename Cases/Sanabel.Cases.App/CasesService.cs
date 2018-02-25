@@ -153,23 +153,23 @@ namespace Sanabel.Cases.App
             };
         }
 
-        private List<ValidationError> ValidationCase(Case caseToValidate)
+        private List<EntityError> ValidationCase(Case caseToValidate)
         {
-            List<ValidationError> result = new List<ValidationError>();
+            List<EntityError> result = new List<EntityError>();
             var isNameExistSpecification = new ExpressionSpecification<Case>(c => c.Id != caseToValidate.Id
                 && c.Name.ToLower().Trim() == caseToValidate.Name.ToLower().Trim());
 
             if (_caseUnitOfWork.CaseRepository.Find(isNameExistSpecification).Any())
-                result.Add(new ValidationError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
+                result.Add(new EntityError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
 
             var isPhoneExistSpecification = new ExpressionSpecification<Case>(c => c.Id != caseToValidate.Id
                 && c.Phone.ToLower().Trim() == caseToValidate.Phone.ToLower().Trim());
 
             if (_caseUnitOfWork.CaseRepository.Find(isNameExistSpecification).Any())
-                result.Add(new ValidationError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
+                result.Add(new EntityError(CasesResource.CaseNameExist, ValidationErrorTypes.BusinessError));
 
             if(_caseUnitOfWork.CaseRepository.Find(isPhoneExistSpecification).Any())
-                result.Add(new ValidationError(CasesResource.CasePhoneExist, ValidationErrorTypes.BusinessError));
+                result.Add(new EntityError(CasesResource.CasePhoneExist, ValidationErrorTypes.BusinessError));
 
             return result.Count == 0 ? null : result;
         }

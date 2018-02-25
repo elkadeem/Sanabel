@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Infra.Validation
 {
-    public class ValidationError
+    public class EntityError
     {
         private readonly string _property;
         private readonly string _message;
@@ -18,7 +18,7 @@ namespace BusinessSolutions.Common.Infra.Validation
 
         public ValidationErrorTypes ValidationErrorType => _validationErrorType;
 
-        public ValidationError(string message, ValidationErrorTypes validationErrorType)
+        public EntityError(string message, ValidationErrorTypes validationErrorType)
         {
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentNullException(nameof(message));
@@ -27,7 +27,7 @@ namespace BusinessSolutions.Common.Infra.Validation
             _validationErrorType = validationErrorType;
         }
 
-        public ValidationError(string property, string message, ValidationErrorTypes validationErrorType)
+        public EntityError(string property, string message, ValidationErrorTypes validationErrorType)
         {
             if (string.IsNullOrEmpty(property))
                 throw new ArgumentNullException(nameof(property));

@@ -49,6 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IVolunteerRepository.cs" />
     <Compile Include="Repositories\IVolunteerUnitOfWork.cs" />
+    <Compile Include="Specifications\VolunteerEmailIsUniqueSpecifications.cs" />
+    <Compile Include="Specifications\VolunteerPhoneIsUniqueSpecifications.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.Domain\CommonSettings.Domain.csproj">

@@ -124,6 +124,15 @@ namespace Sanabel.Volunteers.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to البريد الإلكتروني مسجل لمتطوع أخر..
+        /// </summary>
+        public static string EmailExist {
+            get {
+                return ResourceManager.GetString("EmailExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أنثي.
         /// </summary>
         public static string Female {
@@ -201,6 +210,15 @@ namespace Sanabel.Volunteers.Application.Localization {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الجوال مسجل من قبل لمتطوع أخر.
+        /// </summary>
+        public static string PhoneExist {
+            get {
+                return ResourceManager.GetString("PhoneExist", resourceCulture);
             }
         }
         

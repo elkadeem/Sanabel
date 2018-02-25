@@ -138,6 +138,9 @@
   <data name="Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
+  <data name="EmailExist" xml:space="preserve">
+    <value>البريد الإلكتروني مسجل لمتطوع أخر.</value>
+  </data>
   <data name="Female" xml:space="preserve">
     <value>أنثي</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Phone" xml:space="preserve">
     <value>الجوال</value>
+  </data>
+  <data name="PhoneExist" xml:space="preserve">
+    <value>رقم الجوال مسجل من قبل لمتطوع أخر</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>المنطقة</value>

@@ -43,6 +43,39 @@ namespace Sanabel.Volunteers.IntegrationTest
         }
 
         [Test]
+        public async Task CreateVolunteer_WithDublicatedData_ReturnErrors()
+        {
+            var volunteer = new Application.Models.VolunteerViewModel
+            {
+                Address = "Address",
+                CityId = _commonSettingDataContext.Cities.First().Id,
+                Email = "new1@email.com",
+                Gender = Application.Models.Genders.Male,
+                Name = "Name",
+                Notes = "Notes",
+                Phone = "Phone1",
+                DistrictId = _commonSettingDataContext.Districts.First().Id,
+            };
+            var result = await _volunteerService.AddVolunteer(volunteer);
+            Assert.IsTrue(result.Succeeded);
+
+            volunteer = new Application.Models.VolunteerViewModel
+            {
+                Address = "Address",
+                CityId = _commonSettingDataContext.Cities.First().Id,
+                Email = "new1@email.com",
+                Gender = Application.Models.Genders.Male,
+                Name = "Name",
+                Notes = "Notes",
+                Phone = "Phone1",
+                DistrictId = _commonSettingDataContext.Districts.First().Id,
+            };
+
+            result = await _volunteerService.AddVolunteer(volunteer);
+            Assert.IsFalse(result.Succeeded);
+        }
+
+        [Test]
         public async Task UpdateVolunteer_WithValidData_UpdateVolunteer()
         {
             var volunteer = new Application.Models.VolunteerViewModel

@@ -1,9 +1,12 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Core.Validation;
 using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
+using Sanabel.Volunteers.Application.Localization;
 using Sanabel.Volunteers.Application.Models;
 using Sanabel.Volunteers.Domain.Model;
 using Sanabel.Volunteers.Domain.Repositories;
+using Sanabel.Volunteers.Domain.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +40,14 @@ namespace Sanabel.Volunteers.Application.Services
                     Notes = volunteerModel.Notes,
                 };
 
+                var validationResult = ValidateVolunteer(volunteer);
+                if(!validationResult.IsValid)
+                {
+                    return EntityResult.Failed(validationResult.ValidationErrors
+                        .Select(c => new EntityError(c.Message, ValidationErrorTypes.BusinessError))
+                        .ToArray());
+                }
+
                 await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
                 await _volunteerUnitOfWork.SaveAsync();
                 volunteerModel.Id = volunteer.Id;
@@ -60,7 +71,7 @@ namespace Sanabel.Volunteers.Application.Services
             var result = await _volunteerUnitOfWork.VolunteerRepository.SearchVolunteer(searchVolunteerModel.VolunteerName
                 , searchVolunteerModel.VolunteerEmail, searchVolunteerModel.Phone, searchVolunteerModel.CountryId, searchVolunteerModel.RegionId
                 , searchVolunteerModel.CityId, searchVolunteerModel.DistrictId
-                , searchVolunteerModel.Gender == null? null : (Domain.Model.Genders?)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
+                , searchVolunteerModel.Gender == null ? null : (Domain.Model.Genders?)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
 
             return new PagedEntity<ViewVolunteerViewModel>(result.Items.Select(c => GetViewVolunteerViewModel(c)), result.TotalCount);
         }
@@ -74,12 +85,12 @@ namespace Sanabel.Volunteers.Application.Services
                 volunteer.Update(volunteerModel.Name
                     , volunteerModel.Email, volunteerModel.Phone
                     , volunteerModel.CityId
-                    , volunteerModel.DistrictId);                
+                    , volunteerModel.DistrictId);
                 volunteer.Gender = (Domain.Model.Genders)volunteerModel.Gender;
                 volunteer.HasCar = volunteerModel.HasCar;
                 volunteer.Address = volunteerModel.Address;
                 volunteer.Notes = volunteerModel.Notes;
-                
+
 
                 await _volunteerUnitOfWork.VolunteerRepository.UpdateVolunteer(volunteer);
                 await _volunteerUnitOfWork.SaveAsync();
@@ -134,8 +145,22 @@ namespace Sanabel.Volunteers.Application.Services
                 RegionName = volunteer.City?.Region?.Name,
                 Gender = (Models.Genders)volunteer.Gender,
                 Phone = volunteer.Phone,
-                Id = volunteer.Id, 
+                Id = volunteer.Id,
             };
+        }
+
+        private ValidationResult ValidateVolunteer(Volunteer volunteer)
+        {
+            EntityValidator<Volunteer> entityValidator = new EntityValidator<Volunteer>();
+            entityValidator.Add("Phone Is Unique"
+                , new ValidationRule<Volunteer>(new VolunteerPhoneIsUniqueSpecifications(_volunteerUnitOfWork.VolunteerRepository)
+                , nameof(volunteer.Phone), VolunteerResource.PhoneExist));
+
+            entityValidator.Add("Email Is Unique"
+                , new ValidationRule<Volunteer>(new VolunteerEmailIsUniqueSpecifications(_volunteerUnitOfWork.VolunteerRepository)
+                , nameof(volunteer.Phone), VolunteerResource.EmailExist));
+
+            return entityValidator.Validate(volunteer);
         }
     }
 }

@@ -232,7 +232,7 @@ namespace Sanabel.Security.Application
 
             return EntityResult.Failed(result
                 .Errors
-                .Select(c => new ValidationError(c, ValidationErrorTypes.BusinessError))
+                .Select(c => new EntityError(c, ValidationErrorTypes.BusinessError))
                 .ToArray());
         }
 
