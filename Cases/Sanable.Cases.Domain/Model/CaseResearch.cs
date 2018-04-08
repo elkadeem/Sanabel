@@ -17,6 +17,8 @@ namespace Sanable.Cases.Domain.Model
 
         public Guid CaseId { get; set; }
 
+        public Guid CaseResearchRequest { get; set; }
+
         public DateTime ResearchDate { get; set; }
 
         public ResearchTypes ResearchType { get; set; }

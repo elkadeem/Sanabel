@@ -24,7 +24,7 @@ namespace BusinessSolutions.Common.Core.Validation
 
         public override bool Equals(object obj)
         {
-            if (obj == null && obj.GetType() != typeof(ValidationError))
+            if (obj == null || obj is ValidationError)
                 return false;
 
             return Equals((ValidationError)obj);
