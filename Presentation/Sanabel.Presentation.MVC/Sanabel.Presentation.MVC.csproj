@@ -57,6 +57,21 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.EF6, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.EF6.1.6.5\lib\net45\Glimpse.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="Grace, Version=6.3.0.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Grace.6.3.0\lib\net45\Grace.dll</HintPath>
     </Reference>
@@ -246,6 +261,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1007,6 +1023,10 @@
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.BLL\CommonSettings.BLL.csproj">
       <Project>{410AE9ED-DC2B-4BFF-BA93-7DD5B25B5758}</Project>
       <Name>CommonSettings.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonSettings\CommonSettings.DAL\CommonSettings.DAL.csproj">
+      <Project>{b8b6cf0e-8653-4b19-83a6-79752bb4c769}</Project>
+      <Name>CommonSettings.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CommonSettings\CommonSettings.Resourses\CommonSettings.Localization.csproj">
       <Project>{2F6B193A-C8BF-4FC1-A474-396C7077D0DA}</Project>

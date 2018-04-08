@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Settings.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class CountriesController : BaseController
     {
         private readonly IPlacesService _placesService;

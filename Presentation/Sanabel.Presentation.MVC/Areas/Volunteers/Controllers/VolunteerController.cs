@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class VolunteerController : BaseController
     {
         private readonly IVolunteerService _volunteerService;

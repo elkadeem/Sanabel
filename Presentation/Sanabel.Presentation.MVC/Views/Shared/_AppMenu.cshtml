@@ -69,21 +69,24 @@
             </li>
         </ul>
     </li>
-    <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i>الإعدادات</a>
-        <ul class="nav-dropdown-items">
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Countries", new { Area = "Settings" })"><i class="icon-star"></i>الدول</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Regions", new { Area = "Settings" })"><i class="icon-star"></i>المناطق</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Cities", new { Area = "Settings" })"><i class="icon-star"></i>المدن</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Districts", new { Area = "Settings" })"><i class="icon-star"></i>الأحياء</a>
-            </li>
-        </ul>
-    </li>
+    @if (User.IsInRole("Administrator"))
+    {
+        <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i>الإعدادات</a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Countries", new { Area = "Settings" })"><i class="icon-star"></i>الدول</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Regions", new { Area = "Settings" })"><i class="icon-star"></i>المناطق</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Cities", new { Area = "Settings" })"><i class="icon-star"></i>المدن</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Districts", new { Area = "Settings" })"><i class="icon-star"></i>الأحياء</a>
+                </li>
+            </ul>
+        </li>
+    }
 </ul>
