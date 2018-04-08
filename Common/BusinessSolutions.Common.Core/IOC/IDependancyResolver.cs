@@ -11,5 +11,9 @@ namespace BusinessSolutions.Common.Core.IOC
         T Get<T>();
 
         IEnumerable<T> GetAll<T>();
+
+        object Get(Type type);
+
+        IEnumerable<object> GetAll(Type type);
     }
 }

@@ -9,6 +9,8 @@ namespace BusinessSolutions.Common.Core
 {
     public interface IUnitOfWork : IDisposable
     {
+        
+
         int Save();
 
         Task<int> SaveAsync();

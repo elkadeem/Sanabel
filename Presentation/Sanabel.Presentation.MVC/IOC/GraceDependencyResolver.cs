@@ -8,7 +8,9 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.IOC
 {
-    public class GraceDependencyResolver : System.Web.Mvc.IDependencyResolver, IDisposable    
+    public class GraceDependencyResolver : System.Web.Mvc.IDependencyResolver
+        , BusinessSolutions.Common.Core.IOC.IDependancyResolver
+        , IDisposable
     {
         private const string NestedScopeKey = "Nested.Grace.Container";
         public IInjectionScope Container { get; set; }
@@ -55,29 +57,15 @@ namespace Sanabel.Presentation.MVC.IOC
                 CurrentNestedContainer = null;
             }
         }
-        
+
         public object GetService(Type serviceType)
         {
-            try
-            {
-                return (CurrentNestedContainer ?? Container).Locate(serviceType);
-            }
-            catch
-            {
-                return null;
-            }
+            return Get(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            try
-            {
-                return (CurrentNestedContainer ?? Container).LocateAll(serviceType);
-            }
-            catch
-            {
-                return new List<object>();
-            }
+            return GetAll(serviceType);
         }
 
         #region IDisposable Support
@@ -106,6 +94,54 @@ namespace Sanabel.Presentation.MVC.IOC
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public T Get<T>()
+        {
+            try
+            {
+                return (CurrentNestedContainer ?? Container).Locate<T>();
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            try
+            {
+                return (CurrentNestedContainer ?? Container).LocateAll<T>();
+            }
+            catch
+            {
+                return new List<T>();
+            }
+        }
+
+        public object Get(Type type)
+        {
+            try
+            {
+                return (CurrentNestedContainer ?? Container).Locate(type);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<object> GetAll(Type type)
+        {
+            try
+            {
+                return (CurrentNestedContainer ?? Container).LocateAll(type);
+            }
+            catch
+            {
+                return new List<object>();
+            }
         }
         #endregion
     }

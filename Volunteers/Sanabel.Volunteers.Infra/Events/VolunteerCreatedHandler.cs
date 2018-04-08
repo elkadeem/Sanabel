@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Sanabel.Security.Domain;
 using Sanabel.Volunteers.Domain.Events;
 using System;
+using System.Linq;
 
 namespace Sanabel.Volunteers.Infra.Events
 {
@@ -27,6 +28,13 @@ namespace Sanabel.Volunteers.Infra.Events
                 };
 
                 var identityResult = _userManager.Create(user);
+                if (!identityResult.Succeeded)
+                    throw new InvalidOperationException(string.Join(",", identityResult.Errors));
+
+                identityResult = _userManager.AddToRole(user.Id, "Member");
+                if (!identityResult.Succeeded)
+                    throw new InvalidOperationException(string.Join(",", identityResult.Errors));
+
             }
         }
     }

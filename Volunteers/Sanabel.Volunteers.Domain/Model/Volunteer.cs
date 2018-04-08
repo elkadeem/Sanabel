@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sanabel.Volunteers.Domain.Model
 {
-    public class Volunteer : Entity<Guid>
+    public class Volunteer : AggregateRoot
     {
         private Volunteer()
         {
@@ -36,7 +36,7 @@ namespace Sanabel.Volunteers.Domain.Model
             this.CityId = cityId;
             this.DistrictId = districtId;
 
-            DomainEvents.Raise<VolunteerCreated>(new VolunteerCreated
+            AddDomainEvent(new VolunteerCreated
             {
                 CityId = this.CityId,
                 DistrictId = this.DistrictId,
@@ -80,7 +80,7 @@ namespace Sanabel.Volunteers.Domain.Model
             this.CityId = cityId;
             this.DistrictId = districtId;
 
-            DomainEvents.Raise<VolunteerUpdated>(new VolunteerUpdated
+            AddDomainEvent(new VolunteerUpdated
             {
                 CityId = this.CityId,
                 DistrictId = this.DistrictId,
