@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using BusinessSolutions.Common.Core.Events;
+using NUnit.Framework;
+using Sanabel.Security.Infra;
+using Sanabel.Security.Infra.Migrations;
+using Sanabel.Volunteers.IntegrationTest.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,11 +16,19 @@ namespace Sanabel.Volunteers.IntegrationTest
     [SetUpFixture]
     public class TestSetup
     {
+
         [OneTimeSetUp]
         public void SetUpDatabase()
         {
             DestroyDatabase();
             CreateDatabase();
+        }
+
+        [OneTimeSetUp]
+        public void IntiateDependancyResolver()
+        {
+
+            DomainEvents.Initiate(new DependancyResolver());
         }
 
         [OneTimeTearDown]
@@ -35,6 +47,10 @@ namespace Sanabel.Volunteers.IntegrationTest
             var commonMigration = new MigrateDatabaseToLatestVersion<CommonSettings.DAL.CommonSettingDataContext
                 , CommonSettings.DAL.Migrations.CommonSettingsDbMigrationsConfiguration>("VolunteersConnectionString");
             commonMigration.InitializeDatabase(new CommonSettings.DAL.CommonSettingDataContext());
+
+            var Secuirtymigration = new MigrateDatabaseToLatestVersion<SecurityContext
+                , SecurityContextConfiguration>("SecurityConnectionString");
+            Secuirtymigration.InitializeDatabase(new SecurityContext());
 
             var migration = new MigrateDatabaseToLatestVersion<Sanabel.Volunteers.Infra.VolunteersDbCotext
                 , Sanabel.Volunteers.Infra.Migrations.Configuration>("VolunteersConnectionString");
@@ -93,9 +109,6 @@ namespace Sanabel.Volunteers.IntegrationTest
         private static string Filename => Path.Combine(
             Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
             "SanabelVolunteerTestDB.mdf");
-
-
-
 
         private static void ExecuteSqlCommand(
             SqlConnectionStringBuilder connectionStringBuilder,

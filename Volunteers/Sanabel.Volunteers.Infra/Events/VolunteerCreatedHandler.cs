@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Sanabel.Security.Domain;
 using Sanabel.Volunteers.Domain.Events;
+using Sanabel.Volunteers.Resources;
 using System;
 using System.Linq;
 
@@ -19,11 +20,9 @@ namespace Sanabel.Volunteers.Infra.Events
         {
             if (args != null)
             {
-                var user = new User
-                {
-                    Email = args.Email,
-                    FullName = args.Name,
-                    UserName = args.Email,
+                var user = new User(args.Email, args.Email)
+                {                    
+                    FullName = args.Name,                    
                     PhoneNumber = args.Phone,
                 };
 
@@ -34,6 +33,10 @@ namespace Sanabel.Volunteers.Infra.Events
                 identityResult = _userManager.AddToRole(user.Id, "Member");
                 if (!identityResult.Succeeded)
                     throw new InvalidOperationException(string.Join(",", identityResult.Errors));
+
+                //string emailConfirmationcode =  _userManager.GenerateEmailConfirmationToken(user.Id);
+                //string message = string.Format(VolunteerResource.EmailVerificationEmailMessage, emailConfirmationcode);
+                //_userManager.SendEmail(user.Id, VolunteerResource.EmailVerificationEmailSubject, message);
 
             }
         }

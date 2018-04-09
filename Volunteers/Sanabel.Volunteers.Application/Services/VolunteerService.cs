@@ -2,16 +2,15 @@
 using BusinessSolutions.Common.Core.Validation;
 using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
-using Sanabel.Volunteers.Application.Localization;
 using Sanabel.Volunteers.Application.Models;
 using Sanabel.Volunteers.Domain.Model;
 using Sanabel.Volunteers.Domain.Repositories;
 using Sanabel.Volunteers.Domain.Specifications;
+using Sanabel.Volunteers.Resources;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Sanabel.Volunteers.Application.Services
 {
@@ -48,10 +47,15 @@ namespace Sanabel.Volunteers.Application.Services
                         .ToArray());
                 }
 
-                await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
-                await _volunteerUnitOfWork.SaveAsync();
-                volunteerModel.Id = volunteer.Id;
-                return EntityResult.Success;
+                using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
+                    await _volunteerUnitOfWork.SaveAsync();
+                    
+                    transactionScope.Complete();
+                    volunteerModel.Id = volunteer.Id;
+                    return EntityResult.Success;
+                }
             }
             catch (Exception ex)
             {
@@ -81,7 +85,7 @@ namespace Sanabel.Volunteers.Application.Services
             try
             {
                 var volunteer = await _volunteerUnitOfWork.VolunteerRepository.GetVolunteerById(volunteerModel.Id);
-                Guard.ArgumentIsNull<ArgumentException>(volunteer, nameof(volunteer), Localization.VolunteerResource.VolunteerNotFound);
+                Guard.ArgumentIsNull<ArgumentException>(volunteer, nameof(volunteer), VolunteerResource.VolunteerNotFound);
                 volunteer.Update(volunteerModel.Name
                     , volunteerModel.Email, volunteerModel.Phone
                     , volunteerModel.CityId

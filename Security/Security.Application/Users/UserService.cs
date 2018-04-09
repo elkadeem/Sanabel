@@ -36,13 +36,10 @@ namespace Sanabel.Security.Application
         {
             try
             {
-                using (TransactionScope transactionScop = new TransactionScope(TransactionScopeOption.RequiresNew
-                    , TransactionScopeAsyncFlowOption.Enabled))
+                using (TransactionScope transactionScop = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    var user = new User
+                    var user = new User(userModel.Email, userModel.Email)
                     {
-                        UserName = userModel.Email,
-                        Email = userModel.Email,
                         PhoneNumber = userModel.Phone,
                         FullName = userModel.FullName,
                     };
@@ -177,15 +174,15 @@ namespace Sanabel.Security.Application
 
         public async Task<EntityResult> UpdateUser(EditUserViewModel userModel)
         {
-            if (userModel == null)
-                throw new ArgumentNullException("userModel");
-            var user = await _userManager.FindByIdAsync(userModel.Id);
+            Guard.ArgumentIsNull<ArgumentNullException>(userModel, nameof(userModel));            
+            var user = await _userManager.FindByIdAsync(userModel.Id);            
             if (user == null)
                 throw new ArgumentException("User is not found.", "userModel");
             
             user.FullName = userModel.FullName;
             user.PhoneNumber = userModel.Phone;            
             user.IsLocked = userModel.IsLockOut;
+
             if (!user.IsLocked && user.LockedOutDate.HasValue)
                 user.LockedOutDate = null;
             if (user.IsLocked && (!user.LockedOutDate.HasValue
@@ -198,19 +195,10 @@ namespace Sanabel.Security.Application
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    var rolesToRemove = user.Roles.Where(c => !userModel.Roles.Contains(c.Id))
-                        .Select(c => c.Name);
-                    if (rolesToRemove.Any())
-                        result = await _userManager.RemoveFromRolesAsync(user.Id, rolesToRemove.ToArray());
-
+                    result = await RemoveRoles(userModel, user, result);
                     if (result.Succeeded)
                     {
-                        var rolesToAdd = _roleManager.Roles.Where(c => userModel.Roles.Contains(c.Id)
-                           && !user.Roles.Any(e => e.Id == c.Id))
-                            .Select(c => c.Name);
-
-                        if (rolesToAdd.Count() > 0)
-                            result = await _userManager.AddToRolesAsync(user.Id, rolesToAdd.ToArray());
+                        result = await AddRoles(userModel, user, result);
                     }
                 }
 
@@ -221,6 +209,26 @@ namespace Sanabel.Security.Application
 
                 return GetEntityResult(result);
             }
+        }
+
+        private async Task<IdentityResult> AddRoles(EditUserViewModel userModel, User user, IdentityResult result)
+        {
+            var rolesToAdd = _roleManager.Roles.Where(c => userModel.Roles.Contains(c.Id)
+                                       && !user.Roles.Any(e => e.Id == c.Id))
+                                        .Select(c => c.Name);
+
+            if (rolesToAdd.Count() > 0)
+                result = await _userManager.AddToRolesAsync(user.Id, rolesToAdd.ToArray());
+            return result;
+        }
+
+        private async Task<IdentityResult> RemoveRoles(EditUserViewModel userModel, User user, IdentityResult result)
+        {
+            var rolesToRemove = user.Roles.Where(c => !userModel.Roles.Contains(c.Id))
+                                    .Select(c => c.Name);
+            if (rolesToRemove.Any())
+                result = await _userManager.RemoveFromRolesAsync(user.Id, rolesToRemove.ToArray());
+            return result;
         }
 
         private EntityResult GetEntityResult(IdentityResult result)

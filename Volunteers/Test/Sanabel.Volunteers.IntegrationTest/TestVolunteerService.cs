@@ -31,7 +31,7 @@ namespace Sanabel.Volunteers.IntegrationTest
             var volunteer = new Application.Models.VolunteerViewModel {
                 Address = "Address",
                 CityId = _commonSettingDataContext.Cities.First().Id,
-                Email ="new@email.com",
+                Email ="elkadeem@email.com",
                 Gender = Application.Models.Genders.Male,
                 Name = "Name",
                 Notes = "Notes",

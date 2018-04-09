@@ -13,11 +13,11 @@ namespace Security.UnitTesting
             {
                 yield return new TestCaseData(null, null)
                     .SetName("SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser");
-                yield return new TestCaseData(new User(), null)
+                yield return new TestCaseData(new User("user", "email"), null)
                     .SetName("SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForEmail");
-                yield return new TestCaseData(new User(), "elkadeem@hotmail.com")
+                yield return new TestCaseData(new User("user", "email"), "elkadeem@hotmail.com")
                     .SetName("SetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser");
-                yield return new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                yield return new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                 , "elkadeem1@hotmail.com")
                 .SetName("SetEmailAsync_WithValidUserAndEmail_UpdateEmail");
             }
@@ -29,9 +29,9 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> { new TestCaseData(null)
                     .SetName("GetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser"),
-                 new TestCaseData(new User())
+                 new TestCaseData(new User("user", "email"))
                     .SetName("GetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser"),
-                new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
                 .SetName("GetEmailAsync_WithValidUserAndEmail_GetEmail")
             };
             }
@@ -44,9 +44,9 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> { new TestCaseData(null)
                     .SetName("GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser"),
-                 new TestCaseData(new User())
+                 new TestCaseData(new User("user", "email"))
                     .SetName("GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser"),
-                new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
+                new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") })
                 .SetName("GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed")
             };
             }
@@ -72,7 +72,7 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null),                    
-                    new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")})
+                    new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")})
                     .SetDescription("ValidUser")
 
                 };
@@ -85,10 +85,10 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null, new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero)),
-                    new TestCaseData(new User(), new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero)).SetDescription("InvalidUser"),
-                    new TestCaseData(new User(){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new User("user", "email"), new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero)).SetDescription("InvalidUser"),
+                    new TestCaseData(new User("user", "email"){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                      , DateTimeOffset.MinValue),
-                    new TestCaseData(new User(){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new User("user", "email"){ Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                      , new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero))
                     .SetDescription("ValidUser")
 
@@ -102,11 +102,11 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null),
-                    new TestCaseData(new User(){
+                    new TestCaseData(new User("user", "email"){
                         PasswordHash = "PasswordHash",
                         IsLocked = true
                     }).SetDescription("InvalidUser"),
-                    new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
+                    new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074")
                     , PasswordHash="PasswordHash"
                     , PhoneNumber = "050"
                     , IsEmailConfirmed = true
@@ -125,11 +125,11 @@ namespace Security.UnitTesting
             {
                 return new List<TestCaseData> {
                     new TestCaseData(null, "Role1"),
-                    new TestCaseData(new User(), "").SetDescription("Empty Roles"),
-                    new TestCaseData(new User(), "Role1").SetDescription("InvalidUser"),
-                    new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new User("user", "email"), "").SetDescription("Empty Roles"),
+                    new TestCaseData(new User("user", "email"), "Role1").SetDescription("InvalidUser"),
+                    new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                     , "Role1").SetDescription("ValidUser"),
-                    new TestCaseData(new User() { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
+                    new TestCaseData(new User("user", "email") { Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074") }
                     , "Role3").SetDescription("ValidUserAndInvalidRole")
 
                 };

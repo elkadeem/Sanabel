@@ -9,17 +9,27 @@ using System.Threading.Tasks;
 
 namespace Sanabel.Security.Domain
 {
-    public class User : Entity<Guid>, IUser<Guid>
+    public class User : AggregateRoot, IUser<Guid>
     {
         private string _userName;
         private string _email;
 
-        public User()
+        private User()
         {
-            Id = Guid.NewGuid();
+            
             ExternalLogins = new HashSet<ExternalLogin>();
             Claims = new HashSet<Claim>();
             Roles = new HashSet<Role>();
+        }
+
+        public User(string userName, string email) : this()
+        {
+            Guard.StringIsNull<ArgumentNullException>(userName, nameof(userName));
+            Guard.StringIsNull<ArgumentNullException>(email, nameof(email));
+
+            Id = Guid.NewGuid();
+            UserName = userName;
+            Email = email; 
         }
 
         public string UserName

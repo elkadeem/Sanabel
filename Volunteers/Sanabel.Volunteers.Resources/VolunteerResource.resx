@@ -141,6 +141,18 @@
   <data name="EmailExist" xml:space="preserve">
     <value>البريد الإلكتروني مسجل لمتطوع أخر.</value>
   </data>
+  <data name="EmailMessage" xml:space="preserve">
+    <value>Email Message</value>
+  </data>
+  <data name="EmailVerificationEmailMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmailVerificationEmailMessage1" xml:space="preserve">
+    <value>برجاء الضغط علي الرابط لتأكيد البريد الإلكتروني الخاص بك &lt;a href=\"{0}\"&gt;هنا&lt;/a&gt;</value>
+  </data>
+  <data name="EmailVerificationEmailSubject" xml:space="preserve">
+    <value>تأكيد البريد الإلكتروني</value>
+  </data>
   <data name="Female" xml:space="preserve">
     <value>أنثي</value>
   </data>

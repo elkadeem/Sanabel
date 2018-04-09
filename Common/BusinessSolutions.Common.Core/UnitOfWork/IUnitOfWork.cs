@@ -9,7 +9,11 @@ namespace BusinessSolutions.Common.Core
 {
     public interface IUnitOfWork : IDisposable
     {
-        
+        void BeginTransaction();
+
+        void Commit();
+
+        void Rollback();
 
         int Save();
 

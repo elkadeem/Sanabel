@@ -35,6 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Localization\VolunteerResource.Designer.cs">
-      <DependentUpon>VolunteerResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IVolunteerService.cs" />
     <Compile Include="Services\VolunteerService.cs" />
@@ -80,12 +76,10 @@
       <Project>{C390AC25-4F49-42FC-82EF-7B2166E81A48}</Project>
       <Name>Sanabel.Volunteers.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Localization\VolunteerResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>VolunteerResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Sanabel.Volunteers.Resources\Sanabel.Volunteers.Resources.csproj">
+      <Project>{fc2433e6-0ea6-479c-841c-66b73fcbe128}</Project>
+      <Name>Sanabel.Volunteers.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

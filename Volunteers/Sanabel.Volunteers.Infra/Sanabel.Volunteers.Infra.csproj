@@ -93,6 +93,10 @@
       <Project>{c390ac25-4f49-42fc-82ef-7b2166e81a48}</Project>
       <Name>Sanabel.Volunteers.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sanabel.Volunteers.Resources\Sanabel.Volunteers.Resources.csproj">
+      <Project>{fc2433e6-0ea6-479c-841c-66b73fcbe128}</Project>
+      <Name>Sanabel.Volunteers.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -111,6 +115,9 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
