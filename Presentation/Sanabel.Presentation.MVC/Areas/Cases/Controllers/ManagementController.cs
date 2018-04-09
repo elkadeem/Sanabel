@@ -19,7 +19,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             _caseService = caseService ?? throw new ArgumentNullException("caseService");
         }
         // GET: Cases/Management
-        public async Task<ActionResult> Index(CaseSearchViewModel searchModel)
+        public async Task<ActionResult> Index(SearchCaseViewModel searchModel)
         {
             var result = await _caseService.GetCases(searchModel);
             searchModel.Items = new StaticPagedList<CaseViewModel>(result.Items
@@ -42,6 +42,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
 
         // POST: Cases/Management/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CaseViewModel caseModel)
         {
             try
@@ -87,6 +88,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
 
         // POST: Cases/Management/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Guid id, CaseViewModel caseModel)
         {
             try
@@ -112,6 +114,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(Guid id, string returnUrl)
         {
             try

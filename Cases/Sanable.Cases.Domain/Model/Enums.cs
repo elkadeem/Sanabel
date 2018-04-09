@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sanable.Cases.Domain.Model
+﻿namespace Sanable.Cases.Domain.Model
 {
     public enum Genders : byte
     {

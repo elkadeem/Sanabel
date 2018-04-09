@@ -180,4 +180,28 @@
   <data name="CasePhoneExist" xml:space="preserve">
     <value>رقم الهاتف مسجل لحالة أخري. برجاء مراجعة الحالات أو تغيير رقم الهاتف</value>
   </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>إلي تاريخ</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>من تاريخ</value>
+  </data>
+  <data name="Volunteer" xml:space="preserve">
+    <value>المتطوع</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاريخ الطلب</value>
+  </data>
+  <data name="RequestNumber" xml:space="preserve">
+    <value>رقم الطلب</value>
+  </data>
+  <data name="Volunteers" xml:space="preserve">
+    <value>المتطوعون</value>
+  </data>
 </root>

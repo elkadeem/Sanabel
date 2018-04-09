@@ -71,7 +71,7 @@ namespace Sanabel.Cases.App
             return GetCaseViewModel(currentCase);
         }
 
-        public async Task<PagedEntity<CaseViewModel>> GetCases(CaseSearchViewModel searchViewModel)
+        public async Task<PagedEntity<CaseViewModel>> GetCases(SearchCaseViewModel searchViewModel)
         {
             if (searchViewModel == null)
                 throw new ArgumentNullException(nameof(searchViewModel));

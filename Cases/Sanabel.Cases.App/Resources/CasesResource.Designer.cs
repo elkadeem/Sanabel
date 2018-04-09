@@ -70,6 +70,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الحالة.
+        /// </summary>
+        public static string Case {
+            get {
+                return ResourceManager.GetString("Case", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحالة غير موجودة..
         /// </summary>
         public static string CaseIsNotExist {
@@ -187,6 +196,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إلي تاريخ.
+        /// </summary>
+        public static string FromDate {
+            get {
+                return ResourceManager.GetString("FromDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to النوع.
         /// </summary>
         public static string Gender {
@@ -201,6 +219,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Male {
             get {
                 return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ملاحظات.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         
@@ -232,11 +259,56 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ الطلب.
+        /// </summary>
+        public static string RequestDate {
+            get {
+                return ResourceManager.GetString("RequestDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الطلب.
+        /// </summary>
+        public static string RequestNumber {
+            get {
+                return ResourceManager.GetString("RequestNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أعزب.
         /// </summary>
         public static string Single {
             get {
                 return ResourceManager.GetString("Single", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to من تاريخ.
+        /// </summary>
+        public static string ToDate {
+            get {
+                return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المتطوع.
+        /// </summary>
+        public static string Volunteer {
+            get {
+                return ResourceManager.GetString("Volunteer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المتطوعون.
+        /// </summary>
+        public static string Volunteers {
+            get {
+                return ResourceManager.GetString("Volunteers", resourceCulture);
             }
         }
         
