@@ -822,6 +822,7 @@
     </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Sanabel.Presentation.MVC.ruleset" />
+    <None Include="Properties\PublishProfiles\sanabel - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\Custom\Common.js" />
     <Content Include="Scripts\Custom\CustomValidations.js" />
