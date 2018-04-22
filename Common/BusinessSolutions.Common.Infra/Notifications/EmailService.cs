@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessSolutions.Common.Infra.Log;
 using MailKit.Net.Smtp;
 using MimeKit;
 
@@ -11,6 +12,12 @@ namespace BusinessSolutions.Common.Infra.Notifications
 {
     public class EmailService : IEmailService
     {
+        private readonly ILogger _logger;
+        public EmailService(ILogger logger)
+        {
+            this._logger = logger;
+        }
+
         public string FromEmail
         {
             get
@@ -80,16 +87,11 @@ namespace BusinessSolutions.Common.Infra.Notifications
                 return emailIsAuthenticated;
             }
         }
-
-        public EmailService()
-        {
-
-        }
-
+        
         public Task SendEmail(string to, string subject, string body, string cc = "", string bCc = "")
         {
             if (string.IsNullOrEmpty(to))
-                throw new ArgumentNullException("tos");
+                throw new ArgumentNullException(nameof(to));
 
             if (string.IsNullOrEmpty(subject))
                 throw new ArgumentNullException("subject");
@@ -130,7 +132,8 @@ namespace BusinessSolutions.Common.Infra.Notifications
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.Error(ex);
+                throw;
             }
         }
 

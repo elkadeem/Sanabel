@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="113" result="Passed" total="113" passed="113" failed="0" inconclusive="0" skipped="0" asserts="2" engine-version="3.8.0.0" clr-version="4.0.30319.42000" start-time="2018-02-15 13:24:46Z" end-time="2018-02-15 13:24:48Z" duration="1.575465">
+  <command-line><![CDATA[packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe  --result=NUnitResults.xml "Security\Testing\Security.UnitTesting\bin\Debug\Security.UnitTesting.dll"]]></command-line>
+  <test-suite type="Assembly" id="0-1139" name="Security.UnitTesting.dll" fullname="D:\Wael\SourceCode\Sanabel\Security\Testing\Security.UnitTesting\bin\Debug\Security.UnitTesting.dll" runstate="Runnable" testcasecount="113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.804948" total="113" passed="113" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="2">
+    <environment framework-version="3.9.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.16299.0" platform="Win32NT" cwd="D:\Wael\SourceCode\Sanabel" machine-name="WELSAEED-PC" user="welsaeed" user-domain="SURE" culture="en-US" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="D:\Wael\SourceCode\Sanabel" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.7.1" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="4" />
+    </settings>
+    <properties>
+      <property name="_PID" value="14956" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <test-suite type="TestSuite" id="0-1140" name="Security" fullname="Security" runstate="Runnable" testcasecount="113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.785298" total="113" passed="113" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="2">
+      <test-suite type="TestSuite" id="0-1141" name="UnitTesting" fullname="Security.UnitTesting" runstate="Runnable" testcasecount="113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.784556" total="113" passed="113" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="2">
+        <test-suite type="TestFixture" id="0-1000" name="AspIdentityTest" fullname="Security.UnitTesting.AspIdentityTest" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.781252" total="113" passed="113" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="2">
+          <test-case id="0-1027" name="AddClaimAsync_WithInValidUser_AddClaimsToUser" fullname="Security.UnitTesting.AspIdentityTest.AddClaimAsync_WithInValidUser_AddClaimsToUser" methodname="AddClaimAsync_WithInValidUser_AddClaimsToUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1282896369" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.541334" asserts="0" />
+          <test-case id="0-1026" name="AddClaimAsync_WithInValidUser_ThrowArrgmentException" fullname="Security.UnitTesting.AspIdentityTest.AddClaimAsync_WithInValidUser_ThrowArrgmentException" methodname="AddClaimAsync_WithInValidUser_ThrowArrgmentException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1019467381" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001384" asserts="0" />
+          <test-case id="0-1025" name="AddClaimAsync_WithNullClaim_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.AddClaimAsync_WithNullClaim_ThrowArrgmentNullException" methodname="AddClaimAsync_WithNullClaim_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="952426043" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.005808" asserts="0" />
+          <test-case id="0-1024" name="AddClaimAsync_WithNullUser_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.AddClaimAsync_WithNullUser_ThrowArrgmentNullException" methodname="AddClaimAsync_WithNullUser_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="181795266" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001351" asserts="0" />
+          <test-case id="0-1011" name="AddLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" fullname="Security.UnitTesting.AspIdentityTest.AddLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" methodname="AddLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1642053160" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003747" asserts="0" />
+          <test-case id="0-1010" name="AddLoginAsync_WithNullLogin_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.AddLoginAsync_WithNullLogin_ThrowArgumentNullException" methodname="AddLoginAsync_WithNullLogin_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1648178523" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001157" asserts="0" />
+          <test-case id="0-1009" name="AddLoginAsync_WithNullUser_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.AddLoginAsync_WithNullUser_ThrowArgumentNullException" methodname="AddLoginAsync_WithNullUser_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="123004930" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001392" asserts="0" />
+          <test-case id="0-1012" name="AddLoginAsync_WithValidUser_AddLoginToUser" fullname="Security.UnitTesting.AspIdentityTest.AddLoginAsync_WithValidUser_AddLoginToUser" methodname="AddLoginAsync_WithValidUser_AddLoginToUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="196820634" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001708" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1126" name="AddToRoleAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="5" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.031255" total="5" passed="5" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1121" name="AddToRoleAsync_Tests(null,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests(null,&quot;Role1&quot;)" methodname="AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="235187610" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.009913" asserts="0" />
+            <test-case id="0-1122" name="AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" methodname="AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="402682509" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000600" asserts="0">
+              <properties>
+                <property name="Description" value="Empty Roles" />
+              </properties>
+            </test-case>
+            <test-case id="0-1123" name="AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="802222092" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.016518" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1124" name="AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1492622008" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000815" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1125" name="AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" fullname="Security.UnitTesting.AspIdentityTest.AddToRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" methodname="AddToRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="651278187" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000627" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUserAndInvalidRole" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-case id="0-1001" name="CreateAsync_WithNullUser_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.CreateAsync_WithNullUser_ThrowArgumentNullException" methodname="CreateAsync_WithNullUser_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1394826079" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.016949" asserts="1" />
+          <test-case id="0-1002" name="CreateAsync_WithUser_AddUserAndSave" fullname="Security.UnitTesting.AspIdentityTest.CreateAsync_WithUser_AddUserAndSave" methodname="CreateAsync_WithUser_AddUserAndSave" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1588615508" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.024248" asserts="0" />
+          <test-case id="0-1003" name="DeleteAsync_WithNullUser_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.DeleteAsync_WithNullUser_ThrowArgumentNullException" methodname="DeleteAsync_WithNullUser_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="551790575" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002700" asserts="1" />
+          <test-case id="0-1004" name="DeleteAsync_WithUser_AddUserAndSave" fullname="Security.UnitTesting.AspIdentityTest.DeleteAsync_WithUser_AddUserAndSave" methodname="DeleteAsync_WithUser_AddUserAndSave" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1278190732" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002507" asserts="0" />
+          <test-case id="0-1013" name="FindAsync_WithNullUserLogin_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.FindAsync_WithNullUserLogin_ThrowArgumentNullException" methodname="FindAsync_WithNullUserLogin_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1186950680" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001455" asserts="0" />
+          <test-case id="0-1014" name="FindAsync_WithUserLogin_ReturnValidUser" fullname="Security.UnitTesting.AspIdentityTest.FindAsync_WithUserLogin_ReturnValidUser" methodname="FindAsync_WithUserLogin_ReturnValidUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="628610787" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002734" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1052" name="FindByEmailAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.FindByEmailAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.005262" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1049" name="FindByEmailAsync_WithNullEmailAddress_ThrowArgumentNullExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.FindByEmailAsync_WithNullEmailAddress_ThrowArgumentNullExceptionForUser" methodname="FindByEmailAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1848531927" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003221" asserts="0" />
+            <test-case id="0-1050" name="FindByEmailAsync_WithNotExistEmailAddress_ReturnNull" fullname="Security.UnitTesting.AspIdentityTest.FindByEmailAsync_WithNotExistEmailAddress_ReturnNull" methodname="FindByEmailAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="582667153" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001618" asserts="0" />
+            <test-case id="0-1051" name="FindByEmailAsync_WithExistEmailAddress_ReturnUser" fullname="Security.UnitTesting.AspIdentityTest.FindByEmailAsync_WithExistEmailAddress_ReturnUser" methodname="FindByEmailAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1420668242" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000349" asserts="0" />
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1048" name="FindByEmailAsync_WithMultliSource" fullname="Security.UnitTesting.AspIdentityTest.FindByEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004726" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1045" name="GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser" methodname="FindByEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1565327113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003786" asserts="0" />
+            <test-case id="0-1046" name="GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser" methodname="FindByEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1276559214" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000479" asserts="0" />
+            <test-case id="0-1047" name="GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed" methodname="FindByEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1358317456" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000368" asserts="0" />
+          </test-suite>
+          <test-case id="0-1006" name="FindByIdAsync_WithUnValidUserId_ReturnNull" fullname="Security.UnitTesting.AspIdentityTest.FindByIdAsync_WithUnValidUserId_ReturnNull" methodname="FindByIdAsync_WithUnValidUserId_ReturnNull" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="977012171" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.006429" asserts="0" />
+          <test-case id="0-1005" name="FindByIdAsync_WithValidUserId_ReturnUser" fullname="Security.UnitTesting.AspIdentityTest.FindByIdAsync_WithValidUserId_ReturnUser" methodname="FindByIdAsync_WithValidUserId_ReturnUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1517853315" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002683" asserts="0" />
+          <test-case id="0-1008" name="FindByNameAsync_WithInValidUserName_ReturnNull" fullname="Security.UnitTesting.AspIdentityTest.FindByNameAsync_WithInValidUserName_ReturnNull" methodname="FindByNameAsync_WithInValidUserName_ReturnNull" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="905881804" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002233" asserts="0" />
+          <test-case id="0-1007" name="FindByNameAsync_WithValidUserName_ReturnUser" fullname="Security.UnitTesting.AspIdentityTest.FindByNameAsync_WithValidUserName_ReturnUser" methodname="FindByNameAsync_WithValidUserName_ReturnUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2050538668" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001814" asserts="0" />
+          <test-case id="0-1023" name="GetClaimsAsync_WithInValidUser_ReturnUserCalims" fullname="Security.UnitTesting.AspIdentityTest.GetClaimsAsync_WithInValidUser_ReturnUserCalims" methodname="GetClaimsAsync_WithInValidUser_ReturnUserCalims" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1854634408" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003508" asserts="0" />
+          <test-case id="0-1022" name="GetClaimsAsync_WithInValidUser_ThrowArrgmentException" fullname="Security.UnitTesting.AspIdentityTest.GetClaimsAsync_WithInValidUser_ThrowArrgmentException" methodname="GetClaimsAsync_WithInValidUser_ThrowArrgmentException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1514467206" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001692" asserts="0" />
+          <test-case id="0-1021" name="GetClaimsAsync_WithNullUser_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.GetClaimsAsync_WithNullUser_ThrowArrgmentNullException" methodname="GetClaimsAsync_WithNullUser_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1883548767" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001460" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1040" name="GetEmailAsync_WithMultliSource" fullname="Security.UnitTesting.AspIdentityTest.GetEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002822" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1037" name="GetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser" methodname="GetEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="949303208" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001838" asserts="0" />
+            <test-case id="0-1038" name="GetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser" methodname="GetEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1579694204" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000459" asserts="0" />
+            <test-case id="0-1039" name="GetEmailAsync_WithValidUserAndEmail_GetEmail" fullname="Security.UnitTesting.AspIdentityTest.GetEmailAsync_WithValidUserAndEmail_GetEmail" methodname="GetEmailAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="92763172" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000410" asserts="0" />
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1044" name="GetEmailConfirmedAsync_WithMultliSource" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002677" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1041" name="GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithNullUser_ThrowArgumentNullExceptionForUser" methodname="GetEmailConfirmedAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2075399897" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001260" asserts="0" />
+            <test-case id="0-1042" name="GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithInvalidUser_ThrowArgumentExceptionForUser" methodname="GetEmailConfirmedAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="613464966" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000915" asserts="0" />
+            <test-case id="0-1043" name="GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed" fullname="Security.UnitTesting.AspIdentityTest.GetEmailConfirmedAsync_WithValidUserAndEmail_GetEmailConfirmed" methodname="GetEmailConfirmedAsync_WithMultliSource" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1102819895" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000444" asserts="0" />
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1055" name="GetLockoutEndDateAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004877" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1053" name="GetLockoutEndDateAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetLockoutEndDateAsync_Tests(null)" methodname="GetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="693212269" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002649" asserts="0" />
+            <test-case id="0-1054" name="GetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1384408900" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002176" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-case id="0-1016" name="GetLoginsAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" fullname="Security.UnitTesting.AspIdentityTest.GetLoginsAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" methodname="GetLoginsAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1985139188" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003334" asserts="0" />
+          <test-case id="0-1015" name="GetLoginsAsync_WithNullUser_ReturnArrgmentNullExceptionOfUser" fullname="Security.UnitTesting.AspIdentityTest.GetLoginsAsync_WithNullUser_ReturnArrgmentNullExceptionOfUser" methodname="GetLoginsAsync_WithNullUser_ReturnArrgmentNullExceptionOfUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1379385495" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002060" asserts="0" />
+          <test-case id="0-1017" name="GetLoginsAsync_WithValidUser_ReturnValidUserLogins" fullname="Security.UnitTesting.AspIdentityTest.GetLoginsAsync_WithValidUser_ReturnValidUserLogins" methodname="GetLoginsAsync_WithValidUser_ReturnValidUserLogins" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1718986575" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003090" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1080" name="GetPasswordHashAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002348" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1077" name="GetPasswordHashAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetPasswordHashAsync_Tests(null)" methodname="GetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="582076603" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001924" asserts="0" />
+            <test-case id="0-1078" name="GetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="661012793" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000274" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1079" name="GetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="968854173" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000085" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1092" name="GetPhoneNumberAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001732" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1089" name="GetPhoneNumberAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberAsync_Tests(null)" methodname="GetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2043200170" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001367" asserts="0" />
+            <test-case id="0-1090" name="GetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2060582355" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000231" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1091" name="GetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1862384410" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000085" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1096" name="GetPhoneNumberConfirmedAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001920" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1093" name="GetPhoneNumberConfirmedAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberConfirmedAsync_Tests(null)" methodname="GetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="64084260" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001477" asserts="0" />
+            <test-case id="0-1094" name="GetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="863721917" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000278" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1095" name="GetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1088198541" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000118" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1120" name="GetRolesAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetRolesAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002992" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1117" name="GetRolesAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetRolesAsync_Tests(null)" methodname="GetRolesAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2068539935" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002397" asserts="0" />
+            <test-case id="0-1118" name="GetRolesAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetRolesAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetRolesAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1462781068" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000445" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1119" name="GetRolesAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetRolesAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetRolesAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="178106873" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000093" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1104" name="GetSecurityStampAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002106" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1101" name="GetSecurityStampAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetSecurityStampAsync_Tests(null)" methodname="GetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1537636785" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001610" asserts="0" />
+            <test-case id="0-1102" name="GetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1062263052" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000312" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1103" name="GetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1071819058" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000132" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1112" name="GetTwoFactorEnabledAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.GetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.005269" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1109" name="GetTwoFactorEnabledAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.GetTwoFactorEnabledAsync_Tests(null)" methodname="GetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1526632789" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003173" asserts="0" />
+            <test-case id="0-1110" name="GetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1014905553" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001383" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1111" name="GetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.GetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="GetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="186082859" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000645" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1084" name="HasPasswordAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.HasPasswordAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004143" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1081" name="HasPasswordAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.HasPasswordAsync_Tests(null)" methodname="HasPasswordAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1301735182" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003009" asserts="0" />
+            <test-case id="0-1082" name="HasPasswordAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.HasPasswordAsync_Tests(Sanabel.Security.Domain.User)" methodname="HasPasswordAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1965217057" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000565" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1083" name="HasPasswordAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.HasPasswordAsync_Tests(Sanabel.Security.Domain.User)" methodname="HasPasswordAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="610989910" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000458" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1064" name="IncrementAccessFailedCountAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.IncrementAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003071" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1061" name="IncrementAccessFailedCountAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.IncrementAccessFailedCountAsync_Tests(null)" methodname="IncrementAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="393336481" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001728" asserts="0" />
+            <test-case id="0-1062" name="IncrementAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.IncrementAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" methodname="IncrementAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1369934848" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000976" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1063" name="IncrementAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.IncrementAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" methodname="IncrementAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="308186435" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000297" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1138" name="IsInRoleAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="5" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004222" total="5" passed="5" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1133" name="IsInRoleAsync_Tests(null,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests(null,&quot;Role1&quot;)" methodname="IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="131436962" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002406" asserts="0" />
+            <test-case id="0-1134" name="IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" methodname="IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="809930417" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000494" asserts="0">
+              <properties>
+                <property name="Description" value="Empty Roles" />
+              </properties>
+            </test-case>
+            <test-case id="0-1135" name="IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1440332507" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001002" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1136" name="IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1366854501" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000144" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1137" name="IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" fullname="Security.UnitTesting.AspIdentityTest.IsInRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" methodname="IsInRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="632074150" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000084" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUserAndInvalidRole" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-case id="0-1030" name="RemoveClaimAsync_WithInValidUser_ThrowArrgmentException" fullname="Security.UnitTesting.AspIdentityTest.RemoveClaimAsync_WithInValidUser_ThrowArrgmentException" methodname="RemoveClaimAsync_WithInValidUser_ThrowArrgmentException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1848902841" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001743" asserts="0" />
+          <test-case id="0-1029" name="RemoveClaimAsync_WithNullClaim_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.RemoveClaimAsync_WithNullClaim_ThrowArrgmentNullException" methodname="RemoveClaimAsync_WithNullClaim_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1488595800" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002814" asserts="0" />
+          <test-case id="0-1028" name="RemoveClaimAsync_WithNullUser_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.RemoveClaimAsync_WithNullUser_ThrowArrgmentNullException" methodname="RemoveClaimAsync_WithNullUser_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="628196558" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001182" asserts="0" />
+          <test-case id="0-1031" name="RemoveClaimAsync_WithValidUser_RemoveUserClaims" fullname="Security.UnitTesting.AspIdentityTest.RemoveClaimAsync_WithValidUser_RemoveUserClaims" methodname="RemoveClaimAsync_WithValidUser_RemoveUserClaims" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1636126104" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.011540" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1132" name="RemoveFromRoleAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="5" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004844" total="5" passed="5" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1127" name="RemoveFromRoleAsync_Tests(null,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests(null,&quot;Role1&quot;)" methodname="RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1522887485" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002507" asserts="0" />
+            <test-case id="0-1128" name="RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;&quot;)" methodname="RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="431933100" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000266" asserts="0">
+              <properties>
+                <property name="Description" value="Empty Roles" />
+              </properties>
+            </test-case>
+            <test-case id="0-1129" name="RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2078109906" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001427" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1130" name="RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role1&quot;)" methodname="RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1556793106" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000384" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1131" name="RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" fullname="Security.UnitTesting.AspIdentityTest.RemoveFromRoleAsync_Tests(Sanabel.Security.Domain.User,&quot;Role3&quot;)" methodname="RemoveFromRoleAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="355864808" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000167" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUserAndInvalidRole" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-case id="0-1019" name="RemoveLoginAsync_WithNullLogin_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.RemoveLoginAsync_WithNullLogin_ThrowArgumentNullException" methodname="RemoveLoginAsync_WithNullLogin_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1339410572" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002104" asserts="0" />
+          <test-case id="0-1018" name="RemoveLoginAsync_WithNullUser_ThrowArgumentNullException" fullname="Security.UnitTesting.AspIdentityTest.RemoveLoginAsync_WithNullUser_ThrowArgumentNullException" methodname="RemoveLoginAsync_WithNullUser_ThrowArgumentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1084930107" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001425" asserts="0" />
+          <test-case id="0-1020" name="RemoveLoginAsync_WithValidUser_AddLoginToUser" fullname="Security.UnitTesting.AspIdentityTest.RemoveLoginAsync_WithValidUser_AddLoginToUser" methodname="RemoveLoginAsync_WithValidUser_AddLoginToUser" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1798700720" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003749" asserts="0" />
+          <test-suite type="ParameterizedMethod" id="0-1068" name="ResetAccessFailedCountAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.ResetAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003424" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1065" name="ResetAccessFailedCountAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.ResetAccessFailedCountAsync_Tests(null)" methodname="ResetAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="323864671" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002176" asserts="0" />
+            <test-case id="0-1066" name="ResetAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.ResetAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" methodname="ResetAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1656586776" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000408" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1067" name="ResetAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.ResetAccessFailedCountAsync_Tests(Sanabel.Security.Domain.User)" methodname="ResetAccessFailedCountAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="304896403" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000194" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1036" name="SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" fullname="Security.UnitTesting.AspIdentityTest.SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="4" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001599" total="4" passed="4" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1032" name="SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForUser" methodname="SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1465886677" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001075" asserts="0" />
+            <test-case id="0-1033" name="SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForEmail" fullname="Security.UnitTesting.AspIdentityTest.SetEmailAsync_WithNullUser_ThrowArgumentNullExceptionForEmail" methodname="SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1274330627" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000285" asserts="0" />
+            <test-case id="0-1034" name="SetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser" fullname="Security.UnitTesting.AspIdentityTest.SetEmailAsync_WithInvalidUser_ThrowArgumentExceptionForUser" methodname="SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="777732440" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000099" asserts="0" />
+            <test-case id="0-1035" name="SetEmailAsync_WithValidUserAndEmail_UpdateEmail" fullname="Security.UnitTesting.AspIdentityTest.SetEmailAsync_WithValidUserAndEmail_UpdateEmail" methodname="SetEmailAsync_WithAnyNullParameters_ThrowArrgmentNullException" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1327762959" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000080" asserts="0" />
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1072" name="SetLockoutEnabledAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001878" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1069" name="SetLockoutEnabledAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEnabledAsync_Tests(null)" methodname="SetLockoutEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="221600488" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001428" asserts="0" />
+            <test-case id="0-1070" name="SetLockoutEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetLockoutEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1503928928" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000249" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1071" name="SetLockoutEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetLockoutEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1912028930" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000123" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1060" name="SetLockoutEndDateAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="4" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.004740" total="4" passed="4" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1056" name="SetLockoutEndDateAsync_Tests(null,01/01/2010 00:00:00 +00:00)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEndDateAsync_Tests(null,01/01/2010 00:00:00 +00:00)" methodname="SetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1955202878" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001882" asserts="0" />
+            <test-case id="0-1057" name="SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/2010 00:00:00 +00:00)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/2010 00:00:00 +00:00)" methodname="SetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="90115703" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001350" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1058" name="SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/0001 00:00:00 +00:00)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/0001 00:00:00 +00:00)" methodname="SetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1186467741" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000699" asserts="0" />
+            <test-case id="0-1059" name="SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/2010 00:00:00 +00:00)" fullname="Security.UnitTesting.AspIdentityTest.SetLockoutEndDateAsync_Tests(Sanabel.Security.Domain.User,01/01/2010 00:00:00 +00:00)" methodname="SetLockoutEndDateAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1139294002" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000126" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1076" name="SetPasswordHashAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.002283" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1073" name="SetPasswordHashAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetPasswordHashAsync_Tests(null)" methodname="SetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="117453372" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001947" asserts="0" />
+            <test-case id="0-1074" name="SetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1306870516" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000214" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1075" name="SetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPasswordHashAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPasswordHashAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="2001197426" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000076" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1088" name="SetPhoneNumberAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001650" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1085" name="SetPhoneNumberAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberAsync_Tests(null)" methodname="SetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1509356975" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001341" asserts="0" />
+            <test-case id="0-1086" name="SetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1418363737" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000187" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1087" name="SetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPhoneNumberAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="245736175" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000077" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1100" name="SetPhoneNumberConfirmedAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001724" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1097" name="SetPhoneNumberConfirmedAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberConfirmedAsync_Tests(null)" methodname="SetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1032554755" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001342" asserts="0" />
+            <test-case id="0-1098" name="SetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1215836931" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000250" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1099" name="SetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetPhoneNumberConfirmedAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetPhoneNumberConfirmedAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="230725238" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000085" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1108" name="SetSecurityStampAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003498" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1105" name="SetSecurityStampAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetSecurityStampAsync_Tests(null)" methodname="SetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1474498339" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.003095" asserts="0" />
+            <test-case id="0-1106" name="SetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="865227260" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000236" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1107" name="SetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetSecurityStampAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetSecurityStampAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="126186042" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000114" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="ParameterizedMethod" id="0-1116" name="SetTwoFactorEnabledAsync_Tests" fullname="Security.UnitTesting.AspIdentityTest.SetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001807" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-case id="0-1113" name="SetTwoFactorEnabledAsync_Tests(null)" fullname="Security.UnitTesting.AspIdentityTest.SetTwoFactorEnabledAsync_Tests(null)" methodname="SetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1291295852" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.001465" asserts="0" />
+            <test-case id="0-1114" name="SetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="240673113" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000173" asserts="0">
+              <properties>
+                <property name="Description" value="InvalidUser" />
+              </properties>
+            </test-case>
+            <test-case id="0-1115" name="SetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" fullname="Security.UnitTesting.AspIdentityTest.SetTwoFactorEnabledAsync_Tests(Sanabel.Security.Domain.User)" methodname="SetTwoFactorEnabledAsync_Tests" classname="Security.UnitTesting.AspIdentityTest" runstate="Runnable" seed="1907178330" result="Passed" start-time="2018-02-15 13:24:47Z" end-time="2018-02-15 13:24:47Z" duration="0.000072" asserts="0">
+              <properties>
+                <property name="Description" value="ValidUser" />
+              </properties>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

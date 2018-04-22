@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Sanabel.Volunteers.Infra.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Sanabel.Volunteers.Infra.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -55,6 +57,10 @@
     <Compile Include="Migrations\201801281409207_Initial.cs" />
     <Compile Include="Migrations\201801281409207_Initial.Designer.cs">
       <DependentUpon>201801281409207_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802060649436_ChangeSchema.cs" />
+    <Compile Include="Migrations\201802060649436_ChangeSchema.Designer.cs">
+      <DependentUpon>201802060649436_ChangeSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\VolunteersRepository.cs" />
@@ -87,16 +93,31 @@
       <Project>{c390ac25-4f49-42fc-82ef-7b2166e81a48}</Project>
       <Name>Sanabel.Volunteers.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sanabel.Volunteers.Resources\Sanabel.Volunteers.Resources.csproj">
+      <Project>{fc2433e6-0ea6-479c-841c-66b73fcbe128}</Project>
+      <Name>Sanabel.Volunteers.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Sanabel.Volunteers.Infra.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801281409207_Initial.resx">
       <DependentUpon>201801281409207_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802060649436_ChangeSchema.resx">
+      <DependentUpon>201802060649436_ChangeSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

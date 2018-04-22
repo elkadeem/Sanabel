@@ -11,13 +11,13 @@ namespace Sanabel.Cases.App
 {
     public interface ICasesService
     {
-        Task<PagedEntity<CaseViewModel>> GetCases(CaseSearchViewModel searchViewModel);
+        Task<PagedEntity<CaseViewModel>> GetCases(SearchCaseViewModel searchViewModel);
 
         Task<CaseViewModel> GetCase(Guid caseId);
 
         Task<EntityResult> AddCase(CaseViewModel caseModel);
 
-        Task<EntityResult> UpdateCase(CaseViewModel caseMode);
+        Task<EntityResult> UpdateCase(CaseViewModel caseModel);
 
         Task<EntityResult> DeleteCase(Guid caseId);
     }

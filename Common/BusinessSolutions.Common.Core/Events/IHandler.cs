@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core.Events
 {
-    public interface IHandles<T> where T : IDomainEvent
+    public interface IHandles<in T> where T : IDomainEvent
     {
-        void Handle(T args);
+        void Handle(T args);        
     }
 }

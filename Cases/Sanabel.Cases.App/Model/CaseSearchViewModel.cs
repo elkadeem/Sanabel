@@ -1,21 +1,16 @@
 ﻿using BusinessSolutions.MVCCommon.Common;
 using Sanabel.Cases.App.Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sanabel.Cases.App.Model
 {
-    public class CaseSearchViewModel : BaseSearchViewModel<CaseViewModel>
+    public class SearchCaseViewModel : BaseSearchViewModel<CaseViewModel>
     {
-        public CaseSearchViewModel() : base()
+        public SearchCaseViewModel() : base()
         {
         }
 
-        public CaseSearchViewModel(int pageSize) : base(pageSize)
+        public SearchCaseViewModel(int pageSize) : base(pageSize)
         {
         }
 

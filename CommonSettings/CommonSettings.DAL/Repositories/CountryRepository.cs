@@ -31,7 +31,7 @@ namespace CommonSettings.DAL
             int totalCount = query.Count();
             var items = query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize)
-                .Take(pageSize).ToList()
+                .Take(pageSize)
                 .ToList();
 
             return new PagedEntity<Country>(items, totalCount);

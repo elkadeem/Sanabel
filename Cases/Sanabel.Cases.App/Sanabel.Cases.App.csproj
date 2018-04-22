@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Sanabel.Cases.App.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Sanabel.Cases.App.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,12 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaseResearchService.cs" />
     <Compile Include="ICasesService.cs" />
     <Compile Include="CasesService.cs" />
+    <Compile Include="Model\CaseFollowerViewModel.cs" />
     <Compile Include="Model\CaseResearchViewModel.cs" />
+    <Compile Include="Model\CaseReserchMemberNotesViewModel.cs" />
+    <Compile Include="Model\CaseReserchReportViewModel.cs" />
+    <Compile Include="Model\CaseReserchViewModel.cs" />
+    <Compile Include="Model\CaseReserchVolunteerViewModel.cs" />
     <Compile Include="Model\CaseSearchViewModel.cs" />
     <Compile Include="Model\CaseViewModel.cs" />
     <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\SearchCaseReserchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\CasesResource.Designer.cs">
       <DependentUpon>CasesResource.resx</DependentUpon>
@@ -85,6 +94,15 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CasesResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Sanabel.Cases.App.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.0.1.4822\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

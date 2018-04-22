@@ -9,7 +9,8 @@ namespace Sanabel.Volunteers.Domain.Repositories
     {
         Task<Volunteer> GetVolunteerById(Guid id);
 
-        Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, string phone, int countryId, int regionId
+        Task<PagedEntity<Volunteer>> SearchVolunteer(string name, string email, string phone
+            , int countryId, int regionId
             , int cityId, int districtId, Genders? gender
             , int pageIndex, int pageSize);
 
@@ -18,5 +19,9 @@ namespace Sanabel.Volunteers.Domain.Repositories
         Task UpdateVolunteer(Volunteer volunteer);
 
         Task RemoveVolunteer(Volunteer volunteer);
+
+        Volunteer GetVolunteerByPhone(string phone);
+
+        Volunteer GetVolunteerByEmail(string email);
     }
 }

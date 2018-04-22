@@ -9,8 +9,8 @@ namespace BusinessSolutions.Common.Core.Specifications
 {
     internal class AndSpecification<T> : CompositeSpecification<T>
     {
-        private ISpecification<T> _leftSpecification;
-        private ISpecification<T> _rightSpecification;
+        private readonly ISpecification<T> _leftSpecification;
+        private readonly ISpecification<T> _rightSpecification;
 
         public AndSpecification(ISpecification<T> left, ISpecification<T> right)
         {

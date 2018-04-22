@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
+using BusinessSolutions.Common.Core.Events;
 using Grace.DependencyInjection;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Sanabel.Presentation.MVC;
 using Sanabel.Presentation.MVC.IOC;
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(GraceMVC), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(GraceMVC), "End")]
+[assembly: PreApplicationStartMethod(typeof(GraceMvc), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(GraceMvc), "End")]
 namespace Sanabel.Presentation.MVC
 {
-    public static class GraceMVC
+    public static class GraceMvc
     {
         public static GraceDependencyResolver GraceDependencyResolver { get; private set; }
         private static GraceWebApiDependencyResolver _graceWebApiDependencyResolver;
@@ -27,13 +28,15 @@ namespace Sanabel.Presentation.MVC
 
         public static void Start()
         {
-            DependencyInjectionContainer container = GraceIOC.Initialize();
+            DependencyInjectionContainer container = GraceIoc.Initialize();
             GraceDependencyResolver = new GraceDependencyResolver(container);
             DependencyResolver.SetResolver(GraceDependencyResolver);
 
             _graceWebApiDependencyResolver = new GraceWebApiDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = _graceWebApiDependencyResolver;
             DynamicModuleUtility.RegisterModule(typeof(GraceScopeModule));
+
+            DomainEvents.Initiate(GraceDependencyResolver);
         }
     }
 }

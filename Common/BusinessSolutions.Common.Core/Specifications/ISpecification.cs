@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core.Specifications
 {
-    public interface ISpecification<T>
+    public interface ISpecification<in T>
     {
         bool IsSatisfiedBy(T entity);
-        ISpecification<T> And(ISpecification<T> specification);
-        ISpecification<T> Or(ISpecification<T> specification);
-        ISpecification<T> Not(ISpecification<T> specification);
     }
 }

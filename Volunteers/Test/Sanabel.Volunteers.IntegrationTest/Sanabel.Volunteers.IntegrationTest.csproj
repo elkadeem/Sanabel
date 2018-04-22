@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DependancyResolver.cs" />
     <Compile Include="Data\TestLogger.cs" />
     <Compile Include="Data\TestSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +86,18 @@
     <ProjectReference Include="..\..\..\Common\BusinessSolutions.Common.Infra\BusinessSolutions.Common.Infra.csproj">
       <Project>{E0F80C64-47DC-4236-BD94-A480B87552D1}</Project>
       <Name>BusinessSolutions.Common.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Security\Security.AspIdentity\Security.AspIdentity.csproj">
+      <Project>{dab8b715-900d-4936-b06b-bc1967da0943}</Project>
+      <Name>Security.AspIdentity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Security\Security.DataAccessLayer\Sanabel.Security.Infra.csproj">
+      <Project>{44859a1f-9523-460c-99b7-219aede202ed}</Project>
+      <Name>Sanabel.Security.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Security\Security.Domain\Sanabel.Security.Domain.csproj">
+      <Project>{705682bc-8929-4204-b35d-ce01f8bb453f}</Project>
+      <Name>Sanabel.Security.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Sanabel.Volunteers.Application\Sanabel.Volunteers.Application.csproj">
       <Project>{954e5bed-6db7-457f-b22c-ffe2b303f286}</Project>

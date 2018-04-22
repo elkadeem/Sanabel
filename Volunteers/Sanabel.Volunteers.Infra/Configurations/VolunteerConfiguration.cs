@@ -7,7 +7,7 @@ namespace Sanabel.Volunteers.Infra
     {
         public VolunteerConfiguration()
         {
-            ToTable("Volunteers", "Volunt")
+            ToTable("Volunteers", "Volunteers")
                 .HasKey(c => c.Id);
 
             Property(c => c.Name).IsRequired().HasMaxLength(100);

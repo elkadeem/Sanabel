@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core;
+using System;
 
 namespace Sanabel.Security.Domain
 {

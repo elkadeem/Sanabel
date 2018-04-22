@@ -10,7 +10,7 @@
     {
         public CommonSettingsDbMigrationsConfiguration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(CommonSettings.DAL.CommonSettingDataContext context)

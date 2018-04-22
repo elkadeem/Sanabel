@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Infra.Validation
 {
-    public class ValidationError
+    public class EntityError
     {
-        private string _property;
-        private string _message;
-        private ValidationErrorTypes _validationErrorType;
+        private readonly string _property;
+        private readonly string _message;
+        private readonly ValidationErrorTypes _validationErrorType;
 
         public string Property => _property;
 
@@ -18,22 +18,22 @@ namespace BusinessSolutions.Common.Infra.Validation
 
         public ValidationErrorTypes ValidationErrorType => _validationErrorType;
 
-        public ValidationError(string message, ValidationErrorTypes validationErrorType)
+        public EntityError(string message, ValidationErrorTypes validationErrorType)
         {
             if (string.IsNullOrEmpty(message))
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
            
             _message = message;
             _validationErrorType = validationErrorType;
         }
 
-        public ValidationError(string property, string message, ValidationErrorTypes validationErrorType)
+        public EntityError(string property, string message, ValidationErrorTypes validationErrorType)
         {
             if (string.IsNullOrEmpty(property))
-                throw new ArgumentNullException("property");
+                throw new ArgumentNullException(nameof(property));
 
             if (string.IsNullOrEmpty(message))
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
 
             _property = property;
             _message = message;

@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace BusinessSolutions.Common.Core.Events
 {
-    public class DomainEvents
+    public static class DomainEvents
     {
-        [ThreadStatic]
-        public static List<Delegate> _actions;
-
         private static IDependancyResolver _dependancyResolver;
-
         public static void Initiate(IDependancyResolver dependancyResolver)
         {
             if (dependancyResolver == null)
@@ -22,34 +18,19 @@ namespace BusinessSolutions.Common.Core.Events
             _dependancyResolver = dependancyResolver;
         }
 
-        public static void Register<T>(Action<T> action) where T : IDomainEvent
+        public static void Dispatch(IDomainEvent domainEvent)
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
-
-            if (_actions == null)
-                _actions = new List<Delegate>();
-
-            _actions.Add(action);
-        }
-
-        public static void Raise<T>(T args) where T : IDomainEvent
-        {
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
+            if (domainEvent == null)
+                throw new ArgumentNullException(nameof(domainEvent));
 
             if (_dependancyResolver != null)
             {
-                var handlers = _dependancyResolver.GetAll<IHandles<T>>();
-                foreach (var handler in handlers)
-                    handler.Handle(args);
+                var type = typeof(IHandles<>).MakeGenericType(domainEvent.GetType());
+                var handlers = _dependancyResolver.GetAll(type);
+                foreach (dynamic handler in handlers)
+                    handler.Handle((dynamic)domainEvent);
             }
 
-            if (_actions != null)
-            {
-                foreach (var action in _actions.Where(c => c is Action<T>))
-                    ((Action<T>)action)(args);
-            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BusinessSolutions.MVCCommon.Attributes
 {
     public class CollectionLengthValidationAttribute : ValidationAttribute, IClientValidatable
     {
-        private int _minimumLength;
+        private readonly int _minimumLength;
         public CollectionLengthValidationAttribute()
         {
             _minimumLength = 1;
@@ -34,17 +34,15 @@ namespace BusinessSolutions.MVCCommon.Attributes
                 bool isValid = true;
                 var items = ((IEnumerable)value).Cast<object>();
                 //Check For Minimum Items
-                if (MinimumLength > 0)
+                if (MinimumLength > 0 && items.Count() < MinimumLength)
                 {
-                    if (items.Count() < MinimumLength)
-                        isValid = false;
+                    isValid = false;
                 }
 
                 //Check for maximum Number of items
-                if (MaximumLength > 0)
+                if (MaximumLength > 0 && items.Count() > MaximumLength)
                 {
-                    if (items.Count() > MaximumLength)
-                        isValid = false;
+                    isValid = false;
                 }
 
                 if (isValid)

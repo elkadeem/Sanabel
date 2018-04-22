@@ -41,7 +41,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             var item = await _userService.GetUser(id);
             if (item == null)
             {
-                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                AddMessageToTempData(CommonResources.NoDataFound
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
                 return RedirectToAction("Index");
             }
             return View(item);
@@ -65,6 +66,8 @@ namespace Sanabel.Presentation.MVC.Controllers
                     EntityResult result = await _userService.AddUser(userModel);
                     if (result.Succeeded)
                     {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
                     }
 
@@ -74,6 +77,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             ViewBag.Roles = GetRoles();
@@ -112,6 +117,8 @@ namespace Sanabel.Presentation.MVC.Controllers
                     EntityResult result = await _userService.UpdateUser(userModel);
                     if (result.Succeeded)
                     {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
                     }
 
@@ -121,6 +128,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             ViewBag.Roles = GetRoles();
@@ -149,7 +158,11 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     EntityResult result = await _userService.ResetUserPassword(id, model);
                     if (result.Succeeded)
+                    {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
+                    }
 
                     AddErrors(result);
                 }
@@ -157,6 +170,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             return View(model);
@@ -172,7 +187,11 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     EntityResult result = await _userService.BlockUser(id);
                     if (result.Succeeded)
+                    {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
+                    }
 
                     AddErrors(result);
                 }
@@ -180,6 +199,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -195,7 +216,11 @@ namespace Sanabel.Presentation.MVC.Controllers
                 {
                     EntityResult result = await _userService.UnBlockUser(id);
                     if (result.Succeeded)
+                    {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
+                    }
 
                     AddErrors(result);
                 }
@@ -203,6 +228,8 @@ namespace Sanabel.Presentation.MVC.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             return RedirectToAction("Details", new { id = id });

@@ -19,7 +19,7 @@ namespace BusinessSolutions.Common.Core.Entities
                 return this.Equals(entity);
             }
 
-            return base.Equals(obj);
+            return false;
         }
 
         public override int GetHashCode()
@@ -27,7 +27,7 @@ namespace BusinessSolutions.Common.Core.Entities
             return this.Id.GetHashCode();
         }
 
-        public bool Equals(Entity<Key> other)
+        public virtual bool Equals(Entity<Key> other)
         {
             if (other == null)
                 return false;

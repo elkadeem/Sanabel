@@ -13,7 +13,7 @@ namespace Sanabel.Presentation.MVC.Settings.Controllers
     [RoutePrefix("api/Settings/Places")]
     public class PlacesController : ApiController
     {
-        private IPlacesService _placesService;
+        private readonly IPlacesService _placesService;
         public PlacesController(IPlacesService placesService)
         {
             _placesService = placesService;

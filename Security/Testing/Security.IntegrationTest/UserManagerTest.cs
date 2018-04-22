@@ -33,10 +33,8 @@ namespace Security.IntegrationTest
 
             };
 
-            user = new User()
-            {
-                UserName = "defaultUser",
-                Email = "defaultUser@email.com",
+            user = new User("defaultUser", "defaultUser@email.com")
+            {                
                 Id = UserManagerTestCases.ValidUserId,               
                 PhoneNumber = "050",
             };
@@ -49,10 +47,8 @@ namespace Security.IntegrationTest
         [Test]
         public async Task CreateUser_WithValidInformation_SaveUser()
         {
-            var newUser = new User()
-            {
-                UserName = "elkadeem@hotmail.com",
-                Email = "elkadeem@hotmail.com",                
+            var newUser = new User("elkadeem@hotmail.com", "elkadeem@hotmail.com")
+            {                               
                 PhoneNumber = "0506823646",
             };
 
@@ -150,12 +146,8 @@ namespace Security.IntegrationTest
             User currentUser;
             if (userToUpdate == null)
             {
-                currentUser = new User
-                {
-                    UserName = userLogin.ProviderKey,
-                    Email = userLogin.ProviderKey,
-                };
-
+                currentUser = new User(userLogin.ProviderKey, userLogin.ProviderKey);
+                
                 result = await userManager.CreateAsync(currentUser);
                 if (!result.Succeeded)
                     return result.Succeeded;

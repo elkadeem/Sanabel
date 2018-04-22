@@ -14,7 +14,7 @@ namespace Sanabel.Volunteers.Infra.Repositories
 {
     internal class VolunteersRepository : IVolunteerRepository
     {
-        BaseEntityFrameworkRepository<Guid, Volunteer> _repository;
+        private readonly BaseEntityFrameworkRepository<Guid, Volunteer>  _repository;
         private readonly VolunteersDbCotext _dbContext;
         public VolunteersRepository(VolunteersDbCotext dbContext)
         {
@@ -30,10 +30,20 @@ namespace Sanabel.Volunteers.Infra.Repositories
             return Task.FromResult(0);
         }
 
+        public Volunteer GetVolunteerByEmail(string email)
+        {
+            return _dbContext.Volunteers.FirstOrDefault(c => c.Email == email);
+        }
+
         public Task<Volunteer> GetVolunteerById(Guid id)
         {
             return _dbContext.Volunteers.Include(c => c.City.Region.Country)
                 .Include(c => c.District).FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public Volunteer GetVolunteerByPhone(string phone)
+        {
+            return _dbContext.Volunteers.FirstOrDefault(c => c.Phone == phone);
         }
 
         public Task RemoveVolunteer(Volunteer volunteer)

@@ -1,21 +1,23 @@
 ﻿using BusinessSolutions.Common.Core;
+using BusinessSolutions.Common.Core.Validation;
 using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Volunteers.Application.Models;
 using Sanabel.Volunteers.Domain.Model;
 using Sanabel.Volunteers.Domain.Repositories;
+using Sanabel.Volunteers.Domain.Specifications;
+using Sanabel.Volunteers.Resources;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Sanabel.Volunteers.Application.Services
 {
     public class VolunteerService : IVolunteerService
     {
-        private IVolunteerUnitOfWork _volunteerUnitOfWork;
-        private ILogger _logger;
+        private readonly IVolunteerUnitOfWork _volunteerUnitOfWork;
+        private readonly ILogger _logger;
         public VolunteerService(IVolunteerUnitOfWork volunteerUnitOfWork, ILogger logger)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(volunteerUnitOfWork, nameof(volunteerUnitOfWork));
@@ -37,14 +39,28 @@ namespace Sanabel.Volunteers.Application.Services
                     Notes = volunteerModel.Notes,
                 };
 
-                await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
-                await _volunteerUnitOfWork.SaveAsync();
-                return EntityResult.Success;
+                var validationResult = ValidateVolunteer(volunteer);
+                if(!validationResult.IsValid)
+                {
+                    return EntityResult.Failed(validationResult.ValidationErrors
+                        .Select(c => new EntityError(c.Message, ValidationErrorTypes.BusinessError))
+                        .ToArray());
+                }
+
+                using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    await _volunteerUnitOfWork.VolunteerRepository.AddVolunteer(volunteer);
+                    await _volunteerUnitOfWork.SaveAsync();
+                    
+                    transactionScope.Complete();
+                    volunteerModel.Id = volunteer.Id;
+                    return EntityResult.Success;
+                }
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -59,7 +75,7 @@ namespace Sanabel.Volunteers.Application.Services
             var result = await _volunteerUnitOfWork.VolunteerRepository.SearchVolunteer(searchVolunteerModel.VolunteerName
                 , searchVolunteerModel.VolunteerEmail, searchVolunteerModel.Phone, searchVolunteerModel.CountryId, searchVolunteerModel.RegionId
                 , searchVolunteerModel.CityId, searchVolunteerModel.DistrictId
-                , searchVolunteerModel.Gender == null? null : (Domain.Model.Genders?)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
+                , searchVolunteerModel.Gender == null ? null : (Domain.Model.Genders?)searchVolunteerModel.Gender, searchVolunteerModel.PageIndex, searchVolunteerModel.PageSize);
 
             return new PagedEntity<ViewVolunteerViewModel>(result.Items.Select(c => GetViewVolunteerViewModel(c)), result.TotalCount);
         }
@@ -69,11 +85,16 @@ namespace Sanabel.Volunteers.Application.Services
             try
             {
                 var volunteer = await _volunteerUnitOfWork.VolunteerRepository.GetVolunteerById(volunteerModel.Id);
-                Guard.ArgumentIsNull<ArgumentException>(volunteer, nameof(volunteer), Localization.VolunteerResource.VolunteerNotFound);
+                Guard.ArgumentIsNull<ArgumentException>(volunteer, nameof(volunteer), VolunteerResource.VolunteerNotFound);
+                volunteer.Update(volunteerModel.Name
+                    , volunteerModel.Email, volunteerModel.Phone
+                    , volunteerModel.CityId
+                    , volunteerModel.DistrictId);
                 volunteer.Gender = (Domain.Model.Genders)volunteerModel.Gender;
                 volunteer.HasCar = volunteerModel.HasCar;
                 volunteer.Address = volunteerModel.Address;
                 volunteer.Notes = volunteerModel.Notes;
+
 
                 await _volunteerUnitOfWork.VolunteerRepository.UpdateVolunteer(volunteer);
                 await _volunteerUnitOfWork.SaveAsync();
@@ -82,7 +103,7 @@ namespace Sanabel.Volunteers.Application.Services
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -104,7 +125,11 @@ namespace Sanabel.Volunteers.Application.Services
                 Id = volunteer.Id,
                 Phone = volunteer.Phone,
                 Notes = volunteer.Notes,
-                RegionId = volunteer.City?.RegionId,                
+                RegionId = volunteer.City?.RegionId,
+                CityName = volunteer.City?.Name,
+                CountryName = volunteer.City?.Region?.Country.Name,
+                DistrictName = volunteer.District?.Name,
+                RegionName = volunteer.City?.Region?.Name,
             };
         }
 
@@ -124,8 +149,22 @@ namespace Sanabel.Volunteers.Application.Services
                 RegionName = volunteer.City?.Region?.Name,
                 Gender = (Models.Genders)volunteer.Gender,
                 Phone = volunteer.Phone,
-                Id = volunteer.Id, 
+                Id = volunteer.Id,
             };
+        }
+
+        private ValidationResult ValidateVolunteer(Volunteer volunteer)
+        {
+            EntityValidator<Volunteer> entityValidator = new EntityValidator<Volunteer>();
+            entityValidator.Add("Phone Is Unique"
+                , new ValidationRule<Volunteer>(new VolunteerPhoneIsUniqueSpecifications(_volunteerUnitOfWork.VolunteerRepository)
+                , nameof(volunteer.Phone), VolunteerResource.PhoneExist));
+
+            entityValidator.Add("Email Is Unique"
+                , new ValidationRule<Volunteer>(new VolunteerEmailIsUniqueSpecifications(_volunteerUnitOfWork.VolunteerRepository)
+                , nameof(volunteer.Phone), VolunteerResource.EmailExist));
+
+            return entityValidator.Validate(volunteer);
         }
     }
 }

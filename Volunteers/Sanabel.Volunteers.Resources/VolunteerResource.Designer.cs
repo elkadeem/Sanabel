@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sanabel.Volunteers.Application.Localization {
+namespace Sanabel.Volunteers.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Sanabel.Volunteers.Application.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sanabel.Volunteers.Application.Localization.VolunteerResource", typeof(VolunteerResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sanabel.Volunteers.Resources.VolunteerResource", typeof(VolunteerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -124,6 +124,51 @@ namespace Sanabel.Volunteers.Application.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to البريد الإلكتروني مسجل لمتطوع أخر..
+        /// </summary>
+        public static string EmailExist {
+            get {
+                return ResourceManager.GetString("EmailExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Message.
+        /// </summary>
+        public static string EmailMessage {
+            get {
+                return ResourceManager.GetString("EmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EmailVerificationEmailMessage {
+            get {
+                return ResourceManager.GetString("EmailVerificationEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to برجاء الضغط علي الرابط لتأكيد البريد الإلكتروني الخاص بك &lt;a href=\&quot;{0}\&quot;&gt;هنا&lt;/a&gt;.
+        /// </summary>
+        public static string EmailVerificationEmailMessage1 {
+            get {
+                return ResourceManager.GetString("EmailVerificationEmailMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تأكيد البريد الإلكتروني.
+        /// </summary>
+        public static string EmailVerificationEmailSubject {
+            get {
+                return ResourceManager.GetString("EmailVerificationEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أنثي.
         /// </summary>
         public static string Female {
@@ -201,6 +246,15 @@ namespace Sanabel.Volunteers.Application.Localization {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الجوال مسجل من قبل لمتطوع أخر.
+        /// </summary>
+        public static string PhoneExist {
+            get {
+                return ResourceManager.GetString("PhoneExist", resourceCulture);
             }
         }
         

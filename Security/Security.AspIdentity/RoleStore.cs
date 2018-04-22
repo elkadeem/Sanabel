@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Security.AspIdentity
 {
-    public class RoleStore : IRoleStore<Role, Guid>, IQueryableRoleStore<Role, Guid>
+    public class RoleStore : IQueryableRoleStore<Role, Guid>
     {
-        private ISecurityUnitOfWork _securityUnitOfWork;
+        private readonly ISecurityUnitOfWork _securityUnitOfWork;
 
         public RoleStore(ISecurityUnitOfWork securityUnitOfWork)
         {
@@ -46,9 +46,9 @@ namespace Security.AspIdentity
             await _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<Role> FindByIdAsync(Guid Id)
+        public Task<Role> FindByIdAsync(Guid roleId)
         {
-            return _securityUnitOfWork.RoleRepository.GetByIdAsync(Id);
+            return _securityUnitOfWork.RoleRepository.GetByIdAsync(roleId);
         }
 
         public Task<Role> FindByNameAsync(string roleName)

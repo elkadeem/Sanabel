@@ -16,8 +16,8 @@ namespace CommonSettings.BLL
     [ExportByInterfaces()]
     public class PlacesService : IPlacesService
     {
-        private ICommonSettingsUnitOfWork _unitOfWork;
-        private ILogger _logger;
+        private readonly ICommonSettingsUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
         public PlacesService(ICommonSettingsUnitOfWork unitOfWork, ILogger log)
         {
@@ -80,7 +80,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -107,7 +107,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -126,22 +126,18 @@ namespace CommonSettings.BLL
             }
         }
 
-        private List<ValidationError> ValidateCountry(Country country)
+        private List<EntityError> ValidateCountry(Country country)
         {
-            List<ValidationError> errors = new List<ValidationError>();
+            List<EntityError> errors = new List<EntityError>();
             var isNameIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Name))
                 .And(new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code)));
             if (!isNameIsNotEmpty.IsSatisfiedBy(country))
-                throw new ArgumentNullException("Name");
-
-            //var isCodeIsNotEmpty = new ExpressionSpecification<Country>(c => !string.IsNullOrEmpty(c.Code));
-            //if (!isCodeIsNotEmpty.IsSatisfiedBy(country))
-            //    throw new ArgumentNullException("Code");
+                throw new ArgumentNullException("Name");           
 
             var isNameOrCodeExistSpecification = new ExpressionSpecification<Country>(c => c.Id != country.Id
               && (c.Name.ToLower() == country.Name.ToLower() || c.Code.ToLower() == country.Code.ToLower()));
             if (_unitOfWork.CountryRepository.Find(isNameOrCodeExistSpecification).Any())
-                errors.Add(new ValidationError("Country Name or Code already exist", ValidationErrorTypes.DuplicatedValue));
+                errors.Add(new EntityError("Country Name or Code already exist", ValidationErrorTypes.DuplicatedValue));
 
             return errors;
         }
@@ -192,7 +188,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -218,7 +214,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -237,7 +233,7 @@ namespace CommonSettings.BLL
             }
         }
 
-        private List<ValidationError> ValidateRegion(Region region)
+        private List<EntityError> ValidateRegion(Region region)
         {
 
             var isNameIsNotEmpty = new ExpressionSpecification<Region>(c => !string.IsNullOrEmpty(c.Name));
@@ -245,15 +241,15 @@ namespace CommonSettings.BLL
                 throw new ArgumentNullException("Name");
 
             var isCountryExist = new ExpressionSpecification<Country>(c => c.Id == region.CountryId);
-            if (_unitOfWork.CountryRepository.Find(isCountryExist).Any() == false)
+            if (!_unitOfWork.CountryRepository.Find(isCountryExist).Any())
                 throw new ArgumentException("Country is not exist.", "CountryId");
 
-            List<ValidationError> errors = new List<ValidationError>();
+            List<EntityError> errors = new List<EntityError>();
             var isRegionExistInCountry = new ExpressionSpecification<Region>(c => c.Id != region.Id
              && c.CountryId == region.CountryId && c.Name.ToLower() == region.Name.ToLower());
 
             if (_unitOfWork.RegionRepository.Find(isRegionExistInCountry).Any())
-                errors.Add(new ValidationError($"Region { region.Name } is already exist.", ValidationErrorTypes.DuplicatedValue));
+                errors.Add(new EntityError($"Region { region.Name } is already exist.", ValidationErrorTypes.DuplicatedValue));
 
             return errors;
         }
@@ -313,7 +309,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -337,7 +333,7 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -352,27 +348,22 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
-        private List<ValidationError> ValidateCity(City city)
+        private List<EntityError> ValidateCity(City city)
         {
-
-            var isNameIsNotEmpty = new ExpressionSpecification<City>(c => !string.IsNullOrEmpty(c.Name));
-            if (!isNameIsNotEmpty.IsSatisfiedBy(city))
-                throw new ArgumentNullException("Name");
-
             var isRegionExist = new ExpressionSpecification<Region>(c => c.Id == city.RegionId);
-            if (_unitOfWork.RegionRepository.Find(isRegionExist).Any() == false)
+            if (!_unitOfWork.RegionRepository.Find(isRegionExist).Any())
                 throw new ArgumentException("Region is not exist.", "RegionId");
 
-            List<ValidationError> errors = new List<ValidationError>();
+            List<EntityError> errors = new List<EntityError>();
             var isCityExistInRegion = new ExpressionSpecification<Region>(c => c.Id != city.Id
              && c.CountryId == city.RegionId && c.Name.ToLower() == city.Name.ToLower());
 
             if (_unitOfWork.RegionRepository.Find(isCityExistInRegion).Any())
-                errors.Add(new ValidationError($"City { city.Name } is already exist."
+                errors.Add(new EntityError($"City { city.Name } is already exist."
                     , ValidationErrorTypes.DuplicatedValue));
 
             return errors;
@@ -428,13 +419,13 @@ namespace CommonSettings.BLL
                 var district = districtModel.ToDistrict();
                 _unitOfWork.DistrictRepository.Add(district);
                 _unitOfWork.Save();
-                district.Id = district.Id;
+                districtModel.DistrictId = district.Id;
                 return EntityResult.Success;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -458,29 +449,8 @@ namespace CommonSettings.BLL
             catch (Exception ex)
             {
                 _logger.Error(ex, ex.Message);
-                throw ex;
+                throw;
             }
-        }
-
-        private List<ValidationError> ValidateDistrict(District district)
-        {
-            var isNameIsNotEmpty = new ExpressionSpecification<District>(c => !string.IsNullOrEmpty(c.Name));
-            if (!isNameIsNotEmpty.IsSatisfiedBy(district))
-                throw new ArgumentNullException("Name");
-
-            var isCityExist = new ExpressionSpecification<City>(c => c.Id == district.CityId);
-            if (_unitOfWork.CityRepository.Find(isCityExist).Any() == false)
-                throw new ArgumentException("City is not exist.", "CityId");
-
-            List<ValidationError> errors = new List<ValidationError>();
-            var isDistrictExistInCity = new ExpressionSpecification<District>(c => c.Id != district.Id
-             && c.CityId == district.CityId && c.Name.ToLower() == district.Name.ToLower());
-
-            if (_unitOfWork.DistrictRepository.Find(isDistrictExistInCity).Any())
-                errors.Add(new ValidationError($"District { district.Name } is already exist."
-                    , ValidationErrorTypes.DuplicatedValue));
-
-            return errors;
         }
         #endregion
     }

@@ -16,7 +16,7 @@ namespace BusinessSolutions.Common.EntityFramework
         where TEntity : Entity<Tkey>
     {
         protected DbContext _dbContext;
-        private DbSet<TEntity> _set;
+        private readonly DbSet<TEntity> _set;
 
         protected DbContext DbContext => _dbContext;
 

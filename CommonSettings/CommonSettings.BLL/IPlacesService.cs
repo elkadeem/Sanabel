@@ -15,9 +15,9 @@ namespace CommonSettings.BLL
 
         CountryViewModel GetCountryById(int countryId);
 
-        EntityResult AddCountry(CountryViewModel country);
+        EntityResult AddCountry(CountryViewModel countryModel);
 
-        EntityResult UpdateCountry(CountryViewModel country);
+        EntityResult UpdateCountry(CountryViewModel countryModel);
 
         bool DeleteCountry(int countryId);
         #endregion
@@ -45,9 +45,9 @@ namespace CommonSettings.BLL
 
         CityViewModel GetCityById(int cityId);
 
-        EntityResult AddCity(CityViewModel city);
+        EntityResult AddCity(CityViewModel cityModel);
 
-        EntityResult UpdateCity(CityViewModel city);
+        EntityResult UpdateCity(CityViewModel cityModel);
 
         bool DeleteCity(int cityId);
         #endregion
@@ -59,9 +59,9 @@ namespace CommonSettings.BLL
 
         DistrictViewModel GetDistrictById(int districtId);
 
-        EntityResult AddDistrict(DistrictViewModel district);
+        EntityResult AddDistrict(DistrictViewModel districtModel);
 
-        EntityResult UpdateDistrict(DistrictViewModel district);
+        EntityResult UpdateDistrict(DistrictViewModel districtModel);
 
         bool DeleteDistrict(int districtId);
         #endregion

@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
+using BusinessSolutions.Localization;
 using BusinessSolutions.MVCCommon.Controllers;
 
 using PagedList;
@@ -13,11 +14,11 @@ using System.Web.Mvc;
 
 namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class VolunteerController : BaseController
-    {        
-        private IVolunteerService _volunteerService;
-        private IUserService _userService;
+    {
+        private readonly IVolunteerService _volunteerService;
+        private readonly IUserService _userService;
         public VolunteerController(IVolunteerService volunteerService, IUserService userService, ILogger logger) : base(logger)
         {
             Guard.ArgumentIsNull<ArgumentNullException>(volunteerService, nameof(volunteerService));
@@ -26,7 +27,7 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             _userService = userService;
         }
 
-        
+
         public async Task<ActionResult> Index(SearchVolunteersViewModel searchUserModel)
         {
             var result = await _volunteerService.SearchVolunteers(searchUserModel);
@@ -35,12 +36,23 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             return View(searchUserModel);
         }
 
-        
+
         public ActionResult Create()
         {
-            var  model = new VolunteerViewModel();
+            var model = new VolunteerViewModel();
             GetRoles();
             return View(model);
+        }
+
+        public async Task<ActionResult> Details(Guid id)
+        {           
+            VolunteerViewModel userModel = await _volunteerService.GetVolunteer(id);
+            if (userModel == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+            return View(userModel);
         }
 
         [HttpPost]
@@ -54,6 +66,8 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
                     var entityResult = await _volunteerService.AddVolunteer(model);
                     if (entityResult.Succeeded)
                     {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                            , BusinessSolutions.MVCCommon.MessageType.Success);
                         return RedirectToAction("Index");
                     }
                     else
@@ -68,21 +82,29 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             GetRoles();
             return View(model);
-        }        
+        }
 
-        
+
         public async Task<ActionResult> Edit(Guid id)
         {
             VolunteerViewModel userModel = await _volunteerService.GetVolunteer(id);
+            if (userModel == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Index");
+            }
+
             GetRoles();
             return View(userModel);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Guid id, VolunteerViewModel volunteerModel)
@@ -93,6 +115,8 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
                 EntityResult result = await _volunteerService.UpdateVolunteer(volunteerModel);
                 if (result.Succeeded)
                 {
+                    AddMessageToTempData(CommonResources.SavedSuccessfullyMessage
+                        , BusinessSolutions.MVCCommon.MessageType.Success);
                     return RedirectToAction("Index");
                 }
                 else
@@ -106,6 +130,8 @@ namespace Sanabel.Presentation.MVC.Areas.Volunteers.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError
+                    , BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
             GetRoles();

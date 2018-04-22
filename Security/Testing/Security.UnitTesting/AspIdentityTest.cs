@@ -30,12 +30,10 @@ namespace Security.UnitTesting
 
             userStore = new AspIdentity.UserStore(unitOfWorkMok.Object);
 
-            user = new User
-            {
-                Email = "elkadeem@hotmail.com",
+            user = new User("elkadeem", "elkadeem@hotmail.com")
+            {                
                 FullName = "elkadeem",
-                Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074"),
-                UserName = "elkadeem",
+                Id = new Guid("6B942923-DDAA-453F-89EC-847F0D639074"),                
             };
 
             roles = new List<Role> {
@@ -82,7 +80,8 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithValidUserId_ReturnUser()
         {
             //Arrange
-            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>( (a) =>  a == user.Id ? Task.FromResult(user) : null);
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>()))
+                .Returns<Guid>( (a) =>  a == user.Id ? Task.FromResult(user) : null);
             //Act
             var result = await userStore.FindByIdAsync(user.Id);
             //Assert
@@ -95,7 +94,8 @@ namespace Security.UnitTesting
         public async Task FindByIdAsync_WithUnValidUserId_ReturnNull()
         {
             //Arrange
-            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>((a) => a == user.Id ? Task.FromResult(user) : Task.FromResult(null as User));
+            userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>()))
+                .Returns<Guid>((a) => a == user.Id ? Task.FromResult(user) : Task.FromResult(null as User));
             //Act
             var result = await userStore.FindByIdAsync(Guid.NewGuid());
             //Assert
@@ -106,7 +106,8 @@ namespace Security.UnitTesting
         public async Task FindByNameAsync_WithValidUserName_ReturnUser()
         {
             //Arrange
-            userRepository.Setup(c => c.FindByUserNameAsync(It.IsAny<string>())).Returns<string>((a) => Task.FromResult((User)(a == user.UserName ? user : null)));
+            userRepository.Setup(c => c.FindByUserNameAsync(It.IsAny<string>()))
+                .Returns<string>((a) => Task.FromResult((User)(a == user.UserName ? user : null)));
             //Act
             var result = await userStore.FindByNameAsync("elkadeem");
             //Assert
@@ -148,7 +149,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task AddLoginAsync_WithNullLogin_ThrowArgumentNullException()
         {
-            User user = new User();
+            User user = new User("user", "email");
             UserLoginInfo login = null;
 
             try
@@ -166,7 +167,7 @@ namespace Security.UnitTesting
         public async Task AddLoginAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
         {
             //Arrange
-            User user = new User();
+            User user = new User("user", "email");
             UserLoginInfo login = new UserLoginInfo("google", "elkadeem@gmail.com");
             userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>(null);
 
@@ -255,7 +256,7 @@ namespace Security.UnitTesting
         public async Task GetLoginsAsync_WithNotFoundUser_ThrowArgumentExceptionWithUser()
         {
             //Arrange
-            User user = new User();
+            User user = new User("user", "email");
             userRepository.Setup(c => c.GetUserByIdAsync(It.IsAny<Guid>())).Returns<Guid>(null);
 
             try
@@ -310,7 +311,7 @@ namespace Security.UnitTesting
         [Test]
         public async Task RemoveLoginAsync_WithNullLogin_ThrowArgumentNullException()
         {
-            User user = new User();
+            User user = new User("user", "email");
             UserLoginInfo login = null;
 
             try
@@ -369,7 +370,7 @@ namespace Security.UnitTesting
         public async Task GetClaimsAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            User user = new User();
+            User user = new User("user", "email");
 
             try
             {
@@ -442,7 +443,7 @@ namespace Security.UnitTesting
         public async Task AddClaimAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            User user = new User();
+            User user = new User("user", "email");
             System.Security.Claims.Claim claim = new System.Security.Claims.Claim("Department", "Department");
 
             try
@@ -515,7 +516,7 @@ namespace Security.UnitTesting
         public async Task RemoveClaimAsync_WithInValidUser_ThrowArrgmentException()
         {
             //Arrange
-            User user = new User();
+            User user = new User("user", "email");
             System.Security.Claims.Claim claim = new System.Security.Claims.Claim("Department", "Department");
 
             try

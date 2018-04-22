@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Security.AspIdentity
 {
-    public class UserStore : IUserStore<User, Guid>, IUserLoginStore<User, Guid>
+    public class UserStore : IUserLoginStore<User, Guid>
         , IUserClaimStore<User, Guid>, IUserEmailStore<User, Guid>
         , IUserLockoutStore<User, Guid>, IUserPasswordStore<User, Guid>
         , IUserPhoneNumberStore<User, Guid>, IUserSecurityStampStore<User, Guid>
         , IUserTwoFactorStore<User, Guid>, IUserRoleStore<User, Guid>
     {
-        private ISecurityUnitOfWork _securityUnitOfWork;
+        private readonly ISecurityUnitOfWork _securityUnitOfWork;
 
         public UserStore(ISecurityUnitOfWork securityUnitOfWork)
         {
@@ -36,9 +36,9 @@ namespace Security.AspIdentity
             return _securityUnitOfWork.SaveAsync();
         }
 
-        public Task<User> FindByIdAsync(Guid Id)
+        public Task<User> FindByIdAsync(Guid userId)
         {
-            return _securityUnitOfWork.UserRepository.GetUserByIdAsync(Id);                       
+            return _securityUnitOfWork.UserRepository.GetUserByIdAsync(userId);                       
         }
 
         public Task<User> FindByNameAsync(string userName)

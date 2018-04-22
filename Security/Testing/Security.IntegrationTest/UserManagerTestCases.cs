@@ -18,11 +18,11 @@ namespace Security.IntegrationTest
             get
             {
                 return new List<TestCaseData> {
-                    new TestCaseData(new User{ UserName = "defaultUser", Email = "user1@email.com"}, "P@ssw0rd", "ExistUser"),
-                    new TestCaseData(new User{ UserName = "user2", Email = "defaultUser@email.com"}, "P@ssw0rd", "ExistEmail"),
-                    new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "", "EmptyPassword"),
-                    new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "123456", "InvalidPassword"),
-                    new TestCaseData(new User{ UserName = "user2", Email = "user2@email.com"}, "P@ssw0rd", "ValidUserNameAndPassword"),
+                    new TestCaseData(new User("defaultUser", "user1@email.com"), "P@ssw0rd", "ExistUser"),
+                    new TestCaseData(new User("user2", "defaultUser@email.com"), "P@ssw0rd", "ExistEmail"),
+                    new TestCaseData(new User("user2", "user2@email.com"), "", "EmptyPassword"),
+                    new TestCaseData(new User("user2", "user2@email.com"), "123456", "InvalidPassword"),
+                    new TestCaseData(new User("user2", "user2@email.com"), "P@ssw0rd", "ValidUserNameAndPassword"),
                 };
             }
         }
@@ -37,17 +37,17 @@ namespace Security.IntegrationTest
                     .SetName("AddUserLogin_NewLogin_AddUserAndLogin")
                     .Returns(true),
                     new TestCaseData(
-                        new User{ Id = ValidUserId}
+                        new User("user", "email"){ Id = ValidUserId}
                     , ValidUserLogin)
                     .SetName("AddUserLogin_ToExistingUser_AddLoginToUser")
                     .Returns(true),
                     new TestCaseData(
-                        new User{ Id = ValidUserId}
+                        new User("user", "email"){ Id = ValidUserId}
                     , new UserLoginInfo("facebook", "user1@facebook.com"))
                     .SetName("AddUserLogin_SecondLogin_AddLoginToUser")
                     .Returns(true),
                     new TestCaseData(
-                        new User{ Id = ValidUserId}
+                        new User("user", "email"){ Id = ValidUserId}
                     , new UserLoginInfo("facebook", "user1@facebook.com"))
                     .SetName("AddUserLogin_AddExistingLoginToExistingUser_NotAddLogin")
                     .Returns(false),

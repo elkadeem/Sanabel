@@ -16,12 +16,12 @@ namespace Sanabel.Presentation.MVC.IOC
         {
             context.BeginRequest += (sender, e) =>
             {
-                GraceMVC.GraceDependencyResolver.CreateChildContainer();
+                GraceMvc.GraceDependencyResolver.CreateChildContainer();
             };
 
             context.EndRequest += (sender, e) =>
             {
-                GraceMVC.GraceDependencyResolver.DisposeNestedContainer();
+                GraceMvc.GraceDependencyResolver.DisposeNestedContainer();
             };
         }
     }
