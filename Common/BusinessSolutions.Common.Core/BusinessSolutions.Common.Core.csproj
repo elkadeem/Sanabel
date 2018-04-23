@@ -73,6 +73,7 @@
     <Folder Include="Validations\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="BusinessSolutions.Common.Core.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
