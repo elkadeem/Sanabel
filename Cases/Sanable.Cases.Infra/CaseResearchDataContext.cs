@@ -13,6 +13,8 @@ namespace Sanable.Cases.Infra
     {
         public CaseResearchDataContext() : base("CasesConnectionString")
         {
+            Database.SetInitializer<CaseResearchDataContext>(null);
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Case> Cases { get; set; }

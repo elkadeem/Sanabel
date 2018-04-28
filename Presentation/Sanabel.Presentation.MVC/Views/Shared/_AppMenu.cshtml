@@ -88,5 +88,16 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i>تأمين البيانات</a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Users", new { Area = "" })"><i class="icon-star"></i>المستخدمين</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Create", "Users", new { Area = "" })"><i class="icon-star"></i>إنشاء مستخدم</a>
+                </li>                
+            </ul>
+        </li>
     }
 </ul>
