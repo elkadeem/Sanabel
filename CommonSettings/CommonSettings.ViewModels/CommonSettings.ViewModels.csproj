@@ -68,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="CommonSettings.ViewModels.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

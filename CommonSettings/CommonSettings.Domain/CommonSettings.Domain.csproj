@@ -55,6 +55,7 @@
     <Compile Include="Repositories\IRegionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="CommonSettings.Domain.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
