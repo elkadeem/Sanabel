@@ -20,14 +20,8 @@ namespace Security.AspIdentity
 
         public async Task SendAsync(IdentityMessage message)
         {
-            try
-            {
+            
                 await _emailService.SendEmail(message.Destination, message.Subject, message.Body);
-            }
-            catch
-            {
-
-            }
             
         }
     }

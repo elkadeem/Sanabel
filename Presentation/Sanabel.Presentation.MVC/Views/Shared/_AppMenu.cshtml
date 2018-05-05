@@ -1,8 +1,8 @@
 ﻿<ul class="nav">
     <li class="nav-item">
-        <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> الرئيسية</a>
+        <a class="nav-link" href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-speedometer"></i> الرئيسية</a>
     </li>
-
+    
     <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> المتطوعون</a>
         <ul class="nav-dropdown-items">
@@ -62,7 +62,7 @@
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> بحث عن الحالات</a>
         <ul class="nav-dropdown-items">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { Area = "Cases" })"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
@@ -96,7 +96,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Create", "Users", new { Area = "" })"><i class="icon-star"></i>إنشاء مستخدم</a>
-                </li>                
+                </li>
             </ul>
         </li>
     }
