@@ -113,8 +113,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(caseModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]           
         public async Task<ActionResult> Delete(Guid id, string returnUrl)
         {
             try

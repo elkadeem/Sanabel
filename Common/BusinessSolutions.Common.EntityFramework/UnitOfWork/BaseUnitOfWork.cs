@@ -31,29 +31,37 @@ namespace BusinessSolutions.Common.EntityFramework
 
         public int Save()
         {
-            var items = DbContext.ChangeTracker.Entries();
+            List<AggregateRoot> aggregateRoots = GetAggregateRoles();
             int result = DbContext.SaveChanges();
-            FireDomainEvents(items);
+            FireDomainEvents(aggregateRoots);
             return result;
+        }
+
+        private List<AggregateRoot> GetAggregateRoles()
+        {
+            var items = DbContext.ChangeTracker.Entries();
+            var aggregateRoots = items.Where(c => c.Entity is AggregateRoot)
+                .Select(c => c.Entity as AggregateRoot).ToList();
+            return aggregateRoots;
         }
 
         public Task<int> SaveAsync()
         {
-            var items = DbContext.ChangeTracker.Entries();
+            List<AggregateRoot> aggregateRoots = GetAggregateRoles();
             return DbContext.SaveChangesAsync().ContinueWith((saveTask) =>
             {
-                FireDomainEvents(items);
+                FireDomainEvents(aggregateRoots);
                 return saveTask.Result;
             });
         }
 
         public Task<int> SaveAsync(CancellationToken cancellationToken)
         {
-            var items = DbContext.ChangeTracker.Entries();
+            List<AggregateRoot> aggregateRoots = GetAggregateRoles();
             return DbContext.SaveChangesAsync(cancellationToken)
                 .ContinueWith((saveTask) =>
                 {
-                    FireDomainEvents(items);
+                    FireDomainEvents(aggregateRoots);
                     return saveTask.Result;
                 });
         }
@@ -70,17 +78,15 @@ namespace BusinessSolutions.Common.EntityFramework
                 _dbContextTransaction.Rollback();
         }
 
-        private void FireDomainEvents(IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> items)
+        private void FireDomainEvents(IEnumerable<AggregateRoot> items)
         {
-            foreach (var item in items.Where(c => c.Entity is AggregateRoot))
+            foreach (var item in items)
             {
-                AggregateRoot aggregateRoot = item.Entity as AggregateRoot;
-                foreach (IDomainEvent domainEvent in aggregateRoot.DomainEvents)
+                foreach (IDomainEvent domainEvent in item.DomainEvents)
                 {
                     DomainEvents.Dispatch(domainEvent);
                 }
-
-                aggregateRoot.ClearDomainEvents();
+                item.ClearDomainEvents();
             }
         }
 
