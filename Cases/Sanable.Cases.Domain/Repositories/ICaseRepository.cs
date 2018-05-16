@@ -10,5 +10,9 @@ namespace Sanable.Cases.Domain.Repositories
         Task<PagedEntity<Case>> SearchCases(string caseName, string phone
             , CaseTypes? caseType, int countryId, int regionId, int cityId, int districtId
             , int pageIndex, int pageSize);
+
+        Task<PagedEntity<Case>> SearchNonApprovedCases(string caseName, string phone
+           , CaseTypes? caseType, int countryId, int regionId, int cityId, int districtId
+           , int pageIndex, int pageSize);
     }
 }

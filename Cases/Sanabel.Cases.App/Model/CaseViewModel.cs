@@ -73,5 +73,20 @@ namespace Sanabel.Cases.App.Model
 
         [Display(Name = "Region", ResourceType = typeof(CasesResource))]
         public int? RegionId { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage"
+            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
+            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "Comment", ResourceType = typeof(CasesResource))]
+        public string Comment { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage"
+            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
+            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]        
+        [Display(Name = "bAction", ResourceType = typeof(CasesResource))]
+        public bool bAction { get; set; }
+        
     }
 }

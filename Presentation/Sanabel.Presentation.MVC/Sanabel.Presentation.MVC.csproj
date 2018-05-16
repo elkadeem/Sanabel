@@ -854,6 +854,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Cases\Views\Management\Approve.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\DetailsAction.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\TakeAction.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -903,7 +906,9 @@
     <Content Include="Scripts\views\charts.js" />
     <Content Include="Scripts\views\main.js" />
     <Content Include="Scripts\views\widgets.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1184,11 +1189,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62002</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7000</IISUrl>
+          <IISUrl>http://localhost:62002/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:7000</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

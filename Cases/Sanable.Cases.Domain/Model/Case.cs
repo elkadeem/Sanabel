@@ -38,5 +38,7 @@ namespace Sanable.Cases.Domain.Model
 
         public District District { get; set; }
 
+        public bool bAction { get; set; }
+
     }
 }

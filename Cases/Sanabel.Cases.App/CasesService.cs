@@ -65,6 +65,48 @@ namespace Sanabel.Cases.App
             }
         }
 
+        public async Task<EntityResult> ApproveCase(CaseViewModel caseModel)
+        {
+            try
+            {
+                if (caseModel == null)
+                    throw new ArgumentNullException(nameof(caseModel));
+
+                Case currentCase = await _caseUnitOfWork.CaseRepository.GetByIDAsync(caseModel.CaseId);
+                if (currentCase == null)
+                    throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseModel));
+
+                //PopulateCase(currentCase, caseModel);
+                var validationResult = ValidationCase(currentCase);
+                if (validationResult != null)
+                    return EntityResult.Failed(validationResult.ToArray());
+
+                _caseUnitOfWork.CaseRepository.Approve(currentCase);
+                await _caseUnitOfWork.SaveAsync();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
+        }
+
+        public async Task<EntityResult> SuspendCase(Guid caseId)
+        {
+            try
+            {
+                //_caseUnitOfWork.CaseRepository.Update();
+                await _caseUnitOfWork.SaveAsync();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
+        }
+
         public async Task<CaseViewModel> GetCase(Guid caseId)
         {
             Case currentCase = await _caseUnitOfWork.CaseRepository.GetByIDAsync(caseId);
@@ -78,6 +120,20 @@ namespace Sanabel.Cases.App
 
             PagedEntity<Case> result = await _caseUnitOfWork.CaseRepository
                 .SearchCases(searchViewModel.CaseName, searchViewModel.Phone
+                , (Sanable.Cases.Domain.Model.CaseTypes)searchViewModel.CaseType, searchViewModel.CountryId
+                , searchViewModel.RegionId, searchViewModel.CityId, searchViewModel.DistrictId
+                , searchViewModel.PageIndex, searchViewModel.PageSize);
+
+            return new PagedEntity<CaseViewModel>(result.Items.Select(c => GetCaseViewModel(c)), result.TotalCount);
+        }
+
+        public async Task<PagedEntity<CaseViewModel>> GetNonApprovedCases(SearchCaseViewModel searchViewModel)
+        {
+            if (searchViewModel == null)
+                throw new ArgumentNullException(nameof(searchViewModel));
+
+            PagedEntity<Case> result = await _caseUnitOfWork.CaseRepository
+                .SearchNonApprovedCases(searchViewModel.CaseName, searchViewModel.Phone
                 , (Sanable.Cases.Domain.Model.CaseTypes)searchViewModel.CaseType, searchViewModel.CountryId
                 , searchViewModel.RegionId, searchViewModel.CityId, searchViewModel.DistrictId
                 , searchViewModel.PageIndex, searchViewModel.PageSize);
@@ -151,7 +207,7 @@ namespace Sanabel.Cases.App
                 CountryId = currentCase.City?.Region?.CountryId,
                 RegionId = currentCase.City?.RegionId,
             };
-        }
+        }        
 
         private List<EntityError> ValidationCase(Case caseToValidate)
         {

@@ -79,6 +79,42 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to هل تريد الموافقة؟.
+        /// </summary>
+        public static string ApproveConfirmation {
+            get {
+                return ResourceManager.GetString("ApproveConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تأكيد الموافقة.
+        /// </summary>
+        public static string ApproveConfirmationTitle {
+            get {
+                return ResourceManager.GetString("ApproveConfirmationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم الموافقة بنجاح.
+        /// </summary>
+        public static string ApproveError {
+            get {
+                return ResourceManager.GetString("ApproveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تمت عملية الموافقة بنجاح.
+        /// </summary>
+        public static string ApproveSuccessfully {
+            get {
+                return ResourceManager.GetString("ApproveSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحقل {0} يقبل أحرف عربية فقط..
         /// </summary>
         public static string ArabicTextOnlyErrorMessage {
@@ -111,6 +147,15 @@ namespace BusinessSolutions.Localization {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to موافقة.
+        /// </summary>
+        public static string ConfirmApprove {
+            get {
+                return ResourceManager.GetString("ConfirmApprove", resourceCulture);
             }
         }
         

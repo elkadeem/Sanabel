@@ -42,6 +42,27 @@ namespace BusinessSolutions.Common.EntityFramework
                 Set.Remove(entity);
         }
 
+        public virtual void Approve(TEntity entity)
+        {
+            var item = Set.Local.FirstOrDefault(c => entity.Equals(c));
+            if (item != null
+                && _dbContext.Entry(item).State != EntityState.Detached)
+            {
+                _dbContext.Entry(item).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                var entry = _dbContext.Entry<TEntity>(entity);
+                if (entry.State == EntityState.Detached)
+                {
+
+                    Set.Attach(entity);
+                    entry = _dbContext.Entry(entity);
+                }
+
+                entry.State = EntityState.Modified;
+            }
+        }
         public virtual void Update(TEntity entity)
         {
             var item = Set.Local.FirstOrDefault(c => entity.Equals(c));

@@ -55,6 +55,16 @@ namespace BusinessSolutions.Common.EntityFramework
             });
         }
 
+        public Task<int> ApproveAsync()
+        {
+            List<AggregateRoot> aggregateRoots = GetAggregateRoles();
+            return DbContext.SaveChangesAsync().ContinueWith((saveTask) =>
+            {
+                FireDomainEvents(aggregateRoots);
+                return saveTask.Result;
+            });
+        }
+
         public Task<int> SaveAsync(CancellationToken cancellationToken)
         {
             List<AggregateRoot> aggregateRoots = GetAggregateRoles();

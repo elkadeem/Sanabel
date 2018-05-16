@@ -26,8 +26,20 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
             return View(searchModel);
         }
-
+        public async Task<ActionResult> Approve(SearchCaseViewModel searchModel)
+        {
+            var result = await _caseService.GetNonApprovedCases(searchModel);
+            searchModel.Items = new StaticPagedList<CaseViewModel>(result.Items
+                , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
+            return View(searchModel);
+        }
         public async Task<ActionResult> Details(Guid id)
+        {
+            var item = await _caseService.GetCase(id);
+            return View(item);
+        }
+
+        public async Task<ActionResult> DetailsAction(Guid id)
         {
             var item = await _caseService.GetCase(id);
             return View(item);
@@ -39,7 +51,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             CaseViewModel newCase = new CaseViewModel();
             return View(newCase);
         }
-
+        
         // POST: Cases/Management/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -135,5 +147,47 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
 
             return RedirectToLocal(returnUrl, RedirectToAction("Index"));            
         }
+
+        // GET: Cases/Management/Edit/5
+        public async Task<ActionResult> TakeAction(Guid id)
+        {
+            var item = await _caseService.GetCase(id);
+            if (item == null)
+            {
+                AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
+                return RedirectToAction("Approve");
+            }
+
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> TakeAction(Guid id, CaseViewModel caseModel)
+        {
+            try
+            {
+                caseModel.CaseId = id;
+                caseModel.bAction = true;
+                //if(caseModel.bAction="")
+                EntityResult result = await _caseService.ApproveCase(caseModel);
+                if (result.Succeeded)
+                {
+                    AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
+                    return RedirectToAction("Approve");
+                }
+
+                AddErrors(result);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
+            }
+
+            return View(caseModel);
+        }
+
     }
 }

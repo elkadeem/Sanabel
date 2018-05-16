@@ -4,16 +4,15 @@
 @using Sanabel.Cases.App.Resources
 @using BusinessSolutions.Common.Infra.Extensions
 @using BusinessSolutions.MVCCommon.Helpers
-
-
 @{
-    ViewBag.Title = CasesResource.Cases;
-}
+    /**/
 
+    ViewBag.Title = CasesResource.WaitingApprove;
+}
 @Html.Partial("_TempDataHeaderMessages")
 @Html.Partial("_ViewDataHeaderMessages")
-<!-- form ############################################################### -->
-@using (Html.BeginForm("Index", "Management", FormMethod.Get, new { @class = "form-horizontal" }))
+
+@using (Html.BeginForm("Approve", "Management", FormMethod.Get, new { @class = "form-horizontal" }))
 {
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseName)</label>
@@ -30,32 +29,32 @@
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CountryId
-                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
-                                                       , CommonResources.All
-                                                       , new { @class = "form-control" })
+                                                                 , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                 , CommonResources.All
+                                                                 , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.RegionId
-                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
-                                                       , CommonResources.All
-                                                       , new { @class = "form-control" })
+                                                                 , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                 , CommonResources.All
+                                                                 , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.CityId
-                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
-                                                       , CommonResources.All
-                                                       , new { @class = "form-control" })
+                                                                 , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                 , CommonResources.All
+                                                                 , new { @class = "form-control" })
         </div>
         <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
         <div class="col-md-4">
             @Html.DropDownListFor(Model => Model.DistrictId
-                                                       , new SelectList(Enumerable.Empty<SelectListItem>())
-                                                       , CommonResources.All
-                                                       , new { @class = "form-control" })
+                                                                 , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                 , CommonResources.All
+                                                                 , new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -73,12 +72,11 @@
         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
         <div class="col-md-10">
             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
-            <a href="@Url.Action("Create")" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> @CommonResources.Add</a>
         </div>
 
     </div>
 }
-<!-- /.form ######################################################### -->
+
 @if (Model.Items != null && Model.Items.Any())
 {
 
@@ -136,9 +134,8 @@
                         @Html.Encode(item.DistrictName)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                        <a href="@Url.Action("Details", new { id = item.CaseId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
-                        <a data-id="@item.CaseId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                        <a href="@Url.Action("TakeAction", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CommonResources.ConfirmApprove</a>
+                        <a href="@Url.Action("DetailsAction", new { id = item.CaseId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
                     </td>
                 </tr>
             }
@@ -198,17 +195,7 @@ else
                 fillDistricts($(this).val());
             });
 
-            $('.btnDelete').click(function (e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                var actionUrl = "@Url.Action("Delete", "Management")/" + id
-                    + "?returnurl=" + encodeURIComponent(window.location.href.replace(window.location.origin, ""));
-                $util.confirmDialogWithActionForm("@CommonResources.DeleteConfirmation"
-                    , "@CommonResources.DeleteConfirmationTitle"
-                    , actionUrl
-                    , "@CommonResources.Delete"
-                    , "@CommonResources.Cancel");
-            });
+
 
         });
 
@@ -245,3 +232,4 @@ else
         }
     </script>
 }
+

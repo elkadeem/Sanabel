@@ -123,6 +123,18 @@
   <data name="All" xml:space="preserve">
     <value>الكل</value>
   </data>
+  <data name="ApproveConfirmation" xml:space="preserve">
+    <value>هل تريد الموافقة؟</value>
+  </data>
+  <data name="ApproveConfirmationTitle" xml:space="preserve">
+    <value>تأكيد الموافقة</value>
+  </data>
+  <data name="ApproveError" xml:space="preserve">
+    <value>لم يتم الموافقة بنجاح</value>
+  </data>
+  <data name="ApproveSuccessfully" xml:space="preserve">
+    <value>تمت عملية الموافقة بنجاح</value>
+  </data>
   <data name="ArabicTextOnlyErrorMessage" xml:space="preserve">
     <value>الحقل {0} يقبل أحرف عربية فقط.</value>
   </data>
@@ -134,6 +146,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
+  </data>
+  <data name="ConfirmApprove" xml:space="preserve">
+    <value>موافقة</value>
   </data>
   <data name="Countries" xml:space="preserve">
     <value>الدول</value>

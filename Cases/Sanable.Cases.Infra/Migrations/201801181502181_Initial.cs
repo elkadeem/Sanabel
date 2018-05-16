@@ -7,6 +7,7 @@ namespace Sanable.Cases.Infra.Migrations
     {
         public override void Up()
         {
+            
             CreateTable(
                 "Cases.CaseReseraches",
                 c => new

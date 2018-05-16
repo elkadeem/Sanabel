@@ -70,6 +70,69 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ الموافقة.
+        /// </summary>
+        public static string ApprovalDate {
+            get {
+                return ResourceManager.GetString("ApprovalDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to موافقة.
+        /// </summary>
+        public static string Approve {
+            get {
+                return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to موافقة.
+        /// </summary>
+        public static string Approved {
+            get {
+                return ResourceManager.GetString("Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to قرار.
+        /// </summary>
+        public static string bAction {
+            get {
+                return ResourceManager.GetString("bAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to موافقة.
+        /// </summary>
+        public static string bApproved {
+            get {
+                return ResourceManager.GetString("bApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رفض.
+        /// </summary>
+        public static string bRejected {
+            get {
+                return ResourceManager.GetString("bRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to توقيف.
+        /// </summary>
+        public static string bSuspended {
+            get {
+                return ResourceManager.GetString("bSuspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الحالة.
         /// </summary>
         public static string Case {
@@ -142,11 +205,38 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تعليق.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ملاحظات.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الدولة.
         /// </summary>
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to القرار.
+        /// </summary>
+        public static string Decision {
+            get {
+                return ResourceManager.GetString("Decision", resourceCulture);
             }
         }
         
@@ -259,6 +349,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رفض.
+        /// </summary>
+        public static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تاريخ الطلب.
         /// </summary>
         public static string RequestDate {
@@ -286,6 +385,33 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to توقيف.
+        /// </summary>
+        public static string Suspend {
+            get {
+                return ResourceManager.GetString("Suspend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ التوقيف.
+        /// </summary>
+        public static string SuspensionDate {
+            get {
+                return ResourceManager.GetString("SuspensionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اتخاذ قرار.
+        /// </summary>
+        public static string TakeAction {
+            get {
+                return ResourceManager.GetString("TakeAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to من تاريخ.
         /// </summary>
         public static string ToDate {
@@ -309,6 +435,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Volunteers {
             get {
                 return ResourceManager.GetString("Volunteers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to في انتظار الموافقة.
+        /// </summary>
+        public static string WaitingApprove {
+            get {
+                return ResourceManager.GetString("WaitingApprove", resourceCulture);
             }
         }
         

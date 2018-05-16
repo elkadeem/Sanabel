@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaseResearchDataContext.cs" />
+    <Compile Include="Configurations\CaseApprovalConfiguration.cs" />
     <Compile Include="Configurations\CaseFollowerConfiguration.cs" />
     <Compile Include="Configurations\CaseReserachConfiguration.cs" />
     <Compile Include="Configurations\CaseConfiguration.cs" />
@@ -64,6 +65,26 @@
     <Compile Include="Migrations\201804221935589_AddReserch.cs" />
     <Compile Include="Migrations\201804221935589_AddReserch.Designer.cs">
       <DependentUpon>201804221935589_AddReserch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805132043335_AddApproval.cs" />
+    <Compile Include="Migrations\201805132043335_AddApproval.Designer.cs">
+      <DependentUpon>201805132043335_AddApproval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141700151_AddApproval2.cs" />
+    <Compile Include="Migrations\201805141700151_AddApproval2.Designer.cs">
+      <DependentUpon>201805141700151_AddApproval2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141719013_addcasecolumn.cs" />
+    <Compile Include="Migrations\201805141719013_addcasecolumn.Designer.cs">
+      <DependentUpon>201805141719013_addcasecolumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141732015_updatecasescolumn.cs" />
+    <Compile Include="Migrations\201805141732015_updatecasescolumn.Designer.cs">
+      <DependentUpon>201805141732015_updatecasescolumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805161631151_addcasecolumns.cs" />
+    <Compile Include="Migrations\201805161631151_addcasecolumns.Designer.cs">
+      <DependentUpon>201805161631151_addcasecolumns.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +124,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804221935589_AddReserch.resx">
       <DependentUpon>201804221935589_AddReserch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805132043335_AddApproval.resx">
+      <DependentUpon>201805132043335_AddApproval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141700151_AddApproval2.resx">
+      <DependentUpon>201805141700151_AddApproval2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141719013_addcasecolumn.resx">
+      <DependentUpon>201805141719013_addcasecolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141732015_updatecasescolumn.resx">
+      <DependentUpon>201805141732015_updatecasescolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805161631151_addcasecolumns.resx">
+      <DependentUpon>201805161631151_addcasecolumns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
