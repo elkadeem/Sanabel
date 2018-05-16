@@ -38,7 +38,27 @@ namespace Sanable.Cases.Domain.Model
 
         public District District { get; set; }
 
-        public bool bAction { get; set; }
+        public bool? bAction { get; set; }
+
+        public string Comment { get; set; }
+
+        public bool? bApproved { get; set; }
+
+        public Guid? nApprovedBy { get; set; }
+
+        public DateTime? dtApprovalDate { get; set; }
+
+        public bool? bRejected { get; set; }
+
+        public Guid? nRejectedBy { get; set; }
+
+        public DateTime? dtRejectionDate { get; set; }
+
+        public bool? bSuspended { get; set; }
+
+        public Guid? nSuspendedBy { get; set; }
+
+        public DateTime? dtSuspensionDate { get; set; }
 
     }
 }

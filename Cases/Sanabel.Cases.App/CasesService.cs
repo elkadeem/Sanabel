@@ -76,7 +76,8 @@ namespace Sanabel.Cases.App
                 if (currentCase == null)
                     throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseModel));
 
-                //PopulateCase(currentCase, caseModel);
+                PopulateCase(currentCase, caseModel);
+                
                 var validationResult = ValidationCase(currentCase);
                 if (validationResult != null)
                     return EntityResult.Failed(validationResult.ToArray());
@@ -183,6 +184,12 @@ namespace Sanabel.Cases.App
             currentCase.Gender = (Sanable.Cases.Domain.Model.Genders)caseModel.Gender;
             currentCase.Name = caseModel.CaseName;
             currentCase.Phone = caseModel.Phone;
+            currentCase.bAction = caseModel.bAction;
+            currentCase.Comment = caseModel.Comment;
+            currentCase.bApproved = true;
+            currentCase.bRejected = false;
+            currentCase.bSuspended = false;
+            currentCase.dtApprovalDate = DateTime.Now;
         }
 
         private CaseViewModel GetCaseViewModel(Case currentCase)
