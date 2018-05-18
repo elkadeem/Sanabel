@@ -7,7 +7,7 @@
 @{
     /**/
 
-    ViewBag.Title = CasesResource.WaitingApprove;
+    ViewBag.Title = CasesResource.OldApprovals;
 }
 @Html.Partial("_TempDataHeaderMessages")
 @Html.Partial("_ViewDataHeaderMessages")
@@ -105,36 +105,40 @@
                     @CasesResource.District
                 </th>
                 <th>
+                    @CasesResource.Decision
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach (Sanabel.Cases.App.Model.CaseViewModel item in Model.Items)
             {
-                <tr>
-                    <td>
-                        @Html.Encode(item.CaseName)
-                    </td>
-                    <td>
-                        @Html.Encode(item.Phone)
-                    </td>
-                    <td>
-                        @Html.Encode(item.CaseType.GetLocalizedEnumDescription())
-                    </td>
-                    <td>
-                        @Html.Encode(item.CountryName)
-                    </td>
-                    <td>
-                        @Html.Encode(item.RegionName)
-                    </td>
-                    <td>
-                        @Html.Encode(item.CityName)
-                    </td>
-                    <td>
-                        @Html.Encode(item.DistrictName)
-                    </td>
-                    
-                </tr>
+            <tr>
+                <td>
+                    @Html.Encode(item.CaseName)
+                </td>
+                <td>
+                    @Html.Encode(item.Phone)
+                </td>
+                <td>
+                    @Html.Encode(item.CaseType.GetLocalizedEnumDescription())
+                </td>
+                <td>
+                    @Html.Encode(item.CountryName)
+                </td>
+                <td>
+                    @Html.Encode(item.RegionName)
+                </td>
+                <td>
+                    @Html.Encode(item.CityName)
+                </td>
+                <td>
+                    @Html.Encode(item.DistrictName)
+                </td>
+                <td>
+                    @Html.Encode(item.sAction)
+                </td>
+
+            </tr>
             }
         </tbody>
     </table>

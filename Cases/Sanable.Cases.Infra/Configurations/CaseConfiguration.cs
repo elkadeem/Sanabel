@@ -25,6 +25,8 @@ namespace Sanable.Cases.Infra
 
             this.HasOptional(c => c.District).WithMany()
                 .HasForeignKey(c => c.DistrictId).WillCascadeOnDelete(false);
+
+            this.Property(c => c.sAction).IsRequired().HasMaxLength(20);
         }
     }
 }
