@@ -322,6 +322,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الموافقات السابقة.
+        /// </summary>
+        public static string OldApprovals {
+            get {
+                return ResourceManager.GetString("OldApprovals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أيتام.
         /// </summary>
         public static string Orphans {

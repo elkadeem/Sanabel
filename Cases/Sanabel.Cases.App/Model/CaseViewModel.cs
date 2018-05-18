@@ -86,7 +86,23 @@ namespace Sanabel.Cases.App.Model
         [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
             , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]        
         [Display(Name = "bAction", ResourceType = typeof(CasesResource))]
-        public bool bAction { get; set; }
-        
+        public string bAction { get; set; }
+
+        public string sAction { get; set; }
+
+        public bool bApproved { get; set; }
+
+        public bool bRejected { get; set; }
+
+        public bool bSuspended { get; set; }
+
+        public Guid nApprovedBy { get; set; }
+
+        public Guid nRejectedBy { get; set; }
+        public Guid nSuspendedBy { get; set; }
+        public DateTime? dtApprovalDate { get; set; }
+        public DateTime? dtRejectionDate { get; set; }
+        public DateTime? dtSuspensionDate { get; set; }
+
     }
 }

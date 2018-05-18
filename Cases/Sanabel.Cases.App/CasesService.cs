@@ -142,6 +142,20 @@ namespace Sanabel.Cases.App
             return new PagedEntity<CaseViewModel>(result.Items.Select(c => GetCaseViewModel(c)), result.TotalCount);
         }
 
+        public async Task<PagedEntity<CaseViewModel>> GetApprovedCases(SearchCaseViewModel searchViewModel)
+        {
+            if (searchViewModel == null)
+                throw new ArgumentNullException(nameof(searchViewModel));
+
+            PagedEntity<Case> result = await _caseUnitOfWork.CaseRepository
+                .SearchApprovedCases(searchViewModel.CaseName, searchViewModel.Phone
+                , (Sanable.Cases.Domain.Model.CaseTypes)searchViewModel.CaseType, searchViewModel.CountryId
+                , searchViewModel.RegionId, searchViewModel.CityId, searchViewModel.DistrictId
+                , searchViewModel.PageIndex, searchViewModel.PageSize);
+
+            return new PagedEntity<CaseViewModel>(result.Items.Select(c => GetCaseViewModel(c)), result.TotalCount);
+        }
+
         public async Task<EntityResult> UpdateCase(CaseViewModel caseModel)
         {
             try
@@ -186,10 +200,13 @@ namespace Sanabel.Cases.App
             currentCase.Phone = caseModel.Phone;
             currentCase.bAction = caseModel.bAction;
             currentCase.Comment = caseModel.Comment;
-            currentCase.bApproved = true;
-            currentCase.bRejected = false;
-            currentCase.bSuspended = false;
-            currentCase.dtApprovalDate = DateTime.Now;
+            currentCase.bApproved = caseModel.bApproved; ;
+            currentCase.bRejected = caseModel.bRejected; ;
+            currentCase.bSuspended = caseModel.bSuspended; ;
+            currentCase.dtApprovalDate = caseModel.dtApprovalDate;
+            currentCase.dtRejectionDate = caseModel.dtRejectionDate;
+            currentCase.dtSuspensionDate = caseModel.dtSuspensionDate;
+            currentCase.sAction = caseModel.sAction;
         }
 
         private CaseViewModel GetCaseViewModel(Case currentCase)

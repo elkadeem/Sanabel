@@ -14,6 +14,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
     public class ManagementController : BaseController
     {
         private readonly Sanabel.Cases.App.ICasesService _caseService;
+
         public ManagementController(Sanabel.Cases.App.ICasesService caseService, ILogger logger): base(logger)
         {
             _caseService = caseService ?? throw new ArgumentNullException("caseService");
@@ -26,6 +27,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
             return View(searchModel);
         }
+
         public async Task<ActionResult> Approve(SearchCaseViewModel searchModel)
         {
             var result = await _caseService.GetNonApprovedCases(searchModel);
@@ -33,6 +35,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
             return View(searchModel);
         }
+
         public async Task<ActionResult> Details(Guid id)
         {
             var item = await _caseService.GetCase(id);
@@ -59,6 +62,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         {
             try
             {
+                //caseModel.bAction = false;
                 EntityResult result = await _caseService.AddCase(caseModel);
                 if (result.Succeeded)
                 {
@@ -168,8 +172,25 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             try
             {
                 caseModel.CaseId = id;
-                caseModel.bAction = true;
-                //if(caseModel.bAction="")
+               
+                if (caseModel.sAction == "Approved")
+                {
+                    caseModel.bAction = "True";
+                    caseModel.bApproved = true;
+                    caseModel.dtApprovalDate = DateTime.Now;
+                   
+                }
+                else if (caseModel.sAction == "Rejected")
+                {
+                    caseModel.bAction = "True";
+                    caseModel.bRejected = true;
+                    caseModel.dtRejectionDate = DateTime.Now;
+                }
+                else if (caseModel.sAction == "Suspended")
+                {
+                    caseModel.bSuspended = true;
+                   caseModel.dtSuspensionDate = DateTime.Now;
+                }
                 EntityResult result = await _caseService.ApproveCase(caseModel);
                 if (result.Succeeded)
                 {
@@ -189,5 +210,12 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(caseModel);
         }
 
+        public async Task<ActionResult> OldApprovals(SearchCaseViewModel searchModel)
+        {
+            var result = await _caseService.GetApprovedCases(searchModel);
+            searchModel.Items = new StaticPagedList<CaseViewModel>(result.Items
+                , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
+            return View(searchModel);
+        }
     }
 }

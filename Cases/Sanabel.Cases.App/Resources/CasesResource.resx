@@ -237,6 +237,9 @@
   <data name="Decision" xml:space="preserve">
     <value>القرار</value>
   </data>
+  <data name="OldApprovals" xml:space="preserve">
+    <value>الموافقات السابقة</value>
+  </data>
   <data name="Reject" xml:space="preserve">
     <value>رفض</value>
   </data>

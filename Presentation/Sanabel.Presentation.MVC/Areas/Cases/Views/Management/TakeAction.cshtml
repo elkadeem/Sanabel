@@ -89,13 +89,13 @@
         <label class="col-md-2 form-control-label text-left">@CasesResource.Decision</label>
         <div class="col-md-4">
             <label class="radio-inline" for="inline-radio1">
-                @Html.RadioButtonFor(c => c.bAction, "Approved", new { @class = "radio-inline" })@CasesResource.Approve
+                @Html.RadioButtonFor(c => c.sAction, "Approved", new { @class = "radio-inline" })@CasesResource.Approve
             </label> &nbsp;
             <label class="radio-inline" for="inline-radio2">
-                @Html.RadioButtonFor(c => c.bAction, "Reject", new { @class = "radio-inline" })@CasesResource.Reject
+                @Html.RadioButtonFor(c => c.sAction, "Rejected", new { @class = "radio-inline" })@CasesResource.Reject
             </label>&nbsp;
             <label class="radio-inline" for="inline-radio2">
-                @Html.RadioButtonFor(c => c.bAction, "Suspend", new { @class = "radio-inline" })@CasesResource.Suspend
+                @Html.RadioButtonFor(c => c.sAction, "Suspended", new { @class = "radio-inline" })@CasesResource.Suspend
             </label>
             @Html.ValidationMessageFor(model => model.bAction, "", new { @class = "text-danger" })
         </div>

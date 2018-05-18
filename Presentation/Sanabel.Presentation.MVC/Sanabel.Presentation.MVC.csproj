@@ -857,6 +857,7 @@
     <Content Include="Areas\Cases\Views\Management\Approve.cshtml" />
     <Content Include="Areas\Cases\Views\Management\DetailsAction.cshtml" />
     <Content Include="Areas\Cases\Views\Management\TakeAction.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\OldApprovals.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

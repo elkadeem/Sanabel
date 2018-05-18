@@ -12,7 +12,11 @@ namespace Sanabel.Cases.App
     public interface ICasesService
     {
         Task<PagedEntity<CaseViewModel>> GetCases(SearchCaseViewModel searchViewModel);
+
         Task<PagedEntity<CaseViewModel>> GetNonApprovedCases(SearchCaseViewModel searchViewModel);
+
+        Task<PagedEntity<CaseViewModel>> GetApprovedCases(SearchCaseViewModel searchViewModel);
+
         Task<CaseViewModel> GetCase(Guid caseId);
 
         Task<EntityResult> AddCase(CaseViewModel caseModel);

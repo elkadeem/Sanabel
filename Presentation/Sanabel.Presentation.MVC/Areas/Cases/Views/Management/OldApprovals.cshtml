@@ -1,0 +1,232 @@
+﻿@model Sanabel.Cases.App.Model.SearchCaseViewModel
+@using PagedList.Mvc
+@using BusinessSolutions.Localization
+@using Sanabel.Cases.App.Resources
+@using BusinessSolutions.Common.Infra.Extensions
+@using BusinessSolutions.MVCCommon.Helpers
+@{
+    /**/
+
+    ViewBag.Title = CasesResource.WaitingApprove;
+}
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+
+@using (Html.BeginForm("OldApprpvals", "Management", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseName)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.CaseName, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Phone)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Phone, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.CountryId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.CountryId
+                                                                      , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                      , CommonResources.All
+                                                                      , new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(c => c.RegionId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.RegionId
+                                                                      , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                      , CommonResources.All
+                                                                      , new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CityId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.CityId
+                                                                      , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                      , CommonResources.All
+                                                                      , new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.DistrictId)</label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(Model => Model.DistrictId
+                                                                      , new SelectList(Enumerable.Empty<SelectListItem>())
+                                                                      , CommonResources.All
+                                                                      , new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.CaseType)</label>
+        <div class="col-md-4">
+            @Html.LocalizedEnumDropDownListFor(c => c.CaseType, CommonResources.All, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> @CommonResources.Search</button>
+        </div>
+
+    </div>
+}
+
+@if (Model.Items != null && Model.Items.Any())
+{
+
+    <table class="table table-responsive table-hover table-outline mb-0">
+        <thead class="thead-default">
+            <tr>
+                <th>
+                    @CasesResource.CaseName
+                </th>
+                <th>
+                    @CasesResource.Phone
+                </th>
+                <th>
+                    @CasesResource.CaseType.
+                </th>
+                <th>
+                    @CasesResource.Country
+                </th>
+                <th>
+                    @CasesResource.Region
+                </th>
+                <th>
+                    @CasesResource.City
+                </th>
+                <th>
+                    @CasesResource.District
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Sanabel.Cases.App.Model.CaseViewModel item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(item.CaseName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.Phone)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CaseType.GetLocalizedEnumDescription())
+                    </td>
+                    <td>
+                        @Html.Encode(item.CountryName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.RegionName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.CityName)
+                    </td>
+                    <td>
+                        @Html.Encode(item.DistrictName)
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @if (Model.Items.PageCount > 1)
+        {
+            <div class="panel-footer clearfix">
+                <div class="col-xs-4 search_results_text">
+                    @System.String.Format(CommonResources.PageFromToMessage, Model.Items.PageNumber, Model.Items.PageCount)
+                </div>
+
+                @Html.PagedListPager(Model.Items, page => Url.Action("Index"
+                                                            , new
+                                                            {
+                                                                PageIndex = page - 1,
+                                                                CountryId = Model.CountryId,
+                                                                RegionId = Model.RegionId,
+                                                                CaseName = Model.CaseName,
+                                                                Phone = Model.Phone,
+                                                                CaseType = Model.CaseType,
+                                                                CityId = Model.CityId,
+                                                                DistrictId = Model.DistrictId
+                                                            }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        @CommonResources.NoDataFound
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $('#CountryId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/Countries")',
+                dataValeuProperty: 'countryId',
+                dataTextProperty: 'countryName',
+                selectedValue: '@Model.CountryId',
+                callback: fillRegions
+            }).change(function () {
+                fillRegions($(this).val());
+                });
+
+            $('#RegionId').change(function () {
+                fillCities($(this).val());
+            });
+
+            $('#CityId').change(function () {
+                fillDistricts($(this).val());
+            });
+
+
+
+        });
+
+        function fillRegions(countryId)
+        {
+            $('#RegionId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CountryRegions")?countryId=' + countryId,
+                dataValeuProperty: 'regionId',
+                dataTextProperty: 'regionName',
+                selectedValue: '@Model.RegionId',
+                callback: fillCities
+            });
+        }
+
+        function fillCities(regionId)
+        {
+            $('#CityId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/RegionCities")?regionId=' + regionId,
+                dataValeuProperty: 'cityId',
+                dataTextProperty: 'cityName',
+                selectedValue: '@Model.CityId',
+                callback: fillDistricts
+            });
+        }
+
+        function fillDistricts(cityId)
+        {
+            $('#DistrictId').fillDropDownList({
+                url: '@Url.Content("~/api/Settings/Places/CityDistricts")?cityId=' + cityId,
+                dataValeuProperty: 'districtId',
+                dataTextProperty: 'districtName',
+                selectedValue: '@Model.DistrictId',
+            });
+        }
+    </script>
+}
+

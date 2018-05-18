@@ -38,7 +38,7 @@ namespace Sanable.Cases.Domain.Model
 
         public District District { get; set; }
 
-        public bool? bAction { get; set; }
+        public string bAction { get; set; }
 
         public string Comment { get; set; }
 
@@ -59,6 +59,8 @@ namespace Sanable.Cases.Domain.Model
         public Guid? nSuspendedBy { get; set; }
 
         public DateTime? dtSuspensionDate { get; set; }
+
+        public string sAction { get; set; }
 
     }
 }
