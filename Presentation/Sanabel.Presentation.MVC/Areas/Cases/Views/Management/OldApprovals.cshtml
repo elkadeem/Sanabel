@@ -105,7 +105,7 @@
                     @CasesResource.District
                 </th>
                 <th>
-                    @CasesResource.Decision
+                    @CasesResource.Status
                 </th>
             </tr>
         </thead>
@@ -135,7 +135,15 @@
                     @Html.Encode(item.DistrictName)
                 </td>
                 <td>
-                    @Html.Encode(item.sAction)
+
+                    @if (item.CaseStatus.ToString() == "New")
+    {@CasesResource.New}
+                    @if (item.CaseStatus.ToString() == "Approved")
+    {@CasesResource.Approved}
+                    @if (item.CaseStatus.ToString() == "Rejected")
+    {@CasesResource.Rejected}
+                    @if (item.CaseStatus.ToString() == "Suspended")
+    {@CasesResource.Suspended}
                 </td>
 
             </tr>

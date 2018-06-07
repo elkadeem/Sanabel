@@ -211,7 +211,7 @@
     <value>موافقة</value>
   </data>
   <data name="Approved" xml:space="preserve">
-    <value>موافقة</value>
+    <value>تمت الموافقة</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>ملاحظات</value>
@@ -219,17 +219,8 @@
   <data name="WaitingApprove" xml:space="preserve">
     <value>في انتظار الموافقة</value>
   </data>
-  <data name="bAction" xml:space="preserve">
+  <data name="Action" xml:space="preserve">
     <value>قرار</value>
-  </data>
-  <data name="bApproved" xml:space="preserve">
-    <value>موافقة</value>
-  </data>
-  <data name="bRejected" xml:space="preserve">
-    <value>رفض</value>
-  </data>
-  <data name="bSuspended" xml:space="preserve">
-    <value>توقيف</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>تعليق</value>
@@ -251,5 +242,23 @@
   </data>
   <data name="TakeAction" xml:space="preserve">
     <value>اتخاذ قرار</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>تم الرفض</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>متوقف</value>
+  </data>
+  <data name="CaseSuspensionDate" xml:space="preserve">
+    <value>متوقف إلى</value>
   </data>
 </root>

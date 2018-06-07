@@ -25,8 +25,9 @@ namespace Sanabel.Cases.App
 
         Task<EntityResult> DeleteCase(Guid caseId);
 
-        Task<EntityResult> ApproveCase(CaseViewModel caseModel);
+        Task<EntityResult> UpdateCaseStatus(CaseActionViewModel caseModel);
 
-        Task<EntityResult> SuspendCase(Guid caseId);
+        Task<CaseActionViewModel> GetCaseAction(Guid caseId);
+
     }
 }

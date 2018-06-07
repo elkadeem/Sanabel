@@ -6,6 +6,14 @@
         Female = 2,
     }
 
+    public enum CaseStatus : byte
+    {
+        New = 1,
+        Approved=2,
+        Rejected = 3,
+        Suspended = 4,
+    }
+
     public enum CaseTypes : byte
     {
         Single = 1,

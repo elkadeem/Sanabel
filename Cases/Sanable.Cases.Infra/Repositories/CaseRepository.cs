@@ -72,7 +72,7 @@ namespace Sanable.Cases.Infra
                 query = query.Where(c => c.CityId == cityId);
             if (districtId > 0)
                 query = query.Where(c => c.DistrictId == districtId);
-            query = query.Where(c => c.bAction != "True");
+            //squery = query.Where(c => c.bAction != "True");
             int totalItemCount = await query.CountAsync();
             var items = await query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize).Take(pageSize)
@@ -101,7 +101,7 @@ namespace Sanable.Cases.Infra
                 query = query.Where(c => c.CityId == cityId);
             if (districtId > 0)
                 query = query.Where(c => c.DistrictId == districtId);
-            query = query.Where(c => c.bAction == "True");
+            //query = query.Where(c => c.bAction == "True");
             int totalItemCount = await query.CountAsync();
             var items = await query.OrderBy(c => c.Name)
                 .Skip(pageIndex * pageSize).Take(pageSize)

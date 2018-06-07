@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Aid.cs" />
-    <Compile Include="Model\CaseApproval.cs" />
+    <Compile Include="Model\CaseAction.cs" />
     <Compile Include="Model\CaseResearch.cs" />
     <Compile Include="Model\Case.cs" />
     <Compile Include="Model\CaseFollower.cs" />

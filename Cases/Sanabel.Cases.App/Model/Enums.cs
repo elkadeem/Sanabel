@@ -64,4 +64,15 @@ namespace Sanabel.Cases.App.Model
         SemiDisabled = 4,
     }
 
+    public enum CaseStatusTypes : byte
+    {
+        [LocalizedDescription("New", typeof(CasesResource))]
+        New = 1,
+        [LocalizedDescription("Approved", typeof(CasesResource))]
+        Approved = 2,
+        [LocalizedDescription("Rejected", typeof(CasesResource))]
+        Rejected = 3,
+        [LocalizedDescription("Suspended", typeof(CasesResource))]
+        Suspended = 4,
+    }
 }

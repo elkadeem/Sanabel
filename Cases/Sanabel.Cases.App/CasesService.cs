@@ -34,6 +34,7 @@ namespace Sanabel.Cases.App
 
                 Case newCase = new Case();
                 PopulateCase(newCase, caseModel);
+                newCase.CaseStatus = CaseStatus.New;
 
                 var validationResult = ValidationCase(newCase);
                 if(validationResult != null)
@@ -65,7 +66,7 @@ namespace Sanabel.Cases.App
             }
         }
 
-        public async Task<EntityResult> ApproveCase(CaseViewModel caseModel)
+        public async Task<EntityResult> UpdateCaseStatus(CaseActionViewModel caseModel)
         {
             try
             {
@@ -76,13 +77,23 @@ namespace Sanabel.Cases.App
                 if (currentCase == null)
                     throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseModel));
 
-                PopulateCase(currentCase, caseModel);
-                
+                var caseStatus = new CaseAction
+                {
+                    CaseActionDate = DateTime.Now,
+                    CaseId = currentCase.Id,
+                    Comment = caseModel.Comment,
+                    OldStatus = currentCase.CaseStatus,
+                    Status = CaseStatus.Approved
+                };
+                currentCase.CaseActions.Add(caseStatus);
+
+                currentCase.CaseStatus = caseStatus.Status;
+
+
                 var validationResult = ValidationCase(currentCase);
                 if (validationResult != null)
                     return EntityResult.Failed(validationResult.ToArray());
 
-                _caseUnitOfWork.CaseRepository.Approve(currentCase);
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
             }
@@ -92,26 +103,18 @@ namespace Sanabel.Cases.App
                 throw;
             }
         }
-
-        public async Task<EntityResult> SuspendCase(Guid caseId)
-        {
-            try
-            {
-                //_caseUnitOfWork.CaseRepository.Update();
-                await _caseUnitOfWork.SaveAsync();
-                return EntityResult.Success;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                throw;
-            }
-        }
-
+      
         public async Task<CaseViewModel> GetCase(Guid caseId)
         {
             Case currentCase = await _caseUnitOfWork.CaseRepository.GetByIDAsync(caseId);
             return GetCaseViewModel(currentCase);
+        }
+
+        public async Task<CaseActionViewModel> GetCaseAction(Guid caseId)
+        {
+            Case currentCase = await _caseUnitOfWork.CaseRepository.GetByIDAsync(caseId);
+            CaseActionViewModel caseAction = GetCaseActionViewModel(currentCase);
+            return caseAction;
         }
 
         public async Task<PagedEntity<CaseViewModel>> GetCases(SearchCaseViewModel searchViewModel)
@@ -198,15 +201,7 @@ namespace Sanabel.Cases.App
             currentCase.Gender = (Sanable.Cases.Domain.Model.Genders)caseModel.Gender;
             currentCase.Name = caseModel.CaseName;
             currentCase.Phone = caseModel.Phone;
-            currentCase.bAction = caseModel.bAction;
-            currentCase.Comment = caseModel.Comment;
-            currentCase.bApproved = caseModel.bApproved; ;
-            currentCase.bRejected = caseModel.bRejected; ;
-            currentCase.bSuspended = caseModel.bSuspended; ;
-            currentCase.dtApprovalDate = caseModel.dtApprovalDate;
-            currentCase.dtRejectionDate = caseModel.dtRejectionDate;
-            currentCase.dtSuspensionDate = caseModel.dtSuspensionDate;
-            currentCase.sAction = caseModel.sAction;
+            
         }
 
         private CaseViewModel GetCaseViewModel(Case currentCase)
@@ -230,6 +225,7 @@ namespace Sanabel.Cases.App
                 RegionName = currentCase.City?.Region?.Name,
                 CountryId = currentCase.City?.Region?.CountryId,
                 RegionId = currentCase.City?.RegionId,
+                CaseStatus = (Model.CaseStatusTypes)currentCase.CaseStatus,
             };
         }        
 
@@ -252,6 +248,26 @@ namespace Sanabel.Cases.App
                 result.Add(new EntityError(CasesResource.CasePhoneExist, ValidationErrorTypes.BusinessError));
 
             return result.Count == 0 ? null : result;
+        }
+
+        private CaseActionViewModel GetCaseActionViewModel(Case currentCase)
+        {
+            if (currentCase == null)
+                return null;
+            //get case action by case ID
+
+            return new CaseActionViewModel
+            {
+                CaseId = currentCase.Id,
+                //Action=currentCase.CaseStatus.ToString(),
+                //CaseActionDate = DateTime.Now,
+                //CaseSuspensionDate = DateTime.Now,
+                //Comment= "",
+                //CreatedBy="username",
+                oldStatus = (Model.CaseStatusTypes)currentCase.CaseStatus,
+                //Status = CaseStatusTypes.Rejected,   
+                Case= GetCaseViewModel(currentCase)
+            };
         }
     }
 }

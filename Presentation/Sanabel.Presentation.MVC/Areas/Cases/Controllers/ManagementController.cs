@@ -15,7 +15,8 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
     {
         private readonly Sanabel.Cases.App.ICasesService _caseService;
 
-        public ManagementController(Sanabel.Cases.App.ICasesService caseService, ILogger logger): base(logger)
+        public ManagementController(Sanabel.Cases.App.ICasesService caseService
+            , ILogger logger): base(logger)
         {
             _caseService = caseService ?? throw new ArgumentNullException("caseService");
         }
@@ -155,7 +156,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         // GET: Cases/Management/Edit/5
         public async Task<ActionResult> TakeAction(Guid id)
         {
-            var item = await _caseService.GetCase(id);
+            var item = await _caseService.GetCaseAction(id);
             if (item == null)
             {
                 AddMessageToTempData(CommonResources.NoDataFound, BusinessSolutions.MVCCommon.MessageType.Error);
@@ -163,35 +164,19 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             }
 
             return View(item);
-        }
+        }        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> TakeAction(Guid id, CaseViewModel caseModel)
+        public async Task<ActionResult> TakeAction(Guid id, CaseActionViewModel caseModel)
         {
             try
             {
                 caseModel.CaseId = id;
-               
-                if (caseModel.sAction == "Approved")
-                {
-                    caseModel.bAction = "True";
-                    caseModel.bApproved = true;
-                    caseModel.dtApprovalDate = DateTime.Now;
-                   
-                }
-                else if (caseModel.sAction == "Rejected")
-                {
-                    caseModel.bAction = "True";
-                    caseModel.bRejected = true;
-                    caseModel.dtRejectionDate = DateTime.Now;
-                }
-                else if (caseModel.sAction == "Suspended")
-                {
-                    caseModel.bSuspended = true;
-                   caseModel.dtSuspensionDate = DateTime.Now;
-                }
-                EntityResult result = await _caseService.ApproveCase(caseModel);
+                //caseModel.Status = caseModel.Status;
+                
+                EntityResult result = await _caseService.UpdateCaseStatus(caseModel);
+                //UpdateCaseStatus
                 if (result.Succeeded)
                 {
                     AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);

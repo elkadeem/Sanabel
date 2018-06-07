@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaseResearchDataContext.cs" />
-    <Compile Include="Configurations\CaseApprovalConfiguration.cs" />
+    <Compile Include="Configurations\CaseActionConfiguration.cs" />
     <Compile Include="Configurations\CaseFollowerConfiguration.cs" />
     <Compile Include="Configurations\CaseReserachConfiguration.cs" />
     <Compile Include="Configurations\CaseConfiguration.cs" />
@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201805180150231_DateColumns.cs" />
     <Compile Include="Migrations\201805180150231_DateColumns.Designer.cs">
       <DependentUpon>201805180150231_DateColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805251655262_UpdateCase.cs" />
+    <Compile Include="Migrations\201805251655262_UpdateCase.Designer.cs">
+      <DependentUpon>201805251655262_UpdateCase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805180150231_DateColumns.resx">
       <DependentUpon>201805180150231_DateColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805251655262_UpdateCase.resx">
+      <DependentUpon>201805251655262_UpdateCase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

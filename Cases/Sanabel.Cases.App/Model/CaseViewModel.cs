@@ -74,35 +74,19 @@ namespace Sanabel.Cases.App.Model
         [Display(Name = "Region", ResourceType = typeof(CasesResource))]
         public int? RegionId { get; set; }
 
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage"
-            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
-            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "CaseStatus", ResourceType = typeof(CasesResource))]
+        public CaseStatusTypes CaseStatus { get; set; }
+
+        [Display(Name = "Action", ResourceType = typeof(CasesResource))]
+        public string Action { get; set; }
+
         [Display(Name = "Comment", ResourceType = typeof(CasesResource))]
         public string Comment { get; set; }
 
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage"
-            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
-            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]        
-        [Display(Name = "bAction", ResourceType = typeof(CasesResource))]
-        public string bAction { get; set; }
-
-        public string sAction { get; set; }
-
-        public bool bApproved { get; set; }
-
-        public bool bRejected { get; set; }
-
-        public bool bSuspended { get; set; }
-
-        public Guid nApprovedBy { get; set; }
-
-        public Guid nRejectedBy { get; set; }
-        public Guid nSuspendedBy { get; set; }
-        public DateTime? dtApprovalDate { get; set; }
-        public DateTime? dtRejectionDate { get; set; }
-        public DateTime? dtSuspensionDate { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [Display(Name = "CaseSuspensionDate", ResourceType = typeof(CasesResource))]
+        public string CaseSuspensionDate { get; set; }
     }
 }
