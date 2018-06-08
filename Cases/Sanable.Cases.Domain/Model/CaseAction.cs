@@ -23,6 +23,8 @@ namespace Sanable.Cases.Domain.Model
 
         public string Comment { get; set; }
 
+        public DateTime? StartApplyDate { get; set; }
+
         public string CreatedBy { get; set; }
 
         public Guid CaseId { get; set; }

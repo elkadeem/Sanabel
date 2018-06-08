@@ -47,5 +47,8 @@ namespace Sanabel.Cases.App.Model
 
         [Display(Name = "Decision", ResourceType = typeof(CasesResource))]
         public string Decision { get; set; }
+
+        [Display(Name = "CaseStatus", ResourceType = typeof(CasesResource))]
+        public CaseStatus CaseStatus { get; set; }
     }
 }

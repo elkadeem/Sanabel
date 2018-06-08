@@ -75,6 +75,28 @@
 
     <!-- Custom scripts required by this view -->
     <script src="@Url.Content("~/scripts/views/main.js")"></script>
+    <script>
+        $.get("/api/Cases/count/?casestatus=", function (data) {
+            $('#totalCasesCount').html(data);
+        });
+
+        $.get("/api/Cases/count/?casestatus=@Sanabel.Cases.App.Model.CaseStatus.New", function (data) {
+            $('#totalNewCases').html(data);
+        });
+
+        $.get("/api/Cases/count/?casestatus=@Sanabel.Cases.App.Model.CaseStatus.Approved", function (data) {
+            $('#totalApprovedCases').html(data);
+        });
+
+        $.get("/api/Cases/count/?casestatus=@Sanabel.Cases.App.Model.CaseStatus.Rejected", function (data) {
+            $('#totalRejectedCases').html(data);
+        });
+
+        $.get("/api/Cases/count/?casestatus=@Sanabel.Cases.App.Model.CaseStatus.Suspended", function (data) {
+            $('#totalSuspendedCases').html(data);
+        });
+    </script>
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

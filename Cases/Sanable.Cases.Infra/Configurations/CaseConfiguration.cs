@@ -12,10 +12,11 @@ namespace Sanable.Cases.Infra
             this.Property(c => c.CaseType).IsRequired();
             this.Property(c => c.Address).HasMaxLength(200);
             this.Property(c => c.CityId).IsRequired();
-            this.Property(c => c.Description).HasMaxLength(1000);
+            this.Property(c => c.Description).HasMaxLength(2000);
             this.Property(c => c.Gender).IsRequired();
             this.Property(c => c.Name).IsRequired().HasMaxLength(100);
             this.Property(c => c.Phone).IsRequired().HasMaxLength(20);
+            this.Property(c => c.CaseSuspensionDate).HasColumnType("datetime2");
 
             this.HasIndex(c => c.Name).HasName("IX_CaseName").IsUnique();
             this.HasIndex(c => c.Phone).HasName("IX_CasePhone").IsUnique();

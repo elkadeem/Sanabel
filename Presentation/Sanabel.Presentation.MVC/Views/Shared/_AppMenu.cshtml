@@ -2,7 +2,7 @@
     <li class="nav-item">
         <a class="nav-link" href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-speedometer"></i> الرئيسية</a>
     </li>
-    
+
     <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> المتطوعون</a>
         <ul class="nav-dropdown-items">
@@ -18,32 +18,32 @@
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> طالبي المساعدة</a>
         <ul class="nav-dropdown-items">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases"})">
+                    <i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary" id="totalCasesCount">0</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
             </li>
-        </ul>
-    </li>
-    <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> انتظار الموافقة</a>
-        <ul class="nav-dropdown-items">
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Approve", "Management", new { area = "Cases"})"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases", caseStatus = Sanabel.Cases.App.Model.CaseStatus.New})">
+                    <i class="icon-star"></i> الحالات الجديدة <span class="badge badge-secondary" id="totalNewCases">0</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("OldApprovals", "Management", new { area = "Cases"})"><i class="icon-star"></i> مراجعة الموافقات السابقة</a>
-            </li>
-        </ul>
-    </li>
-    <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> الأشخاص المعتمدين</a>
-        <ul class="nav-dropdown-items">
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases", caseStatus = Sanabel.Cases.App.Model.CaseStatus.Approved})">
+                    <i class="icon-star"></i> الحالات المعتمدة <span class="badge badge-secondary" id="totalApprovedCases">0</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases", caseStatus = Sanabel.Cases.App.Model.CaseStatus.Rejected})">
+                    <i class="icon-star"></i> الحالات الغير معتمدة <span class="badge badge-secondary" id="totalRejectedCases">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { area = "Cases", caseStatus = Sanabel.Cases.App.Model.CaseStatus.Suspended})">
+                    <i class="icon-star"></i> الحالات الموقوفة <span class="badge badge-secondary" id="totalSuspendedCases">0</span>
+                </a>
             </li>
         </ul>
     </li>
@@ -62,7 +62,9 @@
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calculator"></i> بحث عن الحالات</a>
         <ul class="nav-dropdown-items">
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Management", new { Area = "Cases" })"><i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span></a>
+                <a class="nav-link" href="@Url.Action("Index", "Management", new { Area = "Cases" })">
+                    <i class="icon-star"></i> استعراض الحاليين <span class="badge badge-secondary">4700</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-star"></i> إضافة جديد</a>
@@ -101,3 +103,5 @@
         </li>
     }
 </ul>
+
+

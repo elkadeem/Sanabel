@@ -9,9 +9,10 @@ namespace Sanable.Cases.Infra
         public CaseActionConfiguration()
         {
             this.ToTable("CaseActions");
-            this.Property(c => c.Comment).HasMaxLength(500);
+            this.Property(c => c.Comment).HasMaxLength(1000);
             this.Property(c => c.CreatedBy).HasMaxLength(50);
             this.Property(c => c.CaseActionDate).HasColumnType("datetime2");
+            this.Property(c => c.StartApplyDate).HasColumnType("datetime2");
         }
     }
 }

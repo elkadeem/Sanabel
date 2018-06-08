@@ -272,6 +272,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
     <Compile Include="Areas\Cases\Controllers\CaseReserchController.cs" />
+    <Compile Include="Areas\Cases\Controllers\CasesController.cs" />
     <Compile Include="Areas\Cases\Controllers\ManagementController.cs" />
     <Compile Include="Areas\Settings\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Settings\Controllers\CountriesController.cs" />
@@ -856,7 +857,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Areas\Cases\Views\Management\Approve.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Approved.cshtml" />
     <Content Include="Areas\Cases\Views\Management\DetailsAction.cshtml" />
     <Content Include="Areas\Cases\Views\Management\TakeAction.cshtml" />
     <Content Include="Areas\Cases\Views\Management\OldApprovals.cshtml" />

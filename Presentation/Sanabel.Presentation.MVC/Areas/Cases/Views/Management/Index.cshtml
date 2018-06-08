@@ -107,6 +107,9 @@
                     @CasesResource.District
                 </th>
                 <th>
+                    @CasesResource.CaseStatus
+                </th>
+                <th>
                 </th>
             </tr>
         </thead>
@@ -136,9 +139,13 @@
                         @Html.Encode(item.DistrictName)
                     </td>
                     <td>
+                        @Html.Encode(item.CaseStatus.GetLocalizedEnumDescription())
+                    </td>
+                    <td>
                         <a href="@Url.Action("Edit", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                        <a href="@Url.Action("Details", new { id = item.CaseId})" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
+                        <a href="@Url.Action("Details", new { id = item.CaseId })" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
                         <a data-id="@item.CaseId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
+                        <a href="@Url.Action("TakeAction", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CasesResource.Action</a>
                     </td>
                 </tr>
             }

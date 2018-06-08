@@ -9,22 +9,31 @@ namespace Sanabel.Cases.App.Model
 {
     public class CaseActionViewModel
     {
+        [Display(Name = "Case", ResourceType = typeof(CasesResource))]
         public CaseViewModel Case { get; set; }
 
+        [Display(Name = "Case", ResourceType = typeof(CasesResource))]
         public Guid CaseId { get; set; }
-
-        public string Action { get; set; }
-
+        
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
+            , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "Comment", ResourceType = typeof(CasesResource))]
         public string Comment { get; set; }
         
         public DateTime CaseActionDate { get; set; }
 
-        public DateTime CaseSuspensionDate { get; set; }
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        [Display(Name = "StartApplyDate", ResourceType = typeof(CasesResource))]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? StartApplyDate { get; set; }        
 
-        public CaseStatusTypes oldStatus { get; set; }
+        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]        
+        [Display(Name = "CaseStatus", ResourceType = typeof(CasesResource))]
+        public CaseStatus Status { get; set; }
 
-        public CaseStatusTypes Status { get; set; }
-    
+        [Display(Name = "CreatedBy", ResourceType = typeof(CasesResource))]
         public string CreatedBy { get; set; }
     }
 }

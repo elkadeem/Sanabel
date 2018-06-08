@@ -51,7 +51,7 @@ namespace Sanabel.Cases.App.Model
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage"
             , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
-        [StringLength(500, ErrorMessageResourceName = "StringLengthErrorMessage"
+        [StringLength(2000, ErrorMessageResourceName = "StringLengthErrorMessage"
             , ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "Description", ResourceType = typeof(CasesResource))]
         public string Description { get; set; }
@@ -77,7 +77,7 @@ namespace Sanabel.Cases.App.Model
 
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "CaseStatus", ResourceType = typeof(CasesResource))]
-        public CaseStatusTypes CaseStatus { get; set; }
+        public CaseStatus CaseStatus { get; set; }
 
         [Display(Name = "Action", ResourceType = typeof(CasesResource))]
         public string Action { get; set; }

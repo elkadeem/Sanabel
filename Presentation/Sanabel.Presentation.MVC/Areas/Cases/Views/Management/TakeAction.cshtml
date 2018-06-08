@@ -11,32 +11,20 @@
 
 @Html.Partial("_TempDataHeaderMessages")
 @Html.Partial("_ViewDataHeaderMessages")
-@using (Html.BeginForm("TakeAction", "Management", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    Html.RenderPartial("_CaseInfoDetails",Model.Case);
-
-
-    @Scripts.Render("~/bundles/modernizr")
+    Html.RenderPartial("_CaseInfoDetails", Model.Case);    
     <div class="form-group row">
-        <label class="col-md-2 form-control-label text-left">@CasesResource.Decision</label>
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.StartApplyDate)</label>
         <div class="col-md-4">
-            <label class="radio-inline" for="inline-radio1">
-                @Html.RadioButtonFor(c => c.Status, "Approved", new { @class = "radio-inline", @id = "RadioApprove", onClick = "document.getElementById('CaseSuspensionDate').style.visibility = 'hidden'; " })@CasesResource.Approve
-
-            </label> &nbsp;
-            <label class="radio-inline" for="inline-radio2">
-                @Html.RadioButtonFor(c => c.Status, "Rejected", new { @class = "radio-inline", @id = "RadioReject", onClick = "document.getElementById('CaseSuspensionDate').style.visibility = 'hidden'; " })@CasesResource.Reject
-            </label>&nbsp;
-            <label class="radio-inline" for="inline-radio2">
-                @Html.RadioButtonFor(c => c.Status, "Suspended", new { @class = "radio-inline", @id = "RadioSuspend", onClick = "document.getElementById('CaseSuspensionDate').style.visibility = 'visible'; " })@CasesResource.Suspend
-            </label>
-            &nbsp;
-            @Html.EditorFor(c => c.CaseSuspensionDate, new { htmlAttributes = new {  style = "visibility: hidden;", @id = "CaseSuspensionDate", placeholder = CasesResource.CaseSuspensionDate } })
-
-            @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+            @Html.EditorFor(c => c.StartApplyDate)
+            @Html.ValidationMessageFor(model => model.StartApplyDate, "", new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left"></label>
+        <div class="col-md-4">
         </div>
     </div>
 
@@ -52,26 +40,15 @@
     <div class="form-group row">
         <label class="col-md-2 form-control-label text-left">&nbsp;</label>
         <div class="col-md-10">
-            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <button type="submit" name="Approve" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <button type="submit" name="Reject" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <button type="submit" name="Suspend" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
             <a href="@Url.Action("Approve")" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
         </div>
     </div>
-
-
-
 }
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryui")
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    <script type="text/javascript">
-       
-        $(function () {
-            $("#CaseSuspensionDate").datepicker();
-        });
-    </script>
 }

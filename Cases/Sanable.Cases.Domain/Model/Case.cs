@@ -42,6 +42,8 @@ namespace Sanable.Cases.Domain.Model
 
         public CaseStatus CaseStatus { get; set; }
 
+        public DateTime? CaseSuspensionDate { get; set; }
+
         public virtual ICollection<CaseAction> CaseActions { get; set; }
 
     }

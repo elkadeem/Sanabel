@@ -12,9 +12,7 @@ namespace BusinessSolutions.MVCCommon.Controllers
     {        
         protected ILogger Logger;        
         public BaseController(ILogger logger)
-        {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-SA");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-SA");
+        {            
             this.Logger = logger;
         }
         

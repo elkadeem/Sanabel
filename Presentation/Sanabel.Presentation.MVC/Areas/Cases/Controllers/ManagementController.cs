@@ -16,7 +16,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         private readonly Sanabel.Cases.App.ICasesService _caseService;
 
         public ManagementController(Sanabel.Cases.App.ICasesService caseService
-            , ILogger logger): base(logger)
+            , ILogger logger) : base(logger)
         {
             _caseService = caseService ?? throw new ArgumentNullException("caseService");
         }
@@ -29,9 +29,10 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(searchModel);
         }
 
-        public async Task<ActionResult> Approve(SearchCaseViewModel searchModel)
+        public async Task<ActionResult> NewCase(SearchCaseViewModel searchModel)
         {
-            var result = await _caseService.GetNonApprovedCases(searchModel);
+            searchModel.CaseStatus = CaseStatus.New;
+            var result = await _caseService.GetCases(searchModel);
             searchModel.Items = new StaticPagedList<CaseViewModel>(result.Items
                 , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
             return View(searchModel);
@@ -43,27 +44,19 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(item);
         }
 
-        public async Task<ActionResult> DetailsAction(Guid id)
-        {
-            var item = await _caseService.GetCase(id);
-            return View(item);
-        }
 
-        // GET: Cases/Management/Create
         public ActionResult Create()
         {
             CaseViewModel newCase = new CaseViewModel();
             return View(newCase);
         }
-        
-        // POST: Cases/Management/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CaseViewModel caseModel)
         {
             try
             {
-                //caseModel.bAction = false;
                 EntityResult result = await _caseService.AddCase(caseModel);
                 if (result.Succeeded)
                 {
@@ -85,12 +78,11 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
         private void AddErrors(EntityResult result)
         {
             foreach (var error in result.ValidationErrors)
-            {                
-                    ModelState.AddModelError("", error.Message);
+            {
+                ModelState.AddModelError("", error.Message);
             }
         }
 
-        // GET: Cases/Management/Edit/5
         public async Task<ActionResult> Edit(Guid id)
         {
             var item = await _caseService.GetCase(id);
@@ -103,7 +95,6 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(item);
         }
 
-        // POST: Cases/Management/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Guid id, CaseViewModel caseModel)
@@ -130,7 +121,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             return View(caseModel);
         }
 
-        [HttpPost]           
+        [HttpPost]
         public async Task<ActionResult> Delete(Guid id, string returnUrl)
         {
             try
@@ -150,10 +141,9 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 AddMessageToView(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Error);
             }
 
-            return RedirectToLocal(returnUrl, RedirectToAction("Index"));            
+            return RedirectToLocal(returnUrl, RedirectToAction("Index"));
         }
 
-        // GET: Cases/Management/Edit/5
         public async Task<ActionResult> TakeAction(Guid id)
         {
             var item = await _caseService.GetCaseAction(id);
@@ -164,43 +154,39 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
             }
 
             return View(item);
-        }        
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> TakeAction(Guid id, CaseActionViewModel caseModel)
         {
+            caseModel.Status = CaseStatus.Approved;
             try
             {
-                caseModel.CaseId = id;
-                //caseModel.Status = caseModel.Status;
-                
-                EntityResult result = await _caseService.UpdateCaseStatus(caseModel);
-                //UpdateCaseStatus
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
-                    return RedirectToAction("Approve");
+                    caseModel.CaseId = id;
+                    EntityResult result = await _caseService.UpdateCaseStatus(caseModel);
+
+                    if (result.Succeeded)
+                    {
+                        AddMessageToTempData(CommonResources.SavedSuccessfullyMessage, BusinessSolutions.MVCCommon.MessageType.Success);
+                        return RedirectToAction("Index");
+                    }
+
+                    AddErrors(result);
                 }
-
-                AddErrors(result);
-
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
-
+            caseModel.Case = await _caseService.GetCase(caseModel.CaseId);
             return View(caseModel);
         }
+        
 
-        public async Task<ActionResult> OldApprovals(SearchCaseViewModel searchModel)
-        {
-            var result = await _caseService.GetApprovedCases(searchModel);
-            searchModel.Items = new StaticPagedList<CaseViewModel>(result.Items
-                , searchModel.PageIndex + 1, searchModel.PageSize, result.TotalCount);
-            return View(searchModel);
-        }
+
     }
 }

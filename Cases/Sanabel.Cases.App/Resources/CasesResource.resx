@@ -259,6 +259,12 @@
     <value>متوقف</value>
   </data>
   <data name="CaseSuspensionDate" xml:space="preserve">
-    <value>متوقف إلى</value>
+    <value>تاريخ توقيف المساعدات</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>بواسطة</value>
+  </data>
+  <data name="StartApplyDate" xml:space="preserve">
+    <value>تاريخ التنفيذ</value>
   </data>
 </root>

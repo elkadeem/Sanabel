@@ -6,6 +6,6 @@ namespace Sanable.Cases.Domain.Repositories
 {
     public interface ICaseResearchRepository : IRepository<Guid, CaseResearch>
     {
-
+        
     }
 }

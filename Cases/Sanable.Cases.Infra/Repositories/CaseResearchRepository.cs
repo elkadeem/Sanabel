@@ -6,10 +6,13 @@ using System;
 
 namespace Sanable.Cases.Infra
 {
-    public class CaseResearchRepository : BaseEntityFrameworkRepository<Guid, CaseResearch>, ICaseResearchRepository
+    public class CaseResearchRepository : BaseEntityFrameworkRepository<Guid
+        , CaseResearch>, ICaseResearchRepository
     {
         public CaseResearchRepository(CaseResearchDataContext dbContext) : base(dbContext)
         {
         }
+
+        
     }
 }

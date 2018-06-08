@@ -64,7 +64,7 @@ namespace Sanabel.Cases.App.Model
         SemiDisabled = 4,
     }
 
-    public enum CaseStatusTypes : byte
+    public enum CaseStatus : byte
     {
         [LocalizedDescription("New", typeof(CasesResource))]
         New = 1,

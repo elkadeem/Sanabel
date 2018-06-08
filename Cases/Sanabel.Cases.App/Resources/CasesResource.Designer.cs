@@ -169,7 +169,7 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to متوقف إلى.
+        ///   Looks up a localized string similar to تاريخ توقيف المساعدات.
         /// </summary>
         public static string CaseSuspensionDate {
             get {
@@ -219,6 +219,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بواسطة.
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
             }
         }
         
@@ -399,6 +408,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Single {
             get {
                 return ResourceManager.GetString("Single", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ التنفيذ.
+        /// </summary>
+        public static string StartApplyDate {
+            get {
+                return ResourceManager.GetString("StartApplyDate", resourceCulture);
             }
         }
         
