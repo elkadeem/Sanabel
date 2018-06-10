@@ -145,7 +145,23 @@
                         <a href="@Url.Action("Edit", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
                         <a href="@Url.Action("Details", new { id = item.CaseId })" class="btn btn-sm btn-success"><i class="fa fa-info-circle"></i> @CommonResources.Browse</a>
                         <a data-id="@item.CaseId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
-                        <a href="@Url.Action("TakeAction", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CasesResource.Action</a>
+                        @if (User.IsInRole("Administrator") 
+                            || User.IsInRole("MainBoard"))
+                        {
+                            if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.New)
+                            {
+                                <a href="@Url.Action("Review", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CasesResource.TakeAction</a>
+                            }
+                            else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Approved)
+                            {
+                                <a href="@Url.Action("Suspend", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CasesResource.Suspend</a>
+                            }
+                            else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Rejected
+                                 || item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Suspended)
+                            {
+                                <a href="@Url.Action("Activate", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> @CasesResource.Approve</a>
+                            }
+                        }
                     </td>
                 </tr>
             }

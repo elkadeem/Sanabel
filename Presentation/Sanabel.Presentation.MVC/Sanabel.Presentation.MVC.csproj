@@ -859,9 +859,11 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Areas\Cases\Views\Management\Approved.cshtml" />
     <Content Include="Areas\Cases\Views\Management\DetailsAction.cshtml" />
-    <Content Include="Areas\Cases\Views\Management\TakeAction.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Review.cshtml" />
     <Content Include="Areas\Cases\Views\Management\OldApprovals.cshtml" />
     <Content Include="Areas\Cases\Views\Management\_CaseInfoDetails.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Activate.cshtml" />
+    <Content Include="Areas\Cases\Views\Management\Suspend.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -1,0 +1,50 @@
+﻿@model Sanabel.Cases.App.Model.ActivateCaseViewModel
+@using BusinessSolutions.Localization;
+@using Sanabel.Cases.App.Resources
+@using BusinessSolutions.MVCCommon.Helpers
+@using BusinessSolutions.Common.Infra.Extensions
+@using Sanabel.Cases.App
+
+@{
+    ViewBag.Title = CasesResource.TakeAction;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    Html.RenderPartial("_CaseInfoDetails", Model.Case);
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.StartApplyDate)</label>
+        <div class="col-md-4">
+            @Html.EditorFor(c => c.StartApplyDate)
+            @Html.ValidationMessageFor(model => model.StartApplyDate, "", new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left"></label>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">@Html.DisplayNameFor(model => model.Comment)</label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(c => c.Comment, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <a href="@Url.Action("Index", "Management", new { area = "Cases"
+                    , caseStatus = Sanabel.Cases.App.Model.CaseStatus.Suspended})"
+               class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i>@CommonResources.BackToIndex</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
