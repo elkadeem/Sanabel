@@ -23,7 +23,7 @@ namespace Sanabel.Cases.App.Model
         
         public DateTime CaseActionDate { get; set; }
 
-        [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
+        //[Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "StartApplyDate", ResourceType = typeof(CasesResource))]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

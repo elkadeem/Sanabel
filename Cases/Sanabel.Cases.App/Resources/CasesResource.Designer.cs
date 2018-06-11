@@ -70,6 +70,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تفعيل.
+        /// </summary>
+        public static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to العنوان.
         /// </summary>
         public static string Address {
@@ -403,6 +412,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مراجعة.
+        /// </summary>
+        public static string Review {
+            get {
+                return ResourceManager.GetString("Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أعزب.
         /// </summary>
         public static string Single {
@@ -430,7 +448,7 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to توقيف.
+        ///   Looks up a localized string similar to إيقاف.
         /// </summary>
         public static string Suspend {
             get {

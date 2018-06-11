@@ -180,7 +180,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 Logger.Error(ex);
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
-            caseModel.Case = await _caseService.GetCase(caseModel.CaseId);
+            caseModel.Case = await _caseService.GetCase(id);
             return View(caseModel);
         }
 
@@ -230,7 +230,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 Logger.Error(ex);
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
-            caseModel.Case = await _caseService.GetCase(caseModel.CaseId);
+            caseModel.Case = await _caseService.GetCase(id);
             return View(caseModel);
         }
 
@@ -281,7 +281,7 @@ namespace Sanabel.Presentation.MVC.Cases.Controllers
                 Logger.Error(ex);
                 AddMessageToView(CommonResources.UnExpectedError, BusinessSolutions.MVCCommon.MessageType.Error);
             }
-            caseModel.Case = await _caseService.GetCase(caseModel.CaseId);
+            caseModel.Case = await _caseService.GetCase(id);
             return View(caseModel);
         }
 

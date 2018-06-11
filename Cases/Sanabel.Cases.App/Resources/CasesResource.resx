@@ -235,7 +235,7 @@
     <value>رفض</value>
   </data>
   <data name="Suspend" xml:space="preserve">
-    <value>توقيف</value>
+    <value>إيقاف</value>
   </data>
   <data name="SuspensionDate" xml:space="preserve">
     <value>تاريخ التوقيف</value>
@@ -266,5 +266,11 @@
   </data>
   <data name="StartApplyDate" xml:space="preserve">
     <value>تاريخ التنفيذ</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>مراجعة</value>
   </data>
 </root>
