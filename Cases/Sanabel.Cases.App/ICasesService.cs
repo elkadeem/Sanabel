@@ -26,5 +26,13 @@ namespace Sanabel.Cases.App
         Task<CaseActionViewModel> GetCaseAction(Guid caseId);
 
         int GetCasesCount(CaseStatus? caseStatus);
+
+        Task<CaseAidsViewModel> GetCaseAids(Guid caseId);
+
+        Task<EntityResult> AddCaseAid(Guid caseId, CaseAidViewModel caseAidViewModel);
+
+        Task<EntityResult> UpdateCaseAid(CaseAidViewModel caseAidViewModel);
+
+        Task<EntityResult> DeleteCaseAid(CaseAidViewModel caseAidViewModel);
     }
 }

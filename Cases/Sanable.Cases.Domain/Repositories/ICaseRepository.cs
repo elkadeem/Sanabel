@@ -1,6 +1,7 @@
 ﻿using BusinessSolutions.Common.Core;
 using Sanable.Cases.Domain.Model;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Sanable.Cases.Domain.Repositories
@@ -11,5 +12,7 @@ namespace Sanable.Cases.Domain.Repositories
             , int pageIndex, int pageSize);
 
         int GetCasesCount(CaseStatus? caseStatus);
+
+        Task<Case> GetCaseWithAids(Guid caseId);
     }
 }

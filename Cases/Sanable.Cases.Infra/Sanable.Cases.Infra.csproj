@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaseResearchDataContext.cs" />
+    <Compile Include="Configurations\CaseAidConfiguration.cs" />
     <Compile Include="Configurations\CaseActionConfiguration.cs" />
     <Compile Include="Configurations\CaseFollowerConfiguration.cs" />
     <Compile Include="Configurations\CaseReserachConfiguration.cs" />
@@ -113,6 +114,10 @@
     <Compile Include="Migrations\201806081336110_UpdateCaseAction_AddApplyDate.cs" />
     <Compile Include="Migrations\201806081336110_UpdateCaseAction_AddApplyDate.Designer.cs">
       <DependentUpon>201806081336110_UpdateCaseAction_AddApplyDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806111031431_AddCaseAids.cs" />
+    <Compile Include="Migrations\201806111031431_AddCaseAids.Designer.cs">
+      <DependentUpon>201806111031431_AddCaseAids.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806081336110_UpdateCaseAction_AddApplyDate.resx">
       <DependentUpon>201806081336110_UpdateCaseAction_AddApplyDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806111031431_AddCaseAids.resx">
+      <DependentUpon>201806111031431_AddCaseAids.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

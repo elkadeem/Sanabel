@@ -75,4 +75,14 @@ namespace Sanabel.Cases.App.Model
         [LocalizedDescription("Suspended", typeof(CasesResource))]
         Suspended = 4,
     }
+
+    public enum AidTypes : byte
+    {
+        [LocalizedDescription("Finacial", typeof(CasesResource))]
+        Finacial = 1,
+        [LocalizedDescription("Medical", typeof(CasesResource))]
+        Medical = 2,
+        [LocalizedDescription("Legal", typeof(CasesResource))]
+        Legal = 3
+    }
 }

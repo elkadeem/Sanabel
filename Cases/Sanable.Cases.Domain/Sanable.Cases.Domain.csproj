@@ -53,8 +53,6 @@
     <Compile Include="Model\Case.cs" />
     <Compile Include="Model\CaseFollower.cs" />
     <Compile Include="Model\Enums.cs" />
-    <Compile Include="Model\MedicalAid.cs" />
-    <Compile Include="Model\FinancialAid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseSearch.cs" />
     <Compile Include="Repositories\ICaseResearchRepository.cs" />

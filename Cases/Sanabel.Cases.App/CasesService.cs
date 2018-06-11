@@ -89,11 +89,11 @@ namespace Sanabel.Cases.App
 
                 currentCase.CaseActions.Add(caseAction);
                 currentCase.CaseStatus = caseAction.Status;
-                if(caseAction.Status == Sanable.Cases.Domain.Model.CaseStatus.Suspended)
+                if (caseAction.Status == Sanable.Cases.Domain.Model.CaseStatus.Suspended)
                 {
                     currentCase.CaseSuspensionDate = caseAction.StartApplyDate;
                 }
-                
+
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
             }
@@ -140,8 +140,6 @@ namespace Sanabel.Cases.App
 
             return new PagedEntity<CaseViewModel>(result.Items.Select(c => GetCaseViewModel(c)), result.TotalCount);
         }
-
-
 
         public async Task<EntityResult> UpdateCase(CaseViewModel caseModel)
         {
@@ -259,5 +257,126 @@ namespace Sanabel.Cases.App
             return _caseUnitOfWork.CaseRepository
                 .GetCasesCount((Sanable.Cases.Domain.Model.CaseStatus?)caseStatus);
         }
+
+        #region Case Aids
+        public async Task<CaseAidsViewModel> GetCaseAids(Guid caseId)
+        {
+            if (caseId == Guid.Empty)
+                throw new ArgumentNullException(nameof(caseId));
+
+            var currentCase = await _caseUnitOfWork.CaseRepository
+                 .GetCaseWithAids(caseId);
+
+            if (currentCase == null)
+                throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseId));
+
+            return new CaseAidsViewModel()
+            {
+                Case = GetCaseViewModel(currentCase),
+                CaseId = currentCase.Id,
+                CaseAids = currentCase.CaseAids.Select(c => new CaseAidViewModel
+                {
+                    AidDate = c.AidDate,
+                    AidId = c.Id,
+                    Amount = c.AidAmount,
+                    CaseId = c.CaseId,
+                    Description = c.AidDescription,
+                    Notes = c.Notes
+                }).ToList()
+            };
+
+        }
+
+        public async Task<EntityResult> AddCaseAid(Guid caseId
+            , CaseAidViewModel caseAidViewModel)
+        {
+            try
+            {
+                Guard.GuidIsEmpty<ArgumentNullException>(caseId, nameof(caseId));
+                Guard.ArgumentIsNull<ArgumentNullException>(caseAidViewModel
+                    , nameof(caseAidViewModel));
+
+                var currentCase = await _caseUnitOfWork.CaseRepository
+                     .GetCaseWithAids(caseId);
+
+                if (currentCase == null)
+                    throw new ArgumentException(CasesResource.CaseIsNotExist
+                        , nameof(caseId));
+
+                currentCase.AddAid(
+                    (Sanable.Cases.Domain.Model.AidTypes)caseAidViewModel.AidType
+                    , caseAidViewModel.Description
+                    , caseAidViewModel.AidDate
+                    , caseAidViewModel.Amount
+                    , caseAidViewModel.Notes);
+
+                await _caseUnitOfWork.SaveAsync();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
+
+        }
+
+        public async Task<EntityResult> UpdateCaseAid(CaseAidViewModel caseAidViewModel)
+        {
+            try
+            {
+                Guard.ArgumentIsNull<ArgumentNullException>(caseAidViewModel
+                    , nameof(caseAidViewModel));
+
+                var currentCase = await _caseUnitOfWork.CaseRepository
+                     .GetCaseWithAids(caseAidViewModel.CaseId);
+
+                if (currentCase == null)
+                    throw new ArgumentException(CasesResource.CaseIsNotExist
+                        , nameof(caseAidViewModel));
+
+                currentCase.UpdateAid(
+                    caseAidViewModel.AidId
+                    , caseAidViewModel.Description
+                    , caseAidViewModel.AidDate
+                    , caseAidViewModel.Amount
+                    , caseAidViewModel.Notes);
+
+                await _caseUnitOfWork.SaveAsync();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
+        }
+
+        public async Task<EntityResult> DeleteCaseAid(CaseAidViewModel caseAidViewModel)
+        {
+            try
+            {
+                Guard.ArgumentIsNull<ArgumentNullException>(caseAidViewModel
+                    , nameof(caseAidViewModel));
+
+                var currentCase = await _caseUnitOfWork.CaseRepository
+                     .GetCaseWithAids(caseAidViewModel.CaseId);
+
+                if (currentCase == null)
+                    throw new ArgumentException(CasesResource.CaseIsNotExist
+                        , nameof(caseAidViewModel));
+
+                currentCase.DeleteAid(caseAidViewModel.AidId);
+                await _caseUnitOfWork.SaveAsync();
+                return EntityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
+        }
+        #endregion
+
     }
 }

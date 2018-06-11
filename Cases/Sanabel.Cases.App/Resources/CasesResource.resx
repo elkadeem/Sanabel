@@ -273,4 +273,13 @@
   <data name="Review" xml:space="preserve">
     <value>مراجعة</value>
   </data>
+  <data name="Finacial" xml:space="preserve">
+    <value>مالية</value>
+  </data>
+  <data name="Legal" xml:space="preserve">
+    <value>قانونية</value>
+  </data>
+  <data name="Medical" xml:space="preserve">
+    <value>طبية</value>
+  </data>
 </root>

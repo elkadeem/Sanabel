@@ -64,5 +64,11 @@ namespace BusinessSolutions.Common.Infra.Validation
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(paramName);
         }
+
+        public static void LessThanZero(double value, string paramName, string message = null)
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(paramName);
+        }
     }
 }

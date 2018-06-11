@@ -271,6 +271,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Cases\CasesAreaRegistration.cs" />
+    <Compile Include="Areas\Cases\Controllers\CaseAidController.cs" />
     <Compile Include="Areas\Cases\Controllers\CaseReserchController.cs" />
     <Compile Include="Areas\Cases\Controllers\CasesController.cs" />
     <Compile Include="Areas\Cases\Controllers\ManagementController.cs" />
@@ -978,6 +979,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Cases\Models\" />
+    <Folder Include="Areas\Cases\Views\CaseAid\" />
     <Folder Include="Areas\Cases\Views\CaseReserch\" />
     <Folder Include="Areas\Cases\Views\Shared\" />
     <Folder Include="Areas\Settings\Models\" />

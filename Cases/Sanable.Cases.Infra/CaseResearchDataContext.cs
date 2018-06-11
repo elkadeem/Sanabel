@@ -26,6 +26,7 @@ namespace Sanable.Cases.Infra
             modelBuilder.HasDefaultSchema("Cases");
             modelBuilder.Configurations.Add(new CaseConfiguration());
             modelBuilder.Configurations.Add(new CaseReserachConfiguration());
+            modelBuilder.Configurations.Add(new CaseAidConfiguration());
             modelBuilder.Entity<Country>().ToTable("Countries", "Common");
             modelBuilder.Entity<Region>().ToTable("Regions", "Common");
             modelBuilder.Entity<City>().ToTable("Cities", "Common");

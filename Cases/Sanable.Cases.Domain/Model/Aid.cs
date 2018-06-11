@@ -1,4 +1,5 @@
 ﻿using BusinessSolutions.Common.Core.Entities;
+using BusinessSolutions.Common.Infra.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,39 @@ using System.Threading.Tasks;
 
 namespace Sanable.Cases.Domain.Model
 {
-    public abstract class Aid : Entity<Guid>
+    public class Aid : Entity<Guid>
     {
-        public Guid CaseId { get; protected set; }
+        public Aid()
+        {
+        }
 
-        public DateTime AidDate { get; protected set; }
+        public Guid CaseId { get; set; }
 
-        public string AidDescription { get; protected set; }
+        public DateTime AidDate { get; set; }
 
-        public Case ApprovedCase { get; protected set; }
+        public string AidDescription { get; set; }
+
+        public double AidAmount { get; set; }
+
+        public AidTypes AidType { get; set; }
+
+        public bool IsDelivered { get; set; }
+
+        public string Notes { get; set; }
+
+        public Case Case { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+
+
+
+
     }
 }

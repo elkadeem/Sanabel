@@ -46,8 +46,10 @@
     <Compile Include="CaseResearchService.cs" />
     <Compile Include="ICasesService.cs" />
     <Compile Include="CasesService.cs" />
+    <Compile Include="Model\CaseAidsViewModel.cs" />
     <Compile Include="Model\ActivateCaseViewModel.cs" />
     <Compile Include="Model\CaseActionViewModel.cs" />
+    <Compile Include="Model\CaseAidViewModel.cs" />
     <Compile Include="Model\CaseFollowerViewModel.cs" />
     <Compile Include="Model\CaseResearchViewModel.cs" />
     <Compile Include="Model\CaseReserchMemberNotesViewModel.cs" />

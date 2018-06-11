@@ -44,4 +44,12 @@
         Disabled = 3,
         SemiDisabled = 4,
     }    
+
+    public enum AidTypes : byte
+    {
+        Finacial = 1,
+        Medical = 2,
+        Legal= 3
+    }
+    
 }

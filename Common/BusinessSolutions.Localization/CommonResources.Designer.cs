@@ -304,6 +304,15 @@ namespace BusinessSolutions.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الحقل {0} يحب أن يكون قيمته من {1} إلي {2}..
+        /// </summary>
+        public static string RangeErrorMessage {
+            get {
+                return ResourceManager.GetString("RangeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to منطقة.
         /// </summary>
         public static string Region {

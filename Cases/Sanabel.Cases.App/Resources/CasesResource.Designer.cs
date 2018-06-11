@@ -295,6 +295,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مالية.
+        /// </summary>
+        public static string Finacial {
+            get {
+                return ResourceManager.GetString("Finacial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إلي تاريخ.
         /// </summary>
         public static string FromDate {
@@ -313,11 +322,29 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to قانونية.
+        /// </summary>
+        public static string Legal {
+            get {
+                return ResourceManager.GetString("Legal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ذكر.
         /// </summary>
         public static string Male {
             get {
                 return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to طبية.
+        /// </summary>
+        public static string Medical {
+            get {
+                return ResourceManager.GetString("Medical", resourceCulture);
             }
         }
         

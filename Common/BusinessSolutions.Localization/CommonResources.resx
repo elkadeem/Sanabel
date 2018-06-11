@@ -198,6 +198,9 @@
   <data name="PageFromToMessage" xml:space="preserve">
     <value>صفحة {0} من {1}</value>
   </data>
+  <data name="RangeErrorMessage" xml:space="preserve">
+    <value>الحقل {0} يحب أن يكون قيمته من {1} إلي {2}.</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>منطقة</value>
   </data>

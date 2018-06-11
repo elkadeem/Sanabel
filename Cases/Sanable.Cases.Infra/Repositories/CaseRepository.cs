@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Sanable.Cases.Infra
 {
@@ -52,10 +53,18 @@ namespace Sanable.Cases.Infra
 
         public int GetCasesCount(CaseStatus? caseStatus)
         {
-           return caseStatus.HasValue ?
-                 Set.Count(c => c.CaseStatus == caseStatus)
-                :  Set.Count();
+            return caseStatus.HasValue ?
+                  Set.Count(c => c.CaseStatus == caseStatus)
+                 : Set.Count();
 
+        }
+
+        public Task<Case> GetCaseWithAids(Guid caseId)
+        {
+            return Set.Include(c => c.City.Region.Country)
+                .Include(c => c.District)
+                .Include(c => c.CaseAids)
+                .FirstOrDefaultAsync(c => c.Id == caseId);
         }
     }
 }
