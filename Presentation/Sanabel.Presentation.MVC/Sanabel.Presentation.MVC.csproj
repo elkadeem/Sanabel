@@ -865,6 +865,11 @@
     <Content Include="Areas\Cases\Views\Management\_CaseInfoDetails.cshtml" />
     <Content Include="Areas\Cases\Views\Management\Activate.cshtml" />
     <Content Include="Areas\Cases\Views\Management\Suspend.cshtml" />
+    <Content Include="Areas\Cases\Views\CaseAid\Index.cshtml" />
+    <Content Include="Areas\Cases\Views\CaseAid\Create.cshtml" />
+    <Content Include="Areas\Cases\Views\CaseAid\_CaseInfoDetails.cshtml" />
+    <Content Include="Areas\Cases\Views\CaseAid\Edit.cshtml" />
+    <Content Include="Areas\Cases\Views\CaseAid\Detail.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -979,7 +984,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Cases\Models\" />
-    <Folder Include="Areas\Cases\Views\CaseAid\" />
     <Folder Include="Areas\Cases\Views\CaseReserch\" />
     <Folder Include="Areas\Cases\Views\Shared\" />
     <Folder Include="Areas\Settings\Models\" />

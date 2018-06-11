@@ -51,7 +51,8 @@ namespace Sanable.Cases.Domain.Model
         public virtual ICollection<Aid> CaseAids { get; private set; }
 
         public void AddAid(AidTypes aidType, string description
-            , DateTime aidDate, double amount, string notes)
+            , DateTime aidDate, double amount, string notes
+            , string createdBy)
         {
             Guard.StringIsNull<ArgumentNullException>(description, nameof(description));
             Guard.LessThanZero(amount, nameof(amount));
@@ -68,13 +69,16 @@ namespace Sanable.Cases.Domain.Model
                 Id = Guid.NewGuid(),
                 CaseId = Id,
                 CreatedDate = DateTime.Now,
+                CreatedBy = createdBy,
+                Notes = notes,
             };
 
             CaseAids.Add(aid);
         }
 
         public void UpdateAid(Guid aidId, string description, DateTime aidDate
-            , double amount, string notes)
+            , double amount, string notes
+            , string updatedBy)
         {
             Guard.GuidIsEmpty<ArgumentNullException>(aidId, nameof(aidId));
             Guard.StringIsNull<ArgumentNullException>(description, nameof(description));
@@ -90,6 +94,7 @@ namespace Sanable.Cases.Domain.Model
             aid.AidDate = aidDate;
             aid.AidDescription = description;            
             aid.UpdatedDate = DateTime.Now;
+            aid.UpdatedBy = updatedBy;
         }
 
         public void DeleteAid(Guid aidId)

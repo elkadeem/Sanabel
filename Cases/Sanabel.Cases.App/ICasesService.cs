@@ -34,5 +34,6 @@ namespace Sanabel.Cases.App
         Task<EntityResult> UpdateCaseAid(CaseAidViewModel caseAidViewModel);
 
         Task<EntityResult> DeleteCaseAid(CaseAidViewModel caseAidViewModel);
+        Task<CaseAidViewModel> GetCaseAidById(Guid aidId);
     }
 }

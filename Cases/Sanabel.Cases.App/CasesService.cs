@@ -1,5 +1,6 @@
 ﻿using BusinessSolutions.Common.Core;
 using BusinessSolutions.Common.Core.Specifications;
+using BusinessSolutions.Common.Infra.Authentication;
 using BusinessSolutions.Common.Infra.Log;
 using BusinessSolutions.Common.Infra.Validation;
 using Sanabel.Cases.App.Model;
@@ -18,11 +19,18 @@ namespace Sanabel.Cases.App
     {
         private readonly ICaseUnitOfWork _caseUnitOfWork;
         private readonly ILogger _logger;
+        private readonly IUserFactory _userFactory;
 
-        public CasesService(ICaseUnitOfWork caseUnitOfWork, ILogger logger)
+        public CasesService(ICaseUnitOfWork caseUnitOfWork, ILogger logger
+            , IUserFactory userFactory)
         {
-            this._caseUnitOfWork = caseUnitOfWork ?? throw new ArgumentNullException("caseUnitOfWork");
+            Guard.ArgumentIsNull<ArgumentNullException>(caseUnitOfWork, nameof(caseUnitOfWork));
+            Guard.ArgumentIsNull<ArgumentNullException>(logger, nameof(logger));
+            Guard.ArgumentIsNull<ArgumentNullException>(userFactory, nameof(userFactory));
+
+            this._caseUnitOfWork = caseUnitOfWork;
             this._logger = logger;
+            this._userFactory = userFactory;
         }
 
         public async Task<EntityResult> AddCase(CaseViewModel caseModel)
@@ -268,7 +276,7 @@ namespace Sanabel.Cases.App
                  .GetCaseWithAids(caseId);
 
             if (currentCase == null)
-                throw new ArgumentException(CasesResource.CaseIsNotExist, nameof(caseId));
+                return null;
 
             return new CaseAidsViewModel()
             {
@@ -281,7 +289,8 @@ namespace Sanabel.Cases.App
                     Amount = c.AidAmount,
                     CaseId = c.CaseId,
                     Description = c.AidDescription,
-                    Notes = c.Notes
+                    Notes = c.Notes,
+                    AidType = (Model.AidTypes)c.AidType,
                 }).ToList()
             };
 
@@ -308,7 +317,8 @@ namespace Sanabel.Cases.App
                     , caseAidViewModel.Description
                     , caseAidViewModel.AidDate
                     , caseAidViewModel.Amount
-                    , caseAidViewModel.Notes);
+                    , caseAidViewModel.Notes
+                    , _userFactory.CurrentUserName);
 
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
@@ -340,7 +350,8 @@ namespace Sanabel.Cases.App
                     , caseAidViewModel.Description
                     , caseAidViewModel.AidDate
                     , caseAidViewModel.Amount
-                    , caseAidViewModel.Notes);
+                    , caseAidViewModel.Notes
+                    , _userFactory.CurrentUserName);
 
                 await _caseUnitOfWork.SaveAsync();
                 return EntityResult.Success;
@@ -376,6 +387,28 @@ namespace Sanabel.Cases.App
                 throw;
             }
         }
+
+        public async Task<CaseAidViewModel> GetCaseAidById(Guid aidId)
+        {
+            Guard.GuidIsEmpty<ArgumentNullException>(aidId, nameof(aidId));
+            var aid = await _caseUnitOfWork.CaseAidRepository.GetByIDAsync(aidId);
+            if (aid == null)
+                return null;
+
+            return new CaseAidViewModel
+            {
+                AidDate = aid.AidDate,
+                AidId = aid.Id,
+                Amount = aid.AidAmount,
+                CaseId = aid.CaseId,
+                Description = aid.AidDescription,
+                Notes = aid.Notes,
+                AidType = (Model.AidTypes)aid.AidType,
+                Case = GetCaseViewModel(aid.Case),
+            };
+        }
+
+
         #endregion
 
     }

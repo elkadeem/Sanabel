@@ -7,5 +7,7 @@ namespace Sanable.Cases.Domain.Repositories
         ICaseRepository CaseRepository { get; }
 
         ICaseResearchRepository CaseResearchRepository { get; }
+
+        ICaseAidRepository CaseAidRepository { get; }
     }
 }

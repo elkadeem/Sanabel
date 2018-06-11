@@ -1,0 +1,96 @@
+﻿@model Sanabel.Cases.App.Model.CaseAidViewModel
+@using Sanabel.Cases.App.Resources
+@using BusinessSolutions.Localization
+@using BusinessSolutions.Common.Infra.Extensions
+@using BusinessSolutions.MVCCommon.Helpers
+
+@{
+    ViewBag.Title = CasesResource.AddAid;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CaseId)
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.Case.CaseName)
+        </label>
+        <div class="col-md-4">
+            @Html.DisplayFor(c => c.Case.CaseName, new { @class = "form-control" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.Case.CaseType)
+        </label>
+        <div class="col-md-4">
+            @Model.Case.CaseType.GetLocalizedEnumDescription()
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.AidDate)
+        </label>
+        <div class="col-md-4">
+            @Html.EditorFor(c => c.AidDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AidDate, ""
+           , new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.Amount)
+        </label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(c => c.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Amount, ""
+           , new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.AidType)
+        </label>
+        <div class="col-md-4">
+            @Html.LocalizedEnumDropDownListFor(model => model.AidType, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AidType, ""
+           , new { @class = "text-danger" })
+        </div>
+        <label class="col-md-2 form-control-label text-left">
+        </label>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.Description)
+        </label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(c => c.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Description, ""
+           , new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">
+            @Html.DisplayNameFor(model => model.Notes)
+        </label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(c => c.Notes, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Notes, ""
+           , new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> @CommonResources.Save</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i> @CommonResources.Reset</button>
+            <a href="@Url.Action("Index", new { CaseId = Model.CaseId })" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

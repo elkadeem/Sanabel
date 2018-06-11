@@ -282,4 +282,28 @@
   <data name="Medical" xml:space="preserve">
     <value>طبية</value>
   </data>
+  <data name="CaseAids" xml:space="preserve">
+    <value>المساعدات</value>
+  </data>
+  <data name="AidDate" xml:space="preserve">
+    <value>تاريخ المساعدة</value>
+  </data>
+  <data name="AidType" xml:space="preserve">
+    <value>نوع المساعدة</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>المبلغ</value>
+  </data>
+  <data name="AddAid" xml:space="preserve">
+    <value>إضافة مساعدة</value>
+  </data>
+  <data name="AidDetail" xml:space="preserve">
+    <value>تفاصيل المساعدة</value>
+  </data>
+  <data name="EditAid" xml:space="preserve">
+    <value>تعديل المساعدة</value>
+  </data>
+  <data name="ItemIsNotExist" xml:space="preserve">
+    <value>العنصر المطلوب غير موجود</value>
+  </data>
 </root>

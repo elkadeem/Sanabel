@@ -1,0 +1,81 @@
+﻿@model Sanabel.Cases.App.Model.CaseAidViewModel
+@using Sanabel.Cases.App.Resources
+@using BusinessSolutions.Localization
+@using BusinessSolutions.Common.Infra.Extensions
+@using BusinessSolutions.MVCCommon.Helpers
+
+@{
+    ViewBag.Title = CasesResource.AidDetail;
+}
+
+@Html.Partial("_TempDataHeaderMessages")
+@Html.Partial("_ViewDataHeaderMessages")
+
+@Html.HiddenFor(model => model.CaseId)
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.Case.CaseName)
+    </label>
+    <div class="col-md-4">
+        @Html.DisplayFor(c => c.Case.CaseName, new { @class = "form-control" })
+    </div>
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.Case.CaseType)
+    </label>
+    <div class="col-md-4">
+        @Model.Case.CaseType.GetLocalizedEnumDescription()
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.AidDate)
+    </label>
+    <div class="col-md-4">
+        @Html.DisplayFor(c => c.AidDate
+   , new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.Amount)
+    </label>
+    <div class="col-md-4">
+        @Html.DisplayFor(c => c.Amount
+    , new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.AidType)
+    </label>
+    <div class="col-md-4">
+        @Html.Display(Model.AidType.GetLocalizedEnumDescription()
+   , new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <label class="col-md-2 form-control-label text-left">
+    </label>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.Description)
+    </label>
+    <div class="col-md-10">
+        @Html.DisplayFor(c => c.Description
+   , new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">
+        @Html.DisplayNameFor(model => model.Notes)
+    </label>
+    <div class="col-md-10">
+        @Html.DisplayFor(c => c.Notes
+   , new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2 form-control-label text-left">&nbsp;</label>
+    <div class="col-md-10">
+        <a href="@Url.Action("Index", new { CaseId = Model.CaseId })" class="btn btn-sm btn-info"><i class="fa fa-arrow-circle-left"></i> @CommonResources.BackToIndex</a>
+    </div>
+</div>

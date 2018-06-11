@@ -79,11 +79,56 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة مساعدة.
+        /// </summary>
+        public static string AddAid {
+            get {
+                return ResourceManager.GetString("AddAid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to العنوان.
         /// </summary>
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ المساعدة.
+        /// </summary>
+        public static string AidDate {
+            get {
+                return ResourceManager.GetString("AidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تفاصيل المساعدة.
+        /// </summary>
+        public static string AidDetail {
+            get {
+                return ResourceManager.GetString("AidDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوع المساعدة.
+        /// </summary>
+        public static string AidType {
+            get {
+                return ResourceManager.GetString("AidType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المبلغ.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Case {
             get {
                 return ResourceManager.GetString("Case", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المساعدات.
+        /// </summary>
+        public static string CaseAids {
+            get {
+                return ResourceManager.GetString("CaseAids", resourceCulture);
             }
         }
         
@@ -277,6 +331,15 @@ namespace Sanabel.Cases.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تعديل المساعدة.
+        /// </summary>
+        public static string EditAid {
+            get {
+                return ResourceManager.GetString("EditAid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to عائلة.
         /// </summary>
         public static string Family {
@@ -318,6 +381,15 @@ namespace Sanabel.Cases.App.Resources {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنصر المطلوب غير موجود.
+        /// </summary>
+        public static string ItemIsNotExist {
+            get {
+                return ResourceManager.GetString("ItemIsNotExist", resourceCulture);
             }
         }
         

@@ -81,7 +81,6 @@
 <!-- /.form ######################################################### -->
 @if (Model.Items != null && Model.Items.Any())
 {
-
     <table class="table table-responsive table-hover table-outline mb-0">
         <thead class="thead-default">
             <tr>
@@ -120,7 +119,7 @@
                     <td>
 
                         <a href="@Url.Action("Details", new { id = item.CaseId })">@Html.Encode(item.CaseName)</a>
-                        
+
                     </td>
                     <td>
                         @Html.Encode(item.Phone)
@@ -145,12 +144,12 @@
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", new { id = item.CaseId })" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> @CommonResources.Edit</a>
-                        
+
                         @if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.New)
                         {
                             <a data-id="@item.CaseId" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-remove"></i> @CommonResources.Delete</a>
                         }
-                        
+
                         @if (User.IsInRole("Administrator")
                             || User.IsInRole("MainBoard"))
                         {
@@ -161,6 +160,7 @@
                             else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Approved)
                             {
                                 <a href="@Url.Action("Suspend", new { id = item.CaseId })" class="btn btn-sm btn-danger"><i class="fa fa-lock"></i> @CasesResource.Suspend</a>
+                                <a href="@Url.Action("Index", "CaseAid", new { CaseID = item.CaseId })" class="btn btn-sm btn-danger"><i class="fa fa-lock"></i> @CasesResource.CaseAids</a>
                             }
                             else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Rejected
                                  || item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Suspended)

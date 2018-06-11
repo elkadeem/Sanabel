@@ -13,6 +13,8 @@ namespace Sanabel.Cases.App.Model
     {
         public Guid AidId { get; set; }
 
+        public CaseViewModel Case { get; set; }
+
         [Required(ErrorMessageResourceName = "RequiredFieldErrorMessage", ErrorMessageResourceType = typeof(BusinessSolutions.Localization.CommonResources))]
         [Display(Name = "AidDate", ResourceType = typeof(CasesResource))]
         [DataType(DataType.Date)]

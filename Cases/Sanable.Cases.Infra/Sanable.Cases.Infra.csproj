@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CaseAidRepository.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\CaseResearchRepository.cs" />
     <Compile Include="Repositories\CaseUnitOfWork.cs" />

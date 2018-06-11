@@ -55,6 +55,7 @@
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseSearch.cs" />
+    <Compile Include="Repositories\ICaseAidRepository.cs" />
     <Compile Include="Repositories\ICaseResearchRepository.cs" />
     <Compile Include="Repositories\ICaseRepository.cs" />
     <Compile Include="Repositories\ICaseUnitOfWork.cs" />
