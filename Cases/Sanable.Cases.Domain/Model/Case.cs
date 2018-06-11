@@ -76,7 +76,7 @@ namespace Sanable.Cases.Domain.Model
             CaseAids.Add(aid);
         }
 
-        public void UpdateAid(Guid aidId, string description, DateTime aidDate
+        public void UpdateAid(Guid aidId, AidTypes aidType, string description, DateTime aidDate
             , double amount, string notes
             , string updatedBy)
         {
@@ -91,6 +91,7 @@ namespace Sanable.Cases.Domain.Model
                 Guard.LessThanOrEqualZero(amount, nameof(amount));
 
             aid.AidAmount = amount;
+            aid.AidType = aidType;
             aid.AidDate = aidDate;
             aid.AidDescription = description;            
             aid.UpdatedDate = DateTime.Now;

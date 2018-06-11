@@ -160,7 +160,7 @@
                             else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Approved)
                             {
                                 <a href="@Url.Action("Suspend", new { id = item.CaseId })" class="btn btn-sm btn-danger"><i class="fa fa-lock"></i> @CasesResource.Suspend</a>
-                                <a href="@Url.Action("Index", "CaseAid", new { CaseID = item.CaseId })" class="btn btn-sm btn-danger"><i class="fa fa-lock"></i> @CasesResource.CaseAids</a>
+                                <a href="@Url.Action("Index", "CaseAid", new { CaseID = item.CaseId })" class="btn btn-sm btn-success"><i class="fa fa-handshake-o"></i> @CasesResource.CaseAids</a>
                             }
                             else if (item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Rejected
                                  || item.CaseStatus == Sanabel.Cases.App.Model.CaseStatus.Suspended)

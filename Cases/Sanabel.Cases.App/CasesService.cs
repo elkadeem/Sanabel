@@ -347,6 +347,7 @@ namespace Sanabel.Cases.App
 
                 currentCase.UpdateAid(
                     caseAidViewModel.AidId
+                    , (Sanable.Cases.Domain.Model.AidTypes)caseAidViewModel.AidType
                     , caseAidViewModel.Description
                     , caseAidViewModel.AidDate
                     , caseAidViewModel.Amount
