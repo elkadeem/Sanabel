@@ -42,6 +42,25 @@ namespace Security.UnitTesting
             };
         }
 
+        [Test]
+        public void TestCalc()
+        {
+            double result = Math.Round(3282.5 * 9 / 100, 2, MidpointRounding.ToEven);
+            double a = Math.Round(1.435, 2, MidpointRounding.AwayFromZero);
+             a = Math.Round(1.435, 2, MidpointRounding.ToEven);
+
+            string x = 1.425.ToString("0.00");
+             x = 1.425.ToString("n2");
+            a = Math.Round(1.424, 2, MidpointRounding.AwayFromZero);
+            a = Math.Round(1.424, 2, MidpointRounding.ToEven);
+
+
+            double b = Math.Round(1.426, 2);
+
+            Assert.IsTrue(true);
+
+        }
+
         #region IUserStore
         [Test]
         public void CreateAsync_WithNullUser_ThrowArgumentNullException()
